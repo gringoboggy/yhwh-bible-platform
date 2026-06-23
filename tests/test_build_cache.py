@@ -379,6 +379,27 @@ class TestMint9CacheKeyCoverage:
         mutated = bc.compute_cache_key(target)
         assert baseline != mutated, "editing the theme CSS did not invalidate the cache key"
 
+    def test_key_changes_when_default_theme_css_changes(self, monkeypatch, tmp_path):
+        # W3b: an edition with NO explicit theme still builds with classic.css —
+        # build_edition resolves edition.get("theme", "classic") and appends
+        # content/themes/classic.css LIVE. The cache key must hash the DEFAULT
+        # theme's CSS too, or editing classic.css serves a stale EPUB for every
+        # default-theme edition (the pre-fix `if theme_id:` gate skipped it).
+        from scripts.core import build_cache as bc
+        from scripts.core import config as _config
+
+        repo, content = self._tmp_repo(monkeypatch, tmp_path)
+        baseline_eds = _config.editions_by_id()
+        target = "ethiopian-tewahedo"
+        no_theme = {k: v for k, v in baseline_eds[target].items() if k != "theme"}
+        monkeypatch.setattr(_config, "editions_by_id", lambda: {**baseline_eds, target: no_theme})
+        classic = content / "themes" / "classic.css"
+        classic.write_text("body { color: black; }\n", encoding="utf-8")
+        baseline = bc.compute_cache_key(target)
+        classic.write_text("body { color: navy; }\n", encoding="utf-8")
+        mutated = bc.compute_cache_key(target)
+        assert baseline != mutated, "default-theme (classic) CSS edit did not invalidate the cache key"
+
     def test_key_changes_when_source_dates_changes(self, monkeypatch, tmp_path):
         from scripts.core import build_cache as bc
 

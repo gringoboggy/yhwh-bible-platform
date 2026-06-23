@@ -323,24 +323,23 @@ def compute_cache_key(
     for name in ("kinds.yaml", "categories.yaml", "books.yaml"):
         parts.append((f"config:{name}", _hash_file(_CONTENT / name)))
 
-    # 4. themes.yaml when the edition uses one. Also hash the theme's actual
-    # CSS file: build_edition.py:2806 reads content/themes/<theme_id>.css LIVE
-    # into stylesheet.css, but it lives outside epub_working/ so item 10 misses
-    # it — without this, editing a theme's CSS serves a stale EPUB (mint-9 #7).
-    theme_id = (edition.get("theme") or "").strip()
-    if theme_id:
-        parts.append(
-            (
-                "themes.yaml",
-                _hash_file(_CONTENT / "themes.yaml"),
-            )
+    # 4. themes.yaml + the ACTIVE theme's CSS file: build_edition.py reads
+    # content/themes/<theme_id>.css LIVE into stylesheet.css, but it lives
+    # outside epub_working/ so item 10 misses it — without this, editing a
+    # theme's CSS serves a stale EPUB (mint-9 #7). build_edition resolves
+    # edition.get("theme", "classic"), so even editions with NO explicit theme
+    # build with classic.css; hash it UNCONDITIONALLY (resolving the same
+    # "classic" default) — the old `if theme_id:` gate skipped every
+    # default-theme edition, so a classic.css edit served them a stale build
+    # (round-11 W3b).
+    theme_id = (edition.get("theme") or "").strip() or "classic"
+    parts.append(("themes.yaml", _hash_file(_CONTENT / "themes.yaml")))
+    parts.append(
+        (
+            f"theme_css:{theme_id}",
+            _hash_file(_CONTENT / "themes" / f"{theme_id}.css"),
         )
-        parts.append(
-            (
-                f"theme_css:{theme_id}",
-                _hash_file(_CONTENT / "themes" / f"{theme_id}.css"),
-            )
-        )
+    )
 
     # 5. Every in-canon notes file.
     for code in canon_books:
