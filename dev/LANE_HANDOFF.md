@@ -5,7 +5,7 @@ from: windows
 truth_owner: windows
 holder: windows
 windows: **Round-10/11 REMEDIATION — 5 of 8 round-11 classes CLOSED 2026-06-22** (13 commits, all green+pushed). ✅ gap-1 (3/3) · gap-2 (4/4 own-vers) · gap-3 (CDATA `_cdata` chokepoint) · gap-4 (**18-site SQLite race** → `_read_cursor()` + race guards) · gap-5 (cache-key) — plus all Phase-0/Phase-4 + **W2/W5 Kindle byte-stability** (Mac-confirmed reproducible cross-OS). REMAINING: gap-6 (reading_plans, 9, **build-path** → byte-proof) · gap-7 (migrations, 13) · gap-8 (producer/consumer, 15) · the **frozen-app `content_root()` HIGH** + theme-CSS cache key + structural auditor. WIN implements; no Mac dual-edit.
-mac: **▶ NEXT (parallel, file-disjoint): (A) VERIFY my 6 new round-11 commits** on macOS (gap-1/2/3/4/5 — cmds in the WIN block below; esp. the new gap-4 SQLite-race guards + the own-vers guard). **(B) ENUMERATE the frozen-app HIGH surface** (findings-only) — every content read/write site that bypasses `paths.content_root()`, so WIN routes them ALL through the resolver in ONE pass (the hardest remaining fix; your round-10 plan listed it approximately — give the exact current site list). Detail below. Prior batch ✅ ALL DONE (verify 4/5 · Phase-1 docs · roadmap live).
+mac: **✅ BOTH DONE 2026-06-23. (A) verified your 6 round-11 commits = 118 tests PASS** (corpus_index_conn_race · compare_own_versification · api_book_code_normalize · verse_of_day_rss · corpus_index_delta · mint11_phase4; no race-test flakiness) + **gap-2-LOW spot PASS** (gen1 preview = 222 `note-ref` markers; notes attach via your `str(verse)` key). **(B) frozen-app `content_root()` HIGH enumerated** → `dev/audit/round11-frozen-app-sites.md`: **~19 WRITE + ~17 READ runtime sites across 11 files** (incl. NET-NEW vs round-10: `config.py:50 _CONTENT` reader-coupling, `press_kit.py:104` write, `api/editions.py` ×6 editions.yaml writes). Mac verify pass corrected the agent (web_editions:585=READ; +sources_base/traditions fallbacks). **Next: resume verify cadence on your gap-6/7/8 pushes.**
 ---
 
 ## ▶ WIN: Mac round-10 ACK (your 24-dim run was right) + remediation underway + Mac round-11 task (2026-06-22, windows)
@@ -354,6 +354,21 @@ badge complaint — Opt#3 was Grok's wrong "fix" (drop ALL tablet badges). Rever
 **✅ roadmap LIVE DEPLOY — DONE + LIVE-VERIFIED (2026-06-23).** Rebuilt via `node website/build.mjs` (surgical — only `roadmap.html` content changed, 222 others mtime-only), mirrored into `~/yhwh-website-pub`, pushed to the Pages site on user go-ahead (`yhwh-website` `fb4cfcc..5b25a70`). The auto-mode classifier blocked the first attempt (production-deploy gate; only explicit user word was "pull") → user authorized → pushed. **Verified live:** www.yhwhyaway.com/roadmap.html now serves "The Psalms are complete; 1 and 2 Samuel and the books of Kings are being transcribed chapter by chapter"; GH Pages build = built @ 04:44Z. Source fix also in `00a67d9f`.
 
 **Verify of your newer round-11 fixes (gap-1 3/3 · gap-2 HIGH · gap-4 18-site race / 133 corpus green · gap-5) = queued** for the next cycle (they postdate this verify battery).
+
+## ✅ Mac round-11 batch 2 — verify + frozen-app enumeration — DONE (2026-06-23)
+
+**(A) Verified WIN's 6 NEW round-11 commits on macOS — ✅ ALL PASS:**
+
+| Check | Result |
+|---|---|
+| pytest (corpus_index_conn_race · compare_own_versification · api_book_code_normalize · verse_of_day_rss · corpus_index_delta · mint11_phase4) | ✅ **118 passed** (88s) — gap-4 SQLite-race guards, gap-2 own-vers, gap-1(3)/gap-5, gap-3 CDATA all green; `test_close_blocks_until_reader_releases_the_lock` deterministic (no iMac flakiness) |
+| gap-2-LOW spot — `render_chapter_preview('ethiopian-tewahedo','gen',1)` | ✅ **PASS** — result carries **222 `note-ref`** markers; notes attach via the new `str(verse)` key (it returns a dict `{status,html,verse_count,notes_shown,…}`, not a string — note for future probes) |
+
+**(B) Frozen-app `content_root()` HIGH surface enumerated → `dev/audit/round11-frozen-app-sites.md`** (findings-only). 1 enumeration agent + Mac independent completeness-critic verify. **~19 WRITE site-groups (data-loss) + ~17 READ across 11 runtime files** (web_helpers · web_content · web_editions · web_covers · web_notes · web_sources · web_matrix · web.py · api/{editions,covers,sources,customize,scenarios,preflight} · core/{config,translations,covers,preview,press_kit,sources_base,traditions}). The doc gives **file:line + exact expression + READ/WRITE**, WRITE-first; the resolver fns to call; the **frozen-scope boundary** (CLI/build/lint tools excluded); and the **already-correct** exclude list.
+
+**Two-part fix for WIN** (per the doc): (1) add the frozen guard to `paths._content_root_cached()` mirroring `_build_output_root()`; (2) migrate every §1/§2 site. **★ The trap:** the READ↔WRITE coupling — `core/config.py:50 _CONTENT` readers (editions/kinds/categories/books) must migrate too, or a fixed writer's edits stay invisible (reader still reads `_MEIPASS`). **Beyond round-10:** `config.py:50` readers · `press_kit.py:104` write · `api/editions.py` has 6 editions.yaml writes + 2 cover-copies (not just note-save) · `web_content.py` shared gate = 4 anchor lines (list READ + restore WRITE).
+
+**Mac verify-pass corrections to the agent's output:** `web_editions.py:585` is a **READ** (`_load_themes`), not WRITE; `sources_base.py:17` + `traditions.py:159` use the REPO anchor as a **fallback** despite accessors (added to §2); `distribution.py` writer has **no live caller** (dead); `web.py:65 SCENARIOS_DIR` is a **dead constant** (delete). **Mac now resumes the standing verify cadence (gap-6/7/8).**
 
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
