@@ -63,6 +63,7 @@ def swap_cover(
                 zi = zipfile.ZipInfo(name)
                 zi.date_time = _ZIP_EPOCH
                 zi.external_attr = 0o644 << 16
+                zi.create_system = 0  # round-13 #6: pin FAT so cross-OS re-zips match (Win default 0)
                 if name == "mimetype":
                     zi.compress_type = zipfile.ZIP_STORED
                     dst.writestr(zi, data)

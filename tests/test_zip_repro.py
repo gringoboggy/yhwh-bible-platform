@@ -18,8 +18,13 @@ class TestReproducibleZipinfo:
         assert info.date_time == ZIP_EPOCH == (1980, 1, 1, 0, 0, 0)
         assert info.external_attr == (0o644 << 16)
         assert info.compress_type == zipfile.ZIP_DEFLATED
+        # round-13 #6: create_system pinned to 0 (FAT) so the archive is
+        # byte-identical regardless of the build host OS (default is 3/UNIX on
+        # macOS/Linux, 0 on Windows).
+        assert info.create_system == 0
         stored = reproducible_zipinfo("mimetype", stored=True)
         assert stored.compress_type == zipfile.ZIP_STORED
+        assert stored.create_system == 0
 
     def test_bundle_via_helper_is_byte_reproducible(self):
         # The exports All-Editions pattern: writestr(reproducible_zipinfo(name), data).

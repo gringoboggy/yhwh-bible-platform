@@ -79,3 +79,6 @@ def test_mimetype_first_stored_and_dates_pinned(tmp_path):
 
     for zi in infos:
         assert zi.date_time == ZIP_EPOCH, f"entry {zi.filename!r} date_time={zi.date_time} (expected {ZIP_EPOCH})"
+        # round-13 #6: create_system pinned to 0 (FAT) so a Windows-built and a
+        # macOS/Linux-built EPUB of the same input are byte-identical.
+        assert zi.create_system == 0, f"entry {zi.filename!r} create_system={zi.create_system} (expected 0)"

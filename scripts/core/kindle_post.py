@@ -108,6 +108,7 @@ def _ocf_rezip(dst_epub: Path, data: dict[str, bytes], order: list[str]) -> None
         mt.date_time = _ZIP_EPOCH
         mt.external_attr = 0o644 << 16
         mt.compress_type = zipfile.ZIP_STORED
+        mt.create_system = 0  # round-13 #6: pin FAT so cross-OS re-zips match (Win default 0)
         zout.writestr(mt, data["mimetype"])
         for name in order:
             if name == "mimetype":
@@ -116,6 +117,7 @@ def _ocf_rezip(dst_epub: Path, data: dict[str, bytes], order: list[str]) -> None
             zi.date_time = _ZIP_EPOCH
             zi.external_attr = 0o644 << 16
             zi.compress_type = zipfile.ZIP_DEFLATED
+            zi.create_system = 0  # round-13 #6: pin FAT (see mimetype above)
             zout.writestr(zi, data[name], compresslevel=9)
 
 

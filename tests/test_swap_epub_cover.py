@@ -78,6 +78,8 @@ class TestSwapCover:
         _, _, out = _swap(tmp_path)
         with zipfile.ZipFile(out) as zo:
             assert all(i.date_time == (1980, 1, 1, 0, 0, 0) for i in zo.infolist())
+            # round-13 #6: create_system pinned to 0 (FAT) → cross-OS byte-stable
+            assert all(i.create_system == 0 for i in zo.infolist())
 
     def test_swap_is_deterministic(self, tmp_path):
         from scripts.swap_epub_cover import swap_cover

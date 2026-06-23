@@ -29,8 +29,16 @@ ZIP_EPOCH = (1980, 1, 1, 0, 0, 0)
 def reproducible_zipinfo(name: str, *, stored: bool = False) -> zipfile.ZipInfo:
     """A ``ZipInfo`` with pinned ``date_time`` + perms for byte-reproducible
     output. ``stored=True`` selects ZIP_STORED (e.g. an EPUB ``mimetype``);
-    otherwise ZIP_DEFLATED."""
+    otherwise ZIP_DEFLATED.
+
+    ``create_system`` is pinned to 0 (FAT) so the archive is byte-identical
+    regardless of the BUILD host OS (round-13 #6): ``ZipInfo`` otherwise
+    defaults ``create_system`` to 0 on Windows but 3 (UNIX) on macOS/Linux,
+    which diverges the central directory cross-machine (and the SHA256SUMS).
+    Windows-built bytes are unchanged; macOS/Linux converge onto them.
+    """
     info = zipfile.ZipInfo(filename=name, date_time=ZIP_EPOCH)
     info.external_attr = 0o644 << 16
     info.compress_type = zipfile.ZIP_STORED if stored else zipfile.ZIP_DEFLATED
+    info.create_system = 0
     return info

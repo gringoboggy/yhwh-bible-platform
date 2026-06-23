@@ -212,6 +212,8 @@ class TestRezipReproducibility:
         with zipfile.ZipFile(out) as z:
             for zi in z.infolist():
                 assert zi.date_time == kindle_post._ZIP_EPOCH, zi.filename
+                # round-13 #6: create_system pinned to 0 (FAT) → cross-OS byte-stable
+                assert zi.create_system == 0, zi.filename
             # mimetype still first + STORED (OCF contract preserved by the helper)
             assert z.infolist()[0].filename == "mimetype"
             assert z.infolist()[0].compress_type == zipfile.ZIP_STORED

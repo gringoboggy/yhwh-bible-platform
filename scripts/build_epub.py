@@ -149,6 +149,7 @@ def build(epub_dir: Path, out_path: Path, *, bump: bool) -> None:
         mz.date_time = (1980, 1, 1, 0, 0, 0)
         mz.compress_type = zipfile.ZIP_STORED
         mz.external_attr = 0o644 << 16
+        mz.create_system = 0  # round-13 #6: pin FAT so cross-OS builds match (Win default 0)
         zf.writestr(mz, (epub_dir / "mimetype").read_bytes())
         for path in files:
             arcname = str(path.relative_to(epub_dir)).replace("\\", "/")
@@ -156,6 +157,7 @@ def build(epub_dir: Path, out_path: Path, *, bump: bool) -> None:
             zi.date_time = (1980, 1, 1, 0, 0, 0)
             zi.compress_type = zipfile.ZIP_DEFLATED
             zi.external_attr = 0o644 << 16
+            zi.create_system = 0  # round-13 #6: pin FAT (see mimetype above)
             zf.writestr(zi, path.read_bytes(), compresslevel=9)
 
     out_size = out_path.stat().st_size
