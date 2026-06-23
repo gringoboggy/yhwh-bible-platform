@@ -138,29 +138,31 @@ def _load_book(translation: str, book_code: str) -> list[tuple[int, int, str]] |
 
 
 @functools.lru_cache(maxsize=256)
-def _book_index_cached(translation: str, book_code: str, mtime_ns: int) -> dict[tuple[int, int], str] | None:
-    """Build a (chapter, verse) → text dict for one book. Cached so
-    every popup lookup after the first is a single dict access.
-
-    The cache key includes ``mtime_ns`` (mirroring ``_load_book_cached``),
-    so a rewritten book file auto-invalidates this dict too — without it
-    the index froze for the process lifetime and ``_load_book``'s own
-    mtime freshness was defeated (a verse edited in the editor showed
-    stale popup text until restart).
+def _book_index_cached(path_str: str, mtime_ns: int) -> dict[tuple[int, int], str] | None:
+    """Build a (chapter, verse) → text dict for one book, keyed on the RESOLVED
+    file path + mtime — mirroring ``_load_book_cached`` so an alias and its
+    canonical id (``ex`` / ``exo``) for the SAME physical file share one cache
+    entry and the key matches the file the mtime was read from (previously it
+    keyed on the raw ``book_code`` → two entries per file, and the key could
+    diverge from the resolved path the mtime came from). The ``mtime_ns``
+    component auto-invalidates a rewritten book (without it the index froze for
+    the process lifetime and a verse edited in the editor showed stale popup
+    text until restart). round-11 gap-5.
     """
-    verses = _load_book(translation, book_code)
+    verses = _load_book_cached(path_str, mtime_ns)
     if verses is None:
         return None
     return {(c, v): t for (c, v, t) in verses}
 
 
 def _book_index(translation: str, book_code: str) -> dict[tuple[int, int], str] | None:
-    """Resolve the book file's mtime and delegate to the cached builder."""
+    """Resolve the book file's path + mtime and delegate to the cached builder."""
+    path = _book_path(translation, book_code)
     try:
-        mtime_ns = _book_path(translation, book_code).stat().st_mtime_ns
+        mtime_ns = path.stat().st_mtime_ns
     except OSError:
         return None
-    return _book_index_cached(translation, book_code, mtime_ns)
+    return _book_index_cached(str(path), mtime_ns)
 
 
 # ----------------------------------------------------------------------

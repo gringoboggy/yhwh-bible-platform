@@ -261,7 +261,10 @@ def html_ref_id_from_note_id(nid: str, books_idx: dict | None = None) -> str | N
         return None
     if books_idx is None:
         books_idx = config.books_by_code()
-    book = books_idx.get(parsed["book"])
+    # Normalize a legacy alias (joh→jhn, …) before the canonical-keyed lookup,
+    # else a user-supplied note_id with an alias book yields None and the web
+    # editor can't navigate to the note. round-11 gap-1.
+    book = books_idx.get(config.resolve_book_code(parsed["book"]))
     if not book:
         return None
     # mint-10: Strategy-B books have no id_prefix; fall back to bxx as the id base

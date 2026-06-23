@@ -677,7 +677,12 @@ def _validate_keyed_list_field(
                 )
             if s not in deduped:
                 deduped.append(s)
-        cleaned[key] = deduped
+        # Store under the CANONICAL book code, not the raw alias the user typed:
+        # parts[0] passed validation via resolve_book_code (above), but
+        # persisting the original `key` ('joh:3') would silently vanish at read
+        # time, which looks up the canonical 'jhn:3'. round-11 gap-1.
+        canonical_key = ":".join([book, *parts[1:]])
+        cleaned[canonical_key] = deduped
     return (encode_fn(cleaned), None)
 
 
