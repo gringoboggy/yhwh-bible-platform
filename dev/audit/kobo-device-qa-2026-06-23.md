@@ -7,6 +7,48 @@ The Kobo is at **`G:`** (`KOBOeReader`) plugged into the WIN box; kepubify v4.0.
 builds + kepubifies + loads directly. **Sideload filename = `YHWH-koboQA.kepub.epub`** (reuse on-device,
 K-R5-1); STANDING rule: **always delete the older version on the Kobo before copying the new one.**
 
+## ✅ FIXES APPLIED — B-1 / C / D (2026-06-23, fresh session)
+
+All actionable clusters fixed at the REAL emitter, traced by ground-truthing the live base
+HTML + an empirical Cardo cmap check (not trace-agent line numbers). 14 unit pins green
+(`tests/test_kobo_device_qa.py`); verified against the BUILT eink kepub by grep — the grep is
+what surfaced the 4th + 5th B-1 surfaces (legend + book-page ornament) the source-read missed.
+**Gates:** built-epub grep = ZERO Cardo-missing glyphs anywhere · `verify_kr2_build` ALL K-R2
+GATES GREEN (the W7 >500KB piece WARNs are the known/deferred char-vs-byte item, all <Kobo's
+881KB break) · **epubcheck 0/0/0/0** — but only after it caught a real **CSS-001**: my first D
+cut added `.vnote-arabic { direction: rtl }`, and the CSS `direction` property is forbidden in
+EPUB 3 stylesheets (the base sheet sets RTL via the inline `dir="rtl"` attribute — the Arabic
+markup already carries it). Dropped `direction`, kept `text-align:right`; re-validated 0/0/0/0.
+A `test_eink_css_has_no_forbidden_direction_property` pin now guards the class.
+**Root cause of the prior "didn't land": build-cache masking** — `build_edition.py` short-
+circuits to `cache_lookup` UNLESS `--force` (L7364 `… and not force`). Always `--force` +
+grep the output. The fixes (all eink-only → the 9-KJV byte-stable editions are untouched):
+
+- **B-1 (invisible badges) — 5 surfaces, all Cardo-safe.** Empirical Cardo cmap
+  (`content/assets/fonts/Cardo-Regular.ttf`): **✧ ⌂ ⌇ ◇ ⚖ ⊛ ❑ ❖ ✦ are ABSENT**. The 4
+  category-glyph surfaces now resolve through ONE shared map — `scripts/core/eink_glyphs.py`
+  (`eink_category_badge_glyph`), imported by both the emitters and the legend so the key can
+  never drift from the body: (a) inline badge (`comm ◇→◊`, U+25CA, in Cardo + Kobo default);
+  (b) cascade headers (`cat_meta`, was raw categories.yaml — 4 of ethiopian's 6 categories
+  blank); (c) per-note `note-sym` (the biggest — topic `✦` recurs ~825×/chapter-file; new
+  `_eink_safe_note_sym` at the row-build site); (d) the **symbol-legend page** (`matter_pages
+  .render_symbol_legend_page` — grep caught it still showing `◇/✦`, which would have left the
+  key inconsistent with the now-`◊/*` badges). The old design comment "headers keep full
+  symbols" was superseded — the user reads with Cardo, so blank boxes win nothing.
+  (e) the **book-page ornament** `<div class="bookpage-rule">❖</div>` (baked, blank on every
+  book page) → Cardo-safe fleuron `❦` via the eink-only `apply_eink_bookpage_ornament` pass.
+- **C (redundant note-body boiler):** new `_strip_redundant_body_boilerplate` (anchored
+  `<strong>Dictionary (…).</strong>` 3,779× / `<strong>Topics.</strong>` 48,097× in the live
+  base) hooked into the S1 `note_attribution_dedup` block. Lossless — headword / "appears
+  under:" list survives; stat `s1_body_boiler_stripped`.
+- **D (popup formatting):** `.vnote-kobo-sep`, `br.kobo-vnote-br`, `.vnote-vulgate`,
+  `.vnote-arabic` added to the eink-only `_EINK_READER_CSS` (Hebrew/Greek/Geez/Amharic were
+  already styled in the base sheet). Scoped to eink for byte-stability; the base-sheet
+  Vulgate/Arabic gap (non-eink editions) is a flagged grand-audit follow-up, not a buried edit.
+
+**A** (mid-chapter page-break) + **B-2/B-3** stay deferred per below (A → char-vs-byte re-cut;
+B-2/B-3 → repro / `dev/HUMAN_DECISIONS.md`).
+
 ## ⚠ CRITICAL METHODOLOGY LESSON (why this is a tracker, not a fix)
 
 A `deep-audit`-style root-cause trace (4 agents) was run and its file:line claims were **wrong on all

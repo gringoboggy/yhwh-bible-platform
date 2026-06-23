@@ -2381,6 +2381,22 @@ _EINK_READER_CSS = (
     )
     + "/* K-R7-4b: small-caps+letter-spacing eats BOOK↔numeral gap on kepub */\n"
     ".bookpage-eyebrow .eyebrow-book { margin-right: 0.42em; }\n"
+    # device-QA 2026-06-23: translation-comparison footnote-preview spacing on Kobo.
+    # The Hebrew/Greek/Geez/Amharic source blocks are styled in the base sheet, but
+    # the Latin (Vulgate) + Arabic blocks, the Kobo dot-rule separator (.vnote-kobo-sep),
+    # and the Kobo-safe line break (br.kobo-vnote-br) had no rule → they ran together.
+    "/* K-R14 popup translation blocks — Vulgate/Arabic + Kobo separators === */\n"
+    ".vnote-kobo-sep { text-align: center; margin: 0.4em 0 0.1em; letter-spacing: 0.3em;\n"
+    "  font-size: 0.82em; color: rgba(71, 85, 105, 0.7); }\n"
+    "br.kobo-vnote-br { line-height: 1.6; }\n"
+    ".vnote-vulgate { font-style: italic; border-top: 1px dotted rgba(100, 116, 139, 0.25);\n"
+    "  padding-top: 0.15em; margin-top: 0.15em; color: #1e293b; }\n"
+    # RTL is set by the inline dir="rtl" on each <p class="vnote-arabic"> (the CSS
+    # `direction` property is disallowed in EPUB 3 stylesheets — epubcheck CSS-001 —
+    # exactly as the base sheet handles .vnote-hebrew). text-align:right is allowed.
+    ".vnote-arabic { text-align: right; font-size: 1.08em; line-height: 1.5;\n"
+    "  border-top: 1px dotted rgba(100, 116, 139, 0.25); padding-top: 0.15em; margin-top: 0.15em;\n"
+    "  color: #1e293b; }\n"
 )
 
 
@@ -2609,6 +2625,26 @@ def add_eink_vnote_preview_breaks(html: str) -> str:
     return _VNOTE_BR_BEFORE_P_RE.sub(_KOBO_VNOTE_GAP + _KOBO_VNOTE_BR + r"\1", html)
 
 
+# device-QA 2026-06-23: the baked book-title-page ornament ❖ (the categories.yaml
+# `dist` face, used decoratively) is absent from Cardo → a blank box on every book
+# page under the reader's font. On eink swap it for the Cardo-safe fleuron ❦.
+_BOOKPAGE_RULE_RE = re.compile(r'(<div class="bookpage-rule">)❖(</div>)')
+
+
+def apply_eink_bookpage_ornament(edition: dict, preloaded: dict[str, str]) -> int:
+    """Eink-only: swap the book-page ornament ❖ → ❦ (Cardo-safe). No-op off eink —
+    the base ❖ stays byte-identical on every target whose font covers it."""
+    if resolve_target_reader(edition) != "eink":
+        return 0
+    n = 0
+    for name in list(preloaded):
+        new, k = _BOOKPAGE_RULE_RE.subn(r"\1❦\2", preloaded[name])
+        if k:
+            preloaded[name] = new
+            n += k
+    return n
+
+
 # K-R15a: recovered-base WEB/KJV versification leaves ~198 vn-link anchors with
 # no readable prose before the next anchor (gen 8:15 is the canonical example).
 # Inject the vnote-text English fallback so badges and translation markers are
@@ -2775,6 +2811,22 @@ def _badge_aside_inner_to_row(inner: str, kind: str) -> str:
     return f'<div class="vn-item note-{kind}">{_VN_SEP_ITEM}{body}</div>'
 
 
+# device-QA 2026-06-23: the per-note category symbol-link is baked from categories.yaml
+# (✧ ⌂ ◇ ✦ … — empirically absent from Cardo), so on eink it renders as a blank box
+# under the user's reading font (topic ✦ alone recurs ~825×/chapter-file). Route it
+# through the SAME Cardo-safe substitution as the badge chip + cascade header. The
+# category id is read from the href (legend-{cat}); the glyph text is replaced in place.
+_NOTE_SYM_GLYPH_RE = re.compile(r'(<a class="note-sym"[^>]*?legend-([a-z]+)"[^>]*?>)([^<]*)(</a>)')
+
+
+def _eink_safe_note_sym(row_html: str) -> str:
+    """Rewrite each baked per-note category symbol to its Cardo-safe eink substitute."""
+    return _NOTE_SYM_GLYPH_RE.sub(
+        lambda m: m.group(1) + _eink_category_badge_glyph(m.group(2), m.group(3)) + m.group(4),
+        row_html,
+    )
+
+
 # beta-3 (h): categories whose notes legitimately recur verse-to-verse — never
 # cross-verse-deduped. Cross-references and topical entries are per-verse by design;
 # everything else (manuscript witnesses, commentary, word studies, …) that repeats
@@ -2886,6 +2938,26 @@ def _strip_redundant_note_label(row_html: str, kind: str, kind_defaults: dict) -
     # source or is acceptable). Lossless when label stripped (info in byline).
     if kind.startswith("dict-"):
         return _strip_note_label_span(row_html)
+    return row_html, False
+
+
+# Redundant body lead-in that restates the category heading + byline: dict-* bodies
+# open "<strong>Dictionary (Easton's).</strong>" and topic-* bodies "<strong>Topics.</strong>".
+# S1 already drops the leaf note-LABEL; this drops the body boiler too (device-QA
+# 2026-06-23 — user GO). Lossless: the real headword / "appears under:" term-list that
+# follows stays. Anchored at the row start (count=1) so an in-body literal never matches.
+_DICT_BODY_BOILER_RE = re.compile(r"<strong>Dictionary \([^)]{1,40}\)\.</strong>\s*")
+_TOPIC_BODY_BOILER_RE = re.compile(r"<strong>Topics\.</strong>\s*")
+
+
+def _strip_redundant_body_boilerplate(row_html: str, kind: str) -> tuple[str, bool]:
+    """Drop the leading dict-*/topic- body source/topic boiler; keep the real headword."""
+    if kind.startswith("dict-"):
+        new, n = _DICT_BODY_BOILER_RE.subn("", row_html, count=1)
+        return new, n > 0
+    if kind.startswith("topic-"):
+        new, n = _TOPIC_BODY_BOILER_RE.subn("", row_html, count=1)
+        return new, n > 0
     return row_html, False
 
 
@@ -3174,27 +3246,10 @@ KOBO_STUDY_NAV_MIN_STRIPPED = 5_600
 KOBO_POPUP_DECLINE_HI = 7_748
 _GLOSSARY_CAT_ROW_CAP = KOBO_POPUP_DECLINE_HI - 500
 
-# K-R13b — in-margin study badge faces that render on Kobo e-ink. Cardo lacks
-# ✧ ⌂ ✦ ❖ …; Kobo system renders ◇ † * and letters everywhere. Glossary
-# cascade headers keep the full categories.yaml symbols; only the badge chip
-# uses these substitutes.
-_EINK_CATEGORY_BADGE_GLYPHS = {
-    "lang": "⌘",
-    "text": "†",
-    "xref": "‖",
-    "hist": "H",
-    "lit": "L",
-    "comm": "◇",
-    "compare": "☩",
-    "dev": "✶",
-    "liturgy": "☧",
-    "apol": "A",
-    "modern": "M",
-    "ped": "◯",
-    "vis": "V",
-    "dist": "D",
-    "topic": "*",
-}
+# K-R13b — the Cardo-safe e-ink category faces (badge chip + cascade header +
+# note-sym + the symbol-legend page) live in scripts/core/eink_glyphs so the legend
+# can never drift from the body. The resolver is the only consumer in this module.
+from scripts.core.eink_glyphs import eink_category_badge_glyph as _eink_category_badge_glyph  # noqa: E402
 
 # Stripped-size headroom reserved for the unit aside's own header line
 # ("↩ 16:12 (2/6)") when packing rows against the cap.
@@ -3217,11 +3272,6 @@ def _pad_kobo_study_footnote(footnote_html: str) -> str:
     filler = "." * (KOBO_STUDY_NAV_MIN_STRIPPED - n)
     pad = f'<span class="kobo-study-nav-pad" aria-hidden="true">{filler}</span>\n  '
     return footnote_html.replace("</aside>", f"{pad}</aside>", 1)
-
-
-def _eink_category_badge_glyph(cat: str, glyph: str) -> str:
-    """Kobo-safe badge face for a study category (K-R13b)."""
-    return _EINK_CATEGORY_BADGE_GLYPHS.get(cat) or glyph or cat[0].upper()
 
 
 def _stripped_len(html_text: str) -> int:
@@ -3894,11 +3944,21 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     eink_target = resolve_target_reader(edition) == "eink"
     study_layout = resolve_reader_eink_study_layout(edition) if eink_target else "popup"
     eink_backmatter = eink_target and study_layout == "backmatter"
-    cat_meta = (
-        {cid: (rec.get("symbol", ""), rec.get("label", cid)) for cid, rec in config.categories_by_id().items()}
-        if (s2_group or eink_backmatter)
-        else {}
-    )
+    # cat_meta carries each category's (glyph, label) for the cascade headers. For
+    # eink targets every glyph is resolved through the Cardo-safe substitution map
+    # (_eink_category_badge_glyph) so the headers match the badge chips and nothing
+    # renders as a blank box under the user's Cardo reading font (device-QA
+    # 2026-06-23). Non-eink targets keep the full categories.yaml symbols.
+    if s2_group or eink_backmatter:
+        cat_meta = {
+            cid: (
+                _eink_category_badge_glyph(cid, rec.get("symbol", "")) if eink_target else rec.get("symbol", ""),
+                rec.get("label", cid),
+            )
+            for cid, rec in config.categories_by_id().items()
+        }
+    else:
+        cat_meta = {}
     # S3a — union-merge a verse's topic-category notes (topic-nave + topic-torrey)
     # into one Topics row (vocab-aware longest-match). Needs the per-row source too,
     # so the attribution index is built whenever S2 OR S3a is on.
@@ -3924,6 +3984,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
         "badges_skipped": 0,
         "notes_deduped": 0,
         "s1_labels_suppressed": 0,
+        "s1_body_boiler_stripped": 0,
         "s2_groups_emitted": 0,
         "s2_byline_unattributed": 0,
         "s3a_topic_notes_merged": 0,
@@ -4040,6 +4101,8 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             break
                         aside_spans.append((am.start(), am.end()))
                         row = _badge_aside_inner_to_row(am.group(1), kind)
+                        if eink_target:
+                            row = _eink_safe_note_sym(row)
                         norm = " ".join(row.split())
                         if norm in seen_rows:
                             stats["notes_deduped"] += 1
@@ -4064,6 +4127,9 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             row, _changed = _strip_redundant_note_label(row, kind, kind_defaults)
                             if _changed:
                                 stats["s1_labels_suppressed"] += 1
+                            row, _b_changed = _strip_redundant_body_boilerplate(row, kind)
+                            if _b_changed:
+                                stats["s1_body_boiler_stripped"] = stats.get("s1_body_boiler_stripped", 0) + 1
                         rank = _POPUP_CATEGORY_RANK.get(cat, _POPUP_CATEGORY_FALLBACK_RANK)
                         attribution = book_attr_index.get(fid) if resolve_sources else None
                         row_items.append((rank, doc_i, row, cat, attribution))
@@ -7705,6 +7771,8 @@ def build_one(
         repair_texts: dict[str, str] = {p.name: p.read_text(encoding="utf-8") for p in list_html_files(tmp)}
 
         stats["eink_verse_line_breaks"] = apply_eink_verse_line_breaks(tmp, edition, preloaded=repair_texts)
+
+        stats["eink_bookpage_ornament"] = apply_eink_bookpage_ornament(edition, preloaded=repair_texts)
 
         stats["empty_verse_prose_repaired"] = apply_empty_verse_prose_repair(tmp, preloaded=repair_texts)
 

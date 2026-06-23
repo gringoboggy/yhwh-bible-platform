@@ -12,6 +12,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
+from scripts.core.eink_glyphs import eink_category_badge_glyph  # noqa: E402
 from scripts.epub_utils import (  # noqa: E402
     _resolve_publishing,
     _xml_escape_text,
@@ -268,11 +269,16 @@ def render_symbol_legend_page(edition: dict, categories: list[dict]) -> str:
     already-filtered list from _legend_categories_for_edition. Each row gets a
     stable anchor id='legend-<category-id>' so in-note symbols (Phase 2) can link
     to it. Spec 2026-05-24 §5.3."""
+    # device-QA 2026-06-23: on eink the legend must show the SAME Cardo-safe face the
+    # body uses (badge chip / cascade header / note-sym), or the key won't match the
+    # symbols printed beside the notes. Non-eink keeps the full categories.yaml symbol.
+    is_eink = (edition.get("target_reader") or "").strip() == "eink"
     rows = []
     for c in categories:
+        sym = eink_category_badge_glyph(c["id"], c["symbol"]) if is_eink else c["symbol"]
         rows.append(
             f'    <p class="legend-row" id="legend-{html.escape(c["id"])}">'
-            f'<span class="legend-sym">{html.escape(c["symbol"])}</span> '
+            f'<span class="legend-sym">{html.escape(sym)}</span> '
             f'<span class="legend-label">{html.escape(c["label"])}</span> '
             f'<span class="legend-count">({c["count"]:,} notes)</span><br/>'
             f'<span class="legend-desc">{html.escape(c["description"])}</span></p>'

@@ -4,16 +4,20 @@
 <!-- task: Kobo device-QA fixes (B/C/D) + round-13 joint merge (2026-06-23) -->
 
 > **▶▶ FRESH AUTONOMOUS SESSION — START HERE (2026-06-23 wrap).** Two live workstreams:
-> 1. **Kobo device-QA (NEW, primary):** the user QA'd the `ethiopian-tewahedo` eink kepub on his **color
->    Kobo** and surfaced 4 defect clusters — badges invisible under Cardo (`◇` not in Cardo → use `◊`) ·
->    redundant note-body boilerplate ("Dictionary (Easton's)." / "Topics.") · cramped translation popups ·
->    mid-chapter page-breaks. **Worklist + verified findings + the REAL code leads + the ⚠ critical lesson
->    ("a trace-agent pass had the WRONG file:line on all 3 paths; VERIFY every fix against the BUILT EPUB —
->    grep the output — BEFORE reloading the Kobo; watch the build-cache") = `dev/audit/kobo-device-qa-2026-06-23.md`
->    — READ IT FIRST.** Inert edits already reverted (tree clean). Screenshots in `dev/audit/kobo-qa-2026-06-23-screens/`.
->    Kobo at `G:` (`KOBOeReader`), kepubify on-box → WIN builds+kepubifies+loads directly; STANDING: always
->    DELETE the old `YHWH-koboQA.kepub.epub` before copying the new. Font pack settled = Cardo + Geʽez + Arabic
->    (3 fonts / 5 files); the unused Hebrew + Sans-Arabic device fonts were removed; website copy fixed+pushed.
+> 1. **Kobo device-QA B-1/C/D — ✅ FIXED + verified + LOADED (awaiting the user's on-device eyeball).** The user
+>    QA'd the `ethiopian-tewahedo` eink kepub on his color Kobo (Cardo font) → 3 actionable clusters, ALL fixed at
+>    the REAL emitter (ground-truthed live base HTML + empirical Cardo cmap, NOT trace line-numbers; prior "didn't
+>    land" = build-cache masking, `--force` bypasses it), grep-verified against the BUILT kepub + **epubcheck
+>    0/0/0/0** + `verify_kr2_build` GREEN (36,350 noterefs all-resolve) + **14 pins** (`tests/test_kobo_device_qa.py`),
+>    new kepub LOADED to `G:` (old deleted). **B-1 = 5 Cardo-safe surfaces via the new shared
+>    `scripts/core/eink_glyphs.py`** (inline badge `◇→◊` · cascade header · note-sym · legend page · book-page
+>    ornament `❖→❦`); **C** = dict/topic body-boiler strip (lossless); **D** = eink popup CSS (caught+fixed a real
+>    CSS-001 `direction` en route). All eink-only → 9-KJV byte-stable editions untouched. Detail: `dev/CHANGELOG.md`
+>    (2026-06-23) + `dev/audit/kobo-device-qa-2026-06-23.md`. **▶ NEXT: user ejects/reconnects + eyeballs on-device;**
+>    if good, fold device-QA into the round-13 merge. **STILL DEFERRED:** **A** (mid-chapter page-break → the
+>    char-vs-byte all-edition re-cut) · **B-2** spacing + **B-3** dagger→"II" (await repro / `dev/HUMAN_DECISIONS.md`).
+>    Kobo at `G:` (`KOBOeReader`), kepubify on-box; STANDING: always DELETE the old `YHWH-koboQA.kepub.epub` before
+>    copying. Font pack settled = Cardo + Geʽez + Arabic (3 fonts / 5 files), pushed.
 > 2. **Round-13 grand-audit joint merge:** WIN OPEN #5/#6/#9 done+pushed (`11b86baf`/`42da11c3`).
 >    **✅ Mac half DONE + pushed (2026-06-23):** `deep-audit LANE=mac` (18 dims, Opus) → `round13-mac-*`
 >    (`333e7366`: 33 survivors — 5 med / 17 low / 11 info; 12 refuted; no high/crit survived) + platform-research

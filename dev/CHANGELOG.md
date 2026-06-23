@@ -4,6 +4,37 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-23 (cont.) — Kobo device-QA B-1/C/D FIXED + verified + loaded (Windows; autonomous)
+
+Fixed all three actionable Kobo device-QA defect clusters the user surfaced on his colour Kobo (under his Cardo
+reading font), each traced to the REAL emitter by ground-truthing the live base HTML + an empirical Cardo cmap
+check — NOT trace-agent line numbers (the prior session's wrong-3-paths trap). The prior "fixes didn't land" was
+**build-cache masking**: `build_edition.py` short-circuits to `cache_lookup` unless `--force` (L7364). Verified
+end-to-end against the BUILT eink kepub (grep + epubcheck 0/0/0/0 + `verify_kr2_build` ALL GATES GREEN, 36,350
+noterefs all-resolve); new kepub kepubified + loaded to the Kobo (old deleted first). All eink-only → the 9-KJV
+byte-stable editions are untouched. 14 pins (`tests/test_kobo_device_qa.py`).
+
+- **B-1 (invisible badges) — 5 surfaces, one shared Cardo-safe map.** Empirical cmap (`Cardo-Regular.ttf`):
+  ✧ ⌂ ⌇ ◇ ⚖ ⊛ ❑ ❖ ✦ are absent. New shared `scripts/core/eink_glyphs.py` (`eink_category_badge_glyph`) is the
+  ONE source for: the inline badge (`comm ◇→◊`), the cascade headers (`cat_meta`), the per-note `note-sym`
+  (new `_eink_safe_note_sym`; topic `✦` recurred ~825×/chapter-file), AND the symbol-legend page
+  (`matter_pages.render_symbol_legend_page` — so the key matches the body, no drift). Plus the baked book-page
+  ornament `❖→❦` (Cardo-safe fleuron) via `apply_eink_bookpage_ornament`. Built-epub grep: ZERO Cardo-missing
+  glyphs anywhere; `marker-badge">◊` ×2415; ornament ×86. The old design comment "headers keep full symbols"
+  was superseded — the user reads with Cardo, so blank boxes win nothing.
+- **C (redundant note-body boiler):** `_strip_redundant_body_boilerplate` strips the leading
+  `<strong>Dictionary (Easton's).</strong>` (3,779×) / `<strong>Topics.</strong>` (48,097×) restating the
+  category heading; hooked into the S1 `note_attribution_dedup` block. Lossless — headword / "appears under:"
+  list survives (28,971 term-lists intact); stat `s1_body_boiler_stripped`.
+- **D (popup formatting):** eink-only CSS for `.vnote-kobo-sep` / `br.kobo-vnote-br` / `.vnote-vulgate` /
+  `.vnote-arabic` (Hebrew/Greek/Geez/Amharic were already styled in the base sheet). epubcheck caught a real
+  **CSS-001**: the first cut used `.vnote-arabic { direction: rtl }`, but the CSS `direction` property is
+  forbidden in EPUB 3 stylesheets (RTL is set by the inline `dir="rtl"` the Arabic markup already carries).
+  Dropped it, kept `text-align:right`; re-validated 0/0/0/0. Guarded by a no-`direction` pin.
+- **Deferred (unchanged):** **A** (mid-chapter page-break) folds into the char-vs-byte all-edition re-cut (it
+  re-cuts the file-split); **B-2** spacing + **B-3** dagger→"II" await a clearer repro (`dev/HUMAN_DECISIONS.md`).
+  Tracker (full trace + reusable code + the gate results): `dev/audit/kobo-device-qa-2026-06-23.md`.
+
 ## 2026-06-23 (cont.) — Kobo device-QA + font pack (Windows; user-paired, then autonomous-prep)
 
 User QA'd the `ethiopian-tewahedo` eink kepub on his color Kobo (the device oracle). The font-pack thread is
