@@ -28,10 +28,20 @@ surfaces them — triaged here). **12 deduped → 9 survived (2 high · 5 med ·
 
 ## Mac half (in flight) + merge
 
-- **Mac: `deep-audit` round-13 `LANE=mac`** (18 model-bound dims) + **the "down to verse, down to the word" structural+content pass** (`dev/audit_book_structure.py` across every edition×format×book; chase the `1en` misordering to a verdict) → `dev/audit/round13-mac-*` + `round13-structural.md`. See `LANE_HANDOFF.md`.
+- **Mac structural pass = ✅ IN** (`b20ff74e`, `round13-structural.md`): **293/294 books green** × 5 editions × {epub,kepub}; the 1 FAIL = `1en` 71/90 — **WIN root-caused + CORRECTED Mac's verdict (see below).** Mac cross-OS verify of WIN's round-13 tree = ✅ **ALL GREEN** (`161f37e8`: 107 targeted + 1040 regression; frozen-app reconciled). **Mac `deep-audit` `LANE=mac` (18 model-bound dims) → `round13-mac-*` still PENDING** (running on Mac's box).
 - **✅ WIN OPEN items DONE this session** (2026-06-23; 3 commits, all green + epubcheck 0/0/0/0): #5 orphaned constants · #6 zip create_system · #9 inject escape.
 - **`sources_base` lazy-PATH = conservative DEFER** (re-verified against real data): the lexicon/commentary loaders freeze `PATH` at import, but they read **read-only PUBLISHED data** → an in-bundle read is correct for a frozen app (not a data-loss bug like the writable content routing was). The fix is an invasive 12-loader + 6-test-monkeypatch-shape refactor for a non-bug → fold into the frozen-build cross-OS verify with Mac, don't force it solo.
 - **Held for the joint merge with Mac's half:** #2 char-vs-byte all-edition re-cut + golden re-baseline (the deliberate HIGH — rebuilds every edition; wants Mac's structural findings) · #7 `audit_popup_formula` recalibration (dev/ tool — Mac's surface) · device-QA (e-ink glyphs, K-R14 study-cascade separators) · any NEW Mac/structural findings.
+
+## `1en` structural FAIL — root-caused (WIN, 2026-06-23): a split-editorial-bracket ingest artifact, NOT a verse re-order
+
+Mac's structural pass flagged `1en` 71 (v46 between v13/v14) + 90 (v14–17 scrambled) and proposed "re-order the base anchors so they're sequential." **WIN re-verified against the actual base content — that fix would be WRONG:**
+
+- **1en 71 root cause:** this is R.H. Charles's translation. v13 ends `"…without number. [Lost passage wherein the Son of Man was described as accompanying the Head of Days, and Enoch asked one of the angels (as in"` and the spurious **"v46"** is `") concerning the Son of Man as to who he was.]"`. The ingest read Charles's editorial cross-reference **"xlvi. 3"** (Roman 46) *inside the bracket* as a VERSE NUMBER, fracturing one bracketed note into a fake verse 46. **"v46" is not a real verse** — 1 Enoch 71 has only 17 verses. Re-ordering it to the chapter end (Mac's proposal) would scatter a sentence fragment. The correct fix: **MERGE the "v46" fragment back into v13 + drop the spurious `v-1en-71-46` anchor**, restoring `"(as in xlvi. 3) concerning the Son of Man as to who he was.]"`.
+- **The lost text needs the source:** the base no longer holds "xlvi. 3" (it became the "46"), and 1 Enoch scripture text exists ONLY in the recovered base `epub_working/index_split_021.html` (no upstream content/ source regenerates it — the build injects notes into the base). So restoring the exact bracket needs the **external PD Charles 1 Enoch source** (per `sources-already-in-place` search order) — NOT a memory reconstruction (no-guessing on faith-critical scripture).
+- **1en 90 (v14–17 scrambled):** in a later split file (not `index_split_021.html`); **needs the same root-cause check** before any fix — likely another cross-ref/Roman-numeral artifact, not a genuine reorder.
+
+**Disposition → joint-merge content task (NOT a blind base re-order):** locate the PD Charles 1 Enoch source → restore 71:13 + de-spurious v46 → analyze + fix 90 → handle the verse-count cascade (`canonical_verse_counts` / standalone / vnote) → base-invariant (`check_nested_anchors`) + epubcheck + re-run the structural auditor (target 294/294). **Low severity** (superset-only — the 4 canon-filtered catalog editions exclude 1 Enoch), so it stays in the deliberate joint-merge phase, done with source calibration.
 
 ## Disposition summary
 
