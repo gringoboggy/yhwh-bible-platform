@@ -85,10 +85,12 @@ page: how-to
       <p class="prose">Kobo’s quick-look popup uses the device’s <em>own</em> reading font — which usually
         can’t draw Hebrew, Greek, Geʽez, or Arabic. The fix is one step: download the free
         <a href="https://github.com/gringoboggy/yhwh-bible-platform/releases/download/v0.1.0/yhwh-kobo-font-pack.zip">font
-        pack</a> (five open-licensed fonts), unzip it, and copy the font files into a folder named
-        <code>fonts</code> at the top of your Kobo’s drive while it’s connected by USB. Then, on the
-        device, pick <strong>Cardo</strong> (or any of the pack’s fonts) as your reading font — the
-        popups follow it, and the ancient scripts render properly.</p>
+        pack</a> and unzip it. Inside are <strong>three fonts in five files</strong> — <strong>Cardo</strong>
+        in regular, bold, and italic (that’s three of the files), plus one <strong>Geʽez</strong> font and one
+        <strong>Arabic</strong> font. Copy all five files into a folder named <code>fonts</code> at the top of
+        your Kobo’s drive while it’s connected by USB, then eject. On the device, set your reading font to
+        <strong>Cardo</strong> — it draws Latin, Hebrew, and Greek, while the Geʽez and Arabic files cover
+        those two scripts, so every popup renders properly.</p>
       <p class="callout"><strong>If popups lose Hebrew, Greek, Geʽez, or Arabic</strong> (hollow boxes),
         especially after you sideload a new <code>.kepub.epub</code>: the font pack is probably still
         installed — Kobo sometimes forgets to apply it. While reading, tap the centre of the page →
