@@ -4,6 +4,24 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-23 (cont.) — Kobo device-QA + font pack (Windows; user-paired, then autonomous-prep)
+
+User QA'd the `ethiopian-tewahedo` eink kepub on his color Kobo (the device oracle). The font-pack thread is
+CLOSED; the 4 rendered-product defect clusters are scoped + handed to a fresh autonomous session.
+
+- **Font pack — DONE.** Settled = **3 fonts in 5 files**: Cardo ×3 (Latin + Hebrew + Greek) + NotoSerifEthiopic
+  (Geʽez) + NotoNaskhArabic. Removed the unused `NotoSerifHebrew` + `NotoSansArabic` device fonts from
+  `G:\fonts\kobo\`. Clarified the website copy "five open-licensed fonts" → "**three fonts in five files**"
+  (`website/src/how-to-use.html`, `2bb88708` → pushed `42da11c3`). Built + kepubified + loaded a fresh test
+  kepub to the Kobo (gates green; the old version deleted first per the user's standing rule).
+- **Device-QA defects — TRACKED (not yet fixed).** Badges invisible under Cardo (`◇`/comm not in Cardo → use
+  `◊`) · redundant dict-/topic- note-body boilerplate ("Dictionary (Easton's)." / "Topics.") · cramped
+  translation popups · mid-chapter page-breaks. A 4-agent root-cause trace returned **wrong file:line on all 3
+  paths it covered**; fixes made on its claims proved **inert against the built EPUB** (verified by grep) and
+  were reverted to a clean tree. **Lesson: verify every fix against the BUILT output before reloading the
+  Kobo; mind the `build_cache`.** Worklist + real leads + reusable code: `dev/audit/kobo-device-qa-2026-06-23.md`;
+  evidence: `dev/audit/kobo-qa-2026-06-23-screens/`.
+
 ## 2026-06-23 (cont.) — Round-13 grand audit: WIN OPEN items #5 / #6 / #9 remediated (Windows; autonomous)
 
 Continued the round-13 grand-audit remediation. The 3 file-disjoint WIN OPEN items were each scouted (re-verified vs real data + full class enumeration via a parallel investigation workflow), then fixed TDD + byte-proven + committed separately. Mac's round-13 half (`LANE=mac` deep-audit + the verse/word structural pass) still running on the iMac; the remaining joint items (char-vs-byte #2, #7 `audit_popup_formula`, device-QA) await the merge.

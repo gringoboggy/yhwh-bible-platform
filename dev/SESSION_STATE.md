@@ -6,6 +6,8 @@
 >
 > **★ Round-13 WIN OPEN items #5/#6/#9 FIXED + pushed (2026-06-23, this session):** inject `escape_attr` (4 title-attr sites; escapes `& < > "`, preserves the valid `'`) · 3 dead module-level `REPO` removed (re-verify caught 2 spec false-positives — `api/exports`/`api/preflight` `REPO` are LIVE) · `ZipInfo.create_system=0` in all EPUB writers (catholic-study built → 383 entries `create_system=0` · epubcheck 0/0/0/0); `sources_base`=conservative defer (read-only published data). Remaining round-13 = the joint merge w/ Mac's half (char-vs-byte #2 · #7 `audit_popup_formula` · device-QA). See `dev/audit/round13-remediation.md`.
 >
+> **★ Kobo device-QA workstream OPENED (2026-06-23):** user QA'd the `ethiopian-tewahedo` eink kepub on his color Kobo → 4 defect clusters (badges invisible under Cardo, `◇`→`◊` · redundant note-body boilerplate · cramped translation popups · mid-chapter page-breaks). Font-pack thread CLOSED (3 fonts/5 files Cardo+Geʽez+Arabic; website copy fixed+pushed). Fixes need REAL-path tracing — a trace-agent pass had WRONG file:line on all 3 paths; inert edits reverted (tree clean). **Worklist = `dev/audit/kobo-device-qa-2026-06-23.md`; ⚠ verify every fix against the BUILT epub before reloading the Kobo.**
+>
 > **Samuel+Kings:** Mac 6/6 @ full `GAPS/`; **WIN GAPS recovered to 892 files (full) 2026-06-22** via Mac's GAPS-FULL zip (was 697 after the junction-delete incident).
 >
 > **Catalog truth (current):** **4** canon-shaped study editions × **5** cover colours = **20** M3/M4 assets; website catalog ~**187** assets on v0.1.0 (187-vs-188 to reconcile post-cleanup). Retired built-in SKUs must not return — `lint_rules.check_retired_edition_skus`.

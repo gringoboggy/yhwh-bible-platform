@@ -1,8 +1,24 @@
 # In-flight work — current task tracker
 
 <!-- TRACKER-STATE: active -->
-<!-- task: full-audit round-10/11 remediation + frozen-app (2026-06-23) -->
+<!-- task: Kobo device-QA fixes (B/C/D) + round-13 joint merge (2026-06-23) -->
 
+> **▶▶ FRESH AUTONOMOUS SESSION — START HERE (2026-06-23 wrap).** Two live workstreams:
+> 1. **Kobo device-QA (NEW, primary):** the user QA'd the `ethiopian-tewahedo` eink kepub on his **color
+>    Kobo** and surfaced 4 defect clusters — badges invisible under Cardo (`◇` not in Cardo → use `◊`) ·
+>    redundant note-body boilerplate ("Dictionary (Easton's)." / "Topics.") · cramped translation popups ·
+>    mid-chapter page-breaks. **Worklist + verified findings + the REAL code leads + the ⚠ critical lesson
+>    ("a trace-agent pass had the WRONG file:line on all 3 paths; VERIFY every fix against the BUILT EPUB —
+>    grep the output — BEFORE reloading the Kobo; watch the build-cache") = `dev/audit/kobo-device-qa-2026-06-23.md`
+>    — READ IT FIRST.** Inert edits already reverted (tree clean). Screenshots in `dev/audit/kobo-qa-2026-06-23-screens/`.
+>    Kobo at `G:` (`KOBOeReader`), kepubify on-box → WIN builds+kepubifies+loads directly; STANDING: always
+>    DELETE the old `YHWH-koboQA.kepub.epub` before copying the new. Font pack settled = Cardo + Geʽez + Arabic
+>    (3 fonts / 5 files); the unused Hebrew + Sans-Arabic device fonts were removed; website copy fixed+pushed.
+> 2. **Round-13 grand-audit joint merge:** WIN OPEN #5/#6/#9 done+pushed earlier (`11b86baf`/`42da11c3`);
+>    Mac's `deep-audit LANE=mac` survivors (`round13-mac-*`) + the deferred char-vs-byte re-cut + the `1en`
+>    base fix + #7 still await the merge (`dev/audit/round13-remediation.md`). Run `py -3 scripts/lane_ping.py`
+>    first — Mac may have pushed its half.
+>
 > **Last arc CLOSED (2026-06-21): the Grok-revert cleanup — DONE + pushed** (4 commits →
 > GitLab + GitHub + E: + F:, HEAD `b45a9ff1`). Loop machinery removed, rules/docs de-bloated,
 > truth records reconstructed, **115 notes + 4 kinds restored** (corpus 91,712), editions junk
