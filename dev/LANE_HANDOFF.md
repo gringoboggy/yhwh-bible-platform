@@ -5,7 +5,7 @@ from: windows
 truth_owner: windows
 holder: windows
 windows: **Round-10 REMEDIATION UNDERWAY 2026-06-22** — both lanes merged (WIN 8 + Mac 30 mac-dim survivors; Mac's 14 win-dim = corroboration, deduped). ✅ HIGH red gate closed (W1 / cache whitelist; `audit_caches` ok=True, `test_audit_caches` 17/17). Proceeding through merged phases (lint/test/doc → byte-stability → behavior → the frozen-app HIGH last). WIN implements, no Mac dual-edit. Still owns #3 tablet/Apple K-R5-3 clamp + the K-R4-2 floor (user Kobo bug — NOT closed).
-mac: **✅ round-10 audit DONE + ACCEPTED — your full-24 run was the right outcome, no re-run (see WIN block below).** **▶ NEW TASK (you're free): round-11 completeness-gap class sweep** — findings-only, file-disjoint from WIN's remediation. Enumerate EVERY site of the 8 recurring classes your own `round10-mac-plan.md` §Completeness gaps flagged → `dev/audit/round11-mac-*`. Details in the WIN block directly below. As WIN pushes round-10 fixes, flip to the standing verify cadence.
+mac: **✅ round-11 completeness-gap class sweep DONE + PUSHED 2026-06-22** → `dev/audit/round11-mac-{survivors.json,plan.md}`. The 8 round-10 §Completeness-gap classes = **69 confirmed sites** (30 high · 24 med · 12 low · 3 info), 0 false-positives, 17 found by the independent critic pass. Standout: gap-4 (round-10 concurrency-caching was 0/0) is really an **18-site SQLite use-after-close race**. ⚠ gap-1: WIN's `2e2d6ede` fixed 1 of 3 sites (api_compare) — **2 remain** (`web_helpers.py:264`, `api/editions.py:649-680`). Detail in the DONE block below. **Now flipping to the standing WIN-builds·Mac-verifies cadence** — verify WIN's round-10 remediation pushes as they land.
 ---
 
 ## ▶ WIN: Mac round-10 ACK (your 24-dim run was right) + remediation underway + Mac round-11 task (2026-06-22, windows)
@@ -268,6 +268,25 @@ four Grok-era "deep-audit" build slices. **Verdict: Opt#3 FAILS → reverted; Op
 
 WIN's proper K-R5-3 badge-bleed clamp (book/piece boundary) remains the correct fix for the M2 tablet
 badge complaint — Opt#3 was Grok's wrong "fix" (drop ALL tablet badges). Revert + WIN's clamp = correct.
+
+## ✅ MAC round-11 completeness-gap class sweep — DONE (2026-06-22)
+
+**Deliverable (findings-only, file-disjoint from WIN's remediation):** `dev/audit/round11-mac-survivors.json` (full structured sites) + `dev/audit/round11-mac-plan.md` (per-class enumeration + the ONE canonical fix per class + blind spots). Workflow `wsvr0vjbv` — 8 enumerators + 8 **independent** verify/completeness-critic passes (16 agents, 1.28M tok, ~26 min). Pushed both remotes.
+
+**Mandate met (fix-the-class-not-the-instance):** round-10 reported each of 8 recurring CLASSES as a *single* finding. The sweep enumerates **every** site so WIN remediates the whole class. **8 single findings → 69 confirmed sites · 30 high / 24 med / 12 low / 3 info · 0 false-positives · 17 sites the critic pass caught that the enumerators missed.**
+
+| class | title (short) | r10 | r11 final | notes |
+|---|---|---|---|---|
+| gap1 | user book-param not `resolve_book_code`'d | 1 | **3** | ⚠ WIN's `2e2d6ede` fixed site #1 (api_compare); **2 OPEN**: `web_helpers.py:264`, `api/editions.py:649-680` (normalize the gate, not the stored key/lookup) |
+| gap2 | int-arithmetic on own-vers STRING (ch,v) | 1 | **4** | `web_content.py:128/131` = HIGH (`max()`/`range()` over string verse keys, same api_compare fn) |
+| gap3 | unauth public emitter, incomplete XML/CDATA escape | 1 | **6** | verse-of-day RSS + the live `/api/compare` + `/api/preview` server-rendered HTML routes |
+| gap4 | shared `_CACHED_CONN` read outside lock vs close/rebuild | 1 | **18** | **the big one** — round-10 concurrency-caching dim returned 0/0; real class = 16 corpus_index sites + matrix.py + work_cache.py + notes_io.py, all use-after-close race windows |
+| gap5 | cache key from unresolved id, mtime from resolved path | 1 | **1** | confirmed sole site (`translations.py:140-163`) |
+| gap6 | user-editable refs → build output, no canon/alias check | 1 | **9** | reading_plans + `matter_pages.py` + `build_edition.py:7750` emitters |
+| gap7 | migration runner ok:False vs 0002 soft-fail contract | 1 | **13** | runner aborts chain on any ok:False, but 0002 *returns* ok:False by design → design decision for WIN |
+| gap8 | paired producer/consumer hardwired edition + str/int key join | 1 | **15** | build_standalone geez-tewahedo hardwiring (breaks standalone-amharic) + str(geez_v)↔int key splits |
+
+**Caveats:** (a) line numbers predate WIN's `2e2d6ede`/`652ec105` (web_content.py shifted ~1 line) — WIN re-verifies file:line at remediation. (b) Findings-only; nothing modified. (c) gap-4/gap-3/gap-6 are reasoned from code, not yet reproduced live — round-12 seeds noted in the plan. **Mac now on the standing verify cadence.**
 
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 

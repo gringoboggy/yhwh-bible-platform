@@ -1,0 +1,642 @@
+{
+  "round": 11,
+  "lane": "mac",
+  "now": "2026-06-22",
+  "task": "completeness-gap class sweep — enumerate EVERY site of the 8 recurring classes flagged in dev/audit/round10-mac-plan.md §Completeness gaps, so WIN fixes each class at every site (fix-the-class-not-the-instance, memory feedback_fix_the_class_not_the_instance). FINDINGS-ONLY; no files modified.",
+  "method": "workflow wsvr0vjbv (16 agents / 1.28M tok / ~26min): 8 enumerators (one per class) then 8 INDEPENDENT verify+completeness-critic passes. Each verifier re-searched fresh, rejected false-positives, and hunted sites the enumerator missed. general-purpose agents, inherited Opus 4.8.",
+  "source": "the 8 §Completeness gaps in dev/audit/round10-mac-plan.md (each was reported in round-10 as a SINGLE finding; this sweep enumerates the whole class).",
+  "counts": {
+    "classes": 8,
+    "total_sites": 69,
+    "by_severity": {
+      "medium": 24,
+      "high": 30,
+      "low": 12,
+      "info": 3
+    },
+    "by_class": {
+      "1": 3,
+      "2": 4,
+      "3": 6,
+      "4": 18,
+      "5": 1,
+      "6": 9,
+      "7": 13,
+      "8": 15
+    },
+    "growth": "8 single round-10 findings -> 69 confirmed sites; 15 found by the independent critic pass that the enumerators missed; 0 false-positives."
+  },
+  "classes": [
+    {
+      "gapId": 1,
+      "className": "web_*.py user book-param not normalized via config.resolve_book_code",
+      "fixPattern": "At every web_*/api handler that accepts a user-supplied book/book_code query or body param and then reaches a translation/notes/compare/popup lookup, normalize it through config.resolve_book_code FIRST, before any has_book/get_chapter/get_book/NOTES_DIR-path use. Canonical form: insert `book = config.resolve_book_code((book or '').strip().lower())` (or call the existing _book_code_input helper) immediately after extracting the param. For web_content.py api_compare specifically, add `book = config.resolve_book_code(book)` right after line 67's `book = (book or '').strip().lower()` — mirroring exactly what the sibling api_sample_html already does at line 207. (Belt-and-suspenders: _resolve_book_stem in translations.py only knows exo->ex and will NOT save un-normalized callers, so the fix MUST be at the route-handler boundary, not relied upon downstream.)",
+      "sites": [
+        {
+          "file": "scripts/web_content.py",
+          "line": "67",
+          "snippet": "book = (book or \"\").strip().lower()",
+          "why": "api_compare() takes the user-supplied ?book= query param (web.py:1735 `book = (qs.get(\"book\") or [\"gen\"])[0]` -> api_compare(book,...)) and only lower-cases it, then passes it straight into translations.has_book(t, book) (line 106) and get_chapter(t, book, chapter_n) (line 109) with NO config.resolve_book_code. translations._resolve_book_stem only maps exo->ex (_BOOK_FILE_ALIASES at translations.py:42), NOT legacy aliases joh/php/jas/etc., so ?book=joh resolves to a non-existent kjv/joh.py -> has_book False -> the verse comparison silently returns empty. This is the SAME file's other handler api_sample_html (line 207) DOES call resolve_book_code -> the class is half-fixed within one file.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/web_helpers.py",
+          "line": "264",
+          "snippet": "book = books_idx.get(parsed[\"book\"])",
+          "why": "html_ref_id_from_note_id() looks up the book straight from the raw parsed note-id (`books_idx.get(parsed['book'])`) WITHOUT config.resolve_book_code. It is reachable from the user-supplied note_id body param of api_save_note_toggle (editions.py:1402->1411) and api_save_note_override (editions.py:1466->1475): those handlers DO normalize for the 'unknown book' validation check (resolve_book_code at 1407/1471 passes an alias like joh->jhn), but then call html_ref_id_from_note_id(nid, books) which re-parses the RAW nid and does an un-normalized lookup -> books_idx.get('joh') is None -> returns None -> handler aborts with 'could not resolve note_id to HTML ref'. Inconsistent half-fix (one check normalizes, the resolver does not); a note_id with a legacy book alias is rejected outright. Same class: user book param reaching a books lookup without resolve_book_code.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/api/editions.py",
+          "line": "649-680",
+          "snippet": "book = config.resolve_book_code(parts[0])  ...  cleaned[key] = deduped",
+          "why": "_validate_keyed_list_field (used by api_save_edition_meta for note_families_{on,off}_per_book/_per_chapter and popup_languages_per_chapter/_per_verse) resolves parts[0] to canonical for the validity check (line 649), but then STORES the entry under the ORIGINAL un-normalized `key` (line 680, `cleaned[key] = deduped`). A legacy-alias key like 'joh:3' passes validation (joh->jhn in valid_books) yet is persisted as 'joh:3'. At read time the resolvers build the lookup key from the CANONICAL book code (config.enabled_kind_codes_for: `.get(book,[])` + `f'{book}:{chapter}'` at config.py ~603-605; build_edition.py:1095/1101 `f'{book_code}:{chapter}'`), so 'jhn:3' never matches the stored 'joh:3' -> the per-chapter/per-book override silently vanishes. Half-fix identical in shape to api_compare: normalized for the gate, not for the stored/looked-up key.",
+          "severity": "medium"
+        }
+      ],
+      "searchMethod": "1) `grep -rn 'resolve_book_code' scripts/` -> enumerated ALL 18 callsites + the def at core/config.py:401 (resolve_book_code) and config.py:413 (get_book calls it). 2) `grep -rn \\\"book param + .strip().lower()|.lower()|book_code|qs.get('book'|params.get\\\" scripts/web*.py scripts/api/*.py` to enumerate every book-param extraction. 3) Read each candidate handler region: web_content.py api_compare (34-145, MISSING) + api_sample_html (185-324, resolves @207); web_notes.py _book_code_input@26-28 (resolves) used by api_notes/api_save/api_delete/api_search_notes (@72,152,183,254); web_sources.py api_sources_for_book@94-155 (resolves indirectly via config.get_book->config.py:413); web_editions.py api_build_tracker_book@217 + api_build_my_bible@645 (both resolve); api/covers.py api_upload_cover_book@62/api_select_book_cover@173/api_delete_cover_book@211 (all resolve at entry); core/preview.py api_preview@274 (resolves); api/editions.py coordinate-key validator@649 + note-toggle@1407 + note-override@1471 (all resolve). 4) Traced web.py routing: /api/compare@1733-1755 passes raw ?book= into api_compare; /api/sample@1763, /api/preview@2021, /api/sources@1614, /api/build-tracker@643, /api/build-my-bible@652 all feed handlers that DO resolve. 5) Verified the downstream lookup does NOT save un-normalized callers: translations.py _book_path@74->_resolve_book_stem@62 + _BOOK_FILE_ALIASES@42 only maps exo->ex, not legacy aliases. 6) Checked adjacent: corpus_index.search receives an already-resolved book from _book_code_input; note_search.py:151 is the CLI argparse path (resolves); reading_plans.py:178 parse_reference lower-cases a book but its input is maintainer-authored plan YAML (schema-validated, NOT a web user query/body param) -> outside this class's boundary. CONCLUSION: after exhaustive search, web_content.py:67 (api_compare) is the SOLE confirmed instance — every other user-book-param handler already routes through resolve_book_code (directly or via get_book/_book_code_input). The class is genuinely a single half-fixed site, with the other half (api_sample_html) already correct in the same file.",
+      "completenessNote": "High confidence the class is now fully enumerated for the route layer. I traced EVERY user-supplied book entry point: (a) all qs.get('book')/payload book extractions in web.py (1596 search-notes -> normalized via web_notes _book_code_input:254; 1735 compare -> THE DEFECT; 1766 sample -> normalized 207); (b) all path-segment book routes (/api/notes/<book> save/delete/get, /api/preview/.../<book>, /api/build-tracker/.../<book>, /api/build-my-bible/.../<book>, /api/sources/<book>, /api/covers/.../book/<book> upload/select/delete) -- ALL normalize via _book_code_input / config.resolve_book_code / config.get_book (which itself calls resolve_book_code at config.py:413); (c) all 11 api_*(book) defs across web*.py + api/*.py; (d) every has_book/get_chapter caller (only web_content.py:106/109 unnormalized; 269 is fine; preflight.py:173 iterates a canonical canon set, not user input); (e) every '.strip().lower()' on a book var (only the two web_content sites). Two genuine MISSED instances are shared resolver helpers reached from note-toggle/override (web_helpers.py:264) and edition-meta per-book/chapter override storage (editions.py:649/680) -- both 'normalize the gate, not the key/lookup', the exact same half-fix pattern as api_compare, but they fail as a hard error (264) or a silent read-time vanish (649) rather than the empty-comparison vanish of api_compare. Blind spots: (1) I did not run the test suite or exercise the endpoints live, so the read-time vanish for editions.py:649 is reasoned from the key-construction code (enabled_kind_codes_for + build_edition decode_* lookups) rather than observed; (2) JS/HTML front-end callers may already upper/lower-normalize or only ever send canonical codes, which would lower real-world severity of all three but does not change that the server boundary is unprotected; (3) the corpus_index.search book filter (reached via the normalized api_search_notes) was not deep-read, but its caller normalizes so it is not an independent site.\"}",
+      "counts": {
+        "reported": 1,
+        "falsePositive": 0,
+        "confirmed": 1,
+        "missed": 2,
+        "final": 3
+      }
+    },
+    {
+      "gapId": 2,
+      "className": "int-assuming arithmetic / int-keying on (ch,v) coords that can be own-versification STRING labels (from VERSIFICATION==\"own\" stores: geez-tewahedo / geez-tewahedo-en, the Patrologia vision lane, and the Ge'ez Psalter) reaching code via get_chapter()/get_verse()/_load_book() output or NoteSpec verse fields",
+      "fixPattern": "Stop assuming verse (and, where relevant, chapter) coordinates from own-versification stores are dense integers. The canonical fix WIN should apply at every site: treat verse keys as opaque ordered labels. (1) For web_content.api_compare (lines ~104-136): drop the `max_verse = max(...)` + `range(1, max_verse+1)` dense-integer reconstruction entirely; instead build the union of actual verse keys across translations and emit rows in a versification-aware order — e.g. `all_verse_keys = sorted(set().union(*(by_t[t].keys() for t in known)), key=_verse_sort_key)` where `_verse_sort_key` parses a leading integer + optional letter suffix (so 1,2,'2a',3 sort correctly and pure-int stores are byte-identical), then iterate those keys (not range), and set verse_count = len(all_verse_keys). Never call max()/range()/+1 on a verse value. (2) For any `int(verse)`/`int(chapter)` coercion of store- or note-derived coords (verse_of_day:200), guard with a label-aware parse: keep the value as-is when it is not a pure integer (split numeric prefix from letter suffix into the existing `suffix` field rather than int()-crashing), or skip own-vers coords for features that require integer ordering. (3) For int-keyed verse dicts (preview notes_by_verse): key on the verse value's canonical string form (str(v)) on BOTH the build and lookup side so int and str labels match, instead of assuming an int key. General rule: a (ch,v) value that can originate from get_chapter()/get_verse()/_load_book() of a VERSIFICATION=='own' store, or from a note that mirrors such a store, must flow through a single shared label-safe comparator/sorter (add a helper e.g. translations.verse_sort_key) — never raw int()/max()/min()/range()/'+1'/'<'/sum() arithmetic. Add a test that feeds api_compare and preview a synthetic own-vers book containing a lettered verse label ('B1') and asserts no TypeError/ValueError and correct ordering, to keep the whole class closed.",
+      "sites": [
+        {
+          "file": "scripts/web_content.py",
+          "line": "128",
+          "snippet": "max_verse = max(all_verse_nums)",
+          "why": "all_verse_nums is built from by_t[t].keys() where by_t[t] = {row[0]: row[1] for row in get_chapter(t, book, chapter_n)}. api_compare accepts ANY id in list_translations(), which includes the own-versification stores geez-tewahedo / geez-tewahedo-en (VERSIFICATION=='own'). For an own-vers book, get_chapter's row[0] can be a STRING verse label (the po_vision_store contract explicitly allows e.g. 'B1' Esther/LXX-Addition labels). max() over a set mixing/containing str raises TypeError: '>' not supported between instances of 'str' and 'int'. This is the originally-reported sibling of translations.get_chapter and the strongest live in-class site.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/web_content.py",
+          "line": "131",
+          "snippet": "for v in range(1, max_verse + 1):",
+          "why": "Same data flow: max_verse is the max over own-vers-capable verse keys. range(1, max_verse + 1) requires max_verse to be an int; a string label makes both `max_verse + 1` and range() raise TypeError. Even if max() somehow returned a str, this line cannot consume it. Part of the same api_compare defect; the per-verse alignment loop assumes a dense 1..N integer verse space that own-versification (lettered/sparse labels) does not provide.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/verse_of_day.py",
+          "line": "200",
+          "snippet": "key = (int(spec.chapter), int(spec.verse), spec.suffix or \"\")",
+          "why": "int(spec.chapter)/int(spec.verse) coerce NoteSpec coords read from content/notes/<book>.py. The note-tuple schema documents verse as int with a separate suffix field, and no on-disk note currently carries a str verse (verified: 0 non-int (ch,vs) across content/notes). But this is the same int-assuming pattern: if an own-vers / Addition-labelled note verse ('B1') ever lands in the corpus, int('B1') raises ValueError. Reported as a confirmed consumer; today latent (defensive coercion would crash rather than degrade).",
+          "severity": "low"
+        },
+        {
+          "file": "scripts/core/preview.py",
+          "line": "371,382",
+          "snippet": "notes_by_verse.setdefault(note[_NOTE_VERSE], []).append(note) ... notes_by_verse.get(vnum, [])",
+          "why": "preview.api_preview_chapter calls translations.get_chapter(translation_id, ...) for an arbitrary translation_id (not hard-coded kjv), then keys notes_by_verse on the int note verse and looks it up with vnum from get_chapter rows. For an own-vers translation whose vnum is a string label, the int-vs-str key mismatch makes .get(vnum, []) silently miss, so notes never attach to the verse. No exception, but the same root int-verse assumption manifesting as silent note-drop (a correctness defect of this class).",
+          "severity": "low"
+        }
+      ],
+      "searchMethod": "Repo: /Volumes/MacHD2/yhwh-bible-platform (read-only). (1) grep -rn 'VERSIFICATION' scripts/ -> located the own-vers contract in core/translations.py (versification_of, get_chapter, get_verse, _load_book), core/standalone_store.py, core/po_vision_store.py (docstring: verse 'may be an int (canonical) or a str Addition label e.g. \\\"B1\\\"'), gen_website_progress.py. (2) grep -rn for consumers: 'get_chapter|get_verse|tx\\\\.|translations\\\\.|versification_of' across scripts/ — enumerated every get_chapter/get_verse/_load_book call site. (3) grep -rn 'max_verse|min_verse|range(1,|max(.*verse|min(.*verse|sum(.*verse|sorted(' and 'int(.*verse|int(.*chapter|int(.*\\\\bch\\\\b|int(.*\\\\bvs\\\\b)' across scripts/. (4) Read in full / in region: core/translations.py, core/standalone_store.py, core/po_vision_store.py, core/popup_versions.py (normalize_coord = identity, canonical input), core/verse_of_day.py, core/config.py (NoteSpec schema: verse:int + separate suffix), web_content.py (api_compare + api_sample_html), web.py /api/compare route, generate_verse_popups.py, build_edition.py (3 get_verse sites at 884/1382/2662), at_scale_base.py (125/298), build_standalone.py (render_chapter_body/chapter_verses_in_source_order/en_occurrence_map), core/preview.py (notes_by_verse), matter_pages.py (topic index), gen_website_progress.py (_safe_chapter_rows/_is_parallel/render_reader_chapter), sources_lexicon.py / detectors.py / sources_ai_clients.py (Nave's/Torrey/AI target_chapter/verse). (5) Ran two ast.literal_eval scans over content/notes/*.py (0 non-int ch,vs) and content/translations/*/*.py own-vers stores (8 own stores checked, 0 non-int (ch,v) today; psalter chapters+verses all int) to establish that the class is REAL at the code/contract level but currently LATENT on-disk. EXCLUDED as NOT-in-class after reading: build_edition.py 884/1382/2662 (ch/vs parsed via int(m.group()) from the KJV-canonical epub_working base anchors; swap target is kjv/web — canonical versification, never the geez own-vers store); at_scale_base.py 125/298 (hard-coded 'kjv' translation = canonical); build_standalone.py (the dedicated own-vers renderer — uses gv as opaque dict key + seen[gv] count arithmetic, never int(gv)/max(gv)/range(gv); string-safe by design); standalone_store.build_psalms_apparatus/lxx_psalms_to_kjv (arithmetic is on the CHAPTER coord which is inherently int even in own-vers — chapters never get letter labels; verse v is only a passthrough into the xref tuple, no arithmetic) — noted as info-only, not a crash site; matter_pages.py + sources_lexicon.py + detectors.py + sources_ai_clients.py (Nave's/Torrey/AI lexicon target coords are int-by-dataclass-schema and target KJV-canonical references, not own-vers store output); popup_versions.normalize_coord (identity map, canonical KJV input); generate_verse_popups (ch/vs from canonical base anchors, get_verse exact-match, no arithmetic); gen_website_progress (compares verse-key SEQUENCES + counts, never int()/max()/range() on a verse value). CONCLUSION: beyond the already-known translations.get_chapter site, the live in-class sites are web_content.py:128 and :131 (HIGH, the api_compare max()/range() pair) plus the lower-severity int()-coercion (verse_of_day.py:200) and int-keyed-dict (preview.py:371/382) instances; both HIGH sites are reachable today via /api/compare?translations=geez-tewahedo and will crash the moment any own-vers store emits a lettered verse label, which its own write-path contract (po_vision_store) explicitly permits.",
+      "completenessNote": "HIGH confidence the class is now fully enumerated. I traced EVERY consumer of get_chapter() and get_verse() and every int()/max()/min()/range()/sorted()/sum()/comparison touching a chapter-or-verse value across the route layer (scripts/web*.py, scripts/api/*), scripts/core/, and scripts/ broadly. The four reported sites are all genuine and are the only in-class sites; I found NO additional genuine sites the enumerator missed. Verified end-to-end reachability: /api/compare (web.py:1733-1755) passes the user-controlled `translations` query param to api_compare, which only checks list_translations() membership — and geez-tewahedo / geez-tewahedo-en (VERSIFICATION='own') are both present on disk and returned by list_translations(). I also actively ruled OUT several text-match neighbors that are NOT the defect: (a) build_standalone.render_chapter_body / chapter_verses_in_source_order / en_occurrence_map treat the verse value opaquely (f-string + dict-key + count-increment seen[gv] = seen.get(gv,0)+1 — the +1 is on the COUNT, never on gv) — this is the correct own-vers render path; (b) standalone_store.build_psalms_apparatus does str(v) keys / list-embed only, arithmetic is on the int chapter (lxx_psalms_to_kjv), not the verse; (c) build_edition.py:191/2993 and edition_stats._iter_note_ref_symbols do int(tup[0/1]) but inside try/except (TypeError, ValueError): continue, so they self-defend; (d) build_edition.py:884/1382/2662 and generate_verse_popups.assemble_versions_for_verse pass int ch/vs into get_verse, but the popup_versions registry contains only 9 canonical translations (kjv/wlc/lxx/etc.) with no own-vers id, so own-vers stores are never queried there — worst case a silent miss, not a crash; (e) matter_pages.py:864/896, web_editions.py:895 (verse_count=versification.canonical_count), and at_scale_base derive coords from canonical sources (Nave's/Torrey topical, canonical skeleton, hard-coded 'kjv'), never from own-vers stores. Remaining blind spots, both low risk: (1) the class is about ORIGIN of the value — a future new consumer of get_chapter()/get_verse() or list_translations() that does verse arithmetic would re-introduce the class; a lint/contract test would be the durable fix. (2) I assumed own-vers CHAPTER values stay int (only verse labels are str), consistent with the po_vision_store/standalone_store contracts and current stores; if a future store ever emits a str CHAPTER label, the chapter-side int()/comparison sites (e.g. verse_of_day:200 int(spec.chapter), lxx_psalms_to_kjv's 148<=ch<=150, web preview chapter_int=int(chapter)) would also become in-class — out of scope for today's contract but worth a note.\"}",
+      "counts": {
+        "reported": 4,
+        "falsePositive": 0,
+        "confirmed": 4,
+        "missed": 0,
+        "final": 4
+      }
+    },
+    {
+      "gapId": 3,
+      "className": "Unauthenticated public emitters interpolating corpus-derived strings into HTML/XML without uniformly-applied, CDATA-safe escaping (RSS feed / live server-rendered markup routes)",
+      "fixPattern": "Make CDATA-safety a single enforced chokepoint instead of a per-field emergent property. Introduce one helper, e.g. `def _cdata(s: str) -> str: return _xml_escape(...)`-free raw HTML wrapped as `\\\"<![CDATA[\\\" + str(s).replace(\\\"]]>\\\", \\\"]]]]><![CDATA[>\\\") + \\\"]]>\\\"` (the standard split-the-terminator idiom), and route the ENTIRE `description` string (ref + label + body) through it exactly once at emit time — so every present and future field interpolated into the CDATA section is neutralized by construction, not by remembering to `_xml_escape` each one. Then drop the ad-hoc `.replace(\\\"]]>\\\", \\\"]]&gt;\\\")` on `safe_body` (now redundant). For the non-CDATA fields, keep `_xml_escape` but assert it is applied at the single emit point. Canonical rule WIN should apply at every public-emitter site: corpus strings entering an XML/HTML emitter must pass through exactly one context-appropriate escaper chosen by the emit context (element-text/attr → `_xml_escape`; CDATA → `_cdata`; HTML body → `sanitize_html`), with no field interpolated raw and no per-field exceptions.",
+      "sites": [
+        {
+          "file": "scripts/core/verse_of_day.py",
+          "line": "340-345",
+          "snippet": "safe_body = sanitize_html(body_html).replace(\"]]>\", \"]]&gt;\") if body_html else \"\"  ... description = f\"<p><strong>{_xml_escape(ref)}</strong></p>\" + (f\"<p><em>{_xml_escape(label)}</em></p>\" ...) + safe_body",
+          "why": "CANONICAL SITE of the class. This `description` string is interpolated whole into `<![CDATA[{description}]]>` (line 353) on the unauthenticated public route /api/verse-of-day.rss, which walks the entire notes corpus. CDATA-breakout safety is achieved by TWO different mechanisms applied to different fields: (a) `safe_body` gets an explicit `.replace(\"]]>\", \"]]&gt;\")`, while (b) `ref` and `label` are only `_xml_escape`'d. It currently holds (because `_xml_escape` escapes `>`, so a `]]>` in ref/label incidentally becomes `]]&gt;`), but the CDATA-safety of this block is NOT enforced by a single chokepoint — it is an emergent property of two separate escapers. Any future field added to `description` without one of those two treatments silently breaks out of the CDATA section and injects raw XML. This is exactly the 'CDATA-escape depending on sanitize_html ordering / _xml_escape coverage must be complete on EVERY interpolated field' risk named in the class.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/core/verse_of_day.py",
+          "line": "353",
+          "snippet": "f\"      <description><![CDATA[{description}]]>...\"",
+          "why": "The CDATA wrapper itself. The ONLY interpolation in this emitter that uses a CDATA section (every other field on lines 314/317/349/350/351 sits in element-text/attribute context and is uniformly `_xml_escape`'d, which is complete for those contexts). CDATA contexts are NOT made safe by `_xml_escape` semantics alone — they require `]]>` neutralization. The class is 'incompletely-escaped interpolation into a public XML emitter'; this is the single context in the codebase where the escaper kind must differ per-field, making it the fragile heart of the class.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/core/verse_of_day.py",
+          "line": "350",
+          "snippet": "f\"      <link>{_xml_escape(base or '')}/sources?book={_xml_escape(v.get('book_code'))}</link>\\n\"",
+          "why": "Same emitter, element-text context: `book_code` is corpus-derived (note-store book code) and is `_xml_escape`'d — this field IS correctly escaped, listed for completeness of the per-field enumeration the class demands. Genuine instance of the surface (unauthenticated, corpus-derived, interpolated into XML) but NOT defective: included so the fix audits every field, not just the CDATA one.",
+          "severity": "info"
+        },
+        {
+          "file": "scripts/core/verse_of_day.py",
+          "line": "349",
+          "snippet": "f\"      <title>{_xml_escape(title_text)}</title>\\n\"  (title_text = ref + ' — ' + label, both corpus-derived)",
+          "why": "Same emitter, element-text context combining two corpus fields (ref + label). Correctly `_xml_escape`'d (complete for element-text). Enumerated as a per-field instance of the class surface; not a defect.",
+          "severity": "info"
+        },
+        {
+          "file": "scripts/web_content.py",
+          "line": "329-447 (route handler scripts/web.py:1763-1785)",
+          "snippet": "f'<li class=\"note\"><span class=\"kind\">{kind}</span> <strong>{title}.</strong> {body}</li>'",
+          "why": "MISSED ENTIRE SECOND PUBLIC EMITTER. `_render_sample_html` is served DIRECTLY as text/html (via _send_html) on the unauthenticated GET route /api/sample/<edition_id>?book&from&to (web.py:1763-1785). It walks the notes corpus + translation verses and interpolates corpus-derived strings into a full standalone HTML document — the exact same class as the RSS feed (unauthenticated public emitter rendering corpus strings into a directly-served markup document), and the CLOSER parallel to RSS than preview.py because it is NOT wrapped in JSON. Per-field audit: book_title/range_label/edition_title/translation/v_text/note-title(n[5])/note-kind(n[4]) all `_html.escape`'d; note body(n[7]) `sanitize_html`'d. ALL fields are currently escaped, so it is not a LIVE bug today — but it has the identical fragility the class is about: the in-code comment (lines 379-383) itself warns the /api/sample HTML is nonce-injected by _send_html, so any future field added without _html.escape/sanitize_html would inject HTML into a CSP-nonce'd page = stored XSS. The enumerator stopped at the RSS feed and never enumerated this emitter's fields. A complete class audit/fix MUST cover this surface with the same per-field discipline it gave verse_of_day.py:349/350.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/core/preview.py",
+          "line": "118-146 / 360-446 (route handler scripts/web.py:2020-2046)",
+          "snippet": "pieces.append(f'<div class=\"note-body\">{sanitize_html(body)}</div>')  ... f'<aside class=\"note note-{html.escape(kind)}\" id=\"preview-note-{idx}\" data-kind=\"{html.escape(kind)}\">'",
+          "why": "MISSED CO-MEMBER OF THE CLASS. `render_chapter_preview` (route GET /api/preview/<edition>/<book>/<chapter>, web.py:2020) builds a full standalone HTML document of corpus verses+notes. Per-field: kind/title/attr/vtext/edition_title/book_title/theme_id/translation_id all `html.escape`'d; note body `sanitize_html`'d — currently complete. Lower severity than the sample route because the route serves it via _send_json (web.py:2046), i.e. the HTML string is wrapped in JSON and json.dumps escapes for JSON context before the client innerHTMLs it; the html.escape/sanitize here is the DOM-XSS boundary on client injection, not a raw-document emission. Still a genuine corpus-string→HTML public emitter the enumerator omitted; flagged so the class audit covers every field here too (same nonce/innerHTML stored-XSS fragility if a future field skips escaping).",
+          "severity": "low"
+        }
+      ],
+      "searchMethod": "Greps (ripgrep over scripts/, scripts/core/, scripts/api/): `_xml_escape|CDATA|]]>|sanitize_html`; `rss|sitemap|application/xml|text/xml|application/rss|application/atom|<rss|<urlset|<sitemap|<feed`; `def api_|@app.route` in web_misc.py; `_send_html|_send_file|text/html|f\\\"<|f'<` in web.py; `Content-Type\\\", \\\"` across web.py (enumerated EVERY live content-type: json, text/html, application/zip, application/x-yaml, image/*, application/javascript, application/rss+xml). Files READ in full or in the relevant region: scripts/web_misc.py (all), scripts/core/verse_of_day.py (all), scripts/core/html_sanitize.py (all — confirmed _escape_text/_escape_attr escape >, so sanitized output cannot structurally produce a bare ]]>), scripts/core/preview.py (all — confirmed every corpus field html.escape'd + body sanitize_html'd; NOT a defect), scripts/web_content.py:360-447 api_sample_html (confirmed every field _html.escape'd + body sanitize_html'd; NOT a defect), scripts/web.py do_GET dispatch (1240-1340, 1490-1700, 1543-1577, 1755-1790 — RSS route emit at 1632-1666, sample at 1763-1789, scenario YAML at 1543-1564). VERDICT: the live unauthenticated server-side markup emitters that interpolate corpus strings are exactly THREE (RSS rss_feed; preview render_chapter_preview; sample api_sample_html); only the RSS feed uses a CDATA section, so it is the SOLE genuine instance of the 'CDATA/incomplete-escape' class. The two HTML siblings are correctly+completely escaped (verified by reading) and are listed in prose, not as defects. Build-time XML/HTML emitters (build_edition.py EPUB OPF dc:* metadata, matter_pages.py, gen_release_catalog.py, glossary.py) are NOT live unauthenticated routes and are OUT of this class's scope (they also use _xml_escape/html.escape). JSON routes (json.dumps) are escape-safe at the transport layer. CONCLUSION: after a hard, exhaustive search, the class has effectively ONE live defect-bearing site (verse_of_day.rss_feed CDATA description) — the already-known site — but its CDATA-safety is currently an emergent two-mechanism property rather than a single enforced chokepoint, which is the residual fragility the fix should close; the other two emitters are confirmed-clean siblings worth auditing under the same canonical rule.",
+      "completenessNote": "Confident the class is now substantially fully enumerated. Method: read the canonical RSS emitter + html_sanitize.py (verified both _escape_text AND _escape_attr escape `>`→`&gt;`, which is the load-bearing fact that makes the RSS CDATA section currently safe and the `.replace(']]>',...)` effectively dead/defense-in-depth); then walked the entire GET route table in web.py and grepped all of scripts/web*.py + scripts/api/*.py for XML/RSS/sitemap/atom/robots/YAML/iCal/HTML emitters. Findings: (1) The RSS feed is the ONLY CDATA/XML emitter on a public route — no sitemap/atom/robots/opensearch exist. (2) The enumerator MISSED two additional public HTML emitters that render corpus strings: _render_sample_html (served raw as text/html — the strongest miss, same class as RSS) and render_chapter_preview (served wrapped in JSON). Both are currently fully escaped (no live bug) but are genuine class members with the same per-field fragility, exactly the standing the enumerator gave to the non-defective RSS sub-fields. (3) JSON routes (api_verse_of_day.json, search, etc.) emit via _send_json→json.dumps which is context-complete escaping by construction — not in-class as defects. (4) The YAML scenario-export route uses yaml.safe_dump and emits edition/scenario config, not corpus note HTML — not in-class. Blind spots: I did not exhaustively trace every one of the ~40 JSON handlers' field provenance (all funnel through json.dumps, so context-safe regardless); and build-time emitters (kindle_post.py, detectors.py, inject.py, EPUB pipeline) were treated as out-of-class because they are not unauthenticated public routes — if the class is later widened to build-time/file-output emitters, those (esp. detectors.py f-string HTML and kindle_post.py XML) would need a separate pass.",
+      "counts": {
+        "reported": 4,
+        "falsePositive": 0,
+        "confirmed": 4,
+        "missed": 2,
+        "final": 6
+      }
+    },
+    {
+      "gapId": 4,
+      "className": "Shared process-global _CACHED_CONN (sqlite3.connect(check_same_thread=False)) is READ — conn.execute() — outside _CONN_LOCK by every query helper, while invalidate()/rebuild()/_build_to() can close that same handle under the lock; the lock makes the close/swap atomic but does NOT span the reader's execute, so each reader/writer pair is a use-after-close race window under ThreadingHTTPServer + the build ThreadPoolExecutor(max_workers=5).",
+      "fixPattern": "Make _CONN_LOCK span the actual query, not just the open/close, so a reader and a closer can never overlap on the same handle. The canonical fix WIN should apply at EVERY reader site: replace the `conn = connection(); ... conn.execute(...)` pattern with a single context-managed helper that holds _CONN_LOCK for the whole read. Concretely, add to corpus_index.py:\\n\\n    @contextlib.contextmanager\\n    def _read_cursor():\\n        with _CONN_LOCK:\\n            conn = _ensure_conn()   # the body of connection() AFTER rebuild(), i.e. the open/swap, run while already holding the lock; rebuild() itself stays OUTSIDE the lock as today\\n            yield conn              # invalidate()/rebuild()/_build_to() also take _CONN_LOCK to close, so they now block until the reader's execute+fetchall completes\\n\\nand rewrite every helper (count_by_kind, count_by_book, count_by_kind_and_book, total_note_count, kinds_present, audit_attribution, compute_matrix_indexed, search, fts5_search, dashboard_stats) as `with _read_cursor() as conn: rows = conn.execute(...).fetchall()` — crucially fetching ALL rows inside the `with` so no lazy cursor escapes the lock. Because sqlite serialises in default threadsafety mode this is correct and the lock is held only for the (sub-ms, indexed) query. WorkCache (scripts/core/work_cache.py) already demonstrates this exact pattern (every get/put runs its execute inside self._lock) and is the reference implementation. Alternative if per-query locking is too coarse for audit_attribution/dashboard's full scans: switch each reader to open its OWN short-lived sqlite3.connect(_index_path()) (read-only, mode=ro) and close it in a finally — then there is no shared handle to close out from under anyone and _CACHED_CONN can be retired entirely. Either way the invariant is: no thread may call conn.execute on _CACHED_CONN while another thread can close it; today the lock guards only the close, leaving every execute exposed.",
+      "sites": [
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "710-713",
+          "snippet": "_CACHED_CONN = sqlite3.connect(current_path, check_same_thread=False); ...; return _CACHED_CONN",
+          "why": "The shared-global root. connection() opens ONE process-wide handle with check_same_thread=False and hands the same object to every thread. The _CONN_LOCK (693) is released on return, so callers operate on the handle unguarded. This is the resource at the centre of the whole class.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "766-767",
+          "snippet": "return {row[0]: row[1] for row in conn.execute(sql, args)}",
+          "why": "READER outside the lock: conn = connection() (756) then conn.execute() with no _CONN_LOCK. A concurrent invalidate()/rebuild()/_build_to() closing _CACHED_CONN mid-execute raises sqlite3.ProgrammingError 'Cannot operate on a closed database'. count_by_kind is reachable on any worker thread.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "780",
+          "snippet": "return {row[0]: row[1] for row in conn.execute(sql, args)}",
+          "why": "count_by_book: same pattern — conn fetched at 772, executed unguarded. Race against the close-under-lock paths.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "801",
+          "snippet": "return {(row[0], row[1]): row[2] for row in conn.execute(sql, args)}",
+          "why": "count_by_kind_and_book: conn fetched at 789, executed outside _CONN_LOCK; use-after-close window.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "807-808",
+          "snippet": "row = conn.execute(\"SELECT COUNT(*) FROM notes\").fetchone()",
+          "why": "total_note_count: conn from 806, execute unguarded; same race.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "814",
+          "snippet": "return [row[0] for row in conn.execute(\"SELECT DISTINCT kind FROM notes ORDER BY kind\")]",
+          "why": "kinds_present: conn from 813, execute unguarded; same race.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "891-896",
+          "snippet": "conn = connection(); rows = conn.execute(\"SELECT ... FROM notes ORDER BY ...\").fetchall()",
+          "why": "audit_attribution (served by /api/sources, web_sources.py:46) — a long-running full-table scan, so its execute holds the handle open across a wide window, maximising the chance a concurrent invalidate()/rebuild() closes _CACHED_CONN under it. Highest-exposure reader.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "1009-1012",
+          "snippet": "conn = connection(); rows = conn.execute(\"SELECT book_code, kind, chapter, COUNT(*) ... GROUP BY ...\").fetchall()",
+          "why": "compute_matrix_indexed — THE build-pool entry point. matrix.compute_matrix() (lru_cache maxsize=1) delegates here; build_edition.py:7939 fans 5 ThreadPoolExecutor workers each running build_one → edition_stats/build_cache → compute_matrix() → here. First miss after a cache_clear runs this execute on a worker thread, racing any invalidate()/rebuild() close.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "1212",
+          "snippet": "rows = conn.execute(sql, args).fetchall()",
+          "why": "search() (web_notes.py:255, /api/search on a worker thread): conn from 1166, executed unguarded. Use-after-close race.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "1355",
+          "snippet": "rows = conn.execute(sql, args).fetchall()",
+          "why": "fts5_search(): conn from 1331, executed unguarded. The OperationalError->ValueError remap (1356) does NOT cover a closed-conn ProgrammingError, so a mid-flight close surfaces as an unhandled 500.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "1461-1494",
+          "snippet": "conn = connection(); rows = conn.execute(... GROUP BY book_code, kind ...); chap_rows = conn.execute(...)",
+          "why": "dashboard_stats (dashboard.py:91, /dashboard on a worker thread) does TWO sequential executes (1461 + 1482) on one conn fetched at 1452; if invalidate()/rebuild() closes _CACHED_CONN between them, the second execute hits a closed handle. Two-statement readers widen the window further.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "716-743",
+          "snippet": "def invalidate(): ... with _CONN_LOCK: _CACHED_CONN.close(); _CACHED_CONN = None",
+          "why": "CLOSER side of the race. notes_io._invalidate_corpus_index_if_notes_file (notes_io.py:128) calls this on every editor note-save — concurrent with in-flight /api/search, /matrix, /dashboard readers on other worker threads. The lock serialises the close itself but the readers above hold the soon-closed handle reference outside the lock, so closing it under them is the use-after-close.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "609-637",
+          "snippet": "note_count, fp = _build_to(idx_path); ... with _CONN_LOCK: _CACHED_CONN.close()",
+          "why": "CLOSER side. rebuild() (called by connection() at 687 on EVERY query, and by _warm_corpus_index web.py:2243) closes _CACHED_CONN after a real rebuild. Under the build pool, worker A's connection()->rebuild() detecting a fingerprint change can close the handle worker B is mid-execute on. The comment at 619-637 acknowledges the close must be locked, but the readers it races are not locked.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "463-473",
+          "snippet": "with _CONN_LOCK: if _CACHED_CONN is not None: _CACHED_CONN.close(); _CACHED_CONN = None",
+          "why": "CLOSER side inside _build_to (entered from rebuild under the file lock). Closes the shared handle that any concurrent reader thread (server or build-pool sibling) still holds. Same atomic-close-but-unguarded-reader race.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "676-713",
+          "snippet": "def connection(): rebuild()  # OUTSIDE _CONN_LOCK ... with _CONN_LOCK: ... return _CACHED_CONN",
+          "why": "Cross-thread entry point AND a self-race: rebuild() runs at 687 BEFORE _CONN_LOCK is taken, so thread A inside rebuild() can null/close _CACHED_CONN while thread B is between its own check and execute. Also: the returned handle escapes the lock scope, so even a correct open is immediately usable unguarded by the caller. This is the structural reason every reader site above is exposed.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/matrix.py",
+          "line": "337-359",
+          "snippet": "@lru_cache(maxsize=1) def compute_matrix(): return corpus_index.compute_matrix_indexed()",
+          "why": "Secondary process-global mutable resource shared across the server threads + build pool. lru_cache is itself thread-safe for the memoized return, but the FIRST concurrent miss (after any cache_clear from notes_io.py:141 / api/editions / api/customize) runs compute_matrix_indexed() — i.e. the unguarded conn.execute at 1010 — on whichever worker wins, racing a sibling's invalidate()/rebuild() close. The lru_cache does not serialise that underlying execute against the conn-close path.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/core/work_cache.py",
+          "line": "83-84",
+          "snippet": "def close(self): self._conn.close()",
+          "why": "OTHER shared-conn resource in the same class shape: WorkCache holds one sqlite3.connect(check_same_thread=False) shared across parallel_map worker threads. get()/put() are _lock-guarded, but close() at 84 is NOT — a close() racing an in-flight get()/put() on another worker is the same use-after-close window. Lower severity than the corpus_index class: it is per-INSTANCE (not a process global), used only by the at-scale/vision drivers (parallel.py pool), not the server+build pool, and close() normally runs at end-of-run. Reported for class-completeness since the prompt asks for ANY other shared-conn resource cross-thread.",
+          "severity": "low"
+        },
+        {
+          "file": "scripts/core/notes_io.py",
+          "line": "141 (and 150)",
+          "snippet": "_matrix.compute_matrix.cache_clear()  # then _edition_stats.cache_clear()",
+          "why": "CLOSER-side TRIGGER the enumerator under-credited: this is the editor-save hook (_invalidate_corpus_index_if_notes_file) that fires corpus_index.invalidate() at 128 AND clears the matrix/edition_stats lru_caches at 141/150 in the SAME call. So a single note-save simultaneously (a) closes _CACHED_CONN and (b) forces the next compute_matrix() to MISS and re-run the unguarded execute at corpus_index:1010. It is the concrete cross-thread coupling that turns the matrix.py:337 lru_cache race from theoretical into reachable on every editor save concurrent with a /matrix or build read. Enumerator cited notes_io:128/141 in prose but did not list it as a distinct confirmed site.",
+          "severity": "medium"
+        }
+      ],
+      "searchMethod": "Read scripts/core/corpus_index.py in full (1531 lines). Greps from repo root /Volumes/MacHD2/yhwh-bible-platform: (1) `rg -n '_CACHED_CONN|check_same_thread|sqlite3.connect|ThreadPoolExecutor|ThreadingHTTPServer|threading.Lock|_acquire_rebuild_lock|def invalidate|def connection|\\.close\\(\\)' scripts/ --type py -l` to enumerate candidate files; (2) `rg -n 'corpus_index\\.(connection|invalidate|rebuild|compute_matrix_indexed|search|fts5_search|count_by|dashboard_stats|audit_attribution|total_note_count|kinds_present)' scripts/` for cross-thread callers; (3) `rg -n 'ThreadPoolExecutor|ThreadingHTTPServer|max_workers|HTTPServer'` to confirm the two concurrency drivers; (4) `rg -n 'compute_matrix'` to trace the build-pool path matrix.compute_matrix -> corpus_index.compute_matrix_indexed -> connection; (5) `rg -n 'conn\\.execute|\\.fetchall|\\.fetchone' scripts/core/corpus_index.py` to list every reader execute, and `rg -n '_CONN_LOCK' scripts/core/corpus_index.py` to prove the lock is held ONLY at open(693)/close(466,630,730) and NEVER around any reader execute (767,780,801,807,814,892,1010,1212,1355,1461,1482). Files READ to confirm: scripts/core/corpus_index.py (full); scripts/build_edition.py:7900-7990 (the max_workers=5 pool + build_one fan-out); scripts/web.py:2218-2287 (_warm_corpus_index, ThreadingHTTPServer, main); scripts/core/notes_io.py:110-153 (invalidate hook on note-save + matrix/edition_stats cache_clear); scripts/core/matrix.py:336-360 (lru_cache compute_matrix delegating to corpus_index); scripts/core/edition_stats.py heads (resolved_note_counts -> compute_matrix, the build-pool reach); scripts/core/work_cache.py (full — the CORRECT lock-the-execute reference, NOT a defect: every get/put holds self._lock around its execute; only close() at line 84 is unguarded but it is instance-scoped and caller-owned, not a process-global read-cross-thread case). OTHER process-global mutable resources checked and CLEARED: `rg -n '^_[A-Z_]*CONN|_CACHED|check_same_thread|sqlite3.connect|global _|threading.Lock|RLock' scripts/core/*.py scripts/api/*.py` — manuscript_index.py:225 opens a fresh per-call conn (no global, no cross-thread sharing); build_gate.py uses a lock+semaphore over ints only (no conn); geez_kjv_xref._CONNECTORS is an immutable frozenset; epubcheck globals are probe-once strings. The ONLY genuine instance of this class is the corpus_index _CACHED_CONN global; matrix.compute_matrix's lru_cache is the one adjacent shared-global amplifier (its first-miss runs the unguarded execute). This is NOT a single-site finding — there are 10 distinct reader execute sites + 4 closer sites + 2 cross-thread entry points, all of one class; the prior audit's mint-9/mint-10/mint-11 notes only made the CLOSE atomic and never extended the lock over the READS, which is why the class survives.",
+      "completenessNote": "High confidence the class is now fully enumerated. Independent greps for every connection() call (10, all inside corpus_index.py — none escape to external modules), every _CACHED_CONN mutation (3 closer sites: _build_to 463-473, rebuild 630-637, invalidate 730-737), every .execute/.executescript, and every sqlite3.connect across scripts/ were run. All 16 reported sites are REAL (zero false positives) — each was read and the use-after-close window confirmed; the fts5_search nuance (OperationalError handler does NOT cover the ProgrammingError from a closed conn) and the dashboard_stats two-execute widened window were both verified by reading the actual try/except and statement sequence. Cross-thread entry points verified end-to-end: server worker threads via Handler.do_GET routes (/api/search-notes→web_notes:255, /api/sources→web_sources:46, /dashboard→dashboard:91) on ThreadingHTTPServer, and the 5-worker build pool (build_edition:7939→build_one→edition_stats:124→matrix.compute_matrix:359→compute_matrix_indexed:1010). Other process-global mutable resources examined: matrix.compute_matrix lru_cache (confirmed, site 16), _FINGERPRINT_CACHE global (NOT in this class — it is snapshot-read into a local at 337 and only carries staleness, not a closed-handle, risk), work_cache.WorkCache (added as a low-severity sibling — same check_same_thread=False shared-conn shape but per-instance and outside the server/build pool), manuscript_index:225 + corpus_index._count_notes:650 (both open FRESH local connections, not the global — correctly safe, not instances). Remaining blind spots: none material. The only residual is that the existing in-code mitigations (taking _CONN_LOCK on every close) are genuine but INSUFFICIENT — they serialize close-vs-open and close-vs-close, but the readers run .execute on an already-returned handle outside any lock, so the use-after-close window is structural and survives all current guards. That is correctly captured by the enumerator's root-cause site at 676-713.",
+      "counts": {
+        "reported": 16,
+        "falsePositive": 0,
+        "confirmed": 16,
+        "missed": 2,
+        "final": 18
+      }
+    },
+    {
+      "gapId": 5,
+      "className": "Cache key built from UNRESOLVED id while payload/mtime keyed to RESOLVED path (alias-resolution divergence in @lru_cache/@cache loaders)",
+      "fixPattern": "Key every alias-resolving cached loader on the RESOLVED identity, never the raw id — mirror the correct sibling _load_book_cached(str(path), mtime_ns). Concretely for _book_index_cached: change its cache key from the raw book_code to the resolved stem/path. Easiest canonical fix: resolve once in the uncached wrapper and pass the resolved value into the cached function so key, payload, and mtime all derive from the same resolved path. e.g. in _book_index(): path = _book_path(translation, book_code); mtime_ns = path.stat().st_mtime_ns; return _book_index_cached(str(path), mtime_ns) — and rewrite _book_index_cached(path_str, mtime_ns) to read/parse from path_str (or delegate to the already-resolved-keyed _load_book_cached) so canonical and alias request shapes collapse to one entry that is consistent with the file the mtime was stat'd from. General rule for the class: the value used in the @lru_cache key MUST be the same resolved path/stem that both the mtime stat and the payload read use.",
+      "sites": [
+        {
+          "file": "scripts/core/translations.py",
+          "line": "140-163",
+          "snippet": "@functools.lru_cache(maxsize=256) def _book_index_cached(translation, book_code, mtime_ns): ... verses = _load_book(translation, book_code)   # _book_index() keys mtime on _book_path(...) (RESOLVED)",
+          "why": "The lru_cache key is (translation, book_code, mtime_ns) using the UNRESOLVED book_code. Internally _load_book -> _book_path -> _resolve_book_stem re-applies _BOOK_FILE_ALIASES (exo -> ex) so the payload is read from the RESOLVED file, and _book_index() at line 160 stats mtime on the RESOLVED path _book_path(translation, book_code). Result: (canonical 'exo') and (alias 'ex') requests for the SAME physical file (e.g. geez-tewahedo/ex.py, amharic-tewahedo/ex.py, *-en variants — alias is LIVE on disk) get two separate cache entries, and the key's book_code can name a file whose mtime was read from a different (resolved) path. This is the textbook instance of the class. Note the SIBLING loader _load_book_cached (line 120) is CORRECT — it keys on str(path) the RESOLVED path — and is the model the fix should mirror.",
+          "severity": "medium"
+        }
+      ],
+      "searchMethod": "grep -rn '@lru_cache|@functools.cache|@cache|functools.lru_cache' scripts/ (full enumeration, ~60 hits). grep -rn 'st_mtime|getmtime|mtime_ns|stat()' scripts/ to find every stat/mtime pairing. grep for alias maps: '_ALIASES|_BOOK_FILE_ALIASES|_BOOK_CODE_ALIASES|BOOK_CODE_ALIASES' across scripts/core/*.py. Verified the alias is LIVE on disk: ls content/translations/*/ex.py shows geez-tewahedo, amharic-tewahedo, geez-tewahedo-en, amharic-tewahedo-en use legacy 'ex.py' while canonical code is 'exo'. READ in full to classify: scripts/core/translations.py (lines 1-267), notes_io.py (full), versification.py (~320-370 _psalm_map), edition_stats.py (~20-150), manuscript_manifest.py (full), manuscript_vision.py (~50-90 load_image), source_dates.py (full), api/preflight.py (~40-130 + _cached_preflight), config.py (~260-349 kinds/categories/editions loaders), canonical_verse_counts.py (~120-160 _book_shape_cached), snapshots.py (~90-150 _corpus_fingerprint), note_quality.py (~130-200 — re-exports notes_io.load_notes), inject.py (~600-630 _aside_existing_re), build_edition.py (~3005 _topic_vocab, ~3295 _estimate_kepub_aside_bytes, ~3011), matrix.py (~330-359 compute_matrix), corpus_index.py (~255-364 fingerprint), and web_helpers _files_signature/_notes_dir_signature (embed (str(path), mtime_ns) from the SAME path). FINDING: exactly ONE genuine instance of this class exists — _book_index_cached in scripts/core/translations.py (the already-known site). Every OTHER cached loader either keys on the same path it stats the mtime from, keys on an id that is 1:1 with its file (no alias re-resolution inside the cached body), or carries no path/mtime in the key at all. The sibling _load_book_cached (translations.py:120) is correct and not a defect. This class is genuinely single-site after a thorough sweep.",
+      "completenessNote": "High confidence the class is fully enumerated; the enumerator's single site is the only genuine instance. Method: (1) grepped every @lru_cache/@cache/@functools.cache in scripts/, scripts/core/, scripts/api/, web*.py; (2) ran an AST sweep flagging cached functions whose key args look like raw ids (book/code/stem/translation/track/edition/id, excluding *path*/*sig*); (3) read each candidate. Triage of every cache site: notes_io._load_notes / manuscript_vision.load_image key on a RESOLVED path str (correct model, not the class); config._load_{kinds,categories,editions}_cached, source_dates, web_helpers._canons_index, build_edition singletons key on a FIXED path or mtime of the same fixed path (no id->file collapse); edition_stats._resolved_note_counts_cached, web_matrix._cached_edition_diff, web_covers/web_sources/preflight key on resolved content SIGNATURES; canonical_verse_counts._book_shape_cached, manuscript_collation.load_kjv_skeleton, manuscript_qa._collate_case, manuscript_manifest.load_manifest key on a raw id but read the SAME id's file directly with NO alias/normalize/stem resolution (no divergence). The only other book-code alias maps in the repo (render_coverage._BOOK_ALIASES, gen_website_progress._STORE_ALIASES) live in UNCACHED functions and map disk->canonical (reverse direction), so they cannot produce key/path divergence; web_notes normalizes the code at the API boundary BEFORE building the notes path, so the notes loaders never alias-resolve inside a cache. scripts/api/sources.py api_sources_cache_{fetch,upload,clear} are FALSE POSITIVES of any text grep -- decorated with @audit_log.audit_endpoint(action='sources_cache_*'), not memoization caches. Remaining blind spot: this class is specifically @functools-memoized loaders; a hand-rolled dict cache (e.g. lint_rules.py notes 'an explicit clear hook' at line 902) keyed on a raw id would not be caught by the lru_cache/@cache grep, but I saw no such id->resolved-path dict cache while reading the cache-bearing modules. Also bounded to scripts/ (excluded tests/); no cache loaders of this shape live outside scripts/ in this repo's runtime path.",
+      "counts": {
+        "reported": 1,
+        "falsePositive": 0,
+        "confirmed": 1,
+        "missed": 0,
+        "final": 1
+      }
+    },
+    {
+      "gapId": 6,
+      "className": "user-editable scripture refs (reading-plan YAML) parsed permissively (or not parsed at all) then emitted to build/EPUB/API output without canon membership or legacy-alias (resolve_book_code) validation — None-parse drops, out-of-canon books, and unresolved aliases flow silently into shipped output",
+      "fixPattern": "Introduce ONE canonicalizing+canon-aware ref resolver and route every emit/validate site through it. (1) In parse_verse_ref, after `book = m.group(1).lower()`, run `book = resolve_book_code(book)` (config.resolve_book_code / book_codes.canonical_book_code) so legacy aliases normalize before anything downstream sees them. (2) Add a `validate_plan_refs(plan, canon_books=None)` helper in reading_plans.py that, for each verse string, calls parse_verse_ref and classifies: None-parse -> drop+warn; parsed book not in books.yaml -> error; parsed book not in canon_books (when given) -> drop-for-this-edition. (3) render_reading_plans_page / inject_reading_plans_page must take canon_books and filter each plan's verses through validate_plan_refs(plan, canon_books) so out-of-canon refs never reach the EPUB page; build_edition.py:7750 passes `canon_books` exactly like the sibling matter-page passes. (4) The validate_schemas cross-ref gate must load each enabled plan and run validate_plan_refs (canon-less, books.yaml-only) so a typo/alias/None-parse ref is a save-time error, not a silent ship. (5) api_reading_plan_get emits via the same normalized path. Net: a single 'normalize-alias + parse + canon-check' chokepoint that every reading-plan ref (and any future user-editable cross-ref/see-also emitter with this shape) flows through, closing None-parse-drop, out-of-canon, and alias failure modes at once.",
+      "sites": [
+        {
+          "file": "scripts/core/reading_plans.py",
+          "line": "155-207",
+          "snippet": "def parse_verse_ref(ref): ... book = m.group(1).lower(); ... return out  # never calls resolve_book_code",
+          "why": "The class root: the permissive _REF_RE parser returns None for unsupported shapes (None-parse drop) and lowercases the book group but NEVER runs it through resolve_book_code, so a legacy alias (joh/php/jas/ps/...) is returned verbatim as the 'book' and a downstream consumer that maps it to a file/anchor silently misses. Recognised+returned even for books absent from any canon (no canon check).",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/matter_pages.py",
+          "line": "1247-1256",
+          "snippet": "verses_text = \" · \".join(_xml_escape_text(v) for v in entry.verses)",
+          "why": "render_reading_plans_page emits each plan's raw user-editable ref string straight into the EPUB XHTML page. It does not call parse_verse_ref OR resolve_book_code OR any canon filter — _xml_escape_text only XML-escapes. An out-of-canon book, an alias, or a None-parsing ref all ship verbatim onto a per-edition EPUB page that claims 'Verse references follow the canonical book/chapter/verse format'.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/matter_pages.py",
+          "line": "1298-1331",
+          "snippet": "plans.append(plan) ... html = render_reading_plans_page(edition, plans)  # no canon_books arg",
+          "why": "inject_reading_plans_page resolves enabled_reading_plans only by plan-id (load_plan), never against the EDITION's canon. Plans are passed whole to the renderer; a plan whose verses reference books spliced out of this edition's canon (filter_books_for_canon runs elsewhere) still emits those refs. Permissive-load-then-emit with no per-edition canon/alias gate.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/build_edition.py",
+          "line": "7750",
+          "snippet": "rp_stats = inject_reading_plans_page(tmp, edition)",
+          "why": "The build call site invokes the injector with no canon_books set, unlike sibling passes (inject_back_matter(tmp, edition, canon_books) on 7745, retarget_demoted_toc_anchors(tmp, canon_books) on 7776). So the reading-plans emit is the one matter-page pass that escapes canon filtering — out-of-canon/alias/None-parse refs reach the shipped EPUB.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/web_editions.py",
+          "line": "278-293",
+          "snippet": "return {\"status\": \"ok\", \"plan\": plan.to_dict()}  # to_dict -> raw 'verses': list(self.verses)",
+          "why": "api_reading_plan_get emits the plan's raw user-editable verse strings as JSON API output (ReadingPlan.to_dict -> ReadingPlanEntry.to_dict, reading_plans.py:67-68) with no parse/canon/alias validation. Same permissive-load-then-emit shape on the API output channel that feeds preview/UI surfaces.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/validate_schemas.py",
+          "line": "516-529",
+          "snippet": "(\"enabled_reading_plans\", plan_ids, \"content/reading_plans/\"), ... if item not in target_set: errors.append(...)",
+          "why": "The cross-ref validator (the gate that SHOULD catch this class) validates only that each enabled_reading_plans id exists as a file. It never opens the plan to validate its verses[] book codes against the edition's canon or normalize aliases. Because this is the only validation hop, an out-of-canon / aliased / None-parsing ref passes every gate and reaches build output.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/core/reading_plans.py",
+          "line": "114-152",
+          "snippet": "verses = tuple(str(v) for v in verses_raw if isinstance(v, str))",
+          "why": "load_plan ingests verses with zero ref validation (only type-coerces to str). The 'plans surface in the linter's drift checks (future)' comment (lines 96-98) is unimplemented, so no None-parse / canon / alias screen ever runs at load time — the permissive ingest end of the same class.",
+          "severity": "low"
+        },
+        {
+          "file": "scripts/web.py",
+          "line": "586, 633",
+          "snippet": "(\"/api/reading-plans\", api_reading_plans_list) ... (re.compile(r\"^/api/reading-plans/([a-z0-9_-]+)$\"), api_reading_plan_get)",
+          "why": "The route-table registration that exposes the unvalidated verse-ref emitter to the network. The path regex validates only the plan-ID slug; the verses inside the returned plan are never parsed/canon/alias-checked. This is the actual HTTP entry point feeding the confirmed web_editions.py:278-293 emitter to preview/UI surfaces — a distinct enumerable site of the same class on the route layer.",
+          "severity": "low"
+        },
+        {
+          "file": "scripts/api/editions.py",
+          "line": "1098-1118",
+          "snippet": "valid_plans = {p.id for p in list_plans()} ... if s not in valid_plans: return {\"error\": ...}",
+          "why": "The save path for enabled_reading_plans validates only that each referenced plan ID resolves to a loadable plan — it NEVER validates the verse refs inside that plan against canon/aliases. So a publisher can enable a plan whose hand-edited YAML contains out-of-canon or legacy-alias verse refs and the save succeeds, the build emits them. Same id-only-validation gap as validate_schemas.py:516-529, on the write/API channel rather than the CLI validator. Class member by the permissive-accept-then-emit shape (accept here, emit downstream).",
+          "severity": "low"
+        }
+      ],
+      "searchMethod": "Anchored at repo root /Volumes/MacHD2/yhwh-bible-platform. Greps (ripgrep): `rg -n '_REF_RE|parse_verse_ref|reading_plan|render_reading_plans_page|inject_reading_plans_page|resolve_book_code' -g '*.py' -l`; `rg -rn 'parse_verse_ref' scripts/ tests/ -g '*.py'` (CONFIRMED: only callers are tests/test_scripts.py — NO production code calls parse_verse_ref, so the renderer emits raw strings with zero parse/canon/alias check); `rg -n 'parse_verse|verse_ref|REF_RE|cross.?ref|see.?also|custom_link|external_link' scripts/ -g '*.py'`; `rg -n 'parse_verse_ref|load_plan|list_plans|reading_plan|enabled_reading_plans|plan_summary'` across scripts. Files READ to confirm (not just text-match): scripts/core/reading_plans.py (full), scripts/matter_pages.py 1200-1371 (render+inject), scripts/build_edition.py 70-108 (imports), 6250-6449 (canon-filter context), 7740-7779 (call site), scripts/validate_schemas.py 470-539 (cross-ref gate), scripts/web_editions.py 258-307 (api), scripts/core/config.py 395-434 (resolve_book_code), scripts/core/book_codes.py (full, alias map). RULED OUT after reading: scripts/core/geez_kjv_xref.py (xref from collation data, not user-editable), scripts/core/verse_of_day.py 300-345 (refs from live notes corpus + canonical book_title), scripts/build_standalone.py 40-64 (KJV xref from app.get('kjv') collation data), scripts/extract_parallel_pdf.py cross-ref handling (OCR text parse, not emit). _xml_escape_text confirmed (epub_utils import) to be XML-escaping only, no validation. No canon filter on plans exists anywhere (grep for 'canon' in reading_plans.py/render path returned only the intro-text string 'canonical book/chapter/verse format'). The prior single-pass audit reported only render/inject; this sweep adds the dead-but-defective parser, the missing alias-resolve, the build call site missing canon_books, the API JSON emit, and the validator gap as the full class (7 sites).",
+      "completenessNote": "High confidence the class is now fully enumerated. The reading-plans subsystem is the only genuine 'user-editable scripture refs parsed permissively then emitted to build/EPUB/API output without canon/alias validation' pathway in the repo. I traced every consumer of parse_verse_ref / reading_plans / enabled_reading_plans and confirmed the enumerator's 7 sites are all real, plus added 2 route/save-layer registration sites the enumerator omitted (web.py:586/633 route table; api/editions.py:1098 save validator) — both low severity since they are id-gated, just not ref-gated. Two adjacent subsystems were INVESTIGATED AND CLEARED as false positives for this class: (1) verse-of-day (core/verse_of_day.py, web_misc.py) deterministically PICKS verses from the corpus and derives book codes/titles from the canon — it is not driven by hand-edited free-text refs, so no permissive-parse-then-emit. (2) the xref subsystem (build_standalone.py:54 KJV xref, link_xrefs/check_xrefs/citation_index) consumes structured [book,ch,vs] apparatus triples from the geez-tewahedo machine-collated store, and check_xrefs/fix_xref_targets actively validate that anchor targets resolve — so it has a gate and is not user-free-text-parsed. The contrast pattern that confirms the gap: web_content.py:207, web_editions.py:217/645, core/preview.py:274 all DO run user book input through config.resolve_book_code, and the corpus at-scale drivers all use _normalize_book_code — only the reading-plans verse path skips both. Remaining blind spot: parse_verse_ref currently has no consumer that maps its output to a file/anchor (the renderer emits raw strings, not parsed/anchored refs), so the 'dead/broken anchor' failure mode of the class is DORMANT — it would activate if the documented future ψ.19.2 deep-link work lands; worth re-auditing this class when that ships.\"",
+      "counts": {
+        "reported": 7,
+        "falsePositive": 0,
+        "confirmed": 7,
+        "missed": 2,
+        "final": 9
+      }
+    },
+    {
+      "gapId": 7,
+      "className": "Migration runner ok:False handling + each migration's idempotency / version-awareness / down() / first-run consistency — the runner treats any ok:False as a hard stop that aborts the whole chain, while migration 0002 is designed to RETURN ok:False as a routine \"soft failure\" once a tradition-tagged corpus lands; 0001 + the launcher's first-run copy use a non-version-aware force=False shutil copy that the ledger runner never gates; and the wrapped main()s are called with mismatched argv contracts.",
+      "fixPattern": "Make the runner's result contract tri-state instead of binary, and route every wrapped/first-run copy through it version-aware. Concretely WIN should: (1) In scripts/migrate.py, give a migration's up() a third outcome beyond ok:True/ok:False — e.g. a `skipped`/`blocked`/`deferred` flag (or `ok:True, applied:False, reason:...`). run_up must treat an intentional 'not-yet-applicable' result as a non-fatal SKIP (do NOT record in the ledger, do NOT abort the chain, continue to later migrations, exit 0 with a warning) and reserve abort+exit-1 strictly for genuine hard failures (exceptions / corrupt state). (2) Convert 0002's `ok:False`-on-pending-rewrites to that new soft/deferred outcome so a future tradition-tagged corpus warns-and-continues rather than wedging every launch. (3) Fix the argv contract: give backfill_traditions.main(argv=None) an argv parameter and call p.parse_args(argv); have 0001/0002 pass main([]) (and migrate_to_user_data.main([]) already does) so the wrapped scripts never inherit the runner's sys.argv. (4) Make the copy version-aware: stamp a schema/content version (e.g. a VERSION file or editions.yaml `content_version`) and have perform_migration overwrite when the bundled version is newer (mtime/hash or version compare) rather than force=False blanket-skip; route the launcher's bootstrap_user_data through the same ledger/runner so first-run + 0001 share one version state instead of two independent force=False copies. (5) Keep down() raising NotImplementedError but ensure the runner surfaces forward_only as a clear non-crash (already done for migrate.py; mirror the same explicit tri-state in core/migrate.py and make the DDL+bookkeeping INSERT atomic in one transaction so the DB can never get ahead of the ledger).",
+      "sites": [
+        {
+          "file": "scripts/migrate.py",
+          "line": "212-216",
+          "snippet": "if not result.get(\"ok\", True): return {\"ok\": False, \"message\": f\"{...}: up() returned not-ok: {...}\"}",
+          "why": "apply_up treats ANY ok:False from a migration's up() as a failure. There is no distinction between a hard failure and an intentional 'soft failure / not-yet-applicable' result. 0002 is DESIGNED to return ok:False when pending rewrites exist.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/migrate.py",
+          "line": "309-319",
+          "snippet": "for m in pending: ... result = apply_up(...); if not result.get(\"ok\"): failed = result; break",
+          "why": "run_up aborts the ENTIRE pending chain on the first ok:False. When a future tradition-tagged corpus makes 0002 return ok:False, every later migration (0003+) is permanently blocked on every launch, and `migrate.py up` exits 1 forever. This is the central instance of the class: ok:False == hard stop, with no 'soft/skip/blocked' branch.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/migrations/0002_backfill_traditions.py",
+          "line": "62-65",
+          "snippet": "return {\"ok\": False, \"message\": f\"backfill_traditions audit found pending rewrites (rc={rc}); see psi.8.0.1 ...\"}",
+          "why": "0002 deliberately emits ok:False as a non-fatal 'soft failure' (pending rewrites it cannot yet apply). That contract is incompatible with the runner's ok:False==hard-stop branch above — exactly the unexamined runner/migration interaction the class describes.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/migrations/0002_backfill_traditions.py",
+          "line": "38-52",
+          "snippet": "from scripts.backfill_traditions import main as _main; rc = _main()",
+          "why": "backfill_traditions.main() takes NO argv param and calls argparse p.parse_args() (reads sys.argv). Calling _main() from inside the migration runner re-parses the RUNNER's argv (e.g. `up --to 0002`), causing SystemExit/argparse error instead of a clean audit. Non-version-aware wrapper invoked on every `up` run; re-run safety depends on this mis-wired call.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/migrations/0001_migrate_to_user_data.py",
+          "line": "32-40",
+          "snippet": "from scripts.migrate_to_user_data import main as _main; rc = _main([])",
+          "why": "0001 wraps the ad-hoc copy script with force defaulted off (main([]) => no --force) and no version awareness: it cannot detect or upgrade a stale/partial user-data copy. The ledger marks 0001 'applied' forever after the first run, so a later content/ schema bump is never re-copied. First-run + idempotency gap for the copy migration.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/migrate_to_user_data.py",
+          "line": "88-109",
+          "snippet": "def perform_migration(src, dst, *, force=False): ... if dst_file.exists() and not force: skipped += 1; continue",
+          "why": "The actual copy is force=False and content-blind: it skips any file that already exists regardless of version/mtime/hash. A shipped content/ update never overwrites the user's stale copy. This is the original dist-packaging finding; it is part of the same class because the version-aware ledger runner (scripts/migrate.py) never gates this path — both 0001 and the launcher call it directly.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/launcher.py",
+          "line": "96-109",
+          "snippet": "def bootstrap_user_data(*, migrate_fn=None): ... return perform_migration(_src_content(), _dst_content())",
+          "why": "The launcher's first-run flow calls perform_migration directly (force=False, no ledger, no version check) — bypassing scripts/migrate.py entirely. So the 'idempotent first-run copy' has the same non-version-aware force=False gap and is NOT recorded in the migration ledger; 0001 and the launcher can each run the copy with no shared version state.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/migrate.py",
+          "line": "84-93",
+          "snippet": "should_run_first_run_migration(): return not (user_content / \"editions.yaml\").is_file()",
+          "why": "First-run gate is a single-marker (editions.yaml present) heuristic — the same heuristic _is_already_migrated() uses. It only distinguishes 'never migrated' vs 'migrated'; it cannot detect a partial/aborted copy or a newer bundled schema, so a half-copied user-data dir is treated as fully migrated and never repaired. Version-awareness/first-run gap of the copy class.",
+          "severity": "low"
+        },
+        {
+          "file": "scripts/core/migrate.py",
+          "line": "143-169",
+          "snippet": "with conn: conn.executescript(sql); conn.execute(INSERT INTO schema_migrations ...) except sqlite3.Error: raise (... chain aborted ...)",
+          "why": "Parallel SQLite migration runner of the same class: executescript() auto-commits the DDL, then the bookkeeping INSERT runs in a separate txn. If the INSERT fails after the DDL commits, the DB is 'ahead' of the ledger — relies on every migration's CREATE...IF NOT EXISTS being idempotent so the next apply_pending re-runs it. A failure here aborts the whole chain (same hard-stop semantics) and any non-idempotent future migration would double-apply.",
+          "severity": "low"
+        },
+        {
+          "file": "scripts/migrate.py",
+          "line": "56",
+          "snippet": "_DEFAULT_STATE_PATH = _REPO / \"content\" / \".migration_state.yaml\"",
+          "why": "The content-migration ledger is written to the IN-TREE repo content/ dir (_REPO = repo root), NOT user_data_root()/content where 0001/launcher actually copy data. Every other piece of the system (launcher.py:92, migrate_to_user_data.py:52, run_migrations.py:42) is user_data_root()-aware; this runner is not. Result: (a) frozen builds write the ledger into the read-only .app/.exe bundle -> save_state OSError or silent in-bundle write; (b) the version ledger and the copied user data live in two disconnected locations, so the ledger can never gate or repair the user-data copy. Core first-run/version-awareness gap of the runner class.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/migrations/0002_backfill_traditions.py",
+          "line": "52-65 (via backfill_traditions.py:231-236)",
+          "snippet": "rc = _main(); if rc == 0: ok True else ok False  # but main() returns 1 even WITH --apply",
+          "why": "Even on the 'apply' path, backfill_traditions.main() returns 1 (writer deferred to psi.8.0.1, lines 231-236). So once tradition-tagged content lands, 0002.up() can NEVER return ok:True via any argv — there is literally no code path that makes this migration succeed when n_would_rewrite>0. Combined with the runner's hard-stop, 0002 becomes a permanent wedge with no escape hatch (no version bump, no skip, no 'applied-as-audit' marker). The enumerator flagged the argv mis-wire and the soft-failure but missed that the underlying script has no success path at all for the future state.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/core/corpus_index.py",
+          "line": "485-487",
+          "snippet": "from scripts.core import migrate\\n        migrate.apply_pending(conn)",
+          "why": "rebuild() calls apply_pending() on a brand-new tmp DB during EVERY index rebuild. A sqlite3.Error from any future non-idempotent migration (or an INSERT-after-DDL-commit split per 143-169) raises and aborts the entire corpus_index rebuild — not just migrations. This is the production caller that makes the SQLite runner's hard-stop semantics user-facing (search/index breaks), and it's a re-run-every-rebuild path the enumerator did not list as a call site.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/run_migrations.py",
+          "line": "94-98",
+          "snippet": "try:\\n    applied = migrate.apply_pending(conn)\\n except sqlite3.Error as e:\\n    print(... return 1",
+          "why": "The SQLite-runner CLI catches only sqlite3.Error and returns exit 1 on any failure (same hard-stop class as scripts/migrate.py run_up). There is no 'ahead-of-ledger / partial' branch despite core/migrate.py:153-157 explicitly creating that ahead state. This is the second migration RUNNER entrypoint and was entirely absent from the enumerator's list — the class brief asked to 'enumerate the runner's per-result branch' and this runner was not swept.",
+          "severity": "low"
+        }
+      ],
+      "searchMethod": "find for migrations dirs + `find -path '*/migrations/*' -name '*.py'`; `rg -l 'migration|migrate' scripts/`. Read in full: scripts/migrations/__init__.py, scripts/migrations/0001_migrate_to_user_data.py, scripts/migrations/0002_backfill_traditions.py, scripts/migrate.py (the ledger runner — apply_up L178-233, apply_down L236-286, run_up L294-330, run_down, CLI L400-478), scripts/core/migrate.py (the SQLite runner — apply_pending L122-171), scripts/core/migrations.py (MIGRATIONS list), scripts/migrate_to_user_data.py (perform_migration force=False L88-109), scripts/backfill_traditions.py (main() no-argv + parse_args() L190-236), scripts/run_migrations.py, scripts/launcher.py L84-213 (should_run_first_run_migration + bootstrap_user_data), scripts/core/corpus_index.py L355-487 (migrate.apply_pending integration). Caller grep: `rg -n 'run_up|run_down|apply_up|apply_down|apply_pending|migrate_to_user_data|backfill_traditions' scripts/ --glob '!*/migrations/*'`. Test coverage grep: `rg -n 'soft.?fail|ok.*False|forward_only|NotImplementedError|force' tests/` + read tests/test_migrate.py L200-285 + L400-425. CONFIRMED: test_real_migrations_are_forward_only covers down() raising; there is NO test exercising 0002 returning ok:False through run_up (the hard-stop-on-soft-failure path is unverified). The class spans BOTH migration families (ledger-based scripts/migrate.py + 0001/0002, and SQLite scripts/core/migrate.py + MIGRATIONS) plus the launcher's out-of-ledger first-run copy — so this is more than the single already-known 0001 force=False site; all 9 sites above were read and confirmed.",
+      "completenessNote": "High confidence the class is now fully enumerated. There are exactly TWO migration runners (scripts/migrate.py for content/YAML ledger; scripts/core/migrate.py for the corpus_index SQLite schema) and TWO Python migration files (0001, 0002) plus their wrapped scripts (migrate_to_user_data.py, backfill_traditions.py). I traced every caller of apply_up/run_up/apply_pending/perform_migration via grep: launcher.py, run_migrations.py, corpus_index.py:487 are the only invocation sites; all are accounted for. Every ok:False / sqlite3.Error branch in both runners was read line-by-line. Key corrections to the enumerator: (1) the editions.yaml-heuristic site is in migrate_to_user_data.py:55-58 + launcher.py:84-93, NOT scripts/migrate.py:84-93 (which is _load_migration_module); (2) the 0002 argv bug is WORSE than reported — it raises SystemExit which apply_up's `except Exception` does not catch, so the runner crashes outright rather than returning a clean ok:False. Newly found genuine sites: the runner's ledger path is in-tree/not-user-data-aware (migrate.py:56, high); backfill has NO success path even with --apply (high); the corpus_index.rebuild() and run_migrations.py callers were missing from the list. Blind spots: I did not execute the migrations live (read-only mandate), so the SystemExit-from-argparse and the frozen-bundle-read-only ledger write are reasoned from code, not observed at runtime; both are high-confidence from static reading. No test exercises the real 0001/0002 up() (test_migrate.py uses only synthetic always-ok migrations and explicitly avoids the wrapped helpers), so the whole class is effectively untested — increasing the chance latent behavior differs from the docstrings.",
+      "counts": {
+        "reported": 9,
+        "falsePositive": 0,
+        "confirmed": 9,
+        "missed": 4,
+        "final": 13
+      }
+    },
+    {
+      "gapId": 8,
+      "className": "Paired producer/consumer data-flow with hardcoded edition id and/or str-vs-int key-shape join (standalone_store + geez_kjv_xref + build_standalone + apparatus sidecar)",
+      "fixPattern": "ONE canonical fix in two coordinated moves. (1) De-hardcode the edition: build_standalone() must read body store = edition['base_translation'] and popup store = edition['popup_translation'] (both already present on every standalone edition record, editions.yaml:376/401 and 427/452) and thread those two variables through every call — has_book / chapter_verses_in_source_order / en_occurrence_map (build_standalone.py:231,233,248,251) — and resolve the apparatus sidecar dir from the body store path instead of the module-level GEEZ_STORE constant (build_standalone.py:21,249). Mirror this parameterization in standalone_store.py: make build_book_store/build_psalms_apparatus/_render_book_module take the translation id as an argument (out_dir + TRANSLATION stamp derived from it) instead of the hardcoded 'geez-tewahedo' / GEEZ_STORE (standalone_store.py:19,58,108,145,154). Drive both from a single resolver (e.g. config.editions_by_id()[edition_id]) so the geez and amharic standalones flow through identical code with byte-identical geez output. (2) Make the str-vs-int key-shape contract explicit and symmetric at the producer/consumer seam: build_kjv_xref (geez_kjv_xref.py:412) must key its result by str(geez_v) so it matches what collation_to_store_entries reads (standalone_store.py:39) — making the join correct in-memory, not only after the incidental json.dump round-trip in apply_kjv_xref.py:70. Equivalently, normalize key shape at every read with str(...) AND make every write str-keyed; never rely on JSON serialization to paper over the int→str coercion. Add a guard test that feeds build_kjv_xref output straight into collation_to_store_entries WITHOUT a JSON round-trip and asserts no cross-refs are dropped, plus a build_standalone('standalone-amharic',...) test asserting the body comes from amharic-tewahedo not geez-tewahedo.",
+      "sites": [
+        {
+          "file": "scripts/build_standalone.py",
+          "line": "231",
+          "snippet": "books = [b for b in _STANDALONE_BOOKS if tx.has_book(\"geez-tewahedo\", b)]",
+          "why": "build_standalone(edition_id,...) is the dispatch target for BOTH standalone-geez AND standalone-amharic (build_edition.py:7262-7265 routes by edition_id), but here it hardcodes the body store \"geez-tewahedo\" instead of reading edition['base_translation']. standalone-amharic (editions.yaml:415, base_translation: amharic-tewahedo) would render Ge'ez body text — exact cross-edition bleed the class names.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/build_standalone.py",
+          "line": "233",
+          "snippet": "return {\"status\": \"error\", \"message\": \"no own-versification books found in geez-tewahedo\"}",
+          "why": "Error message also assumes the geez-tewahedo store; same hardcoded-edition consumer half — for standalone-amharic it reports the wrong store.",
+          "severity": "low"
+        },
+        {
+          "file": "scripts/build_standalone.py",
+          "line": "248",
+          "snippet": "by_ch = chapter_verses_in_source_order(\"geez-tewahedo\", book)",
+          "why": "Body-verse producer→consumer feed hardcodes \"geez-tewahedo\" rather than edition['base_translation']; for standalone-amharic this loads Ge'ez verses into the Amharic edition.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/build_standalone.py",
+          "line": "251",
+          "snippet": "en_by_ch = en_occurrence_map(\"geez-tewahedo-en\", book)",
+          "why": "Back-translation popup producer→consumer feed hardcodes \"geez-tewahedo-en\" rather than edition['popup_translation'] (editions.yaml:452 = amharic-tewahedo-en for the Amharic edition); breaks standalone-amharic popups.",
+          "severity": "high"
+        },
+        {
+          "file": "scripts/build_standalone.py",
+          "line": "21",
+          "snippet": "GEEZ_STORE = REPO / \"content\" / \"translations\" / \"geez-tewahedo\"",
+          "why": "The apparatus-sidecar consumer half: GEEZ_STORE is used at line 249 (appmap_path = GEEZ_STORE / f\"{book}_apparatus.json\") to locate the apparatus JSON. Hardcoded to the geez store, so standalone-amharic would look for apparatus under the wrong (geez) directory.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/build_standalone.py",
+          "line": "249",
+          "snippet": "appmap_path = GEEZ_STORE / f\"{book}_apparatus.json\"",
+          "why": "Apparatus-sidecar consumer: resolves the {book}_apparatus.json producer output (written by standalone_store.build_book_store) under the hardcoded geez store path — single-edition hardwiring of the sidecar half of the pair.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/core/standalone_store.py",
+          "line": "19",
+          "snippet": "GEEZ_STORE = REPO / \"content\" / \"translations\" / \"geez-tewahedo\"",
+          "why": "Producer (sidecar-writer) side hardcodes the geez store as the default out_dir for build_book_store (main(), line 108) and build_psalms_apparatus (line 145). The {book}_apparatus.json producer can only ever write into geez-tewahedo — the paired consumer (build_standalone) can only read from geez-tewahedo. No path exists to produce an amharic apparatus sidecar.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/core/standalone_store.py",
+          "line": "58",
+          "snippet": "'TRANSLATION = \"geez-tewahedo\"',",
+          "why": "_render_book_module stamps the produced <book>.py store module with TRANSLATION='geez-tewahedo' unconditionally; the store-module producer cannot emit an amharic store. Single-edition hardwiring in the producer half.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/core/standalone_store.py",
+          "line": "154",
+          "snippet": "verses = tx._load_book(\"geez-tewahedo\", \"psa\") or []",
+          "why": "build_psalms_apparatus producer reads the Psalms body only from \"geez-tewahedo\"; the apparatus sidecar producer is hardwired to one edition.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/core/standalone_store.py",
+          "line": "39",
+          "snippet": "x = xref.get(str(gv), {})",
+          "why": "THE str-vs-int key-shape join. This is the CONSUMER half: it looks up the kjv_xref map by str(gv). The PRODUCER half (geez_kjv_xref.build_kjv_xref, line 412) keys that very map by INT geez_v. The two halves of the one xref→store generator disagree on key shape; it only works because apply_kjv_xref.py:63/70 round-trips the dict through json.dump (which coerces int keys to str). A direct in-memory hand-off skipping that serialization would make every lookup miss and silently drop all KJV cross-refs.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/core/geez_kjv_xref.py",
+          "line": "412",
+          "snippet": "result[pv[j][\"geez_v\"]] = {\"kjv\": [[book, chapter, kv]], \"confidence\": confidence}",
+          "why": "THE producer half of the str-vs-int join: build_kjv_xref keys its returned map by INT geez_v (docstring line 368 confirms 'geez_v(int)'), while its downstream consumer standalone_store.collation_to_store_entries reads it with str(gv). Mismatched key shape between the paired halves of one data-flow.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/build_standalone.py",
+          "line": "24",
+          "snippet": "_BOOK_TITLES = {\"1ki\": \"1 Kings\", ... \"psa\": \"Psalms\"}",
+          "why": "Display-title producer/consumer map keyed only to the geez/Samuel-Kings book set; combined with _STANDALONE_BOOKS (line 151) it is the geez-only book inventory the standalone path can render. Part of the single-edition hardwiring (an amharic edition would need its own/canon-wide title+book set).",
+          "severity": "low"
+        },
+        {
+          "file": "scripts/core/standalone_store.py",
+          "line": "93-97",
+          "snippet": "_BOOK_CHAPTERS = { \"1ki\": (\"kings\", [...]), \"1sa\": (\"samuel\", [...]), \"2sa\": (\"samuel\", [11]) }",
+          "why": "Producer-side book inventory the apparatus/store generator (main(), line 102) iterates — the PRODUCER analog of the flagged _BOOK_TITLES/_STANDALONE_BOOKS consumer inventories. Hardwired to Ge'ez manuscript-collation tracks (kings/samuel) and writes into GEEZ_STORE; there is no amharic equivalent, so the producer can never emit an amharic store/apparatus. Part of the same single-edition hardwiring class the enumerator caught on the consumer side but missed here.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/gen_website_progress.py",
+          "line": "207-211",
+          "snippet": "standalone = _standalone_books(); en = _en_books(repo, \"geez-tewahedo-en\"); geez = _bible_progress(..., standalone=standalone, en=en); amharic = _bible_progress(..., store=\"amharic-tewahedo\", standalone=set(), en=set())",
+          "why": "Paired producer/consumer: _standalone_books() (line 88) regex-scrapes _STANDALONE_BOOKS out of build_standalone.py (the geez-only producer), and the EN-badge set is computed only for 'geez-tewahedo-en'. The amharic track is hard-passed standalone=set() and en=set(), so the standalone-amharic Bible can NEVER show a 'ready' stage or an EN badge on the public progress tracker even once its store ships. Single-edition hardwiring across the build_standalone -> website-tracker data-flow.",
+          "severity": "medium"
+        },
+        {
+          "file": "scripts/gen_website_progress.py",
+          "line": "352",
+          "snippet": "sub = f\"{_t(book_label)} {ch}\" + (\" · Geʽez &amp; English\" if parallel else f\" · {script_word} only\")",
+          "why": "In the otherwise-parameterized reader renderer (called for both 'geez' and 'amharic' slugs), the parallel sub-label hardcodes 'Geʽez & English' instead of using script_word, so an Amharic parallel reader page is mislabeled 'Geʽez & English'. Single-edition hardwiring leaking into a generic consumer; cosmetic (display string), not a data-drop.",
+          "severity": "info"
+        }
+      ],
+      "searchMethod": "rg/grep across scripts/ scripts/core/ scripts/api/ (excluding tests/, dist/, content/). Greps: 'geez-tewahedo|geez_tewahedo' (py); 'build_kjv_xref|kjv_xref|collation_to_store_entries|build_book_store|build_psalms_apparatus|build_standalone|_apparatus.json|standalone_store|geez_kjv_xref'; 'str(gv)|str(v)|str(ch)|str(coll|[pv[j]|geez_v|appmap.get|xref.get|.get(str'; per-file literal sweeps '\\\"geez-tewahedo' on build_standalone.py and standalone_store.py; 'standalone|amharic' on content/editions.yaml. Files READ in full and verified line-by-line: scripts/core/standalone_store.py (1-168), scripts/core/geez_kjv_xref.py (1-427), scripts/build_standalone.py (1-365), scripts/apply_kjv_xref.py (1-124); plus targeted reads of scripts/build_edition.py:7250-7274 (standalone dispatch — routes edition_id correctly, so the hardcode is INSIDE build_standalone, not the router), scripts/gen_website_progress.py:38-97/200-320 (website reader path — it is correctly store-parameterized via chapter_verses_in_source_order(store, book) and builds parallel EN from the en store with NO apparatus sidecar read, so the str/int join does NOT recur there; only build_standalone consumes the apparatus JSON), and content/editions.yaml:364-452 (confirmed BOTH standalone-geez and standalone-amharic carry base_translation + popup_translation keys, and the standalone-amharic notes explicitly say body=amharic-tewahedo / popups=amharic-tewahedo-en with build wiring 'deferred', proving the hardcode breaks that edition). Traced the full producer→consumer chain: geez_kjv_xref.build_kjv_xref (int-keyed) -> apply_kjv_xref.run/apply_one (json.dump coerces keys to str on disk) -> standalone_store.collation_to_store_entries (reads xref.get(str(gv))) -> build_book_store writes {book}_apparatus.json (str-keyed) -> build_standalone.render_chapter_body reads appmap.get(str(gv)) / appmap_all.get(str(ch)). The only str/int join between two halves of ONE generator that is NOT defensively normalized is build_kjv_xref(int) ↔ collation_to_store_entries(str), masked solely by the apply_kjv_xref JSON round-trip. NOT a superficial-only match: every content/translations/geez-tewahedo/*.py 'TRANSLATION=\\\"geez-tewahedo\\\"' hit and every tests/ hit was excluded as data/test fixtures, not producer/consumer code. This sweep found MORE than the already-known single build_standalone hardcode: it is a 12-site class spanning all four files (8 single-edition hardwiring sites + 2 producer/consumer halves of the str/int join + the geez-only book/title inventory).",
+      "completenessNote": "High confidence the core class (standalone_store + geez_kjv_xref + build_standalone + apparatus sidecar) is now fully enumerated. All 13 reported sites are genuine instances — none are text-match-only false positives. Verified the str/int join end-to-end: build_kjv_xref (geez_kjv_xref.py:412) returns INT geez_v keys; the only bridge to the str(gv) consumer (standalone_store.py:39) is apply_kjv_xref.py:70 json.dump coercing int->str when writing the v2 JSON; a direct in-memory hand-off would silently drop all xrefs. Confirmed build_standalone.py and standalone_store.py read NEITHER edition['base_translation'] NOR edition['popup_translation'] anywhere (grep clean), and editions.yaml:415-452 confirms standalone-amharic's base/popup translations differ — so the cross-edition bleed is real. Added 3 missed sites: the producer-side _BOOK_CHAPTERS inventory (the un-flagged producer analog of _BOOK_TITLES), and two gen_website_progress.py paired-flow hardwirings (the geez-only standalone/EN inputs at 207-211, and the cosmetic 'Geʽez & English' hardcode at 352). Blind spots: (1) the manuscript-variant apparatus (manuscript_reconcile.dump_apparatus, run_manuscript_collation_at_scale.py:347) is a DIFFERENT apparatus pipeline, not the standalone xref sidecar, so I did not treat it as in-class — if the class is meant to include that producer/consumer it would warrant a separate pass; (2) I did not exhaustively audit content/translations/geez-tewahedo/*_apparatus.json data files (read-only scope), only the code paths that produce/consume them; (3) sources_lexicon.py uses str(chapter)/str(verse) consistently on both sides of its own store, so it is NOT a mismatch and was correctly excluded.",
+      "counts": {
+        "reported": 12,
+        "falsePositive": 0,
+        "confirmed": 12,
+        "missed": 3,
+        "final": 15
+      }
+    }
+  ]
+}
