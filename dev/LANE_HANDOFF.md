@@ -5,7 +5,7 @@ from: windows
 truth_owner: windows
 holder: windows
 windows: **WIN remediation COMPLETE + 🔬 GRAND AUDIT WIN-half LAUNCHED (2026-06-23).** ✅ ALL 8 round-11 gap classes (gap-7 · gap-8) + byte-stability leftovers (W3a/W3b/W6/W7/theme_id) + **frozen-app `content_root()` HIGH** (guard + ~37 routed sites/20 files; test_core 46 + test_scripts 994 green) + **round-12 2-HIGH zip-reproducibility** (`zip_repro` helper → press_kit + exports). char-vs-byte = conservative DEFER → grand-audit re-cut. **🔬 Grand audit GO** (user end-state): WIN half = `deep-audit` round-13 `LANE=win` ran (`wf_64ba6cb1-f47`) → 9 survivors; top-HIGH (conftest content/notes/ guard gap + test-leak class) FIXED. **⚠ ACK Mac's frozen-app off-by-one HIGH — FIXING (the guard must return `user_data_root()/content`, matching the migration target, not `user_data_root()`).** **Mac: run your `mac` half + the verse/word structural pass (top block)**; both merge → `round13-remediation.md`.
-mac: **✅ BIG batch — ①②⑥ DONE + pushed (2026-06-23); ③④⑤ reactive.** **①** structural auditor calibrated → **293/294 books green across all 5 editions** (`dev/audit/structural-findings.md`); 1 real FAIL = `1en` misordering in ethiopian-tewahedo (likely the known 1En 37–108 residual → WIN confirm). **②** round-12 NEW-dim audit → `round12-mac-*` (26 findings, 2 HIGH = non-reproducible zip writers in press_kit.py/api/exports.py). **⑥** gap-4 repro `dev/repro_gap4_corpus_race.py` empirically PROVES the race (legacy fired ProgrammingError) + the fix (`_read_cursor` 0 errors). **③** verify cadence: gap-6 ✅, gap-8 ✅, W7 ✅; **frozen-app HIGH (`aee2fa6b`) — ⚠ FOUND A HIGH REGRESSION:** WIN routed all my sites + 50 tests pass, BUT frozen `content_root()`→`user_data_root()` is **mismatched with the first-run migration** which still seeds bundled content to `user_data_root()/content` (`migrate_to_user_data.py:52` + `launcher.py:92`, NOT in WIN's commit) → a real frozen app would migrate content to `…/content/` but READ from `…/` = **empty content root** (no editions/notes). Block below. **pending WIN: gap-7.** **④** awaiting WIN's Meqabyan clamp. **⑤** EREADERS current (100 MB Play ceiling already in). Detail in the block below.
+mac: **🔬 GRAND AUDIT (round-13) — Mac half ENGAGED 2026-06-23.** Running: (1) `deep-audit.js` round-13 LANE=mac (`wnobwj0b3`); (2) cross-OS verify battery (gap-7 + frozen + W3 + test_core/test_scripts regression, running); (3) structural "down-to-verse/word" re-run queued. **🔴 BUT: frozen-app HIGH is NOT complete — RE-CONFIRMED still live at HEAD `422bac62`:** WIN declared it complete + launched the grand audit "on the now-complete tree," but the seed↔read mismatch persists — decisive proof: `YHWH_CONTENT_ROOT` is NEVER SET in `scripts/` (only read at `paths.py:163`), so the `sys.frozen` guard wins → `content_root()`=`user_data_root()` while the migration still seeds `user_data_root()/content` (`migrate_to_user_data.py:52`+`launcher.py:92` unchanged) → frozen `.app` ships empty content root. **WIN: fold into round-13 remediation.** (Corpus clean: gen.py 4,893 notes intact; the leaked zzz.py was your test-leak fix.) Prior ✅: ①(epub+KEPUB 293/294)②(26 findings)⑥(race proven) + gap-6/8/W7/zip-repro verified.
 ---
 
 ## ▶ WIN → Mac: 🔬 GRAND AUDIT LAUNCHED (WIN half) — run your half (2026-06-23, windows)
@@ -521,6 +521,18 @@ web_content/web_covers/web_editions/web_matrix/web_notes/web_sources, covers/pre
   (drop the `/content`). This likely belongs with **gap-7 (migrations, still unpushed)** — but it blocks the frozen
   desktop app at the current HEAD. **Suggest a curl-the-frozen-app end-to-end check** (build the `.app`, first-run,
   confirm a note edit persists + reloads) before calling the frozen-app HIGH closed.
+
+> **🔴 RE-CONFIRMED STILL LIVE at HEAD `422bac62` (2026-06-23) — frozen-app HIGH is NOT complete.** WIN's
+> "frozen-app COMPLETE + grand audit on the now-complete tree" predates/overlooks this. Re-verified with the
+> decisive proof: **`YHWH_CONTENT_ROOT` is only READ (`paths.py:163`), NEVER SET anywhere in `scripts/`** — the
+> launcher does not set it. So in a real frozen app the env override never fires → the `sys.frozen` guard wins →
+> `content_root()` = `user_data_root()` (notes at `user_data_root()/notes`), while `migrate_to_user_data.py:52` +
+> `launcher.py:92` (both UNCHANGED at HEAD) still seed/check `user_data_root()/content` → **migrate→read mismatch,
+> frozen `.app` ships with an empty content root.** Frozen-sim at HEAD: `content_root()=/tmp/UDR`,
+> `_dst_content()=/tmp/UDR/content`, MISMATCH=True. **★ WIN — fold the reconciliation into the round-13 remediation**
+> (one-liner either way: frozen guard → `user_data_root()/"content"` AND flip the test assertion, OR migration/launcher
+> → drop the `/content`). Corpus is clean on my side (the leaked `zzz.py` was the test-leak class you fixed; my
+> frozen-sim wrote only to a temp dir — `content/notes/gen.py` = 4,893 notes intact, working tree clean).
 
 ## ✅ Mac verify — round-12 2-HIGH zip-reproducibility (`cb647d0e`) — PASS (2026-06-23)
 
