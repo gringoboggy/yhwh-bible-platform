@@ -17,10 +17,11 @@ Re-runnable + idempotent. Run as a module so scripts.* imports resolve:
 from __future__ import annotations
 
 import argparse
+import html
 import re
 
 from scripts.core import notes_io
-from scripts.inject import EPUB_DIR, glyph_for, html_title_for
+from scripts.inject import EPUB_DIR, escape_attr, glyph_for, html_title_for
 
 # Inline marker: <sup class="marker-{kind}">{glyph}</sup> — kind is in the class.
 _MARKER_RE = re.compile(r'(<sup class="marker-)([a-z0-9-]+)(">)(.*?)(</sup>)', re.DOTALL)
@@ -85,7 +86,11 @@ def resync_titles(text: str) -> tuple[str, int]:
 
     def _fix(m: re.Match) -> str:
         nonlocal changed
-        correct = html_title_for(m.group(2))
+        # round-13 #9: escape for parity with inject.build_marker so the title
+        # the re-bake writes is byte-identical to the freshly-injected (escaped)
+        # title — a no-op on every current kind title (apostrophes preserved), and
+        # it keeps the re-bake from silently un-escaping a future special-char title.
+        correct = escape_attr(html_title_for(m.group(2)))
         if m.group(4) != correct:
             changed += 1
         return f"{m.group(1)}{m.group(2)}{m.group(3)}{correct}{m.group(5)}"
@@ -171,7 +176,11 @@ def rewrite_asides(text: str, *, kind_to_cat: dict, cat_label: dict) -> tuple[st
         kind = m.group("kind")
         cat = kind_to_cat.get(kind, "?")
         glyph = m.group("glyph")
-        label = cat_label.get(cat, cat)
+        # round-13 #9: escape the note-sym title for parity with
+        # inject.build_aside (which html.escapes safe_cat_label), keeping the two
+        # paths "byte-identical" (this module's contract) for every label — a
+        # no-op on today's clean category labels.
+        label = html.escape(str(cat_label.get(cat, cat) or ""))
         return (
             m.group("pre")
             + "↩"

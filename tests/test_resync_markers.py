@@ -291,6 +291,62 @@ class TestBuildAsideEmitsNewFormat:
         assert build_aside("comm-patristic", "g0101", "Note.", "body.") == rebaked
 
 
+class TestTitleEscaping:
+    """round-13 #9: the note-ref ``title=`` and note-sym ``title=`` attributes are
+    html.escaped at BOTH the inject source (build_marker / build_aside) AND the
+    re-bake (resync_titles / rewrite_asides), so a future special-char kind title
+    or category label can never emit malformed XHTML — and the two paths stay
+    byte-identical. A no-op on today's HTML-clean titles (every current kind
+    title / category label is verified clean), proven by the byte-exact pins
+    above staying green."""
+
+    # The apostrophe MUST survive (valid in a double-quoted attr; "Nave's …" is a
+    # real kind title) — escape_attr leaves it, html.escape(quote=True) would not.
+    NASTY = 'A & B <x> "q" o\'k'
+    ESCAPED = "A &amp; B &lt;x&gt; &quot;q&quot; o'k"
+
+    def test_build_marker_escapes_title(self, monkeypatch):
+        from scripts import inject
+
+        monkeypatch.setattr(inject, "html_title_for", lambda kind: self.NASTY)
+        out = inject.build_marker("xref-citation", "b010101")
+        assert f'title="{self.ESCAPED}"' in out
+        assert "<x>" not in out  # raw angle brackets never leak into the markup
+
+    def test_resync_titles_does_not_un_escape_a_fresh_marker(self, monkeypatch):
+        # The desync guard: a freshly-injected (escaped) marker, run through the
+        # re-bake, must come back byte-identical — never reverted to the raw title.
+        from scripts import inject
+        from scripts import resync_marker_glyphs as r
+
+        monkeypatch.setattr(inject, "html_title_for", lambda kind: self.NASTY)
+        monkeypatch.setattr(r, "html_title_for", lambda kind: self.NASTY)
+        marker = inject.build_marker("xref-citation", "b010101")
+        rebaked, changed = r.resync_titles(marker)
+        assert rebaked == marker
+        assert changed == 0
+        assert f'title="{self.ESCAPED}"' in rebaked
+
+    def test_resync_titles_upgrades_a_legacy_unescaped_title(self, monkeypatch):
+        # An OLD-format marker baked with a raw title is migrated to the escaped
+        # form on the next re-bake (the value, not the structure, changes).
+        from scripts import resync_marker_glyphs as r
+
+        monkeypatch.setattr(r, "html_title_for", lambda kind: self.NASTY)
+        legacy = _marker("xref-citation", "b1", "‖", title="A & B")
+        out, changed = r.resync_titles(legacy)
+        assert changed == 1
+        assert f'title="{self.ESCAPED}"' in out
+
+    def test_rewrite_asides_escapes_note_sym_title(self):
+        from scripts.resync_marker_glyphs import rewrite_asides
+
+        old = _aside("xref-citation", "b1", "‖", "Cite.", "body.")
+        out, _ = rewrite_asides(old, kind_to_cat=KIND_TO_CAT, cat_label={"xref": "Cross & <refs>"})
+        assert 'title="Cross &amp; &lt;refs&gt;"' in out
+        assert "<refs>" not in out
+
+
 # ----------------------------------------------------------------------
 # categorize_diff — the verifier
 # ----------------------------------------------------------------------

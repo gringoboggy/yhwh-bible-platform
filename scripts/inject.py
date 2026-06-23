@@ -166,10 +166,32 @@ def category_label(cat: str) -> str:
 # ----------------------------------------------------------------------
 
 
+def escape_attr(value: object) -> str:
+    """Escape a value for safe interpolation into a DOUBLE-quoted XHTML attribute:
+    ``&`` ``<`` ``>`` ``"`` — but deliberately NOT ``'``. A single quote is valid
+    inside a double-quoted attribute, and several kind titles legitimately contain
+    one (e.g. "Nave's Topical Bible"); escaping it (as ``html.escape`` quote=True
+    does) would needlessly churn the byte-stable base. ``&`` is replaced first so
+    the entities the later replacements introduce are not double-escaped."""
+    return (
+        str(value if value is not None else "")
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+    )
+
+
 def build_marker(kind: str, full_id: str) -> str:
     """The inline `<a class="note-ref">…<sup>…</sup></a>` element."""
     glyph = glyph_for(kind)
-    title = html_title_for(kind)
+    # round-13 #9: escape the title attribute (was interpolated raw). A
+    # byte-identical no-op on every current kind title — escape_attr leaves the
+    # apostrophe in "Nave's …" untouched and no current title carries & / < / " —
+    # but a future title_attr with those chars would otherwise emit malformed
+    # XHTML. resync_marker_glyphs.resync_titles escapes identically so the re-bake
+    # path stays byte-for-byte in sync.
+    title = escape_attr(html_title_for(kind))
     return (
         f'<a class="note-ref note-{kind}" id="ref-{full_id}" '
         f'href="#note-{full_id}" epub:type="noteref" title="{title}">'
