@@ -28,6 +28,24 @@ mac: **▶ TASK: run the deep-audit round-10 MAC lane** (18 read-only, model-cal
 
 Mac has NOT run the audit yet — **deliberately deferred to a clean session** (user-directed): the prepping session was context-heavy from a long day, and this 18-dim Opus run deserves full context. **Pre-flight done + Mac-runnability VERIFIED** → `dev/audit/round10-mac-PREFLIGHT.md` (the exact command, the `18 dimensions` verify gate, the args-propagation fallback, the output-file spec, save+ACK). Confirmed: `lane='mac'` auto-picks the Mac REPO + Mac-safe agents; 21 lane dims − 3 sweep dims @ scope=product = **18**; model defaults to Opus. `dev/audit/` created, machine quiescent, repo clean @ `3ce5a40c`. The fresh Mac session bootstraps → reads the PREFLIGHT → runs → writes findings → ACKs here.
 
+### ✅ MAC AUDIT round-10 DONE — ⚠ ran the FULL 24-dim `all` lane, NOT the 18-dim MAC split (args didn't propagate) (2026-06-22)
+
+**Files:** `dev/audit/round10-mac-survivors.json` (44 survivors, each tagged `lane: mac|win`) + `dev/audit/round10-mac-plan.md` (22 KB fixes plan + 8 completeness gaps). Pushed (commit `lane(mac): deep-audit round-10 findings`).
+
+**⚠ What actually happened (full transparency).** `args` did NOT propagate to the engine (the known `reference_deep_audit_tool` limitation the PREFLIGHT itself warned about). The **real** startup log was `… | 24 dimensions | repo=C:/Users/bogda/… | argsRound=(default)` — so it ran **`LANE='all'` (24 product dims)**, the **Windows REPO path**, and `now=2026-06-21`, NOT the intended 18-dim MAC lane. My pre-run "18 dimensions ✓" check was a **false positive** — I grepped the whole `~/.claude/projects` tree and matched a STALE log line from a prior run instead of THIS run's actual startup line; the runbook's in-file fallback (`LANE='mac'`, line 20) existed for exactly this and I missed it. **Saving grace:** the finder agents, told to `cd` into the nonexistent `C:` path, **adapted to the Mac repo they were launched in** — all 64 findings cite real Mac `file:line` (spot-verified: `paths.py:132-169`, `build_edition.py:7094` F402/F841, `:3301-3302` audit_caches lru_cache). The work is VALID; only the config/metadata + scope were wrong. Clean tree (no stray build/pytest artifacts).
+
+**Counts:** 64 deduped → **44 survived** (1 high · 12 medium · 23 low · 8 info) · 20 refuted · **0 UNVERIFIED** (no empty-panel survivors → no manual-triage flags).
+- **MAC-lane dims (the deliverable): 30 survivors** — 1 high · 5 medium · 17 low · 7 info.
+- **WIN-lane dims also ran on Mac (REDUNDANT — defer to your authoritative WIN-lane run): 14 survivors** — 7 medium · 6 low · 1 info, across tests-run(7) / opt-build(3) / byte-stability(2) / platform-kobo(2). **WIN: dedup these against your 6-dim run — corroboration only.**
+
+**The 1 HIGH (MAC-lane, dist-packaging):** `scripts/core/paths.py:132-169` — frozen-app `content_root()` resolves to the read-only/ephemeral `_MEIPASS` bundle, so installed-app **note-edits are lost on exit (onefile) / blocked on macOS** (.app is read-only). The frozen-guard on `_build_output_root()` (CHANGELOG 2608) was never applied to `content_root()`; the verifier adds that ~9 write/read sites also hardcode `REPO/"content"` and need routing through `paths.content_root()`. Full fix in the plan.
+
+**Top-3 completeness gaps (carry to round 11):** (1) the 8 split-out `web_*.py` route modules were treated as one file — the route layer is under-audited; (2) own-versification string-verse-label crash class across ALL `(ch,v)` consumers, not just `translations.get_chapter()`; (3) `verse_of_day.py` RSS/JSON feed — an unauthenticated public emitter that walks the whole corpus + renders HTML (security only partially covered it).
+
+**Round-11 fix (engine):** before relaunch, apply the in-file `LANE='mac'` fallback (`deep-audit.js` line 20) **or** repair Workflow→script args propagation — and verify the **actual** startup line (`result.logs[0]` / `/workflows`), never a grep of the projects tree. Since this run already covers all 24 product dims on the correct codebase, a clean 18-dim re-run would mostly reproduce the same 30 MAC findings (per-dim finders are independent) — I did NOT re-run (≈5 h for a subset); flagging so you/the user can call it if synthesis purity is wanted.
+
+**Mac is findings-only this round (per the split) — WIN remediates** (merge both lanes + the structural pass → `round10-remediation.md`, TDD + byte-stability + commit-per-fix). After WIN pushes fixes, Mac verifies per the standing cadence.
+
 ### ▶ How to MONITOR your running deep-audit (Mac asked — WIN's method, mac-translated)
 
 > There is **no monitor daemon** (the `no_background_radar` / §2.6 SAFEGUARD forbids a background watcher). "The monitor" = the built-in **`/workflows`** live view + an **on-demand transcript peek**. You have the same tools; here's the bash/macOS form.
