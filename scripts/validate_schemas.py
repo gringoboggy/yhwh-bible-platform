@@ -528,6 +528,29 @@ def validate_cross_refs(*, strict_unknown: bool = False) -> dict:
                 if isinstance(item, str) and item not in target_set:
                     errors.append(f"{label}: {f}[{item!r}] not found in {target_label}")
 
+        # gap-6: validate the VERSE REFS inside each enabled plan, not just that
+        # the plan id exists. A typo / unknown-alias book code in a hand-edited
+        # plan must FAIL this save-time gate, not silently ship onto the EPUB
+        # page. books.yaml-only (canon-less): refs to books spliced out of an
+        # edition's canon are dropped per-edition at render, not a global error.
+        # Lazy import keeps this module's surface light (see the note above).
+        enabled_plans = ed.get("enabled_reading_plans") or []
+        if isinstance(enabled_plans, list) and enabled_plans:
+            from scripts.core import reading_plans as _rp
+
+            for pid in enabled_plans:
+                if not isinstance(pid, str) or pid not in plan_ids:
+                    continue  # id-existence already reported above
+                try:
+                    plan = _rp.load_plan(pid)
+                except ValueError as e:
+                    errors.append(f"{label}: reading plan {pid!r} failed to load: {e}")
+                    continue
+                if plan is None:
+                    continue
+                for bad in _rp.validate_plan_refs(plan)["errors"]:
+                    errors.append(f"{label}: reading plan {pid!r} verse ref {bad!r} has an unknown book code")
+
     # ----- kinds.yaml `category` ref -----
     for k in kinds:
         if not isinstance(k, dict):

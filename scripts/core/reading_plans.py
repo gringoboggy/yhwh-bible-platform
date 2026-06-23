@@ -175,7 +175,13 @@ def parse_verse_ref(ref: str) -> dict | None:
     m = _REF_RE.match(ref)
     if not m:
         return None
-    book = m.group(1).lower()
+    # Normalize a legacy alias (joh→jhn, php→phi, ps→psa, …) to the canonical
+    # book code BEFORE anything downstream (render/anchor/canon-check) sees it —
+    # the single normalization point for the whole reading-plan ref class
+    # (round-11 gap-6). Local import avoids a module-load cycle with config.
+    from . import config
+
+    book = config.resolve_book_code(m.group(1).lower())
     chapter = int(m.group(2))
     verses_str = m.group(3)
     chapter_end_str = m.group(4)
@@ -205,6 +211,63 @@ def parse_verse_ref(ref: str) -> dict | None:
             except ValueError:
                 pass
     return out
+
+
+def _ref_status(ref: str, valid_books: set, canon_books=None) -> str:
+    """Classify a single verse ref (round-11 gap-6):
+
+    - ``"keep"``  — parses, its (normalized) book is a real book, and — when
+      ``canon_books`` is given — that book is in the edition's canon.
+    - ``"drop"``  — unparseable, OR (with ``canon_books``) a real book spliced
+      out of THIS edition's canon → exclude from the rendered page, not an error.
+    - ``"error"`` — parses but the normalized book is absent from books.yaml
+      (a typo / unknown alias) → a save-time error, never silently shipped.
+    """
+    pr = parse_verse_ref(ref)
+    if pr is None:
+        return "drop"
+    book = pr["book"]
+    if book not in valid_books:
+        return "error"
+    if canon_books is not None and book not in canon_books:
+        return "drop"
+    return "keep"
+
+
+def ref_ships(ref: str, valid_books: set, canon_books=None) -> bool:
+    """True if a verse ref belongs in an edition's rendered reading-plan page."""
+    return _ref_status(ref, valid_books, canon_books) == "keep"
+
+
+def validate_plan_refs(plan: "ReadingPlan", canon_books=None) -> dict:
+    """Validate every verse ref in a plan (round-11 gap-6 chokepoint).
+
+    Returns ``{"errors": [ref, …], "dropped": [ref, …], "kept": int}``:
+      - ``errors``  — refs whose normalized book is absent from books.yaml; the
+        save-time / schema gate FAILS on these (a typo or unknown alias).
+      - ``dropped`` — unparseable refs, plus (when ``canon_books`` is given)
+        refs to books spliced out of this edition's canon; excluded from the
+        rendered page but not a hard error.
+      - ``kept``    — count of refs that ship.
+
+    Books are already alias-normalized by ``parse_verse_ref``.
+    """
+    from . import config
+
+    valid_books = set(config.books_by_code())
+    errors: list[str] = []
+    dropped: list[str] = []
+    kept = 0
+    for entry in plan.entries:
+        for v in entry.verses:
+            status = _ref_status(v, valid_books, canon_books)
+            if status == "error":
+                errors.append(v)
+            elif status == "drop":
+                dropped.append(v)
+            else:
+                kept += 1
+    return {"errors": errors, "dropped": dropped, "kept": kept}
 
 
 def plan_summary(plan: ReadingPlan) -> dict:

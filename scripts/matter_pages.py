@@ -1229,7 +1229,7 @@ def inject_back_matter(tmp: Path, edition: dict, canon_books: set[str] | None = 
             nav_path.write_text(nav, encoding="utf-8")
 
 
-def render_reading_plans_page(edition: dict, plans: list) -> str:
+def render_reading_plans_page(edition: dict, plans: list, canon_books=None) -> str:
     """Render the XHTML page bundling every enabled plan's day-by-day
     schedule.
 
@@ -1242,12 +1242,21 @@ def render_reading_plans_page(edition: dict, plans: list) -> str:
     Verse refs render as plain text (no in-EPUB deep links for v1);
     a future ψ.19.2 could resolve refs to chapter HTML anchors.
     """
+    # gap-6: filter each entry's refs so unparseable / out-of-this-edition's-canon
+    # refs (or legacy aliases now normalized by parse_verse_ref) never reach the
+    # shipped page. Byte-neutral when every ref ships (the current all-in-canon
+    # plans), and no edition emits this page today (enabled_reading_plans empty).
+    from scripts.core import config
+    from scripts.core.reading_plans import ref_ships
+
+    valid_books = set(config.books_by_code())
     edition_title = edition.get("title", "Untitled")
     sections = []
     for plan in plans:
         entry_lines = []
         for entry in plan.entries:
-            verses_text = " · ".join(_xml_escape_text(v) for v in entry.verses)
+            shippable = [v for v in entry.verses if ref_ships(v, valid_books, canon_books)]
+            verses_text = " · ".join(_xml_escape_text(v) for v in shippable)
             entry_lines.append(
                 f'      <li class="reading-plan-day">'
                 f'<span class="reading-plan-day-number">Day {entry.day}</span>'
@@ -1295,7 +1304,7 @@ def render_reading_plans_page(edition: dict, plans: list) -> str:
 """
 
 
-def inject_reading_plans_page(tmp: Path, edition: dict) -> dict:
+def inject_reading_plans_page(tmp: Path, edition: dict, canon_books=None) -> dict:
     """Render + write the reading-plans page; patch OPF + nav.xhtml.
 
     Returns ``{"plans_written": int, "skipped_reason": str | None}``
@@ -1326,7 +1335,7 @@ def inject_reading_plans_page(tmp: Path, edition: dict) -> dict:
     if not plans:
         return {"plans_written": 0, "skipped_reason": "no plans loaded"}
 
-    html = render_reading_plans_page(edition, plans)
+    html = render_reading_plans_page(edition, plans, canon_books)
     out_path = tmp / "reading_plans.xhtml"
     out_path.write_text(html, encoding="utf-8")
 

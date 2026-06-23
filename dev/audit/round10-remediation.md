@@ -65,7 +65,7 @@ Source: `dev/audit/round11-mac-{survivors.json,plan.md}` (`3742c1b9`). 8 single-
 | 3 | unauth public emitters interpolate corpus → HTML/XML | 6 | med | ✅ **DONE** — `_cdata()` chokepoint over the whole RSS `description` (was per-field/ad-hoc `]]>` handling) + XML-parse/round-trip guards. The other 5 sites (`_render_sample_html`, preview) were enumerated-but-already-escaped (no live bug, per Mac analysis) |
 | 4 | shared `_CACHED_CONN` read outside `_CONN_LOCK` (race) | **18** | **high** | ✅ **DONE `75e77595`** — all 10 readers (18 execute sites) → `_read_cursor()`; +2 deterministic race guards; 133 corpus tests green |
 | 5 | cache key from UNRESOLVED id vs resolved mtime/payload | 1 | med | ✅ **DONE** — `_book_index_cached` re-keyed on the resolved path (dedups exo/ex → 1 entry/file; key matches the mtime'd file) + reuses `_load_book_cached` |
-| 6 | user-editable scripture refs → built output, no resolve | 9 | **high** | `reading_plans` parse/emit + co-members |
+| 6 | user-editable scripture refs → built output, no resolve | 9 | **high** | ✅ **DONE** — chokepoint: `parse_verse_ref` normalizes alias + `validate_plan_refs`/`ref_ships` + render **canon-filters** out-of-canon/unparseable refs (`build_edition:7750` now passes `canon_books`) + `validate_schemas` validates verse refs at save. **Byte-stable: no edition emits the page (`enabled_reading_plans` empty) + current plans (gen/psa) are universal → zero EPUB change** |
 | 7 | migration runner `ok:False` handling + per-migration | 13 | **high** | `scripts/migrations/` runner + 0001/0002 |
 | 8 | paired producer/consumer with hardcoded edition/key-shape | 15 | **high** | `standalone_store`↔`geez_kjv_xref` apparatus + class |
 

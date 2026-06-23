@@ -7747,7 +7747,7 @@ def build_one(
         # ψ.19.1 — inject the per-edition reading-plans page (no-op
         # when `enabled_reading_plans` is empty, preserving pre-ψ.19.1
         # build-byte behavior per §6.5).
-        rp_stats = inject_reading_plans_page(tmp, edition)
+        rp_stats = inject_reading_plans_page(tmp, edition, canon_books)
         stats["reading_plans_written"] = rp_stats.get("plans_written", 0)
         stats["reading_plans_total_days"] = rp_stats.get("total_days", 0)
 
