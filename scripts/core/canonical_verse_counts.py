@@ -136,24 +136,35 @@ TEWAHEDO_DISTINCTIVE_NO_KJV = ("mq1", "mq2", "mq3", "1en", "jub", "4ba", "1cl", 
 
 
 @lru_cache(maxsize=1024)
-def _book_shape_cached(book: str) -> tuple:
-    """Cached body for ``canonical_book_shape``. Returns tuple for hashability.
+def _book_verse_sets_cached(book: str) -> tuple:
+    """Cached ``((chapter, (verse, …)), …)`` of the ACTUAL verse numbers per chapter
+    from the KJV skeleton (not just the count). Returns a tuple for hashability.
 
     Scans chapters 1..200 and SKIPS empty chapters (``continue``, not ``break``)
     so a book whose KJV skeleton does NOT start at chapter 1 — or has an internal
     chapter gap — is captured in full. The old break-on-first-empty truncated such
     a book to ``{}`` (``aes``'s skeleton runs 10..16 → ch 1 empty → break → empty
     shape), which silently made ``coord_in_canonical_extent`` a NO-OP for it (the
-    ``if not shape: return True`` keep-all path). Byte-identical for the contiguous
-    1-start books — the empties past the last chapter are simply skipped, not
-    appended — and robust for the whole non-1-start / internally-gapped class, not
-    just the one ``aes`` instance."""
-    out: list[tuple[int, int]] = []
+    ``if not shape: return True`` keep-all path).
+
+    Capturing verse NUMBERS (not just ``len``) lets ``coord_in_canonical_extent``
+    test true membership, so a non-1-start chapter — the sole one in the whole
+    skeleton is ``aes`` ch10, numbered 4..13 (it continues canonical Esther 10:3) —
+    validates against its real numbering rather than ``1..count`` (which wrongly
+    rejected 11-13 and accepted 1-3). Round-13 data-validity finding DV2."""
+    out: list[tuple[int, tuple[int, ...]]] = []
     for ch in range(1, 201):
         skel = load_kjv_skeleton(book, ch)
         if skel:
-            out.append((ch, len(skel)))
+            out.append((ch, tuple(v for (_c, v, *_t) in skel)))
     return tuple(out)
+
+
+@lru_cache(maxsize=1024)
+def _book_shape_cached(book: str) -> tuple:
+    """Cached ``{chapter: verse_count}`` body for ``canonical_book_shape``, derived
+    from the per-chapter verse sets. Byte-identical to the historical count scan."""
+    return tuple((ch, len(verses)) for ch, verses in _book_verse_sets_cached(book))
 
 
 def canonical_book_shape(book: str) -> dict[int, int]:
@@ -167,14 +178,22 @@ def coord_in_canonical_extent(book: str, chapter: int, verse: int) -> bool:
     or the book has no known canonical shape (Tewahedo distinctives etc.), in
     which case it can't be validated and is kept. The single boundary guard that
     keeps impossible coordinates (e.g. Genesis 87:12, from OCR/parse noise) out
-    of the corpus, regardless of which source or detector produced them."""
+    of the corpus, regardless of which source or detector produced them.
+
+    Tests true verse-number MEMBERSHIP (not ``1..count``), so a non-1-start chapter
+    (``aes`` ch10, verses 4..13) validates against its real numbering — byte-identical
+    for every contiguous 1-start chapter (1361 of the 1362 skeleton chapters).
+    Round-13 data-validity finding DV2."""
     try:
-        shape = canonical_book_shape(book)
+        sets = dict(_book_verse_sets_cached(book))
     except Exception:
         return True  # unknown book code — can't validate, keep
-    if not shape:
-        return True
-    return chapter in shape and 1 <= verse <= shape[chapter]
+    if not sets:
+        return True  # no canonical shape (Tewahedo distinctives etc.) — keep
+    verses = sets.get(chapter)
+    if not verses:
+        return False  # chapter not in this book's skeleton — impossible coordinate
+    return verse in verses
 
 
 def canonical_count(book: str, chapter: int) -> int:
