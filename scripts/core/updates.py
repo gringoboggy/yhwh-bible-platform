@@ -198,25 +198,37 @@ def compare_versions(a: str, b: str) -> int:
 _VERSION_PART_RE = re.compile(r"(\d+)|([A-Za-z]+)")
 
 
-def _version_key(v: str) -> tuple:
-    """Tuple key for version comparison. Splits on any
-    non-alphanumeric (``.``, ``-``, ``_``); numeric components
-    sort numerically, alpha components lexically. Used as
-    ``max(versions, key=_version_key)``."""
+def _tokenize_version(s: str) -> tuple:
+    """Tokenize a version segment. Numeric components sort numerically
+    (tagged 0), alpha components lexically (tagged 1, so a numeric component
+    sorts before an alpha one within the same chunk)."""
     parts: list[tuple] = []
-    for chunk in re.split(r"[^A-Za-z0-9]+", v):
+    for chunk in re.split(r"[^A-Za-z0-9]+", s):
         if not chunk:
             continue
         for m in _VERSION_PART_RE.finditer(chunk):
             num, alpha = m.group(1), m.group(2)
             if num is not None:
-                # (0, int_value) — numeric components sort before
-                # alpha components of the same chunk so "1.0" >
-                # "1.0a" without needing extra rules.
                 parts.append((0, int(num)))
             else:
                 parts.append((1, alpha.lower()))
     return tuple(parts)
+
+
+def _version_key(v: str) -> tuple:
+    """Pre-release-aware tuple key (SemVer §11): a release carrying a
+    pre-release segment (``1.0.0-rc1``) sorts BEFORE the corresponding final
+    release (``1.0.0``). The key is ``(core_tokens, prerelease_marker)`` where
+    the marker is ``(1,)`` for a final release (sorts last) and
+    ``(0, <pre tokens>)`` for a pre-release (sorts before the final; rc1 < rc2
+    within). Used both as ``max(versions, key=_version_key)`` and by
+    ``compare_versions``."""
+    core, sep, pre = v.partition("-")
+    core_key = _tokenize_version(core)
+    # No pre-release ⇒ final release: sort AFTER any pre-release of the same
+    # core. Pre-release present ⇒ sort BEFORE the final, ordered by its tokens.
+    pre_marker = (0,) + _tokenize_version(pre) if sep else (1,)
+    return (core_key, pre_marker)
 
 
 def is_update_available(current: str, appcast: dict) -> bool:

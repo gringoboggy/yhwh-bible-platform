@@ -1392,16 +1392,16 @@ class TestTheta3VersionComparison:
         assert self.mod.compare_versions("v1.0.0", "1.0.0") != 0
 
     def test_pre_release_suffix(self):
-        # 1.0.0 > 1.0.0-rc1 because the rc1 suffix sorts as alpha.
-        # Implementation detail: alpha components sort after numeric
-        # within a chunk, and the rc1 chunk comes "after" 0 numeric.
-        # Specific semver rules (rc < release) aren't guaranteed —
-        # this test pins what the comparator actually does so a
-        # future change is intentional.
-        result = self.mod.compare_versions("1.0.0", "1.0.0-rc1")
-        # -1 (release < rc) or 1 (release > rc) — pin the actual
-        # behavior; alpha components sort as alpha.
-        assert result in (-1, 1)
+        # SemVer §11: a final release outranks its own pre-releases, and
+        # pre-releases order among themselves (rc1 < rc2). _version_key keys
+        # on (core, pre_marker) where final = (1,) sorts after pre = (0, …).
+        assert self.mod.compare_versions("1.0.0", "1.0.0-rc1") == 1
+        assert self.mod.compare_versions("1.0.0-rc1", "1.0.0") == -1
+        assert self.mod.compare_versions("1.0.0-rc1", "1.0.0-rc2") == -1
+        assert self.mod.compare_versions("1.0.0-rc2", "1.0.0-rc1") == 1
+        assert self.mod.compare_versions("1.0.0-rc1", "1.0.0-rc1") == 0
+        # a pre-release of a HIGHER core still beats a lower final release
+        assert self.mod.compare_versions("1.0.1-rc1", "1.0.0") == 1
 
     def test_empty_versions(self):
         assert self.mod.compare_versions("", "") == 0

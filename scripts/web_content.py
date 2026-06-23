@@ -58,6 +58,7 @@ def api_compare(book: str, chapter: int, translations: list[str]) -> dict:
     Unknown translation IDs are reported in `missing_translations`
     rather than silently dropped, so the UI can surface them.
     """
+    from scripts.core import config
     from scripts.core.translations import (
         list_translations,
         has_book,
@@ -67,6 +68,10 @@ def api_compare(book: str, chapter: int, translations: list[str]) -> dict:
     book = (book or "").strip().lower()
     if not book:
         return {"error": "book code is required"}
+    # Normalize legacy aliases (joh→jhn, php→phi, jas→jam, …) to the canonical
+    # book code, mirroring the sibling content API (line ~207) — otherwise an
+    # alias silently yields empty verses. (Class: see round-11 web_*.py sweep.)
+    book = config.resolve_book_code(book)
     try:
         chapter_n = int(chapter)
     except (TypeError, ValueError):
