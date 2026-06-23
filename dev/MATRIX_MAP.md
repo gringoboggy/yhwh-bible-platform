@@ -132,8 +132,8 @@ VALIDATORS (gate everything):
 The reference graph is sound (0 dangling refs). The blemishes are cosmetic/structural,
 products of organic growth from the original 1-Bible builder:
 
-1. **Stale docstring — RESOLVED (2026-05-21).** `core/matrix.py`'s docstring now reads
-   **68 kinds / 91,597 notes / 6 editions** *(the 2026-05-21 snapshot; live totals now in `dev/SESSION_STATE.md`)* (was "5 editions / 63 kinds", later "70 / 1,371").
+1. **Stale docstring — RESOLVED (re-confirmed 2026-06-23).** `core/matrix.py`'s docstring now reads
+   **72 kinds / 15 categories / 6 editions (4 catalog + 2 standalone)** with no pinned note total *(live totals defer to `dev/SESSION_STATE.md` / `trace_matrix.py`)* (was "5 editions / 63 kinds", later "70 / 1,371", then the 2026-05-21 "68 kinds / 91,597 notes" snapshot).
 2. **`editions.yaml` comment drift — RESOLVED (2026-05-21).** The 3 drifted section-header blocks
    (catholic / jewish / scholarly) sat above the *previous* edition's trailing
    `popup_languages_default`; each moved to just above its own `- id:` (pure comment reorder, data

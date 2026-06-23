@@ -2,9 +2,7 @@
 # Run these EXACTLY on the Mac machine (2017 iMac or whatever has the certs + keychain).
 
 # 1. Go to the repo root on Mac
-cd /Volumes/MacHD2/yhwh-bible-platform/YHWH\ v2.4   # adjust if your path is different
-# or
-cd ~/yhwh/YHWH-v2.4/YHWH\ v2.4
+cd /Volumes/MacHD2/yhwh-bible-platform   # the repo root (flat layout on this Mac; adjust if your path differs)
 
 pwd
 

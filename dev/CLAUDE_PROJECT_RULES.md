@@ -713,9 +713,8 @@ operation (re-running duplicates entries, though N-W4 idempotency now protects
 closes; the arc-close commit documents the retired-not-deleted status.** Distinguish
 from permanent at-scale driver scripts (`scripts/run_*_at_scale.py`) — re-runnable
 detectors that stay in `scripts/` indefinitely — and from obsolete safety scripts
-(e.g. `scripts/_dedup_ethiopian_notes.py`) which carry a "LOAD-BEARING-NO-LONGER"
-docstring banner and stay as emergency-restore tools, tracked in the SESSION_STATE
-inventory.
+(e.g. `dev/archive/_dedup_ethiopian_notes.py`) which carry a "LOAD-BEARING-NO-LONGER"
+docstring banner and stay as emergency-restore tools.
 
 ## 8. Testing conventions
 
