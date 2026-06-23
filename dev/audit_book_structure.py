@@ -45,7 +45,23 @@ from dataclasses import dataclass, field
 # ── markup the build emits (mirrors scripts/build_edition.py + verify_kr2_build) ──
 _VERSE_ANCHOR_RE = re.compile(r'<a class="vn-link" id="v-([a-z0-9]+)-(\d+)-(\d+)"')
 _BOOK_TITLE_RE = re.compile(r'<div class="book-title-page[^"]*" id="(bp-\d+)"')
-_CH_HEADING_RE = re.compile(r'<a id="ch-b(\d+)-c(\d+)"|<p\b[^>]*class="ch-heading"')
+# Chapter heading: the per-chapter ``ch-b{NN}-c{C}`` id. A mid-file chapter carries
+# it on a standalone ``<a id=… class="ch-anchor">``; a chapter that OPENS a file-split
+# document (the build's ``index_split`` boundary) carries it on the
+# ``<p id="ch-b{NN}-c{C}" class="ch-heading">`` element itself. Match the id on ANY
+# element (group1=book-num, group2=chapter). ``(?<![#\w-])`` excludes the ``…#ch-b…``
+# href fragments that merely LINK to a chapter. (The old ``<a id=…``-only form
+# false-warned every split-boundary chapter — e.g. exo 1/2/12/32 — as "no heading".)
+_CH_HEADING_RE = re.compile(r'(?<![#\w-])id="ch-b(\d+)-c(\d+)"')
+# Canonical deutero ADDITIONS that fold into a parent book: own book codes in the
+# 87-book registry, but shelved INSIDE the parent in every catalog canon — the three
+# Daniel additions (Bel & the Dragon, Susanna, Prayer of Azariah / Song of the Three)
+# and the Additions to Esther. A book region carrying ONLY its own folded additions is
+# correct canonical structure, NOT a title-page/boundary leak.
+_FOLDED_ADDITIONS = {
+    "dan": {"bel", "sus", "paz"},
+    "est": {"aes"},
+}
 # The badge: <a class="verse-notes-badge" id="vbadge-{c}-{ch}-{v}-sN"
 #   href="#vnotes-{c}-{ch}-{v}-sN" … title="{N} notes"><sup …>{glyph/count}</sup>
 # Count from title="{N} notes" (stable across marker_badge_style; the <sup> text
@@ -262,7 +278,8 @@ def audit_epub(path: str) -> EpubResult:
         codes = {c for c, _, _ in verses}
         code = max(codes, key=lambda c: sum(1 for cc, _, _ in verses if cc == c))
         br = BookResult(code=code, bp=bp)
-        if len(codes) > 1:
+        extra = codes - {code}
+        if extra and not extra <= _FOLDED_ADDITIONS.get(code, set()):
             br.fails.append(f"region holds >1 book code {sorted(codes)} (title-page/boundary leak)")
 
         # title page must carry a real title frame
