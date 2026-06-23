@@ -104,11 +104,40 @@ def test_mirror_skew_detects_divergent_tips():
     assert g == "bbb2222"
 
 
-def test_auto_pull_skips_dirty_tree(monkeypatch):
-    monkeypatch.setattr(lw, "_working_tree_dirty", lambda: True)
+def test_auto_pull_runs_fetch_then_rebase(monkeypatch):
+    # Dirty-tree gating moved OUT of _auto_pull into check() (which auto-commits
+    # a dirty tree then pulls — see test_check_* below), so _auto_pull is now a
+    # pure fetch+rebase. MUST stub _git so the test never touches the real repo
+    # (the old test left _git unmocked → ran a live `git fetch`/`rebase`).
+    calls = []
+
+    def fake_git(*args, timeout=30):
+        calls.append(args)
+        return (0, "ok", "")
+
+    monkeypatch.setattr(lw, "_git", fake_git)
+    pulled, msg = lw._auto_pull()
+    assert pulled is True
+    assert ("fetch", "origin", "--quiet", "--prune") in calls
+    assert any(a[:2] == ("rebase", "origin/main") for a in calls)
+
+
+def test_auto_pull_aborts_rebase_on_failure(monkeypatch):
+    # On a failed rebase, _auto_pull must auto-abort so later git ops/saves are
+    # not left mid-rebase, and surface "REBASE FAILED". _git fully stubbed.
+    calls = []
+
+    def fake_git(*args, timeout=30):
+        calls.append(args)
+        if args[:2] == ("rebase", "origin/main"):
+            return (1, "", "conflict")
+        return (0, "", "")
+
+    monkeypatch.setattr(lw, "_git", fake_git)
     pulled, msg = lw._auto_pull()
     assert pulled is False
-    assert "DIRTY TREE" in msg
+    assert "REBASE FAILED" in msg
+    assert ("rebase", "--abort") in calls
 
 
 def test_check_flags_uncommitted_handoff(monkeypatch, tmp_path):

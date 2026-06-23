@@ -8,10 +8,37 @@ run). Combined unique set = WIN's 8 (authoritative on the 6 compute dims) + Mac'
 remediate everything to green** (user directive: "until the full audit is in and everything it surfaces
 is fixed" — overrides the engine's findings-only default).
 
-### ✅ Done this session
+### ✅ Done this session (Phase 0 — lint/test hygiene; all byte-neutral, no engine output change)
 - **W1 (HIGH, cache red-gate)** — whitelisted `_estimate_kepub_aside_bytes` (pure fn) in
   `scripts/.cache_audit_whitelist.py` (new "Pure-function value caches" section). `audit_caches` ok=True
-  (44 caches: 23 clear-path / 21 whitelisted); `test_audit_caches` 17/17. Byte-neutral (audit metadata only).
+  (44 caches: 23 clear-path / 21 whitelisted); `test_audit_caches` 17/17. Commit `377a880a`.
+- **ruff F402/F841** — `build_edition.py`: loop var `html`→`fpath` (un-shadow the `html` module);
+  `enabled, disabled = …`→`_, disabled = …` at both branches. `ruff check` clean; omega4x 15/15.
+- **ALL_CHECKS pin 34→37** — `test_lint_rules.py`; verified the 3 net-new via AST diff vs the 34-pin
+  commit (`b2789cdd`): `hook_parity`, `no_background_radar`, `retired_edition_skus` (the Mac plan's
+  "superpowers_coherence" guess was wrong — it pre-existed). History comment updated.
+- **bare `python`→`sys.executable`** — `test_lint_rules.py:1032` (ruff-format subprocess).
+- **`test_note_rehaul` stale dedup pins** (W4 + Mac) — rewrote both `…_defaulting_false` tests to
+  **derive the expectation from the registry** (`config.load_editions()` + `.get(field, False)`) and
+  assert plumbing-as-bool — robust to rollout pin flips, not hard-coded. All 4 study editions now pin all
+  3 flags True; the 2 standalone editions aren't in customize-data. 2/2 green.
+- **`test_lane_watch` real-git hazard** — `test_auto_pull_skips_dirty_tree` monkeypatched a no-op
+  (`_auto_pull` no longer calls `_working_tree_dirty`; dirty-tree handling moved to `check()`, which
+  auto-commits-then-pulls) and then **ran live `git fetch`/`rebase`** in-suite. Replaced with two
+  deterministic `_git`-stubbed unit tests (fetch+rebase contract; abort-on-failure). 10/10 green, 0.6s.
+- Commits `d9ba911f` (build_edition + lint pins + note_rehaul) + this batch (lane_watch).
+
+### ⚖ Phase-0 decisions (re-verified, conservative)
+- **tau6x1 Amharic floor — NO CHANGE (re-verified NO-GO).** The Mac flagged `test_amharic_column_…1318`
+  as "yields 0 verses (<2)" but it **passes on WIN/CI** (1 passed, 12.7s — live OCR yields ≥2). The
+  prescribed `@pytest.mark.done_gate` MISFITS the marker's semantics ("deliberately-RED *future*-milestone
+  pin, red-by-design") — this test is green and asserts *current* behavior. Downgrading it over a macOS
+  tesseract-noise quirk would lose real coverage + misuse the marker. Classified Mac-environment fragility,
+  not a WIN defect. (A deterministic-OCR-fixture refactor is a future option; extractor/PDF are off-limits.)
+- **W3 `editions.yaml` `theme:"modern"` — DEFERRED to Phase 3 (byte-stability).** `theme` selects the
+  edition CSS (`edition.get("theme","classic")`), so removing the catholic-study pin could change that
+  edition's built CSS → needs a regen + `git diff` proof, not a Phase-0 quick edit. Grouped with the
+  theme-CSS cache-key fix (same neighborhood).
 
 Full fix text + evidence: `round10-win-survivors.json` (slim) · `round10-win-result.json` (raw, +logs/panels)
 · `round10-win-plan.md` (synthesized phased plan) · Mac's → `round10-mac-*` (pending).
