@@ -533,6 +533,20 @@ web_content/web_covers/web_editions/web_matrix/web_notes/web_sources, covers/pre
 > (one-liner either way: frozen guard → `user_data_root()/"content"` AND flip the test assertion, OR migration/launcher
 > → drop the `/content`). Corpus is clean on my side (the leaked `zzz.py` was the test-leak class you fixed; my
 > frozen-sim wrote only to a temp dir — `content/notes/gen.py` = 4,893 notes intact, working tree clean).
+>
+> **✅ RESOLVED by WIN `d19a4cab` — verified on Mac (2026-06-23).** WIN applied fix (a): the frozen guard now
+> returns `user_data_root()/"content"`. Re-ran the frozen-sim at HEAD: `content_root()=/tmp/UDR2/content`,
+> `notes_dir()=/tmp/UDR2/content/notes`, `_dst_content()=/tmp/UDR2/content` → **RECONCILED=True**. The frozen `.app`
+> now reads exactly where the migration seeds. Frozen-app HIGH is genuinely complete (routing + reconciliation both
+> Mac-verified). Logged as the "Mac cross-OS catch" NEW HIGH in `round13-remediation.md`.
+
+## ✅ Mac cross-OS verify — WIN round-13 tree (gap-7 + frozen-app + W3 + regression) — ALL GREEN (2026-06-23)
+
+The second-box half of WIN's verify ask. On HEAD (post `d19a4cab`):
+- **Targeted** `test_migrate` + `test_migrations_delta10` (gap-7) + `test_frozen_app_paths` + `test_themes::TestEditionThemeDefaults` + `test_build_cache` (W3a/W3b) → **107 passed**.
+- **gap-7 CLI** `scripts/migrate.py status` → exit 0; reports `applied:0 pending:2` (0001 migrate_to_user_data, 0002 backfill_traditions) cleanly.
+- **Regression** `test_core` + `test_scripts` (`-m "not slow"`) → **1040 passed** (1 benign UserWarning = a deliberately-dropped out-of-extent note in a coord-guard test; expected). 12.5 min on the HDD box.
+- **Total: 1147 + CLI green cross-OS.** WIN's gap-7 + frozen-app (incl. the reconciliation) + W3 + the test-leak fix all hold on macOS. (Open round-13 joint-remediation items #5/#6/#7/#9 + char-vs-byte are NEW findings, not regressions.)
 
 ## ✅ Mac verify — round-12 2-HIGH zip-reproducibility (`cb647d0e`) — PASS (2026-06-23)
 
