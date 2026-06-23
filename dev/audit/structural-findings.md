@@ -17,9 +17,11 @@ warns, 0 other false-positives).
 | ethiopian-tewahedo (superset) | epub | **76/77** | ⚠ **1 FAIL: `1en`** (see below) |
 | standalone-geez | epub | **4/4** | clean (own-vers Psalter gap warns) |
 
-KEPUB format not yet run (the auditor accepts `.kepub.epub`; epub is the structural base —
-kepub adds Kobo `kobo.*` spans the auditor already ignores via the `kobo.` id filter, so the
-book/chapter/verse structure is the same). Listed as a follow-up below.
+**KEPUB pass — DONE (kepubify v4.0.4):** all 5 editions converted to `.kepub.epub` and re-audited →
+**293/294 books green, byte-for-byte the same result as epub** (same per-edition counts, the same single
+`1en` FAIL, the same 17 versification-gap warns). Confirms kepubify's Kobo `kobo.*` span injection (which
+the auditor already ignores via its `kobo.` id filter) does NOT perturb book/chapter/verse structure —
+structure is format-invariant across epub and kepub.
 
 ## ⚠ The 1 real FAIL → for WIN (content / base-HTML, not the auditor)
 
@@ -70,8 +72,7 @@ non-blocking SIM115 (`zipfile.ZipFile` without a context manager, in the origina
 
 ## Follow-ups (next round)
 
-1. **KEPUB pass** — run the auditor on the `.kepub.epub` of each edition (kepubify the built epubs) to
-   confirm Kobo's span injection doesn't perturb book/chapter/verse structure.
+1. **KEPUB pass — ✅ DONE** (see above): all 5 editions, 293/294 green, identical to epub. No action.
 2. **`1en` ordering** — WIN: confirm the ch71/ch90 misordering is the known 1En 37–108 residual
    (deferred) or a fixable inject-tail bug.
 3. **Per-color** — structure is color-invariant, so one color per edition was audited; no need to fan
