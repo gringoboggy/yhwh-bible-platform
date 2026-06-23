@@ -234,12 +234,21 @@ class TestNoteRehaulS1Wiring:
     shipped ``verse_popups`` bool (RULES §9): customize-data exposure, a /customize
     checkbox, and EDITABLE + EDITABLE_BOOL (NOT EDITABLE_TEXT) membership."""
 
-    def test_customize_data_exposes_the_field_defaulting_false(self):
+    def test_customize_data_exposes_the_field_mirroring_registry_default_false(self):
         from scripts.web import api_customize_data
+        from scripts.core import config
 
+        reg = {e["id"]: e for e in config.load_editions()}
         eds = {e["id"]: e for e in api_customize_data()["editions"]}
-        # an edition that doesn't pin it surfaces the code default (False) — §6.5
-        assert eds["catholic-study"].get("note_attribution_dedup") is False
+        for eid, e in eds.items():
+            v = e.get("note_attribution_dedup")
+            # Plumbed for every customize edition as a bool (RULES §9) …
+            assert isinstance(v, bool), f"{eid}: note_attribution_dedup not a bool"
+            # … mirroring the registry pin, with the code default False when the
+            # edition doesn't pin it (web_editions.py `e.get(..., False)`).
+            # Derived from the registry so a rollout pin flip (e.g. the
+            # 2026-06-22 Kobo redundancy fix) can't re-stale this assertion.
+            assert v == bool(reg[eid].get("note_attribution_dedup", False)), eid
 
     def test_customize_template_has_the_checkbox(self):
         src = (REPO / "scripts" / "templates" / "customize.py").read_text(encoding="utf-8")
@@ -701,12 +710,20 @@ class TestNoteRehaulS2Wiring:
     like ``note_attribution_dedup`` (RULES §9): customize-data, checkboxes,
     EDITABLE + EDITABLE_BOOL (NOT EDITABLE_TEXT)."""
 
-    def test_customize_data_exposes_both_fields_defaulting_false(self):
+    def test_customize_data_exposes_both_fields_mirroring_registry_default_false(self):
         from scripts.web import api_customize_data
+        from scripts.core import config
 
+        reg = {e["id"]: e for e in config.load_editions()}
         eds = {e["id"]: e for e in api_customize_data()["editions"]}
-        assert eds["catholic-study"].get("note_group_by_category") is False
-        assert eds["catholic-study"].get("note_topic_dedup") is False
+        # Both fields plumbed as bools, each mirroring its registry pin with the
+        # code default False when absent — derived from the registry so a rollout
+        # pin flip (e.g. the 2026-06-22 Kobo redundancy fix) can't re-stale this.
+        for field in ("note_group_by_category", "note_topic_dedup"):
+            for eid, e in eds.items():
+                v = e.get(field)
+                assert isinstance(v, bool), f"{eid}: {field} not a bool"
+                assert v == bool(reg[eid].get(field, False)), f"{eid}: {field}"
 
     def test_customize_template_has_both_checkboxes(self):
         src = (REPO / "scripts" / "templates" / "customize.py").read_text(encoding="utf-8")

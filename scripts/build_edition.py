@@ -7091,8 +7091,8 @@ def _orphan_inline_marker_ref_ids() -> frozenset[str]:
     corpus_refs = {ref for ref, *_ in _iter_note_ref_symbols()}
     baked: set[str] = set()
     base_dir = REPO_ROOT / "epub_working"
-    for html in base_dir.glob("*.html"):
-        text = html.read_text(encoding="utf-8", errors="replace")
+    for fpath in base_dir.glob("*.html"):
+        text = fpath.read_text(encoding="utf-8", errors="replace")
         baked.update(_ORPHAN_INLINE_MARKER_RE.findall(text))
     return frozenset(baked - corpus_refs)
 
@@ -7120,9 +7120,9 @@ def compute_edition_filter_sets(
     """
     all_kinds = config.load_kinds()
     if _enabled is None or _disabled is None:
-        enabled, disabled = compute_enabled_kinds(edition, all_kinds)
+        _, disabled = compute_enabled_kinds(edition, all_kinds)
     else:
-        enabled, disabled = _enabled, _disabled
+        _, disabled = _enabled, _disabled
 
     # Phase ρ.1: per-edition disabled note IDs. Translate our note IDs
     # (book:ch:vs[suffix]:kind) into the HTML ref-id format the build sees

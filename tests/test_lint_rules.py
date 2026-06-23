@@ -37,10 +37,12 @@ class TestAllChecksMetaContract:
         # bookcode_canonical/subprocess_stdin/no_reviewer_scaffolding/
         # no_truncated_easton/greek_gloss_quality/no_torrey_topic_leak], then
         # +candidate_extent at v0.1.0 audit Phase 0, then
-        # +module_constant_collision 2026-06-11 [the a749e99b clobber class])
+        # +module_constant_collision 2026-06-11 [the a749e99b clobber class];
+        # then +hook_parity/+no_background_radar/+retired_edition_skus at the
+        # 2026-06-21 rules+radar consolidation → 37)
         # so a check can't be dropped from ALL_CHECKS — or quietly added
         # without updating this pin — unnoticed.
-        assert len(self.mod.ALL_CHECKS) == 34, f"ALL_CHECKS is {len(self.mod.ALL_CHECKS)}, expected 34"
+        assert len(self.mod.ALL_CHECKS) == 37, f"ALL_CHECKS is {len(self.mod.ALL_CHECKS)}, expected 37"
         # A duplicate key in the dict literal would silently collapse two checks
         # into one; pin that the keys are unique.
         assert len(self.mod.ALL_CHECKS) == len(set(self.mod.ALL_CHECKS))
@@ -1015,6 +1017,8 @@ class TestOmega33RuffFormat:
     def test_codebase_stays_ruff_formatted(self):
         import shutil
         import subprocess
+        import sys
+
         import pytest
 
         if shutil.which("ruff") is None:
@@ -1029,7 +1033,7 @@ class TestOmega33RuffFormat:
 
         repo = Path(__file__).resolve().parent.parent
         proc = subprocess.run(
-            ["python", "-m", "ruff", "format", "--check", "."],
+            [sys.executable, "-m", "ruff", "format", "--check", "."],
             cwd=str(repo),
             stdin=subprocess.DEVNULL,  # W-W1 mitigation (τ.6.x.1)
             capture_output=True,
