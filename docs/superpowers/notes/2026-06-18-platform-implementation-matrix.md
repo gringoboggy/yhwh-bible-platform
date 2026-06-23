@@ -19,7 +19,7 @@ Legend: ✅ device-proven · ⚠ partial / code-shipped pending QA · ❌ unsupp
 | **Embedded fonts** | ✅ OFL embed + system fallback | ✅ embed + Cardo font-pack sideload | ⚠ KFX partial; single `dc:language` after `kindle_post` | ⚠ vendor ✅; phone verify Geʽez/Arabic |
 | **Page breaks** | ✅ CSS + spine split | **spine split only** (CSS `page-break-*` = N on EPD) | ⚠ chapter `page-break-before` + piece boundaries | ❓ not documented |
 | **Multi-script preview** | Popup `lang` spans + embed | OPF `dc:language` chain only (preview strips tags) | `.vn-sep` kept in footnote text | OPF 6-value block — ❓ |
-| **Byte / size budget** | N/A (no cap) | ≤4,400 stripped + ≤8,858 B serialized (kepub) | N/A | ~25–30 MiB artifact; under 2 GB limit |
+| **Byte / size budget** | N/A (no cap) | ≤4,400 stripped + ≤8,858 B serialized (kepub) | N/A | ~25–30 MiB artifact; under the 100 MB personal-upload limit |
 | **Build profile** | `target_reader=tablet` | `eink` → kepubify v4.0.4 | `everywhere` → `kindle_post.make_kindle_safe` | `everywhere` copy (no post-process) |
 | **Catalog column** | M2 · 45 assets · live | M3 · 45 `.kepub.epub` · live (user tap sign-off pending) | M4 · 45 assets · live (UX gap) | M5 · **not live** until phone QA |
 | **Device proof** | M2 checklist (1 edition spot) | Round-13 PASS + round-9 P0 matrix pending | STK 6/6 delivery only; link targets **not** gated | **Zero proof** — blocks M5 |

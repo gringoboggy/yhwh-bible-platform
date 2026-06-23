@@ -1,6 +1,10 @@
 # M4b Kindle fork — design spec
 
-**Status:** DESIGN — implementation pending Mac slice after user Kobo round 9.
+**Status:** ⚠ SUPERSEDED — shipped as **Option B** (a separate `kindle_study_glossary`
+spine file, **not** the Option-A chapter-tail `kindle-chapter-study` sections this spec
+describes). Live implementation: `apply_kindle_m4b` / `verify_kindle_m4b` in
+`scripts/core/kindle_post.py`, gated by `tests/test_kindle_m4b.py`. Kept for design-history;
+§6 below is updated to the shipped gates.
 **Date:** 2026-06-18 · **Lane:** mac · **Input:** `notes/2026-06-18-platform-kindle.md` Option A
 
 ---
@@ -105,17 +109,18 @@ Chapter `page-break-before` on the **next** chapter heading must not sit between
 - `verify_kindle_safe`: zero hides, single `dc:language`, mimetype first/stored
 - `dev/verify_kr2_build.py` gates 1–4 on pre-post everywhere base (kindle column uses unstamped base)
 
-### New — `verify_kindle_m4b(epub_path) -> dict`
+### Shipped — `verify_kindle_m4b(epub_path) -> list[str]` (returns failing gate ids; empty list = pass)
 
-| Check | Fail condition |
+| Check | Fail condition (as shipped in `scripts/core/kindle_post.py`) |
 |---|---|
-| m4b-1 | Any study badge (`vnotes-` target) remains in scripture `<p class="verse">` |
-| m4b-2 | Every suppressed badge's aside appears in a `kindle-chapter-study` section |
-| m4b-3 | No `noteref` in scripture targets a `hidden` aside |
-| m4b-4 | Translation `vn-link` count unchanged vs pre-M4b base |
-| m4b-5 | `verify_kindle_safe` still passes on output |
+| m4b-1 | A study badge still targets a **same-file** `#…` anchor (not the glossary spine) |
+| m4b-2 | A `vnotes-` aside still sits in the scripture prose |
+| m4b-3 | Study badges present but **no `kindle_study_glossary` spine file** exists |
+| m4b-4 | A **bare scripture verse** href (`#…`) appears in the glossary |
+| m4b-5 | A translation `vnote` is inlined in the scripture prose |
+| m4b-6 | A retired `kindle-chapter-study` block survives in scripture |
 
-TDD: `tests/test_kindle_m4b.py` — build minimal fixture HTML through `apply_kindle_m4b`; phone QA matrix separate (`tests/test_kindle_m4b.py` structural only).
+TDD: `tests/test_kindle_m4b.py` (`TestApplyKindleM4bHtml` / `TestApplyKindleM4bEpub` / `TestVerifyKindleM4b` / `TestMakeKindleM4b` / `TestKindleM4bCss`) — minimal fixture HTML through `apply_kindle_m4b`; phone-QA matrix separate (structural only).
 
 ---
 

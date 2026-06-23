@@ -179,6 +179,10 @@ stripped bracket has no translation probes; controls are `vnote-1en-99-1` (P) an
 - **Delivery:** upload to the user's Play Books library (web/Android/iOS); accepts
   EPUB 2/3 (3.3 preferred); readable on any signed-in device. EPUB3 feature
   support varies per platform (Google's own caveat).
+- **Limits (personal-library upload — our channel):** **100 MB per file · ≤1,000
+  uploaded books** ([consumer help](https://support.google.com/googleplay/answer/11012086));
+  `.epub`/`.pdf` only. Our ~25–30 MiB artifact is well under. (The < 2 GB figure cited
+  elsewhere is the **Partner Center** program, which we do not use.)
 - **Known:** collapsible `<details>` lists render CLOSED AND STUCK (the one reader
   that locks them; why `toc_expandable` is tablet-only).
 - **Unverified:** popup-footnote behavior, embedded-font honoring, page-break

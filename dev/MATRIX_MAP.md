@@ -23,7 +23,7 @@
 ```
 CONFIG  (content/*.yaml)  — the rows, columns, and leaves
   editions.yaml ......... 6 editions                → the matrix ROWS
-  kinds.yaml ............ 68 kinds → category       → the matrix COLUMNS
+  kinds.yaml ............ 72 kinds → category       → the matrix COLUMNS
   categories.yaml ....... 15 categories             (column groups; AI-gate via enable_ai_notes)
   canons.yaml ........... 5 canons → book-code sets  (book filter; ethiopian = 87-book superset)
   books.yaml ............ 87 books                   (canonical spine / order)
@@ -252,7 +252,7 @@ missing" note was a *stale pre-recovery artifact* — 1 Enoch has all 108 chapte
 The inject residual is **~156-161 notes that are verse-level versification mismatches** — the note's
 *source* numbers a verse the base translation's chapter doesn't have, so it is **NOT addable content**:
 by book `aes` 73 · `1en` 31 · `mq1-3` 33 · `sir` 10 · `jub` 9; by kind `lang-hebrew` 83 ·
-`comm-ethiopian` 70 · `comm` 3. Detail: `dev/AUDIT_2026-05-21-inject-tail-residual.md`.
+`comm-ethiopian` 70 · `comm` 3. Detail: `dev/archive/AUDIT_2026-05-21-inject-tail-residual.md`.
 
 ## Presentation / reader-styling pipeline (Wave 2–3)
 

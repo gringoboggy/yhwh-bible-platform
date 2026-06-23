@@ -14,9 +14,9 @@
 |---|---|---|
 | `content/` | ✅ | **All data + config** — the single source of truth for the corpus, translations, and build profiles. See §content. |
 | `scripts/` | ✅ | **All code** — CLI, build pipeline, web app, and the engine (`core/`). See §scripts. |
-| `tests/` | ✅ | 227 pytest files (`test_*.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
+| `tests/` | ✅ | the `test_*.py` suite (262 as of 2026-06-23 — regen the count with `py dev/trace_repo.py`) + `conftest.py` + `fixtures.py` + `fixtures/`. Run one file at a time (memory). |
 | `dev/` | ✅ | **Project docs + state** — rules, plans, audits, the maps, session state, changelog. See §dev. |
-| `docs/superpowers/` | ✅ | `plans/` (50 implementation plans) + `specs/` (28 design specs) + `notes/` (audit findings + raw JSON) for the manuscript/ingest/audit workstreams. |
+| `docs/superpowers/` | ✅ | `plans/` (60 implementation plans) + `specs/` (30 design specs) + `notes/` (audit findings + raw JSON) for the manuscript/ingest/audit workstreams (plan/spec counts as of 2026-06-23; regen with `py dev/trace_repo.py`). |
 | `state/` | ✅ | Small app-state JSON (`onboarding.json` — first-run welcome state) — versioned, not corpus. |
 | `epub_working/` | ✅ | **Base scripture HTML** — the inject target / build source-of-truth. See §epub_working. |
 | `assets/icons/` | ✅ | App icons (PyWebView/desktop): `icon_{16..1024}.png`, `.ico`. |

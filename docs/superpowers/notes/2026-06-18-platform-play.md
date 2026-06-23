@@ -20,7 +20,7 @@ From `dev/EREADERS.md` §Google Play Books and the M5 phone-QA protocol:
 | **Profile** | Today: `everywhere` build; promote to `play` target only if QA demands divergence |
 | **Catalog** | M5 column `live: false` until rounds 1–3 pass (`website/src/data/catalog.json`) |
 
-**Staged QA artifact (v0.1.0):** `YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub` — GitHub release URL in `EREADERS.md:156–157`.
+**Staged QA artifact (v0.1.0):** `YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub` — GitHub release URL in `EREADERS.md` §Google Play Books.
 
 ---
 
@@ -40,9 +40,9 @@ From `dev/EREADERS.md` §Google Play Books and the M5 phone-QA protocol:
 | Constraint | Source | Our artifact |
 |---|---|---|
 | Formats | `.epub`, `.pdf` only (no `.doc`/`.html`) | `.epub` ✅ |
-| Partner max file size | **< 2 GB** per file ([file guidelines](https://support.google.com/books/partner/answer/3424254)) | ~25–30 MiB (`everywhere` / `kindle_safe` scale) — well under limit |
+| Personal-upload max file size | **100 MB/file · ≤1,000 books** (our channel — Play Books **personal library** upload, [consumer help](https://support.google.com/googleplay/answer/11012086); the < 2 GB figure is the **Partner** program, which we do not use) | ~25–30 MiB (`everywhere` / `kindle_safe` scale) — well under the 100 MB ceiling |
 | Validation | EpubCheck recommended; ADE smoke-test suggested | CI gate `epubcheck 0/0/0/0` |
-| Upload path | Play Books app → Profile → Upload; or `play.google.com/books`; Open With → Play Books ([consumer help](https://support.google.com/googleplay/answer/11012086)) | Protocol in `EREADERS.md:159–162` |
+| Upload path | Play Books app → Profile → Upload; or `play.google.com/books`; Open With → Play Books ([consumer help](https://support.google.com/googleplay/answer/11012086)) | Protocol in `EREADERS.md` §Google Play Books |
 | JavaScript | ✘ | None in our EPUB ✅ |
 | MathML | ✘ | Not used ✅ |
 | Multi-column | ✘ | Single-column layout ✅ |
@@ -77,7 +77,7 @@ From `dev/EREADERS.md` §Google Play Books and the M5 phone-QA protocol:
 
 | Gap | `build_edition` / post-process / `TARGET_CAPS` | Severity |
 |---|---|---|
-| **Zero device proof** for popups, fonts, page-breaks | M5 `live: false`; `EREADERS.md:22` UNTESTED | **HIGH** — blocks catalog column |
+| **Zero device proof** for popups, fonts, page-breaks | M5 `live: false`; `EREADERS.md` Google Play Books row = UNTESTED | **HIGH** — blocks catalog column |
 | **No `play` `target_reader`** — uses `everywhere` alias | `FORMAT_MATRIX` play row `target_reader: everywhere` (`build_edition.py:2075–2083`) | **MED** — intentional until QA |
 | **No Play post-process** (cf. `kindle_safe`, `kepubify`) | `build_format_matrix.py` — play cell = plain copy of `everywhere` base | **LOW** — correct default |
 | **No Play-specific gates** in `verify_kr2_build.py` | Only kobo/kindle stamped checks | **MED** — nothing catches Play regressions pre-QA |
