@@ -54,6 +54,13 @@ _BADGE_RE = re.compile(
     r'<a class="verse-notes-badge" id="vbadge-([a-z0-9]+)-(\d+)-(\d+)-s(\d+)"[^>]*'
     r'href="#(vnotes-[a-z0-9]+-\d+-\d+-s\d+)"[^>]*title="(\d+) notes?"',
 )
+# The SECOND emitter: the per-note inline marker (numbers / marker_style != badge),
+# one <a> per note — <a class="note-ref note-{kind}" id="ref-{full_id}" …>.
+# _BADGE_RE above is the collapsed study-badge path; this is the per-note path
+# (scripts/build_edition.py:2518 _BADGE_MARKER_RE). Each marker is exactly one note
+# (no count attr), so the numbers-mode contract is per-marker uniqueness + resolution
+# rather than the badge count-contract. Group 1 = kind, group 2 = the ref-id.
+_NOTEREF_RE = re.compile(r'<a class="note-ref note-([a-z][a-z0-9-]*)" id="(ref-[^"]+)"')
 # The merged verse-notes aside (one per badge unit).
 _VNOTES_ASIDE_RE = re.compile(
     r'<aside class="verse-notes[^"]*" id="(vnotes-([a-z0-9]+)-(\d+)-(\d+)-s\d+)"[^>]*>(.*?)</aside>',
@@ -194,6 +201,23 @@ def audit_epub(path: str) -> EpubResult:
                     "(badge/aside verse-coord mismatch)"
                 )
 
+    # ── per-note marker pass (numbers mode — the 2nd emitter _BADGE_RE misses) ──
+    # In numbers/marker_style!=badge editions no verse-notes-badge is emitted, so the
+    # badge⇄aside contract above sees nothing; verify the per-note markers instead.
+    # A duplicate ref-id is a real defect the generic href pass cannot catch (a dup
+    # id still "resolves") — it breaks the per-note back-link (#ref-{id}) target.
+    seen_marker_ids: dict[str, str] = {}
+    for n, t in docs:
+        for m in _NOTEREF_RE.finditer(t):
+            mid = m.group(2)
+            if mid in seen_marker_ids:
+                res.global_fails.append(
+                    f"{n}: duplicate per-note marker id #{mid} (also in {seen_marker_ids[mid]}) "
+                    "— each note-ref marker id must be unique or its #ref back-link is ambiguous"
+                )
+            else:
+                seen_marker_ids[mid] = n
+
     # ── link resolution (in-book + out-of-book; ToC targets) ──────────────────
     unresolved: list[str] = []
     for n, t in docs:
@@ -284,7 +308,7 @@ def audit_epub(path: str) -> EpubResult:
 
         # spurious page break between two same-chapter verses
         anchor_iter = list(_VERSE_ANCHOR_RE.finditer(region))
-        for a, b in zip(anchor_iter, anchor_iter[1:]):
+        for a, b in zip(anchor_iter, anchor_iter[1:], strict=False):
             ca, cha, _va = a.group(1), a.group(2), a.group(3)
             cb, chb, _vb = b.group(1), b.group(2), b.group(3)
             if ca == cb == code and cha == chb:
