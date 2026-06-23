@@ -15,10 +15,12 @@ import sys
 
 
 class TestFrozenContentRootGuard:
-    def test_content_root_frozen_returns_user_data(self, monkeypatch):
+    def test_content_root_frozen_returns_user_data_content(self, monkeypatch):
         # The frozen guard: with sys.frozen set and no env/test override, the
-        # resolver must return user_data_root(), NOT the in-tree bundle — even
-        # though a dev checkout's content/editions.yaml marker exists.
+        # resolver must return user_data_root()/"content" — the EXACT dir the
+        # first-run migration seeds — NOT user_data_root() itself (off-by-one =
+        # an empty content root) and NOT the in-tree bundle. (round-13 Mac
+        # cross-OS finding.)
         from scripts.core import paths
 
         monkeypatch.setattr(sys, "frozen", True, raising=False)
@@ -26,7 +28,7 @@ class TestFrozenContentRootGuard:
         paths.set_content_root_for_testing(None)
         paths.reset_content_root()
         try:
-            assert paths.content_root() == paths.user_data_root()
+            assert paths.content_root() == paths.user_data_root() / "content"
         finally:
             paths.set_content_root_for_testing(None)
             paths.reset_content_root()

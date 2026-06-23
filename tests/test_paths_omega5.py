@@ -163,12 +163,13 @@ class TestPathsContentRootResolver:
         monkeypatch,
     ):
         # Mock repo_root() to point at a dir without editions.yaml;
-        # in_tree detection should fail and fall back to user_data.
+        # in_tree detection should fail and fall back to user_data/content
+        # (the dir the first-run migration seeds — round-13 off-by-one fix).
         monkeypatch.setattr(self.p, "repo_root", lambda: tmp_path)
         monkeypatch.delenv("YHWH_CONTENT_ROOT", raising=False)
         self.p.reset_content_root()
         cr = self.p.content_root()
-        assert cr == self.p.user_data_root()
+        assert cr == self.p.user_data_root() / "content"
 
 
 class TestPathsSubPathHelpers:

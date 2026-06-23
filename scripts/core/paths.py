@@ -166,17 +166,22 @@ def _content_root_cached() -> Path:
     # Frozen (PyInstaller binary): the bundled content/ lives under the
     # read-only/ephemeral _MEIPASS extraction dir, so it must NOT shadow the
     # writable per-user dir — in-app edits there are lost on exit / blocked on
-    # macOS. Mirror _build_output_root()'s frozen guard. Placed AFTER the
-    # explicit YHWH_CONTENT_ROOT override (which still wins) and BEFORE in-tree
-    # detection (the bundle's editions.yaml marker would otherwise win).
-    # (round-11 frozen-app content_root() HIGH; all content read/write sites are
-    # routed through this resolver so the guard reaches every one.)
+    # macOS. Return user_data_root()/"content" — the EXACT dir the first-run
+    # migration seeds (migrate_to_user_data._dst_content + launcher.py both use
+    # user_data_root()/"content"); NOT user_data_root() itself (that is
+    # _build_output_root()'s domain for exports/builds — content_root is one
+    # level deeper: the dir holding editions.yaml/notes). Returning the parent
+    # left a frozen app reading an EMPTY content root. Placed AFTER the explicit
+    # YHWH_CONTENT_ROOT override (which still wins) and BEFORE in-tree detection
+    # (the bundle's editions.yaml marker would otherwise win). (round-11
+    # frozen-app HIGH + the round-13 off-by-one fix Mac caught cross-OS.)
     if getattr(sys, "frozen", False):
-        return user_data_root()
+        return user_data_root() / "content"
     in_tree = _detect_in_tree_content()
     if in_tree is not None:
         return in_tree
-    return user_data_root()
+    # Installed (non-frozen) fallback: the same content/ subdir the migration seeds.
+    return user_data_root() / "content"
 
 
 def set_content_root_for_testing(path: Path | str | None) -> None:
