@@ -32,10 +32,10 @@ const AGENTS_BY_LANE = {
 const _AG = AGENTS_BY_LANE[LANE === 'mac' ? 'mac' : 'win']
 const REPO = args?.repo ?? (REPO_BY_LANE[LANE] ?? REPO_BY_LANE.win)  // ABSOLUTE — cwd-independent
 const DEPTH = args?.depth ?? 'deep'               // 'deep' = multi-finder + scaled skeptic panels
-// round 10 = the first CLEAN product audit after the 2026-06-21 Grok-revert cleanup (the Grok-era
-// "round 9" everything-sweep was discarded with that cleanup). Bump only after a major phase.
-const ROUND = args?.round ?? 10            // args don't reliably propagate — bump in-file
-const NOW = args?.now ?? '2026-06-21'             // Date.now() is unavailable in scripts; stamp via args
+// round 13 = the FINAL grand audit after ALL round-10/11/12 remediation landed (user directive
+// 2026-06-23: "run the full auditor together again, top to bottom, down to verse + word, 10h fine").
+const ROUND = args?.round ?? 13            // args don't reliably propagate — bump in-file
+const NOW = args?.now ?? '2026-06-23'             // Date.now() is unavailable in scripts; stamp via args
 // SCOPE (user directive 2026-06-10, memory reference_deep_audit_tool): 'product' (default) = project
 // code/product dims only; 'all' = the round-7 one-time everything-sweep (also runs claude-setup /
 // lane-system / github-gitlab / stack-review / decommission). args don't reliably propagate — set in-file.
