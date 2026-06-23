@@ -450,6 +450,11 @@ promote a durable assertion into `tests/`.
 - Rebuilt `standalone-geez` post-gap-8 → **4/4 books green** (165 ch, structure unchanged).
 - **geez byte-stability:** inner-content diff pre vs post gap-8 (excl. the OPF `dcterms:modified` timestamp) = **entry-set identical, 0 content-differing entries** → gap-8 correctly touched only standalone-amharic; the geez output is byte-stable. **6/8 → now 8/8 round-11 classes Mac-confirmed or WIN-proven** (gap-1..6,8 ✅; gap-7 = the migrations class, still pending WIN's push).
 
+## ✅ Mac verify — byte-stability tail W3/W6/W7 (`46c87c0a`/`12eb3da6`) — spot PASS (2026-06-23)
+
+- **W7 (oversized-piece byte gate, `dev/verify_kr2_build.py`)** spot-verified on the built ethiopian-tewahedo epub: the new BYTE-size WARN fires correctly (non-failing) — flags `index_split_049_02.html` (513,300 B) + `008_07.html` (503,665 B) in the 500 KB–881 KB watch zone (both under the Kobo ~881 KB break; the gate catches the Ge'ez multi-byte serialized-byte inflation that the codepoint `sizes` summary misses). **ALL K-R2 GATES GREEN.** Good — this is the round-9 882 KB regression class, now gated.
+- **W6** (`dev/kobo_tap_calibration.py` targets/docstring sync) = dev-doc, no functional verify. **W3/theme_id** (`build_cache.py`) byte-stability = will fold into the next build-based verify (the Meqabyan-clamp rebuild) rather than a dedicated HDD rebuild for the tail. **Still pending WIN: gap-7 · frozen-app HIGH · Meqabyan clamp.**
+
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
 **User verdict (2026-06-19):** `ethiopian-tewahedo --target-reader tablet` builds **FAIL** on Apple Books device. Mac sim: `verify_kr2_build` **K-R5-3** (262× book-title pieces carry badges/asides). **WIN owns** deep audit — Mac verify only after WIN push.
