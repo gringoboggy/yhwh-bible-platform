@@ -49,8 +49,6 @@ from pathlib import Path
 
 from scripts.core import audit_log, config, notes_io, paths
 
-REPO = Path(__file__).resolve().parent.parent.parent
-
 # ---------------------------------------------------------------------
 # The editable-field registry — ONE source of truth shared by
 # api_save_edition_meta (validation) and _append_cloned_edition (copy

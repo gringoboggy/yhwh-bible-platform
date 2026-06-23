@@ -83,3 +83,29 @@ class TestContentSitesRouteThroughResolver:
         finally:
             paths.set_content_root_for_testing(None)
             config.load_kinds.cache_clear()
+
+
+class TestNoOrphanedApiConstants:
+    """round-13 #5: the frozen-app content_root() routing made several
+    module-level path constants dead. A dead path constant invites the
+    stale-monkeypatch leak class (a test patching a no-longer-read constant
+    silently writes the REAL tree). These three api modules had a truly-unused
+    ``REPO`` removed; pin it gone so it can't creep back. exports.py / preflight.py
+    keep a LIVE ``REPO`` (genuine dev-server paths) and are intentionally excluded."""
+
+    DEAD_REPO_FILES = ["scripts/api/customize.py", "scripts/api/editions.py", "scripts/api/sources.py"]
+
+    def test_no_module_level_repo_constant(self):
+        import ast
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parents[1]
+        offenders = []
+        for rel in self.DEAD_REPO_FILES:
+            tree = ast.parse((repo / rel).read_text(encoding="utf-8"))
+            for node in tree.body:  # module top-level only
+                if isinstance(node, ast.Assign) and any(
+                    isinstance(t, ast.Name) and t.id == "REPO" for t in node.targets
+                ):
+                    offenders.append(f"{rel}:{node.lineno}")
+        assert not offenders, f"dead module-level REPO constant reintroduced: {offenders}"

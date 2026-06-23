@@ -36,8 +36,6 @@ from pathlib import Path
 
 from scripts.core import audit_log, notes_io, paths
 
-REPO = Path(__file__).resolve().parent.parent.parent
-
 # Maximum bytes accepted on a single source-cache JSON upload. The
 # largest existing cache is TSK at ~5 MB; doubling that gives plenty
 # of headroom for richer sources (commentary corpora, lexicons) that

@@ -31,11 +31,7 @@ through.
 
 from __future__ import annotations
 
-from pathlib import Path
-
 from scripts.core import audit_log, config, notes_io, paths
-
-REPO = Path(__file__).resolve().parent.parent.parent
 
 
 @audit_log.audit_endpoint(action="save_category")
