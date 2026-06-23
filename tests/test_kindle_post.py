@@ -190,6 +190,33 @@ class TestMakeKindleSafe:
             assert z.read("mimetype") == b"application/epub+zip"
 
 
+class TestRezipReproducibility:
+    """The OCF re-zip pins a 1980 epoch ``date_time`` + ``0o644`` attr on every
+    member, so two runs over identical input are byte-identical (M14 — keeps
+    SHA256SUMS stable across the v1.0.0 re-cut). A bare ``writestr(name, ...)``
+    would stamp the build wall-clock time and break reproducibility."""
+
+    def test_make_kindle_safe_is_byte_reproducible(self, tmp_path):
+        src = tmp_path / "src.epub"
+        src.write_bytes(_synthetic_epub())
+        a, b = tmp_path / "a.epub", tmp_path / "b.epub"
+        kindle_post.make_kindle_safe(src, a)
+        kindle_post.make_kindle_safe(src, b)
+        assert a.read_bytes() == b.read_bytes()
+
+    def test_all_members_carry_pinned_epoch(self, tmp_path):
+        src = tmp_path / "src.epub"
+        src.write_bytes(_synthetic_epub())
+        out = tmp_path / "out.epub"
+        kindle_post.make_kindle_safe(src, out)
+        with zipfile.ZipFile(out) as z:
+            for zi in z.infolist():
+                assert zi.date_time == kindle_post._ZIP_EPOCH, zi.filename
+            # mimetype still first + STORED (OCF contract preserved by the helper)
+            assert z.infolist()[0].filename == "mimetype"
+            assert z.infolist()[0].compress_type == zipfile.ZIP_STORED
+
+
 class TestVerifyKindleSafe:
     def test_conformant_artifact_passes(self, tmp_path):
         src = tmp_path / "src.epub"

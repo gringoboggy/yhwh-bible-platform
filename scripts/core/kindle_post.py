@@ -88,6 +88,36 @@ KINDLE_LANGUAGE = "en-US"
 
 _DOC_SUFFIXES = (".html", ".xhtml")
 
+# Reproducible-zip epoch (M14). A bare ``writestr(name, bytes)`` stamps the
+# build wall-clock time into every member, so two builds of identical input
+# differ → SHA256SUMS break across the v1.0.0 re-cut. Pin it, like the sibling
+# OCF packagers ``swap_epub_cover.py`` / ``build_epub.py``.
+_ZIP_EPOCH = (1980, 1, 1, 0, 0, 0)
+
+
+def _ocf_rezip(dst_epub: Path, data: dict[str, bytes], order: list[str]) -> None:
+    """Repackage an OCF/EPUB zip *reproducibly*: ``mimetype`` first + STORED,
+    every other member DEFLATED (``compresslevel=9``), each member carrying a
+    pinned ``date_time`` (``_ZIP_EPOCH``) + ``0o644`` external attr — so two
+    runs over identical ``data`` produce byte-identical output. Mirrors
+    ``swap_epub_cover.py``; the single re-zip chokepoint for the Kindle post-
+    process (``make_kindle_safe`` + ``apply_kindle_m4b``)."""
+    dst_epub.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(dst_epub, "w", zipfile.ZIP_DEFLATED) as zout:
+        mt = zipfile.ZipInfo("mimetype")
+        mt.date_time = _ZIP_EPOCH
+        mt.external_attr = 0o644 << 16
+        mt.compress_type = zipfile.ZIP_STORED
+        zout.writestr(mt, data["mimetype"])
+        for name in order:
+            if name == "mimetype":
+                continue
+            zi = zipfile.ZipInfo(name)
+            zi.date_time = _ZIP_EPOCH
+            zi.external_attr = 0o644 << 16
+            zi.compress_type = zipfile.ZIP_DEFLATED
+            zout.writestr(zi, data[name], compresslevel=9)
+
 
 def strip_body_backgrounds(css: str) -> tuple[str, int]:
     """Remove ``background`` / ``background-color`` from rules whose selector
@@ -191,14 +221,7 @@ def make_kindle_safe(src_epub: Path | str, dst_epub: Path | str) -> dict:
         data[opf_name] = opf_text.encode("utf-8")
         stats["dc_language_collapsed"] = lang_count
 
-    dst_epub.parent.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(dst_epub, "w", zipfile.ZIP_DEFLATED) as zout:
-        # OCF: mimetype first, stored (uncompressed), no extra field.
-        zout.writestr(zipfile.ZipInfo("mimetype"), data["mimetype"], compress_type=zipfile.ZIP_STORED)
-        for name in order:
-            if name == "mimetype":
-                continue
-            zout.writestr(name, data[name])
+    _ocf_rezip(dst_epub, data, order)
     return stats
 
 
@@ -654,12 +677,7 @@ def apply_kindle_m4b(epub_path: Path | str) -> dict:
             if new_text != text:
                 data[name] = new_text.encode("utf-8")
 
-    with zipfile.ZipFile(epub_path, "w", zipfile.ZIP_DEFLATED) as zout:
-        zout.writestr(zipfile.ZipInfo("mimetype"), data["mimetype"], compress_type=zipfile.ZIP_STORED)
-        for name in order:
-            if name == "mimetype":
-                continue
-            zout.writestr(name, data[name])
+    _ocf_rezip(Path(epub_path), data, order)
     return stats
 
 
