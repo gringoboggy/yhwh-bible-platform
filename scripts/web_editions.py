@@ -671,10 +671,21 @@ def api_build_my_bible(
         langs = _resolve_popup_languages(edition, bk, ch, vs)
         return sorted(langs)
 
+    _has_notes_kinds_cache: dict[tuple[str, int], set[str]] = {}
+
     def _has_notes_for_chapter(bk: str, ch: int) -> bool:
-        """Return True if the chapter has at least one enabled-kind note."""
+        """Return True if the chapter has at least one enabled-kind note,
+        honoring per-book/per-chapter OFF overrides via the SAME resolver as
+        ``_symbols_for`` — so the navigator's has-notes dot never contradicts
+        the symbols cell or the built EPUB (catholic-study Genesis is the only
+        edition using these overrides today). The edition-wide ``enabled_kinds_set``
+        alone over-counts because it can't see a per-chapter OFF override."""
+        enabled = _has_notes_kinds_cache.get((bk, ch))
+        if enabled is None:
+            enabled = config.enabled_kind_codes_for(edition, all_kinds, bk, ch)
+            _has_notes_kinds_cache[(bk, ch)] = enabled
         for kind, by_book in per_chapter_ed.items():
-            if kind not in enabled_kinds_set:
+            if kind not in enabled:
                 continue
             if by_book.get(bk, {}).get(ch, 0):
                 return True

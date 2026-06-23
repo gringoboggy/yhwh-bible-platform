@@ -695,6 +695,10 @@ def main() -> None:
                 choice = input("  [s]kip / [p]romote / [q]uit > ").strip().lower()
             except (KeyboardInterrupt, EOFError):
                 break
+        # 'q' at the [v]iew sub-prompt must quit, not fall through to the
+        # else-branch below (which would silently mark this candidate skipped).
+        if choice == "q":
+            break
         if choice == "p":
             ok, suffix = promote_candidate(book, c)
             if ok:
