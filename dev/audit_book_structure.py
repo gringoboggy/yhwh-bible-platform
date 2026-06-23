@@ -122,6 +122,37 @@ class EpubResult:
         return not self.global_fails and all(b.green for b in self.books)
 
 
+def _check_book_order(br: BookResult, cv: list[tuple[int, int]], code: str) -> None:
+    """Chapter + verse order / gap / duplicate checks from ``(ch, v)`` pairs in
+    DOCUMENT order. Shared by the title-page region path and the standalone
+    (own-versification) fallback below. It does NOT do heading / page-break /
+    title-frame checks — those need region markup the standalone build (per-chapter
+    ``geez_{book}_{ch}.xhtml`` files, no ``bp-``/``ch-b`` anchors) does not emit."""
+    by_ch: dict[int, list[int]] = {}
+    for ch, v in cv:
+        by_ch.setdefault(ch, []).append(v)
+    br.chapters = sorted(by_ch)
+    prev = 0
+    for ch in br.chapters:
+        if ch == prev:
+            br.fails.append(f"{code}: chapter {ch} duplicated")
+        prev = ch
+    for ch, vs in by_ch.items():
+        seen: set[int] = set()
+        last = 0
+        for v in vs:
+            if v in seen:
+                br.fails.append(f"{code} {ch}:{v} duplicated verse anchor")
+            seen.add(v)
+            if v < last:
+                br.fails.append(f"{code} {ch}: verse {v} out of order (after {last})")
+            last = v
+        ordered = sorted(seen)
+        gaps = [g for g in range(ordered[0], ordered[-1]) if g not in seen]
+        if gaps:
+            br.warns.append(f"{code} {ch}: missing verse number(s) {gaps[:8]}{'…' if len(gaps) > 8 else ''}")
+
+
 def _norm(name: str) -> str:
     return posixpath.normpath(name).lstrip("/")
 
@@ -265,7 +296,23 @@ def audit_epub(path: str) -> EpubResult:
     # ── regions (book by book, split on title pages over the whole reading flow) ─
     title_hits = [(m.start(), m.group(1)) for m in _BOOK_TITLE_RE.finditer(full)]
     if not title_hits:
-        res.global_fails.append("no book-title pages found (cannot establish book structure)")
+        # Standalone / own-versification build (build_standalone.py): per-chapter
+        # files, no bp-NN title pages and no ch-b#-c# anchors — but the SAME
+        # ``v-{code}-{ch}-{v}`` verse anchors. Derive book regions from the verse
+        # codes and run the order/gap/dup checks (the only ones whose markup exists).
+        all_v = _VERSE_ANCHOR_RE.findall(full)
+        if not all_v:
+            res.global_fails.append("no book-title pages AND no verse anchors (cannot establish structure)")
+            return res
+        seen_codes: list[str] = []
+        for c, _, _ in all_v:
+            if c not in seen_codes:
+                seen_codes.append(c)
+        for c in seen_codes:
+            cv = [(int(ch), int(v)) for cc, ch, v in all_v if cc == c]
+            br = BookResult(code=c, bp="(standalone)")
+            _check_book_order(br, cv, c)
+            res.books.append(br)
         return res
     bounds = [p for p, _ in title_hits] + [len(full)]
 
