@@ -61,9 +61,9 @@ Source: `dev/audit/round11-mac-{survivors.json,plan.md}` (`3742c1b9`). 8 single-
 | gap | class | sites | top sev | WIN status |
 |---|---|---|---|---|
 | 1 | web_*.py user book-param not `resolve_book_code`'d | 3 | med | site 1/3 done (api_compare); **2 left** (`web_helpers.py:264`, `api/editions.py:649-680`) |
-| 2 | own-vers STRING verse labels hit int `max/range/int()` | 4 | **high** | `api_compare:128/131` (same fn as gap-1) + `verse_of_day:200` + `preview:371/382` — NEXT |
+| 2 | own-vers STRING verse labels hit int `max/range/int()` | 4 | **high** | ✅ **HIGH DONE** — `api_compare` aligns on `sorted(union, key=translations.verse_sort_key)` (no `max`/`range`); shared comparator + guards. 2 **LOW defensive** sites remain (`verse_of_day:200`, `preview:371/382` — currently all-int data, no crash; apply `verse_sort_key`) |
 | 3 | unauth public emitters interpolate corpus → HTML/XML | 6 | med | `verse_of_day` RSS CDATA chokepoint + `_render_sample_html` + preview |
-| 4 | shared `_CACHED_CONN` read outside `_CONN_LOCK` (race) | **18** | **high** | `_read_cursor()` ctx-mgr over all readers in `corpus_index.py` — **highest priority** |
+| 4 | shared `_CACHED_CONN` read outside `_CONN_LOCK` (race) | **18** | **high** | ✅ **DONE `75e77595`** — all 10 readers (18 execute sites) → `_read_cursor()`; +2 deterministic race guards; 133 corpus tests green |
 | 5 | cache key from UNRESOLVED id vs resolved mtime/payload | 1 | med | `translations._book_index_cached` |
 | 6 | user-editable scripture refs → built output, no resolve | 9 | **high** | `reading_plans` parse/emit + co-members |
 | 7 | migration runner `ok:False` handling + per-migration | 13 | **high** | `scripts/migrations/` runner + 0001/0002 |

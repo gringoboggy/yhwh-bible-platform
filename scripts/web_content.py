@@ -63,6 +63,7 @@ def api_compare(book: str, chapter: int, translations: list[str]) -> dict:
         list_translations,
         has_book,
         get_chapter,
+        verse_sort_key,
     )
 
     book = (book or "").strip().lower()
@@ -106,7 +107,7 @@ def api_compare(book: str, chapter: int, translations: list[str]) -> dict:
     # a list of (chapter, verse, text) tuples for that chapter.
     # Build a per-translation map verse_number → text for O(1)
     # alignment.
-    by_t: dict[str, dict[int, str]] = {}
+    by_t: dict[str, dict] = {}
     for t in known:
         if not has_book(t, book):
             by_t[t] = {}
@@ -114,13 +115,17 @@ def api_compare(book: str, chapter: int, translations: list[str]) -> dict:
         chapter_rows = get_chapter(t, book, chapter_n) or []
         by_t[t] = {row[0]: row[1] for row in chapter_rows}
 
-    # Determine the verse range. Cover every verse number that
-    # appears in ANY of the selected translations so we never
-    # silently truncate.
-    all_verse_nums = set()
+    # Align on the UNION of the actual verse keys across translations, in
+    # versification-aware order. NEVER reconstruct a dense 1..max integer range:
+    # an own-versification store (geez-tewahedo / geez-tewahedo-en, both in
+    # list_translations()) can return STRING verse labels ("2a", "B1"), so
+    # max()/range()/+1 over the keys would TypeError. verse_sort_key handles
+    # int+str labels and is byte-identical to the old int sort for dense
+    # canonical chapters. (round-11 gap-2)
+    all_verse_keys = set()
     for t in known:
-        all_verse_nums.update(by_t[t].keys())
-    if not all_verse_nums:
+        all_verse_keys.update(by_t[t].keys())
+    if not all_verse_keys:
         # All known translations were missing this book or chapter
         return {
             "book": book,
@@ -130,10 +135,10 @@ def api_compare(book: str, chapter: int, translations: list[str]) -> dict:
             "verses": [],
             "verse_count": 0,
         }
-    max_verse = max(all_verse_nums)
+    ordered_verses = sorted(all_verse_keys, key=verse_sort_key)
 
     verses: list[dict] = []
-    for v in range(1, max_verse + 1):
+    for v in ordered_verses:
         row = {
             "verse": v,
             "by_translation": {t: by_t[t].get(v) for t in known},
@@ -146,7 +151,7 @@ def api_compare(book: str, chapter: int, translations: list[str]) -> dict:
         "translations": known,
         "missing_translations": missing,
         "verses": verses,
-        "verse_count": max_verse,
+        "verse_count": len(ordered_verses),
     }
 
 

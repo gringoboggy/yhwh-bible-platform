@@ -207,6 +207,26 @@ def get_verse(translation: str, book_code: str, chapter: int, verse: int) -> str
     return idx.get((chapter, verse))
 
 
+def verse_sort_key(v: object) -> tuple:
+    """Order key for a verse coordinate that may be an ``int`` (canonical
+    store) OR a string label. A ``VERSIFICATION == "own"`` store (the Geʽez
+    Patrologia / Psalter lane) can emit lettered or Addition labels like
+    ``"2a"`` or ``"B1"`` — calling ``max()`` / ``range()`` / ``int()`` on those
+    raises. This comparator sorts numbered verses by ``(numeric prefix,
+    suffix)`` (so ``1, 2, "2a", 3`` order correctly and a pure-int chapter is
+    byte-identical to the old int sort), and any non-numbered label after, by
+    text. Use this anywhere a verse value originates from ``get_chapter()`` /
+    ``get_verse()`` / ``_load_book()`` instead of raw int arithmetic.
+    """
+    s = str(v)
+    i = 0
+    while i < len(s) and s[i].isdigit():
+        i += 1
+    if i:
+        return (0, int(s[:i]), s[i:])
+    return (1, 0, s)
+
+
 def get_chapter(translation: str, book_code: str, chapter: int) -> list[tuple[int, str]]:
     """Return ``[(verse_number, text), …]`` for one chapter, in verse
     order. Empty list if the chapter is missing or the book is absent.
