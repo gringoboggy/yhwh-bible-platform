@@ -22,7 +22,36 @@
 >
 > **Findings land in `dev/audit/`** (`round10-win/mac-survivors.json` + `-plan.md`); WIN merges → `round10-remediation.md` → fixes everything (TDD, byte-stability proof on any build-path touch, commit-per-fix, push at coherent stops). **This run OVERRIDES the engine's "findings-only" marching order** — the user wants remediation through to green. Loop until: all survivors fixed + structural audit all-green + suite green.
 >
-> **WRAP STATE (2026-06-22):** WIN lane **DONE** — 8 survivors (1 high · 1 med · 5 low · 1 info), 3 refuted, persisted to `dev/audit/round10-win-{survivors.json,plan.md,result.json}`; master tracker + next-session order = **`dev/audit/round10-remediation.md`**. **NO fixes applied yet** (user wrapped the session for a fresh start). **Mac lane STILL RUNNING** (~45/96 find · 12/62 verify at wrap) → will push `round10-mac-*` + post DONE in `LANE_HANDOFF.md`. Structural auditor `dev/audit_book_structure.py` **authored but UNRUN** (a completeness critic flagged its badge regex matches only 1 of 2 emitters). **Next session:** read `round10-remediation.md` → W1 first (1-line cache whitelist, unblocks the red gate) → W2–W8 in order → fix+run the structural auditor → `git fetch` + merge Mac's findings → remediate all to green. ⚠ The user's **K-R4-2 vnote Kobo bug** surfaced + was refuted-as-known-deferred — it stays on the **M2 / K-R4-2** backlog, not closed.
+> **WRAP STATE (2026-06-23 — REMEDIATION WELL UNDERWAY; wrapped for a fresh session).** Both audit lanes
+> are IN + merged (`round10-win-*` + `round10-mac-*`), and the Mac's **round-11 completeness-gap sweep**
+> turned the 8 single-findings into **69 enumerated sites** (`round11-mac-{survivors,plan}.md`). The master
+> tracker with the live per-class status is **`dev/audit/round10-remediation.md`** — read it FIRST.
+>
+> **✅ DONE this session (16 WIN commits, all green+pushed, Mac-verified cross-OS = 118 tests PASS):**
+> Phase-0 hygiene (W1 HIGH cache red-gate · ruff F402/F841 · ALL_CHECKS 34→37 · bare-python · note_rehaul
+> ×2 · `test_lane_watch` live-git hazard) · Phase-4 byte-neutral (book-code · SemVer prerelease · promote
+> q-quit · navigator coord-resolver) · **W2/W5 Kindle byte-stability** (OCF re-zip reproducible) · **6 of 8
+> round-11 classes**: gap-1 (3 sites) · gap-2 (4, own-vers `verse_sort_key`) · gap-3 (CDATA `_cdata`
+> chokepoint) · **gap-4 (18-site SQLite use-after-close race → `_read_cursor()`)** · gap-5 (cache-key) ·
+> gap-6 (reading-plan refs chokepoint).
+>
+> **▶ REMAINING (fresh session — the 3 large items + leftovers):**
+> 1. **gap-7** migration runner (13 sites) · **gap-8** producer/consumer (15 sites) — canonical fix per class
+>    in `round11-mac-plan.md`; apply at every listed site + a guard.
+> 2. **Frozen-app `content_root()` HIGH** — the Mac enumerated the exact surface →
+>    **`dev/audit/round11-frozen-app-sites.md`** (~19 WRITE + ~17 READ across 11 files; writes = the
+>    data-loss sites, do first). Two-part: add the frozen guard to `paths._content_root_cached()` (mirror
+>    `_build_output_root`) THEN route every content read/write through `paths.content_root()`/`notes_dir()`;
+>    curl the frozen app to confirm note-save lands in `user_data_root/content/notes`.
+> 3. **Structural auditor** `dev/audit_book_structure.py` — authored-but-UNRUN; fix the badge regex (matches
+>    1 of 2 emitters) then run on a built catholic-study epub+kepub.
+> 4. **Round-10 byte-stability leftovers:** theme-CSS cache key (W3 `editions.yaml theme:"modern"` removal
+>    + hash `themes.yaml` unconditionally) · char-vs-byte split-measure · Kobo oversize-piece byte WARN (W7)
+>    · W6 `kobo_tap_calibration` doc/targets sync. Each carries a regen + `git diff` proof.
+> 5. gap-2 LOW (verse_of_day/preview) = ✅ already done.
+>
+> ⚠ The user's **K-R4-2 vnote Kobo bug** stays on the **M2 / K-R4-2** backlog (surfaced + refuted-as-known-
+> deferred), NOT closed. Device-QA gates live in `dev/HUMAN_DECISIONS.md`.
 
 ## ▶ Rules + accuracy consolidation — EXECUTED (2026-06-21)
 
