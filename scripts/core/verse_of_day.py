@@ -282,6 +282,18 @@ def _xml_escape(s) -> str:
     )
 
 
+def _cdata(s) -> str:
+    """Wrap content in a CDATA section, neutralizing ANY ``]]>`` terminator via
+    the standard split idiom so no field — present or future — can break out of
+    the section and inject raw XML. The single CDATA-safety chokepoint for the
+    RSS feed (round-11 gap-3): route the whole ``description`` through this once
+    rather than relying on each field happening to ``]]>``-neutralize itself.
+    Per-field HTML escaping (``_xml_escape`` / ``sanitize_html``) is still
+    applied upstream for HTML-injection safety inside the rendered section.
+    """
+    return "<![CDATA[" + str(s).replace("]]>", "]]]]><![CDATA[>") + "]]>"
+
+
 def _rfc822_pubdate(d: str) -> str:
     """RSS 2.0 wants RFC-822 dates. We don't track time of day, so use
     midnight UTC."""
@@ -328,16 +340,15 @@ def rss_feed(
         body_html = (headline_note or {}).get("body_html") or ""
         label = (headline_note or {}).get("label") or ""
         title_text = f"{ref}" + (f" — {label}" if label else "")
-        # RSS description is HTML; wrap in CDATA so consumers don't
-        # re-escape our pre-rendered tags. The note body is sanitized
-        # (mirroring the preview/build boundary — AI-authored bodies
-        # share the note store and the feed is unauthenticated, so
-        # <script>/on*/javascript: must be stripped), then any literal
-        # "]]>" is neutralized so a body cannot break out of the CDATA
-        # section and inject raw XML.
+        # RSS description is HTML wrapped in CDATA so consumers don't re-escape
+        # our pre-rendered tags. The note body is sanitized (mirroring the
+        # preview/build boundary — AI-authored bodies share the note store and
+        # the feed is unauthenticated, so <script>/on*/javascript: must be
+        # stripped). CDATA-breakout (`]]>`) safety is enforced ONCE on the whole
+        # description by `_cdata()` below (gap-3 chokepoint), not per field.
         from scripts.core.html_sanitize import sanitize_html
 
-        safe_body = sanitize_html(body_html).replace("]]>", "]]&gt;") if body_html else ""
+        safe_body = sanitize_html(body_html) if body_html else ""
         description = (
             f"<p><strong>{_xml_escape(ref)}</strong></p>"
             + (f"<p><em>{_xml_escape(label)}</em></p>" if label else "")
@@ -350,7 +361,7 @@ def rss_feed(
                 f"      <link>{_xml_escape(base or '')}/sources?book={_xml_escape(v.get('book_code'))}</link>\n",
                 f'      <guid isPermaLink="false">verse-of-day:{_xml_escape(d)}{":" + _xml_escape(edition_id) if edition_id else ""}</guid>\n',
                 f"      <pubDate>{_rfc822_pubdate(d)}</pubDate>\n",
-                f"      <description><![CDATA[{description}]]></description>\n",
+                f"      <description>{_cdata(description)}</description>\n",
                 "    </item>\n",
             ]
         )

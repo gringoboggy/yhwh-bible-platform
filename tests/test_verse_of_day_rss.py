@@ -50,13 +50,26 @@ def test_rss_description_strips_script(monkeypatch):
 
 
 def test_rss_description_neutralizes_cdata_breakout(monkeypatch):
-    """A literal ``]]>`` in the body must be neutralized so it cannot
-    close the CDATA section early and inject raw XML."""
-    xml = _build_feed_with_body(monkeypatch, "<p>x]]><inject>evil</inject></p>")
-    # The only legitimate CDATA terminator is the one the feed writes
-    # immediately before ``</description>``. No bare ``]]>`` may appear
-    # adjacent to attacker content.
-    assert "]]><inject>" not in xml
-    assert "]]&gt;" in xml
-    # The CDATA section closes exactly where the template intends.
+    """A literal ``]]>`` in the body must be neutralized so it cannot close the
+    CDATA section early and inject raw XML. round-11 gap-3: enforced once on the
+    whole description by the ``_cdata`` chokepoint, not per field."""
+    import xml.dom.minidom as minidom
+
+    # the ]]> is followed by sanitizer-preserved markup, so a real breakout
+    # would leave a stray </p> after the CDATA and make the doc UNPARSEABLE.
+    xml = _build_feed_with_body(monkeypatch, "<p>x]]>y</p>")
+    minidom.parseString(xml)  # must remain well-formed XML (no breakout)
+    # the section still closes exactly at the template boundary
     assert "]]></description>" in xml
+
+
+def test_cdata_chokepoint_round_trips_embedded_terminator():
+    """``_cdata`` splits any embedded ``]]>`` transparently: the CDATA content
+    reassembles to the exact payload, and the wrapped form parses as XML."""
+    import xml.dom.minidom as minidom
+
+    payload = "before]]>after <b>x</b>"
+    wrapped = verse_of_day._cdata(payload)
+    doc = minidom.parseString(f"<r>{wrapped}</r>")
+    text = "".join(n.data for n in doc.documentElement.childNodes)
+    assert text == payload
