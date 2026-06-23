@@ -366,9 +366,12 @@ def render_chapter_preview(
     cats_idx = {c["id"]: c for c in config.load_categories()}
 
     # Group notes by verse so each verse's markers land inline.
-    notes_by_verse: dict[int, list[tuple]] = {}
+    # Key on str(verse) so an own-versification translation whose get_chapter
+    # rows carry STRING verse labels still matches the int-keyed note store
+    # (byte-identical for canonical int verses). round-11 gap-2.
+    notes_by_verse: dict[str, list[tuple]] = {}
     for note in chapter_notes:
-        notes_by_verse.setdefault(note[_NOTE_VERSE], []).append(note)
+        notes_by_verse.setdefault(str(note[_NOTE_VERSE]), []).append(note)
 
     # Render the verse stream.
     verse_html_parts = []
@@ -379,7 +382,7 @@ def render_chapter_preview(
             f'<span class="verse-num">{vnum}</span>',
             f'<span class="verse-text">{html.escape(vtext)}</span>',
         ]
-        verse_notes = notes_by_verse.get(vnum, [])
+        verse_notes = notes_by_verse.get(str(vnum), [])
         for note in verse_notes:
             note_idx += 1
             sym = _kind_symbol(note[_NOTE_KIND], kinds_idx, cats_idx)

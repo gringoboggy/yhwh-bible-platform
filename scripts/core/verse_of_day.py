@@ -197,7 +197,12 @@ def pick_verse_for_date(
                 continue
             if enabled_kinds is not None and spec.kind not in enabled_kinds:
                 continue
-            key = (int(spec.chapter), int(spec.verse), spec.suffix or "")
+            try:
+                key = (int(spec.chapter), int(spec.verse), spec.suffix or "")
+            except (ValueError, TypeError):
+                # own-versification / Addition-labelled note verse ("B1") — skip;
+                # verse-of-day picks from canonical int-versed notes. round-11 gap-2.
+                continue
             verses.setdefault(key, []).append(spec)
         if not verses:
             continue
