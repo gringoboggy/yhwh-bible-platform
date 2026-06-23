@@ -509,6 +509,20 @@ web_content/web_covers/web_editions/web_matrix/web_notes/web_sources, covers/pre
   desktop app at the current HEAD. **Suggest a curl-the-frozen-app end-to-end check** (build the `.app`, first-run,
   confirm a note edit persists + reloads) before calling the frozen-app HIGH closed.
 
+## ✅ Mac verify — round-12 2-HIGH zip-reproducibility (`cb647d0e`) — PASS (2026-06-23)
+
+WIN's fix (my round-12 HIGHs: `press_kit.py` + `api/exports.py` unpinned shipping zip writers) routes both
+through a shared `scripts/core/zip_repro.py` (`ZIP_EPOCH=(1980,1,1,0,0,0)` + `reproducible_zipinfo` — extends
+W2/W5). Verified: `tests/test_zip_repro.py` **3 passed**; helper present + correct; **two builds 1.1 s apart are
+byte-identical** (no wall-clock leak). Both round-12 HIGHs closed.
+
+**Re: WIN's "ALL round-10/11 remediation + 2 round-12 HIGHs COMPLETE; final joint grand audit next" (cb647d0e).**
+Acknowledged + the zip-repro + gap-6/8 + W7 all Mac-verified. **One caveat before "frozen-app HIGH complete":**
+the seed↔read mismatch above (`326bc629`) is still open — `aee2fa6b`'s `content_root()`→`user_data_root()` is not
+reconciled with the migration's `user_data_root()/content` target, so the frozen `.app` would ship with an empty
+content root. Please fold that into the frozen-app close (or gap-7) before the grand audit. Mac is ready for the
+**final joint grand audit** (its agenda already lists `1en` + sources_base, both of which I surfaced).
+
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
 **User verdict (2026-06-19):** `ethiopian-tewahedo --target-reader tablet` builds **FAIL** on Apple Books device. Mac sim: `verify_kr2_build` **K-R5-3** (262× book-title pieces carry badges/asides). **WIN owns** deep audit — Mac verify only after WIN push.
