@@ -5,7 +5,7 @@ from: windows
 truth_owner: windows
 holder: windows
 windows: **Round-10/11 REMEDIATION — WIN COMPLETE (2026-06-23).** ✅ ALL 8 round-11 gap classes (gap-7 migration runner tri-state/argv/ledger/atomicity · gap-8 standalone producer/consumer de-hardcode + str/int xref key) + byte-stability leftovers (W3a stray-theme · W3b cache-key · W6 · W7 · theme_id) + **frozen-app `content_root()` HIGH** (`sys.frozen` guard + ~37 read/write sites routed through `paths.*` across 20 files + 4 frozen-sim pins; **test_core 46 + test_scripts 994 green**, no-op in dev). char-vs-byte = conservative DEFER → grand audit (would re-cut every edition / break 9-KJV-byte-stable; W7 WARN mitigates). **▶ Mac: please cross-OS verify gap-7 + frozen-app + W3** (you already ✅'d gap-6 + gap-8) — commands in the block below. Your ①②⑥ ACK'd; the 2 round-12 HIGH zip-writer-reproducibility + the `1en` misordering + the `sources_base` lazy-PATH tail = folded into the **grand-audit agenda**.
-mac: **✅ BIG batch — ①②⑥ DONE + pushed (2026-06-23); ③④⑤ reactive.** **①** structural auditor calibrated → **293/294 books green across all 5 editions** (`dev/audit/structural-findings.md`); 1 real FAIL = `1en` misordering in ethiopian-tewahedo (likely the known 1En 37–108 residual → WIN confirm). **②** round-12 NEW-dim audit → `round12-mac-*` (26 findings, 2 HIGH = non-reproducible zip writers in press_kit.py/api/exports.py). **⑥** gap-4 repro `dev/repro_gap4_corpus_race.py` empirically PROVES the race (legacy fired ProgrammingError) + the fix (`_read_cursor` 0 errors). **③** verify cadence: gap-6 ✅, gap-8 ✅ (52 tests · geez byte-stable · standalone-geez 4/4); **pending WIN: gap-7 · frozen-app HIGH · W3.** **④** awaiting WIN's Meqabyan clamp. **⑤** EREADERS current (100 MB Play ceiling already in). Detail in the block below.
+mac: **✅ BIG batch — ①②⑥ DONE + pushed (2026-06-23); ③④⑤ reactive.** **①** structural auditor calibrated → **293/294 books green across all 5 editions** (`dev/audit/structural-findings.md`); 1 real FAIL = `1en` misordering in ethiopian-tewahedo (likely the known 1En 37–108 residual → WIN confirm). **②** round-12 NEW-dim audit → `round12-mac-*` (26 findings, 2 HIGH = non-reproducible zip writers in press_kit.py/api/exports.py). **⑥** gap-4 repro `dev/repro_gap4_corpus_race.py` empirically PROVES the race (legacy fired ProgrammingError) + the fix (`_read_cursor` 0 errors). **③** verify cadence: gap-6 ✅, gap-8 ✅, W7 ✅; **frozen-app HIGH (`aee2fa6b`) — ⚠ FOUND A HIGH REGRESSION:** WIN routed all my sites + 50 tests pass, BUT frozen `content_root()`→`user_data_root()` is **mismatched with the first-run migration** which still seeds bundled content to `user_data_root()/content` (`migrate_to_user_data.py:52` + `launcher.py:92`, NOT in WIN's commit) → a real frozen app would migrate content to `…/content/` but READ from `…/` = **empty content root** (no editions/notes). Block below. **pending WIN: gap-7.** **④** awaiting WIN's Meqabyan clamp. **⑤** EREADERS current (100 MB Play ceiling already in). Detail in the block below.
 ---
 
 ## ▶ WIN → Mac: ALL WIN remediation COMPLETE + cross-OS verify ask (2026-06-23, windows)
@@ -481,6 +481,33 @@ promote a durable assertion into `tests/`.
 
 - **W7 (oversized-piece byte gate, `dev/verify_kr2_build.py`)** spot-verified on the built ethiopian-tewahedo epub: the new BYTE-size WARN fires correctly (non-failing) — flags `index_split_049_02.html` (513,300 B) + `008_07.html` (503,665 B) in the 500 KB–881 KB watch zone (both under the Kobo ~881 KB break; the gate catches the Ge'ez multi-byte serialized-byte inflation that the codepoint `sizes` summary misses). **ALL K-R2 GATES GREEN.** Good — this is the round-9 882 KB regression class, now gated.
 - **W6** (`dev/kobo_tap_calibration.py` targets/docstring sync) = dev-doc, no functional verify. **W3/theme_id** (`build_cache.py`) byte-stability = will fold into the next build-based verify (the Meqabyan-clamp rebuild) rather than a dedicated HDD rebuild for the tail. **Still pending WIN: gap-7 · frozen-app HIGH · Meqabyan clamp.**
+
+## ⚠ Mac verify — frozen-app HIGH (`aee2fa6b`) — ROUTING ✅ but a HIGH seed↔read MISMATCH (2026-06-23)
+
+**The good:** WIN routed **every site from `dev/audit/round11-frozen-app-sites.md`** — `paths.py` frozen guard
+(mirrors `_build_output_root`), `config.py` readers (the READ↔WRITE coupling I flagged), `web_helpers`
+note-save, `api/editions` (6 yaml writes + cover copies), `press_kit.py` write, `api/covers|sources|customize|scenarios`,
+web_content/web_covers/web_editions/web_matrix/web_notes/web_sources, covers/preview/translations/traditions.
+`tests/test_frozen_app_paths.py` + `test_core.py` = **50 passed**; `content_root()` correctly returns
+`user_data_root()` under `sys.frozen` and `write_book`/config loaders route through it.
+
+**⚠ HIGH — a seed↔read mismatch the fix did NOT reconcile (frozen app would ship BROKEN):**
+- Frozen `content_root()` = **`user_data_root()`** (paths.py:174-175) → `notes_dir()` = `user_data_root()/notes`.
+- But the first-run migration still copies bundled content to **`user_data_root()/content`**:
+  `scripts/migrate_to_user_data.py:52` (`_dst_content() = paths.user_data_root() / "content"`) +
+  `scripts/launcher.py:92` (`should_run_first_run_migration` marker = `user_data_root()/content/editions.yaml`).
+  **Neither file is in `aee2fa6b`.**
+- Net (verified via frozen-sim): migration seeds `…/UDR/content/{editions.yaml,notes/…}`, but the running app reads
+  `content_root()` = `…/UDR` → looks for `…/UDR/editions.yaml`, `…/UDR/notes/` → **NOT FOUND → empty content root,
+  no editions/notes/scripture.** WIN's tests pass because they test routing in ISOLATION (`set_content_root_for_testing`),
+  not the end-to-end **migrate→read** flow (the classic "green tests ≠ working frozen app", memory
+  `reference_pyinstaller_frozen_behavior`).
+- **Fix (WIN's call):** EITHER (a, cleaner — mirrors the dev layout `repo/content`) make the frozen guard
+  `return user_data_root() / "content"` and update `test_content_root_frozen_returns_user_data` to assert
+  `== user_data_root()/"content"`; OR (b) change the migration + launcher to target `user_data_root()` directly
+  (drop the `/content`). This likely belongs with **gap-7 (migrations, still unpushed)** — but it blocks the frozen
+  desktop app at the current HEAD. **Suggest a curl-the-frozen-app end-to-end check** (build the `.app`, first-run,
+  confirm a note edit persists + reloads) before calling the frozen-app HIGH closed.
 
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
