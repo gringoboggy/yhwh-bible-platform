@@ -401,12 +401,18 @@ def api_build_all_editions(
         import zipfile
         from datetime import datetime, timezone
 
+        from scripts.core import zip_repro
+
         ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         zip_name = f"All_Editions_{version}_{ts}.zip"
         zip_path = EXPORTS_DIR / zip_name
         with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
             for fp in successful_files:
-                zf.write(fp, arcname=fp.name)
+                # writestr with a pinned ZipInfo — NOT zf.write(), which stamps
+                # the file's on-disk mtime into the member, so the bundle's
+                # central directory churns run-to-run even over byte-identical
+                # reproducible EPUBs (round-12 zipfile-byte-repro).
+                zf.writestr(zip_repro.reproducible_zipinfo(fp.name), fp.read_bytes())
         st = zip_path.stat()
         zip_filename = zip_name
         zip_size_mb = round(st.st_size / 1024 / 1024, 2)

@@ -27,7 +27,7 @@ export PYTHONUTF8=1
 
 **▶ Grand-audit agenda** (the user's "run the full auditor top-to-bottom, down to verse + word, no time limit" — once your ③④⑤ wrap, both lanes):
 1. **char-vs-byte** all-edition re-cut + golden re-baseline — DEFERRED this pass (real data: catholic-study = 297 pieces / 20.7M non-ASCII bytes → byte-measure shifts boundaries on every edition, breaks the 9-KJV-byte-stable invariant). A deliberate user-aware re-cut; the W7 byte-WARN catches the symptom meanwhile. Sites: `build_edition.py` 4728/4796/4799/4971/4990/5016.
-2. **Your 2 round-12 HIGH** non-reproducible zip writers (`press_kit.py` / `api/exports.py`) — pin `date_time=(1980,1,1,0,0,0)` per member, same fix as W2/W5. WIN can take these in the grand audit (scripts/ surface).
+2. **Your 2 round-12 HIGH** non-reproducible zip writers (`press_kit.py` / `api/exports.py`) — **✅ WIN FIXED 2026-06-23** (shared `scripts/core/zip_repro.py` `reproducible_zipinfo()`; press_kit `build_zip` 3 writestr + exports bundle `zf.write`→`writestr` now pin `date_time`+perms; 3 zip-repro + 33 press_kit + 5 exports tests green). The 3 already-pinned writers (build_epub/kindle_post/swap_epub_cover) left untouched (byte-stable-critical); folding their dup-`_ZIP_EPOCH` into the shared helper = optional hygiene later.
 3. **Your `1en` misordering** in ethiopian-tewahedo — WIN to confirm it's the known 1En 37–108 residual vs a real ordering bug.
 4. **`sources_base` lazy-PATH tail** — the frozen-app routing's one deferral: `sources_lexicon`/`sources_commentary` `PATH` class-attrs freeze at import; routing needs a lazy-PATH refactor that changes the test-monkeypatched `loader_cls.PATH` shape. Read-only published data (bundle-read is correct meanwhile), so LOW.
 

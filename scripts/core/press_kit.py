@@ -64,7 +64,7 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-from . import notes_io, paths
+from . import notes_io, paths, zip_repro
 
 
 SCHEMA_VERSION = 1
@@ -316,7 +316,7 @@ def build_zip(edition: dict, blurbs: dict, *, now: datetime | None = None) -> by
         ):
             name = "sample_chapter.html" if field == "sample_chapter_html" else f"{field}.txt"
             body = (blurbs.get(field) or "").strip() or default
-            zf.writestr(name, body)
+            zf.writestr(zip_repro.reproducible_zipinfo(name), body)
             contents.append(name)
 
         # Covers (skipped silently when missing).
@@ -332,7 +332,7 @@ def build_zip(edition: dict, blurbs: dict, *, now: datetime | None = None) -> by
                     cover_meta["variants"][variant_id] = {"error": str(e), "size": list(size)}
                     continue
                 arcname = f"covers/main_{variant_id}.png"
-                zf.writestr(arcname, png_bytes)
+                zf.writestr(zip_repro.reproducible_zipinfo(arcname), png_bytes)
                 contents.append(arcname)
                 cover_meta["variants"][variant_id] = {
                     "size": list(size),
@@ -351,6 +351,9 @@ def build_zip(edition: dict, blurbs: dict, *, now: datetime | None = None) -> by
             "cover": cover_meta,
             "blurb_fields_present": [k for k in PRESS_KIT_FIELDS if (blurbs.get(k) or "").strip()],
         }
-        zf.writestr("manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2))
+        zf.writestr(
+            zip_repro.reproducible_zipinfo("manifest.json"),
+            json.dumps(manifest, ensure_ascii=False, indent=2),
+        )
 
     return buf.getvalue()
