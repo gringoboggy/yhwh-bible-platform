@@ -35,10 +35,21 @@ _ASIDE_RE = re.compile(
 )
 _BACKLINK_RE = re.compile(r'<a\b[^>]*href="#([^"]+)"', re.I)
 
+# Device-proven Kobo decline floors. SINGLE SOURCE OF TRUTH: dev/verify_kr2_build.py
+# (round-5 bracket: inline popup asides pop <= 4,498 and decline >= 5,500 stripped
+# chars; the study-glossary backmatter navigate targets tolerate the higher glossary
+# decline ceiling because they NAVIGATE rather than render in the preview). The old
+# hard-coded 5,000 here pre-dated the round-5 calibration.
+POP_FLOOR = 4_498
+GLOSSARY_DECLINE_HI = 7_748
+
 
 def _attrs(blob: str) -> dict[str, str]:
     out: dict[str, str] = {}
-    for m in re.finditer(r'(\w+)="([^"]*)"', blob):
+    # `[\w:.-]+` keeps the namespace prefix (e.g. `epub:type`); a bare `\w+`
+    # stops at the colon and silently drops every `epub:type` attribute, which
+    # made `_aside_index` skip every footnote aside (the gate's latent dead-index bug).
+    for m in re.finditer(r'([\w:.-]+)="([^"]*)"', blob):
         out[m.group(1)] = m.group(2)
     return out
 
@@ -118,25 +129,27 @@ def _next_vn_link_after(text: str, pos: int) -> str | None:
     return m.group(1) if m else None
 
 
-def main(argv: list[str]) -> int:
-    if len(argv) < 2:
-        print(__doc__)
-        return 1
-    path = Path(argv[1])
-    pins = [p for p in argv[2:] if p != "--pin"]
-    if not path.is_file():
-        print(f"missing: {path}")
-        return 1
+def audit(pieces: dict[str, str]) -> dict:
+    """Compare every noteref to the popup-footnote formula. Pure (no I/O).
 
-    with zipfile.ZipFile(path) as zf:
-        pieces = _load_pieces(zf, pins or None)
+    Returns ``{violations, warns, terminal, all_refs, aside_idx}``. ``violations``
+    set the gate's non-zero exit; ``warns`` are honest non-fatal notes (an oversized
+    translation ``vnote`` aside is an un-probed class, not a proven device fail —
+    no-reassert-ratified-bar).
+    """
     aside_idx = _aside_index(pieces)
     all_refs: list[dict] = []
     for fname, text in pieces.items():
         all_refs.extend(_noterefs(text, fname))
 
     violations: list[str] = []
+    warns: list[str] = []
     for ref in all_refs:
+        # K-R9c: study-glossary-jump badges navigate cross-file to the Study Notes
+        # backmatter glossary BY DESIGN -> not same-file popup candidates. (Mirrors
+        # dev/verify_kr2_build.py's promoted-noteref exemption.)
+        if "study-glossary-jump" in ref["class"]:
+            continue
         href = ref["href"]
         if not href.startswith("#"):
             violations.append(f"PROMOTED {ref['kind']} {ref['id']} → {href} ({ref['file']})")
@@ -156,12 +169,28 @@ def main(argv: list[str]) -> int:
             violations.append(f"BACKWARD {ref['kind']} {ref['id']} @{ref['offset']} aside @{aside['offset']}")
         if not _ASCII_ID.match(tid):
             violations.append(f"NON_ASCII_ID #{tid}")
-        if aside["stripped"] < 9:
-            violations.append(f"SHORT_TARGET #{tid} stripped={aside['stripped']}")
-        if aside["stripped"] > 5000:
-            violations.append(f"LONG_TARGET #{tid} stripped={aside['stripped']}")
+        n = aside["stripped"]
+        cls = aside["class"]
+        lead = cls.split()[0] if cls.split() else ""
+        if n < 9:
+            violations.append(f"SHORT_TARGET #{tid} stripped={n}")
+        elif "study-glossary-cat" in cls:
+            pass  # K-R13 navigate target; sized by the dedicated glossary pass below.
+        elif lead == "vnote":
+            if n > POP_FLOOR:
+                warns.append(f"LONG_VNOTE #{tid} stripped={n} (> pop floor {POP_FLOOR}; un-probed translation class)")
+        elif n > POP_FLOOR:
+            violations.append(f"LONG_TARGET #{tid} stripped={n} (> pop floor {POP_FLOOR})")
         if ref["id"] not in aside["backlinks"]:
             violations.append(f"NO_BACKLINK #{tid} ← {ref['id']} (backs={aside['backlinks'][:3]})")
+
+    # Dedicated pass: study-glossary-cat navigate targets (reached via the exempted
+    # jump badges) must stay under the higher navigate decline ceiling (gate 4g-bis).
+    for aid, a in aside_idx.items():
+        if "study-glossary-cat" in a["class"] and a["stripped"] > GLOSSARY_DECLINE_HI:
+            violations.append(
+                f"LONG_GLOSSARY #{aid} stripped={a['stripped']} (> decline ceiling {GLOSSARY_DECLINE_HI})"
+            )
 
     # Terminal geometry: vbadge immediately before next vn-link (device failure class)
     terminal: list[str] = []
@@ -173,11 +202,39 @@ def main(argv: list[str]) -> int:
         ):
             terminal.append(f"{fname}: {m.group(1)} → next {_next_vn_link_after(text, m.end())}")
 
+    return {
+        "violations": violations,
+        "warns": warns,
+        "terminal": terminal,
+        "all_refs": all_refs,
+        "aside_idx": aside_idx,
+    }
+
+
+def main(argv: list[str]) -> int:
+    if len(argv) < 2:
+        print(__doc__)
+        return 1
+    path = Path(argv[1])
+    pins = [p for p in argv[2:] if p != "--pin"]
+    if not path.is_file():
+        print(f"missing: {path}")
+        return 1
+
+    with zipfile.ZipFile(path) as zf:
+        pieces = _load_pieces(zf, pins or None)
+    res = audit(pieces)
+    violations, warns, terminal = res["violations"], res["warns"], res["terminal"]
+    all_refs, aside_idx = res["all_refs"], res["aside_idx"]
+
     print(f"=== {path.name} ===")
     print(f"pieces={len(pieces)} noterefs={len(all_refs)} footnote_asides={len(aside_idx)}")
     vn = [r for r in all_refs if r["kind"] == "vn-link"]
     vb = [r for r in all_refs if r["kind"] == "vbadge"]
-    print(f"vn-link={len(vn)} vbadge={len(vb)} violations={len(violations)} terminal_vbadge={len(terminal)}")
+    print(
+        f"vn-link={len(vn)} vbadge={len(vb)} violations={len(violations)} "
+        f"warns={len(warns)} terminal_vbadge={len(terminal)}"
+    )
 
     if violations:
         print("\n-- formula violations (first 20) --")
@@ -185,6 +242,13 @@ def main(argv: list[str]) -> int:
             print(v)
         if len(violations) > 20:
             print(f"... +{len(violations) - 20} more")
+
+    if warns:
+        print("\n-- warns (non-fatal; first 10) --")
+        for w in warns[:10]:
+            print(w)
+        if len(warns) > 10:
+            print(f"... +{len(warns) - 10} more")
 
     if terminal:
         print("\n-- terminal vbadge (badge then next vn-link) --")
