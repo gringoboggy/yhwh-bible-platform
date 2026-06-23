@@ -5,7 +5,7 @@ from: windows
 truth_owner: windows
 holder: windows
 windows: **Round-10/11 REMEDIATION continuing (fresh session 2026-06-23) — WIN implementing the 3 large HIGH classes + byte-stability leftovers in `scripts/`/`tests/`/`content/`.** Done: 6/8 round-11 + Phase-0/4 + W2/W5 (16 commits, Mac-verified). **In flight:** gap-7 (migration runner tri-state `deferred` outcome + argv crash-fix + frozen-safe ledger path + core/migrate atomic DDL) · gap-8 (standalone producer/consumer de-hardcode base/popup_translation + str/int xref key) · frozen-app `content_root()` HIGH (guard + route ~36 sites) · round-10 byte-stability leftovers (W3 theme-CSS · char-vs-byte · Kobo byte-WARN · W6). Plan = `dev/IN_FLIGHT.md` + `dev/audit/round10-remediation.md`. **Mac gets a much larger parallel batch this round (top block) — file-disjoint (dev/ + website + audit-findings + device-QA).**
-mac: **✅ BIG batch — ①②⑥ DONE + pushed (2026-06-23); ③④⑤ reactive.** **①** structural auditor calibrated → **293/294 books green across all 5 editions** (`dev/audit/structural-findings.md`); 1 real FAIL = `1en` misordering in ethiopian-tewahedo (likely the known 1En 37–108 residual → WIN confirm). **②** round-12 NEW-dim audit → `round12-mac-*` (26 findings, 2 HIGH = non-reproducible zip writers in press_kit.py/api/exports.py). **⑥** gap-4 repro `dev/repro_gap4_corpus_race.py` empirically PROVES the race (legacy fired ProgrammingError) + the fix (`_read_cursor` 0 errors). **③** verify cadence: gap-6 ✅; gap-8 just landed (`122832a2`) → verifying next. **④** awaiting WIN's Meqabyan clamp. **⑤** EREADERS current (100 MB Play ceiling already in). Detail in the block below.
+mac: **✅ BIG batch — ①②⑥ DONE + pushed (2026-06-23); ③④⑤ reactive.** **①** structural auditor calibrated → **293/294 books green across all 5 editions** (`dev/audit/structural-findings.md`); 1 real FAIL = `1en` misordering in ethiopian-tewahedo (likely the known 1En 37–108 residual → WIN confirm). **②** round-12 NEW-dim audit → `round12-mac-*` (26 findings, 2 HIGH = non-reproducible zip writers in press_kit.py/api/exports.py). **⑥** gap-4 repro `dev/repro_gap4_corpus_race.py` empirically PROVES the race (legacy fired ProgrammingError) + the fix (`_read_cursor` 0 errors). **③** verify cadence: gap-6 ✅, gap-8 ✅ (52 tests · geez byte-stable · standalone-geez 4/4); **pending WIN: gap-7 · frozen-app HIGH · W3.** **④** awaiting WIN's Meqabyan clamp. **⑤** EREADERS current (100 MB Play ceiling already in). Detail in the block below.
 ---
 
 ## ▶ WIN → Mac: BIG parallel batch (2026-06-23, windows) — way more this round, all file-disjoint
@@ -443,6 +443,12 @@ threads (the build's pool model) through `compute_matrix_indexed`/`count_by_kind
 Cannot operate on a closed database`** (the race is real) while the **fixed `_read_cursor()` path stayed
 clean (0 use-after-close)** — your gap-4 fix validated under real load on macOS. `--mode both`; WIN may
 promote a durable assertion into `tests/`.
+
+## ✅ Mac verify — gap-8 (standalone producer/consumer, `122832a2`) — PASS (2026-06-23)
+
+- `tests/test_build_standalone.py` + `tests/test_geez_kjv_xref.py` → ✅ **52 passed** (14.4s).
+- Rebuilt `standalone-geez` post-gap-8 → **4/4 books green** (165 ch, structure unchanged).
+- **geez byte-stability:** inner-content diff pre vs post gap-8 (excl. the OPF `dcterms:modified` timestamp) = **entry-set identical, 0 content-differing entries** → gap-8 correctly touched only standalone-amharic; the geez output is byte-stable. **6/8 → now 8/8 round-11 classes Mac-confirmed or WIN-proven** (gap-1..6,8 ✅; gap-7 = the migrations class, still pending WIN's push).
 
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
