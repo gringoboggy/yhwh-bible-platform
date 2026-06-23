@@ -15,30 +15,38 @@ Invariants asserted here:
     an unattributed note without inventing an empty-dict 9th field;
   * write_book emits notes in canonical (chapter, verse, suffix) order.
 
-write_book writes to a FIXED path (``NOTES_DIR / <book>.py``), so every test
-monkeypatches ``web_helpers.NOTES_DIR`` to a tmp dir and clears the
-notes_io load cache, never touching real ``content/notes/``.
+write_book resolves its path via ``paths.notes_dir()`` (-> content_root()/notes,
+the round-11 frozen-app routing), so every test pins the content root via
+``paths.set_content_root_for_testing`` to a tmp dir and clears the notes_io load
+cache, never touching real ``content/notes/``. (Monkeypatching the dead
+``web_helpers.NOTES_DIR`` constant no longer redirects write_book and would leak
+into the real corpus — round-13 conftest-guard finding.)
 """
 
 import pytest
 
 
 @pytest.fixture
-def wh(monkeypatch, tmp_path):
-    """web_helpers with NOTES_DIR redirected to a tmp dir (lazy-imported,
-    matching this repo's in-method import convention)."""
+def wh(tmp_path):
+    """web_helpers with the content root pinned to a tmp dir, so write_book's
+    paths.notes_dir() resolves there (NOT the dead NOTES_DIR constant)."""
     from scripts import web_helpers
-    from scripts.core import notes_io
+    from scripts.core import notes_io, paths
 
-    monkeypatch.setattr(web_helpers, "NOTES_DIR", tmp_path)
+    paths.set_content_root_for_testing(tmp_path)
+    (tmp_path / "notes").mkdir(parents=True, exist_ok=True)
     notes_io.clear_load_notes_cache()
-    return web_helpers
+    try:
+        yield web_helpers
+    finally:
+        paths.set_content_root_for_testing(None)
+        notes_io.clear_load_notes_cache()
 
 
 def _reparse(wh_mod, book_code):
-    from scripts.core import notes_io
+    from scripts.core import notes_io, paths
 
-    text = (wh_mod.NOTES_DIR / f"{book_code}.py").read_text(encoding="utf-8")
+    text = (paths.notes_dir() / f"{book_code}.py").read_text(encoding="utf-8")
     return notes_io.load_notes_from_text(text), text
 
 

@@ -2,9 +2,24 @@
 
 from __future__ import annotations
 
-import json
-
 import pytest
+
+
+@pytest.fixture(autouse=True)
+def _redirect_notes_dir(monkeypatch, tmp_path):
+    """Redirect ONLY paths.notes_dir() to a tmp dir so write_book / api_save /
+    api_notes / api_sources / preview (which resolve paths.notes_dir() since the
+    round-11 frozen-app routing) read/write a tmp notes/ — while editions.yaml /
+    kinds.yaml still load from the REAL content_root (these tests need the real
+    edition registry, e.g. 'ethiopian-tewahedo'). Monkeypatching the modules'
+    now-dead NOTES_DIR constants no longer redirects them and leaked into the real
+    corpus (round-13 conftest finding); mirrors test_corpus_index_delta.py."""
+    from scripts.core import notes_io, paths
+
+    monkeypatch.setattr(paths, "notes_dir", lambda: tmp_path / "notes")
+    notes_io.clear_load_notes_cache()
+    yield
+    notes_io.clear_load_notes_cache()
 
 
 def test_load_notes_checked_returns_error_on_syntax_error(tmp_path):
@@ -24,8 +39,6 @@ def test_api_notes_refuses_unparseable_book(tmp_path, monkeypatch):
     notes_dir = tmp_path / "notes"
     notes_dir.mkdir()
     (notes_dir / "gen.py").write_text("NOTES = [(  # broken\n", encoding="utf-8")
-    monkeypatch.setattr(web_notes, "NOTES_DIR", notes_dir)
-
     result = web_notes.api_notes("gen")
     assert result.get("http") == 500
     assert "unparseable" in result.get("error", "").lower()
@@ -38,8 +51,6 @@ def test_api_save_refuses_unparseable_book(tmp_path, monkeypatch):
     notes_dir.mkdir()
     corrupt = notes_dir / "gen.py"
     corrupt.write_text("NOTES = [(  # broken\n", encoding="utf-8")
-    monkeypatch.setattr(web_notes, "NOTES_DIR", notes_dir)
-
     before = corrupt.read_text(encoding="utf-8")
     result = web_notes.api_save(
         "gen",
@@ -62,8 +73,6 @@ def test_api_delete_refuses_unparseable_book(tmp_path, monkeypatch):
     notes_dir.mkdir()
     corrupt = notes_dir / "gen.py"
     corrupt.write_text("NOTES = [(  # broken\n", encoding="utf-8")
-    monkeypatch.setattr(web_notes, "NOTES_DIR", notes_dir)
-
     before = corrupt.read_text(encoding="utf-8")
     result = web_notes.api_delete("gen", 0)
     assert result.get("http") == 500
@@ -85,8 +94,6 @@ def test_api_sources_for_book_refuses_unparseable(tmp_path, monkeypatch):
     notes_dir = tmp_path / "notes"
     notes_dir.mkdir()
     (notes_dir / "gen.py").write_text("NOTES = [(  # broken\n", encoding="utf-8")
-    monkeypatch.setattr(web_sources, "NOTES_DIR", notes_dir)
-
     result = web_sources.api_sources_for_book("gen")
     assert result.get("http") == 500
     assert "unparseable" in result.get("error", "").lower()
@@ -98,8 +105,6 @@ def test_preview_refuses_unparseable_notes(tmp_path, monkeypatch):
     notes_dir = tmp_path / "notes"
     notes_dir.mkdir()
     (notes_dir / "gen.py").write_text("NOTES = [(  # broken\n", encoding="utf-8")
-    monkeypatch.setattr(preview, "NOTES_DIR", notes_dir)
-
     result = preview.render_chapter_preview("ethiopian-tewahedo", "gen", 1)
     assert result["status"] == "error"
     assert result.get("http") == 500
@@ -107,14 +112,12 @@ def test_preview_refuses_unparseable_notes(tmp_path, monkeypatch):
 
 
 def test_api_save_sanitizes_script_in_body(tmp_path, monkeypatch):
-    from scripts import web_helpers, web_notes
+    from scripts import web_notes
     from scripts.core import notes_io
 
     notes_dir = tmp_path / "notes"
     notes_dir.mkdir()
     (notes_dir / "gen.py").write_text("NOTES = []\n", encoding="utf-8")
-    monkeypatch.setattr(web_notes, "NOTES_DIR", notes_dir)
-    monkeypatch.setattr(web_helpers, "NOTES_DIR", notes_dir)
 
     result = web_notes.api_save(
         "gen",

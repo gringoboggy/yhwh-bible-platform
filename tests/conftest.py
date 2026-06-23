@@ -27,6 +27,11 @@ sys.path.insert(0, str(REPO_ROOT))
 # a test is just as suspicious as a deletion).
 _PROTECTED_DIRS = [
     REPO_ROOT / "content" / "sources",
+    # content/notes/ holds the 91k-note corpus — the most write-prone production
+    # tree (write_book / api_save / promote / inject all target it). A test that
+    # monkeypatches a now-dead path constant leaks real files here; guard it so
+    # such a leak fails the session naming the file (round-13 audit finding).
+    REPO_ROOT / "content" / "notes",
 ]
 _PROTECTED_FILES = [
     REPO_ROOT / "content" / "editions.yaml",

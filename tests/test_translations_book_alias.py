@@ -21,6 +21,9 @@ class TestTranslationsBookFileAlias:
             'VERSES = [(1, 1, "canonical exo stem wins")]\n',
             encoding="utf-8",
         )
-        monkeypatch.setattr(translations, "TRANSLATIONS_DIR", tmp_path)
+        # translations resolves its store via _translations_dir() (-> paths.translations_dir())
+        # since the round-11 frozen-app routing; the module-level TRANSLATIONS_DIR constant is
+        # no longer read, so redirect the accessor (round-13 dead-constant sweep).
+        monkeypatch.setattr(translations, "_translations_dir", lambda: tmp_path)
         translations.clear_cache()
         assert translations.get_verse("demo-tr", "exo", 1, 1) == "canonical exo stem wins"
