@@ -22,6 +22,19 @@ From `dev/EREADERS.md` §Google Play Books and the M5 phone-QA protocol:
 
 **Staged QA artifact (v0.1.0):** `YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub` — GitHub release URL in `EREADERS.md` §Google Play Books.
 
+> **⚠ ROUND-13 CORRECTION (2026-06-23, Mac audit).** The **locally staged** sim copy
+> `build/reader-sim/play/YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub` is **NOT a true
+> `everywhere` build** — its OPF carries a single `<dc:language>en-US</dc:language>` followed by
+> the five orphaned `<!-- Hebrew/Greek/Aramaic/Ge'ez/Arabic -->` comments with the
+> `hbo/grc/arc/gez/ar` elements stripped. That is the exact fingerprint of
+> `kindle_post.collapse_dc_language` (regex `<dc:language>[^<]*</dc:language>` drops the elements,
+> leaves the comments). The **GitHub release** asset of the same name is correct (6 `dc:language`
+> values, verified by download 2026-06-23). So every Thorium / agent-sim "Play PASS" recorded
+> against the staged file (qa-checklist turn 127) tested the WRONG artifact: a 1-language file the
+> user never uploads. **Re-stage via `scripts/reader_sim.py --build play`** (which calls
+> `build_edition --target-reader everywhere` → 6 langs, no `yhwh:target-reader` stamp) before any
+> further Play sim. The `play` gate did **not** catch this — see §4 (new row) + §9.
+
 ---
 
 ## 2. Official format support
@@ -81,6 +94,7 @@ From `dev/EREADERS.md` §Google Play Books and the M5 phone-QA protocol:
 | **No `play` `target_reader`** — uses `everywhere` alias | `FORMAT_MATRIX` play row `target_reader: everywhere` (`build_edition.py:2075–2083`) | **MED** — intentional until QA |
 | **No Play post-process** (cf. `kindle_safe`, `kepubify`) | `build_format_matrix.py` — play cell = plain copy of `everywhere` base | **LOW** — correct default |
 | **No Play-specific gates** in `verify_kr2_build.py` | Only kobo/kindle stamped checks | **MED** — nothing catches Play regressions pre-QA |
+| **Play gate accepts a dc:language-collapsed file as `everywhere`** | `reader_sim.gate_reader('play')` runs epubcheck + `verify_kr2_build` + `audit_epub_structure`; none assert `everywhere`/non-kindle ⇒ ≥2 `dc:language`. `verify_kr2_build.py:132` only checks `== 1` and **only for kindle**. The collapsed staged file passes the play gate green (verified 2026-06-23). | **MED** — silently validates a kindle-collapsed file as Play; popup-font fallback signal lost |
 | **`TARGET_CAPS` has no `play` entry** | Wizard uses `everywhere` caps (`wizard.py:546–582`) | **LOW** — `<details>` already off |
 | **Popup model = full merged study asides** | Apple/Kobo forks don't apply; Play gets 25+ MiB popup graph | **MED** — may stress mobile renderer if popups work at all |
 | **Multi-value `dc:language`** (6 tags) | Non-kindle OPF (`build_edition.py:1737–1748`) | **LOW** — Google claims global language support; Kindle proved multi-lang breaks **Amazon**, not Google |
@@ -166,3 +180,62 @@ Contrast:
 | 4. **If popups/fonts FAIL:** triage → Option B spec (minimal `play` profile) OR Option C (document limitation) | WIN + user | Profile decision |
 | 5. Update `notes/2026-06-18-platform-implementation-matrix.md` Play column from ❓ → ✅/❌/⚠ | WIN | Round-9 merge |
 | 6. Keep `toc_expandable: false` on any Play profile — do not enable `<details>` | — | Avoid closed-and-stuck trap |
+
+---
+
+## 9. Round-13 actionable fixes (Mac audit 2026-06-23)
+
+1. **Re-stage the Play sim artifact.** Delete the collapsed
+   `build/reader-sim/play/YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub` and rebuild via
+   `python3 scripts/reader_sim.py --build play` (or copy the GitHub release asset, which is
+   correct). Verify with `unzip -p <epub> content.opf | grep -c '<dc:language>'` → must be **6**,
+   and no `yhwh:target-reader` meta. Re-run any Thorium/agent-sim Play pass — the prior PASS is on
+   a wrong artifact and must not be cited as device proof.
+2. **Add a non-kindle multi-language assertion to the Play (and everywhere/tablet/eink) gate.** In
+   `reader_sim.gate_reader` for `reader_id in ('apple','kobo','play')`, fail if the OPF has fewer
+   than 2 `<dc:language>` elements (mirror of `verify_kr2_build.py:132`, opposite direction). One
+   shared helper so the non-kindle "≥2 langs" bar and the kindle "== 1" bar are one resolver.
+   This closes the silent-collapse class for every non-kindle staged artifact, not just Play.
+3. **QA-checklist refinement** (`dev/reader_sim/play/qa-checklist.md`): add a pre-upload
+   integrity line — "confirm 6 `<dc:language>` values + no `yhwh:target-reader` stamp on the
+   staged EPUB before sim/upload" — so a future re-stage can't silently regress.
+
+---
+
+## 10. `everywhere` vs `play` profile — decision tree (Mac round-13 independent angle)
+
+The recurring open question ("does `everywhere` suffice or does Play need its own
+`target_reader`?") resolves to a 4-node tree, gated on the M5 phone-QA only. **Default at
+every node = stay on `everywhere`**; a `play` fork is justified *only* by a proven, build-fixable
+device failure that is Play-specific (not a generic EPUB3 limit and not fixable in docs).
+
+```
+M5 phone-QA on the (CORRECTLY-STAGED) everywhere navy EPUB
+│
+├─ Popups pop readable + scripts render + chapter-nav lands  →  KEEP everywhere.
+│     No `play` profile. Fan M5 (build_format_matrix --phase M5 = everywhere copy),
+│     catalog play.live:true. This is the expected outcome (everywhere already ships
+│     0 <details>, 6-value dc:language, embedded Cardo+Ethiopic, epubcheck 0/0/0/0).
+│
+├─ <details> ToC stuck-closed  →  NOT a fork trigger. everywhere already emits 0
+│     <details> (verified on the release artifact); flat pills are the design. No action.
+│
+├─ Scripts tofu BUT body renders / only popups affected  →  DOC-FIRST, not a fork.
+│     Cardo covers Latin+Greek+Hebrew, Noto Serif Ethiopic covers Geʿez; Arabic (`ar`)
+│     has NO embedded face and leans on the reader's dc:language-steered system fallback.
+│     If only Arabic tofus, document the limitation (same as Kobo's font-pack note) before
+│     forking. A `play` profile is warranted ONLY if Play ignores embedded fonts wholesale.
+│
+└─ Popups blank / jump-to-top (custom Android engine declines asides)  →  ONLY here does a
+      `play` fork earn its keep (Option B). Design a Play-specific visible-note presentation
+      (NOT kindle_post — that is Amazon-tuned: it collapses dc:language→en-US and would
+      re-introduce the very script-fallback loss this round flagged). New `target_reader=play`
+      in TARGET_READERS + a TARGET_CAPS.play entry (toc_expandable:false) + a `verify_play`
+      gate. Must not bleed into `tablet` (Apple M2 directive).
+```
+
+**Net:** `everywhere` is the correct profile today and almost certainly post-QA; the only
+fork-worthy failure mode is wholesale popup decline. The hard precondition for *any* of this is
+that the QA runs on a **real everywhere artifact** — which §9.1 shows the current staged file is
+NOT (it is a kindle-stripped, single-`en-US` copy), so the decision tree cannot even start until
+the artifact is re-staged.
