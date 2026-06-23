@@ -26,7 +26,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from scripts.core import audit_log, config, notes_io
+from scripts.core import audit_log, config, notes_io, paths
 
 REPO = Path(__file__).resolve().parent.parent.parent
 SCENARIOS_DIR = REPO / "content" / "scenarios"
@@ -34,11 +34,20 @@ SCENARIOS_DIR = REPO / "content" / "scenarios"
 _SCENARIO_NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,40}$")
 
 
+def _scenarios_dir() -> Path:
+    """Resolve the scenarios/ directory through the ω.5 paths resolver,
+    at CALL time, so a frozen desktop build reads/writes scenarios in the
+    writable user-data content root (not the read-only bundle) and the
+    test content-root override is honored. The module-level
+    ``SCENARIOS_DIR`` constant is retained for back-compat importers."""
+    return paths.content_root() / "scenarios"
+
+
 def _scenario_path(name: str) -> Path:
     """Resolve a scenario name to its file path, validating safety."""
     if not _SCENARIO_NAME_RE.match(name):
         raise ValueError(f"invalid scenario name {name!r} — use lowercase a-z, 0-9, -, _ (max 41 chars)")
-    return SCENARIOS_DIR / f"{name}.yaml"
+    return _scenarios_dir() / f"{name}.yaml"
 
 
 # ψ.27 — recipe resolver. Built-in scenarios store
@@ -85,12 +94,13 @@ def api_list_scenarios() -> dict:
     `enabled_kinds` is materialized through the recipe resolver so
     consumers see the same flat shape regardless of storage format.
     """
-    if not SCENARIOS_DIR.is_dir():
+    scenarios_dir = _scenarios_dir()
+    if not scenarios_dir.is_dir():
         return {"scenarios": []}
     import yaml
 
     out = []
-    for f in sorted(SCENARIOS_DIR.glob("*.yaml")):
+    for f in sorted(scenarios_dir.glob("*.yaml")):
         try:
             data = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
         except yaml.YAMLError:
@@ -188,7 +198,7 @@ def api_save_scenario(name: str, payload: dict) -> dict:
         "created": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
 
-    SCENARIOS_DIR.mkdir(parents=True, exist_ok=True)
+    _scenarios_dir().mkdir(parents=True, exist_ok=True)
 
     # Use plain text rendering so we don't need ruamel; PyYAML's default
     # output is fine for these simple records (no comments to preserve).
@@ -375,7 +385,7 @@ def api_import_scenario_yaml(yaml_text: str, *, name: str | None = None, overwri
                 "message": f"unknown kind code(s): {sorted(bad)}",
             }
 
-    SCENARIOS_DIR.mkdir(parents=True, exist_ok=True)
+    _scenarios_dir().mkdir(parents=True, exist_ok=True)
     existed = path.is_file()
     if existed:
         notes_io.ensure_backup(path)

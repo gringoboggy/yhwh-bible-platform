@@ -1,12 +1,15 @@
 # Round-10 audit — remediation tracker
 
-**Status (2026-06-22, REMEDIATION UNDERWAY):** Both lanes IN + merged. WIN lane = 8 survivors. MAC lane
+**Status (2026-06-23 — WIN REMEDIATION COMPLETE):** Both lanes IN + merged. WIN lane = 8 survivors. MAC lane
 = 44 survivors (30 mac-dim NET + 14 win-dim corroboration, deduped against WIN's authoritative compute
 run). Combined unique set = WIN's 8 (authoritative on the 6 compute dims) + Mac's 30 mac-dim findings.
-**Two HIGHs:** W1 (cache red-gate — ✅ FIXED) and the Mac frozen-app `content_root()` silent-data-loss
-(`paths.py:132-169` — do last, most invasive). Structural auditor AUTHORED but UNRUN. **In progress:
-remediate everything to green** (user directive: "until the full audit is in and everything it surfaces
-is fixed" — overrides the engine's findings-only default).
+**Both HIGHs ✅ FIXED:** W1 (cache red-gate) and the frozen-app `content_root()` silent-data-loss
+(`paths._content_root_cached()` now carries the `sys.frozen` guard + ~37 content read/write sites routed
+through `paths.*` across 20 files; test_core 46 + test_scripts 994 + 4 frozen-sim pins green; no-op in dev).
+**ALL 8 round-11 gap classes CLOSED + all byte-stability leftovers** (char-vs-byte deferred → grand audit,
+see below). Structural auditor RAN (Mac: 293/294 books green). **WIN side of "remediate everything to green"
+(user directive) is DONE;** remaining = the FINAL joint grand audit (char-vs-byte re-cut · Mac's 2 round-12
+HIGH zip-writer-reproducibility · the `1en` misordering · `sources_base` lazy-PATH tail) + Mac's cross-OS verify.
 
 ### ✅ Done this session (Phase 0 — lint/test hygiene; all byte-neutral, no engine output change)
 - **W1 (HIGH, cache red-gate)** — whitelisted `_estimate_kepub_aside_bytes` (pure fn) in
@@ -71,8 +74,9 @@ Source: `dev/audit/round11-mac-{survivors.json,plan.md}` (`3742c1b9`). 8 single-
 
 **Remediation order:** gap-4 → gap-2 → gap-1 → gap-3 → gap-5 → gap-6 → **gap-7 ✅** → **gap-8 ✅** →
 **byte-stability leftovers ✅** (W3a stray-theme removal · W3b default-theme cache-key hash · W6 tap-calibration sync ·
-W7 Kobo byte-WARN · theme_id mirror) **— all 2026-06-23** → **NEXT: frozen-app `content_root()` HIGH** (most invasive;
-`round11-frozen-app-sites.md`). **Structural auditor + round-12 new-dim audit + Phase-1 docs = delegated to Mac**
+W7 Kobo byte-WARN · theme_id mirror) → **frozen-app `content_root()` HIGH ✅** (guard + ~37 routed sites, 20 files;
+test_core 46 + test_scripts 994 + 4 frozen-sim green; `sources_base` lazy-PATH tail deferred) **— all 2026-06-23.
+ALL WIN REMEDIATION COMPLETE.** **Structural auditor + round-12 new-dim audit + Phase-1 docs = delegated to Mac**
 (file-disjoint; see `LANE_HANDOFF.md` top block). **All 8 round-11 gap classes CLOSED.**
 
 > **⛔ char-vs-byte file-split measure = conservative DEFER → grand audit (re-verified NO-GO this pass).** REAL DATA:

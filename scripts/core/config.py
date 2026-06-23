@@ -46,7 +46,12 @@ from pathlib import Path
 from functools import lru_cache
 from typing import Protocol, cast
 
+from . import paths  # ω.5 frozen-aware content resolver; no cycle (paths imports only stdlib)
+
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+# Back-compat anchor (kept for any sibling import); the cached loaders below now
+# read through paths.*_yaml() so a frozen build resolves content_root() →
+# user_data_root() instead of the read-only _MEIPASS bundle (round-11 frozen-app).
 _CONTENT = _REPO_ROOT / "content"
 
 
@@ -272,7 +277,7 @@ def load_books():
     life of the process — call ``load_books.cache_clear()`` to refresh
     after editing books.yaml.
     """
-    return _parse_yaml_records((_CONTENT / "books.yaml").read_text())
+    return _parse_yaml_records(paths.books_yaml().read_text())
 
 
 class _CachedLoader(Protocol):
@@ -284,11 +289,11 @@ class _CachedLoader(Protocol):
 def _load_kinds_cached(mtime_ns: int) -> list[dict]:
     """Cached parse of kinds.yaml. The cache key includes mtime_ns, so
     runtime edits invalidate automatically without an explicit clear."""
-    return _parse_yaml_records((_CONTENT / "kinds.yaml").read_text())
+    return _parse_yaml_records(paths.kinds_yaml().read_text())
 
 
 def _load_kinds_uncached() -> list[dict]:
-    p = _CONTENT / "kinds.yaml"
+    p = paths.kinds_yaml()
     mtime_ns = p.stat().st_mtime_ns if p.is_file() else 0
     return _load_kinds_cached(mtime_ns)
 
@@ -305,14 +310,14 @@ load_kinds: _CachedLoader = cast(_CachedLoader, _load_kinds_uncached)
 @lru_cache(maxsize=4)
 def _load_categories_cached(mtime_ns: int) -> list[dict]:
     """Cached parse of categories.yaml. The cache key includes mtime_ns."""
-    p = _CONTENT / "categories.yaml"
+    p = paths.categories_yaml()
     if not p.is_file():
         return []
     return _parse_yaml_records(p.read_text())
 
 
 def _load_categories_uncached() -> list[dict]:
-    p = _CONTENT / "categories.yaml"
+    p = paths.categories_yaml()
     mtime_ns = p.stat().st_mtime_ns if p.is_file() else 0
     return _load_categories_cached(mtime_ns)
 
@@ -330,14 +335,14 @@ load_categories: _CachedLoader = cast(_CachedLoader, _load_categories_uncached)
 def _load_editions_cached(mtime_ns: int) -> list[dict]:
     """Cached parse of editions.yaml. The cache key includes mtime_ns, so
     runtime API edits invalidate automatically without an explicit clear."""
-    p = _CONTENT / "editions.yaml"
+    p = paths.editions_yaml()
     if not p.is_file():
         return []
     return _parse_yaml_records(p.read_text())
 
 
 def _load_editions_uncached() -> list[dict]:
-    p = _CONTENT / "editions.yaml"
+    p = paths.editions_yaml()
     mtime_ns = p.stat().st_mtime_ns if p.is_file() else 0
     return _load_editions_cached(mtime_ns)
 

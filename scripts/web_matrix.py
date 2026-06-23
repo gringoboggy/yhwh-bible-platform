@@ -13,9 +13,8 @@ from __future__ import annotations
 
 import functools
 
-from scripts.core import config
+from scripts.core import config, paths
 from scripts.web_helpers import (
-    REPO,
     _canons_index,
     _files_signature,
     _notes_dir_signature,
@@ -386,11 +385,11 @@ def api_edition_diff(a_id: str, b_id: str) -> dict:
     return _cached_edition_diff(
         a_id,
         b_id,
-        _files_signature(REPO / "content" / "editions.yaml"),
-        _files_signature(REPO / "content" / "kinds.yaml"),
-        _files_signature(REPO / "content" / "categories.yaml"),
-        _files_signature(REPO / "content" / "canons.yaml"),
-        _files_signature(REPO / "content" / "books.yaml"),
+        _files_signature(paths.editions_yaml()),
+        _files_signature(paths.kinds_yaml()),
+        _files_signature(paths.categories_yaml()),
+        _files_signature(paths.canons_yaml()),
+        _files_signature(paths.books_yaml()),
         _notes_dir_signature(),
     )
 

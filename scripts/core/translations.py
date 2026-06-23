@@ -61,7 +61,7 @@ def _translations_dir() -> Path:
 
 def _resolve_book_stem(translation: str, book_code: str) -> str:
     """Return the ``.py`` stem for a book, applying legacy aliases when needed."""
-    d = TRANSLATIONS_DIR / translation
+    d = _translations_dir() / translation
     canonical = d / f"{book_code}.py"
     if canonical.is_file():
         return book_code
@@ -72,7 +72,7 @@ def _resolve_book_stem(translation: str, book_code: str) -> str:
 
 
 def _book_path(translation: str, book_code: str) -> Path:
-    return TRANSLATIONS_DIR / translation / f"{_resolve_book_stem(translation, book_code)}.py"
+    return _translations_dir() / translation / f"{_resolve_book_stem(translation, book_code)}.py"
 
 
 def load_book_verses_from_text(text: str) -> list[tuple[int, int, str]] | None:
@@ -173,7 +173,7 @@ def _book_index(translation: str, book_code: str) -> dict[tuple[int, int], str] 
 def has_translation(translation: str) -> bool:
     """True if ``content/translations/<translation>/`` exists with at
     least one book module."""
-    d = TRANSLATIONS_DIR / translation
+    d = _translations_dir() / translation
     if not d.is_dir():
         return False
     return any(p.suffix == ".py" and p.name != "__init__.py" for p in d.iterdir())
@@ -181,10 +181,11 @@ def has_translation(translation: str) -> bool:
 
 def list_translations() -> list[str]:
     """Translation ids available on disk, sorted alphabetically."""
-    if not TRANSLATIONS_DIR.is_dir():
+    _dir = _translations_dir()
+    if not _dir.is_dir():
         return []
     out = []
-    for child in TRANSLATIONS_DIR.iterdir():
+    for child in _dir.iterdir():
         if child.is_dir() and child.name != "sources" and has_translation(child.name):
             out.append(child.name)
     return sorted(out)
@@ -253,7 +254,7 @@ def translation_meta(translation: str) -> dict | None:
     Uses PyYAML if available, otherwise returns ``None`` (callers
     treat missing meta as "we have the data but no extra metadata").
     """
-    p = TRANSLATIONS_DIR / translation / "_meta.yaml"
+    p = _translations_dir() / translation / "_meta.yaml"
     if not p.is_file():
         return None
     try:

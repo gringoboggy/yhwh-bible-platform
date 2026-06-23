@@ -11,9 +11,8 @@ namespace.
 
 from __future__ import annotations
 
-from scripts.core import audit_log, config, notes_io
+from scripts.core import audit_log, config, notes_io, paths
 from scripts.web_helpers import (
-    NOTES_DIR,
     _nn,
     _nq,
     dict_to_tuple,
@@ -37,7 +36,7 @@ def api_books() -> dict:
     """List every book with note counts + per-kind histogram."""
     out = []
     for b in config.load_books():
-        path = NOTES_DIR / f"{b['code']}.py"
+        path = paths.notes_dir() / f"{b['code']}.py"
         if not path.is_file():
             continue
         loaded = notes_io.load_notes_checked(path, book=b["code"])
@@ -70,7 +69,7 @@ def api_books() -> dict:
 def api_notes(book_code: str) -> dict:
     """Return all notes in one book as dicts (with index for editing)."""
     book_code = _book_code_input(book_code)
-    path = NOTES_DIR / f"{book_code}.py"
+    path = paths.notes_dir() / f"{book_code}.py"
     if not path.is_file():
         return {"error": "book not found", "book": book_code}
     loaded = notes_io.load_notes_checked(path, book=book_code)
@@ -150,7 +149,7 @@ def api_preview(
 def api_save(book_code: str, payload: dict) -> dict:
     """Replace one note (by index) or insert a new note (index=null)."""
     book_code = _book_code_input(book_code)
-    path = NOTES_DIR / f"{book_code}.py"
+    path = paths.notes_dir() / f"{book_code}.py"
     if not path.is_file():
         return {"error": "book not found", "book": book_code}
     loaded = notes_io.load_notes_checked(path, book=book_code)
@@ -181,7 +180,7 @@ def api_save(book_code: str, payload: dict) -> dict:
 def api_delete(book_code: str, index: int) -> dict:
     """Delete a note. Backup is created automatically."""
     book_code = _book_code_input(book_code)
-    path = NOTES_DIR / f"{book_code}.py"
+    path = paths.notes_dir() / f"{book_code}.py"
     if not path.is_file():
         return {"error": "book not found", "book": book_code}
     loaded = notes_io.load_notes_checked(path, book=book_code)

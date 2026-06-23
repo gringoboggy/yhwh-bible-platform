@@ -24,7 +24,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
-from scripts.core import config, html_utils, notes_io  # noqa: E402
+from scripts.core import config, html_utils, notes_io, paths  # noqa: E402
 
 NOTES_DIR = REPO / "content" / "notes"
 
@@ -61,10 +61,11 @@ def _notes_dir_signature() -> tuple:
     Sorting matters — without it, tuple equality breaks on Linux's
     arbitrary readdir order.
     """
-    if not NOTES_DIR.is_dir():
+    notes_dir = paths.notes_dir()
+    if not notes_dir.is_dir():
         return ()
     pairs = []
-    for f in NOTES_DIR.iterdir():
+    for f in notes_dir.iterdir():
         if f.suffix == ".py" and not f.name.startswith("_"):
             try:
                 pairs.append((f.name, f.stat().st_mtime_ns))
@@ -156,7 +157,7 @@ def write_book(book_code: str, notes: list[tuple]) -> None:
     """Serialise a list of NOTES tuples back to content/notes/<code>.py.
     Uses atomic_write + ensure_backup. Preserves the leading docstring
     of the existing file (if any)."""
-    path = NOTES_DIR / f"{book_code}.py"
+    path = paths.notes_dir() / f"{book_code}.py"
     notes_io.ensure_backup(path)
 
     # Try to preserve the original docstring/header
@@ -387,7 +388,7 @@ def _canons_index() -> dict:
     process restart, so it is cached for the process lifetime (mint-10: the prior
     docstring claimed "Cached load" but there was no cache). A test that swaps
     canons.yaml must call ``_canons_index.cache_clear()``."""
-    canons_path = REPO / "content" / "canons.yaml"
+    canons_path = paths.canons_yaml()
     if not canons_path.is_file():
         return {}
     import yaml

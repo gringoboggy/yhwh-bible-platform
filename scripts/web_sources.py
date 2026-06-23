@@ -17,10 +17,8 @@ import functools
 import re
 from datetime import datetime, timezone
 
-from scripts.core import config, notes_io
+from scripts.core import config, notes_io, paths
 from scripts.web_helpers import (
-    NOTES_DIR,
-    REPO,
     _files_signature,
     _notes_dir_signature,
     note_id_from_tuple,
@@ -69,7 +67,7 @@ def api_sources_index() -> dict:
     books = config.load_books()
     out = []
     for b in books:
-        path = NOTES_DIR / f"{b['code']}.py"
+        path = paths.notes_dir() / f"{b['code']}.py"
         note_count = 0
         if path.is_file():
             loaded = notes_io.load_notes_checked(path, book=b["code"])
@@ -105,7 +103,7 @@ def api_sources_for_book(book_code: str) -> dict:
     if not book:
         return {"error": f"unknown book: {book_code}"}
     book_code = book["code"]
-    path = NOTES_DIR / f"{book_code}.py"
+    path = paths.notes_dir() / f"{book_code}.py"
     if not path.is_file():
         return {"book": book_code, "notes": []}
 
@@ -168,7 +166,7 @@ def api_sources_summary() -> dict:
     source_freq: dict[str, int] = {}
 
     for b in books:
-        path = NOTES_DIR / f"{b['code']}.py"
+        path = paths.notes_dir() / f"{b['code']}.py"
         if not path.is_file():
             continue
         loaded = notes_io.load_notes_checked(path, book=b["code"])
@@ -250,9 +248,9 @@ def api_attribution_audit() -> dict:
     """
     return _cached_attribution_audit(
         _notes_dir_signature(),
-        _files_signature(REPO / "content" / "kinds.yaml"),
-        _files_signature(REPO / "content" / "categories.yaml"),
-        _files_signature(REPO / "content" / "books.yaml"),
+        _files_signature(paths.kinds_yaml()),
+        _files_signature(paths.categories_yaml()),
+        _files_signature(paths.books_yaml()),
     )
 
 
@@ -272,7 +270,7 @@ def _compute_attribution_audit_uncached() -> dict:
 
     for book in books:
         code = book["code"]
-        path = NOTES_DIR / f"{code}.py"
+        path = paths.notes_dir() / f"{code}.py"
         if not path.is_file():
             continue
         notes = notes_io.load_notes(path) or []
@@ -380,7 +378,7 @@ PUBLISHING_TEXT_LIMITS = {
 def api_publisher_data() -> dict:
     """Phase π.1 — publisher console feed. Cached on editions.yaml mtime."""
     return _cached_publisher_data(
-        _files_signature(REPO / "content" / "editions.yaml"),
+        _files_signature(paths.editions_yaml()),
     )
 
 

@@ -34,7 +34,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from scripts.core import audit_log, notes_io
+from scripts.core import audit_log, notes_io, paths
 
 REPO = Path(__file__).resolve().parent.parent.parent
 
@@ -48,8 +48,10 @@ SOURCES_UPLOAD_MAX_BYTES = 50 * 1024 * 1024  # 50 MB
 def _sources_cache_dir() -> Path:
     """Where the cache files live. Mirrors the constant in
     scripts/fetch_sources.py:SOURCES_DIR; kept as a function so tests
-    can monkeypatch via a single attribute."""
-    return REPO / "content" / "sources"
+    can monkeypatch via a single attribute. Routes through the ω.5
+    paths resolver so a frozen desktop build reads/writes the cache in
+    the writable user-data content root, not the read-only bundle."""
+    return paths.sources_dir()
 
 
 def _datetime_iso(ts: float) -> str:

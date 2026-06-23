@@ -349,7 +349,7 @@ def read_image_meta(path_str: str) -> dict | None:
     if not p.is_absolute():
         # Cover paths in editions.yaml are relative to content/ so that
         # they survive moves of the repo on disk.
-        p = CONTENT / p
+        p = _content_root() / p
     if not p.is_file():
         return None
     try:

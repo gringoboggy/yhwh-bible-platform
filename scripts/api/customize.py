@@ -33,7 +33,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from scripts.core import audit_log, config, notes_io
+from scripts.core import audit_log, config, notes_io, paths
 
 REPO = Path(__file__).resolve().parent.parent.parent
 
@@ -69,7 +69,7 @@ def api_save_category(cat_id: str, payload: dict) -> dict:
     if not updates:
         return {"error": "no updates supplied"}
 
-    path = REPO / "content" / "categories.yaml"
+    path = paths.categories_yaml()
     text = path.read_text(encoding="utf-8")
     try:
         new_text = _patch_yaml_entry(text, "id", cat_id, updates)
@@ -112,7 +112,7 @@ def api_save_kind(kind_code: str, payload: dict) -> dict:
     if not updates:
         return {"error": "no updates supplied"}
 
-    path = REPO / "content" / "kinds.yaml"
+    path = paths.kinds_yaml()
     text = path.read_text(encoding="utf-8")
     try:
         new_text = _patch_yaml_entry(text, "code", kind_code, updates)

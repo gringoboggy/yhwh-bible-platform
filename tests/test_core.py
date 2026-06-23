@@ -241,46 +241,61 @@ class TestConfig:
         import shutil
         import time
 
+        from scripts.core import paths
+
         work = tmp_path / "content"
         work.mkdir()
         shutil.copy(config._CONTENT / "editions.yaml", work / "editions.yaml")
-        monkeypatch.setattr(config, "_CONTENT", work)
+        # Since the round-11 frozen-app routing, the loaders read through
+        # paths.editions_yaml() (frozen/override-aware) — pin the content root,
+        # not config._CONTENT (which the loaders no longer consult).
+        paths.set_content_root_for_testing(work)
         config.load_editions.cache_clear()
+        try:
+            first = config.load_editions()
+            assert len(first) >= 5
 
-        first = config.load_editions()
-        assert len(first) >= 5
-
-        time.sleep(0.05)
-        (work / "editions.yaml").write_text(
-            "editions:\n  - id: cache-probe-only\n    title: Probe\n",
-            encoding="utf-8",
-        )
-        second = config.load_editions()
-        assert len(second) == 1
-        assert second[0]["id"] == "cache-probe-only"
+            time.sleep(0.05)
+            (work / "editions.yaml").write_text(
+                "editions:\n  - id: cache-probe-only\n    title: Probe\n",
+                encoding="utf-8",
+            )
+            second = config.load_editions()
+            assert len(second) == 1
+            assert second[0]["id"] == "cache-probe-only"
+        finally:
+            paths.set_content_root_for_testing(None)
+            config.load_editions.cache_clear()
 
     def test_load_kinds_caching_invalidates_on_mtime_change(self, tmp_path, monkeypatch):
         """The mtime-aware LRU cache must observe kinds.yaml rewrites."""
         import shutil
         import time
 
+        from scripts.core import paths
+
         work = tmp_path / "content"
         work.mkdir()
         shutil.copy(config._CONTENT / "kinds.yaml", work / "kinds.yaml")
-        monkeypatch.setattr(config, "_CONTENT", work)
+        # Loaders read through paths.kinds_yaml() since the frozen-app routing —
+        # pin the content root, not config._CONTENT.
+        paths.set_content_root_for_testing(work)
         config.load_kinds.cache_clear()
+        try:
+            first = config.load_kinds()
+            assert len(first) >= 10
 
-        first = config.load_kinds()
-        assert len(first) >= 10
-
-        time.sleep(0.05)
-        (work / "kinds.yaml").write_text(
-            "kinds:\n  - code: cache-probe-kind\n    category: test\n    label: Probe\n",
-            encoding="utf-8",
-        )
-        second = config.load_kinds()
-        assert len(second) == 1
-        assert second[0]["code"] == "cache-probe-kind"
+            time.sleep(0.05)
+            (work / "kinds.yaml").write_text(
+                "kinds:\n  - code: cache-probe-kind\n    category: test\n    label: Probe\n",
+                encoding="utf-8",
+            )
+            second = config.load_kinds()
+            assert len(second) == 1
+            assert second[0]["code"] == "cache-probe-kind"
+        finally:
+            paths.set_content_root_for_testing(None)
+            config.load_kinds.cache_clear()
 
 
 class TestCovers:

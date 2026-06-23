@@ -44,7 +44,7 @@ from __future__ import annotations
 import html
 from pathlib import Path
 
-from scripts.core import config, notes_io, translations
+from scripts.core import config, notes_io, paths, translations
 
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -67,7 +67,7 @@ def _read_theme_css(theme_id: str) -> str:
     """Return the theme override CSS, or empty string if absent."""
     if not theme_id:
         return ""
-    f = THEMES_DIR / f"{theme_id}.css"
+    f = paths.content_root() / "themes" / f"{theme_id}.css"
     if not f.is_file():
         return ""
     return f.read_text(encoding="utf-8")
@@ -75,7 +75,7 @@ def _read_theme_css(theme_id: str) -> str:
 
 def _load_book_notes(book_code: str) -> list[tuple] | dict:
     """Read notes for one book; empty list if absent; error dict if unparseable."""
-    p = NOTES_DIR / f"{book_code}.py"
+    p = paths.notes_dir() / f"{book_code}.py"
     if not p.is_file():
         return []
     loaded = notes_io.load_notes_checked(p, book=book_code)

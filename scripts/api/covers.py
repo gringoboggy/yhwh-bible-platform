@@ -82,10 +82,9 @@ def api_apply_cover_template(edition_id: str, template_stem: str) -> dict:
     than an upload. Returns ``{"ok": True, ...}`` or ``{"error": "..."}``.
     """
     import io
-    from pathlib import Path
 
     from scripts.api.editions import api_save_edition_meta
-    from scripts.core import config, covers as _covers, notes_io
+    from scripts.core import config, covers as _covers, notes_io, paths
     from scripts.generate_edition_covers import _compose_cover, cover_text_for_edition, template_for_edition
 
     if edition_id not in config.editions_by_id():
@@ -101,9 +100,8 @@ def api_apply_cover_template(edition_id: str, template_stem: str) -> dict:
     if stem not in _covers.COVER_TEMPLATES:
         return {"error": f"unknown cover_template: {stem!r}"}
 
-    REPO = Path(__file__).resolve().parent.parent.parent
     rel_path = f"covers/{edition_id}.jpg"
-    abs_path = REPO / "content" / rel_path
+    abs_path = paths.content_root() / rel_path
 
     # Compose the HOLY-BIBLE + subtitle cover onto the chosen template, to JPEG.
     main_title, subtitle = cover_text_for_edition(edition_id)
@@ -134,15 +132,12 @@ def api_apply_cover_template(edition_id: str, template_stem: str) -> dict:
 @audit_log.audit_endpoint(action="delete_cover_main")
 def api_delete_cover_main(edition_id: str) -> dict:
     """Phase π.4-B — clear an edition's main cover assignment + file."""
-    from pathlib import Path
-
-    from scripts.core import config, notes_io
+    from scripts.core import config, notes_io, paths
 
     # ω.35-B.5 — api_save_edition_meta moved to scripts.api.editions.
     # Previously imported from scripts.web (where it was inline).
     from scripts.api.editions import api_save_edition_meta
 
-    REPO = Path(__file__).resolve().parent.parent.parent
     eds = config.editions_by_id()
     if edition_id not in eds:
         return {"error": f"unknown edition: {edition_id}"}
@@ -154,7 +149,7 @@ def api_delete_cover_main(edition_id: str) -> dict:
         return {"error": save_result.get("error", "yaml save failed")}
     # Then back up + remove the on-disk file
     if cur_path:
-        abs_path = REPO / "content" / cur_path
+        abs_path = paths.content_root() / cur_path
         if abs_path.exists():
             notes_io.ensure_backup(abs_path)
             try:
@@ -200,14 +195,11 @@ def api_select_book_cover(edition_id: str, book_code: str, path: str) -> dict:
 @audit_log.audit_endpoint(action="delete_cover_book")
 def api_delete_cover_book(edition_id: str, book_code: str) -> dict:
     """Phase π.4-B — clear a per-book cover assignment + file."""
-    from pathlib import Path
-
-    from scripts.core import config, covers as _covers, notes_io
+    from scripts.core import config, covers as _covers, notes_io, paths
 
     # ω.35-B.5 — api_save_edition_meta moved to scripts.api.editions.
     from scripts.api.editions import api_save_edition_meta
 
-    REPO = Path(__file__).resolve().parent.parent.parent
     book_code = config.resolve_book_code(book_code)
     eds = config.editions_by_id()
     if edition_id not in eds:
@@ -223,7 +215,7 @@ def api_delete_cover_book(edition_id: str, book_code: str) -> dict:
         return {"error": save_result.get("error", "yaml save failed")}
     # Only remove edition-specific uploads — never unlink shared catalog art.
     if cur_path and _covers.is_custom_book_cover_path(edition_id, book_code, cur_path):
-        abs_path = REPO / "content" / cur_path
+        abs_path = paths.content_root() / cur_path
         if abs_path.exists():
             notes_io.ensure_backup(abs_path)
             try:

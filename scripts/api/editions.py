@@ -47,7 +47,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from scripts.core import audit_log, config, notes_io
+from scripts.core import audit_log, config, notes_io, paths
 
 REPO = Path(__file__).resolve().parent.parent.parent
 
@@ -357,7 +357,7 @@ def api_save_edition(edition_id: str, payload: dict) -> dict:
     if not isinstance(new_enabled_set, set) or not all(isinstance(x, str) for x in new_enabled_set):
         return {"error": "enabled_kinds must be a list of strings"}
 
-    editions_path = REPO / "content" / "editions.yaml"
+    editions_path = paths.editions_yaml()
     if not editions_path.is_file():
         return {"error": "editions.yaml missing"}
 
@@ -532,12 +532,12 @@ def api_clone_edition(payload: dict) -> dict:
         try:
             src_main = (source.get("cover_image") or "").strip()
             if src_main:
-                src_path = REPO / "content" / src_main
+                src_path = paths.content_root() / src_main
                 if src_path.is_file():
                     suffix = src_path.suffix.lstrip(".") or "jpg"
                     fmt = {"jpg": "jpeg"}.get(suffix.lower(), suffix.lower())
                     rel_new = _covers.storage_path_for_main(new_id, fmt)
-                    abs_new = REPO / "content" / rel_new
+                    abs_new = paths.content_root() / rel_new
                     abs_new.parent.mkdir(parents=True, exist_ok=True)
                     notes_io.atomic_write_bytes(abs_new, src_path.read_bytes())
                     copied.append(abs_new)
@@ -548,14 +548,14 @@ def api_clone_edition(payload: dict) -> dict:
                 if not src_rel:
                     new_per_book[code] = ""
                     continue
-                src_path = REPO / "content" / src_rel
+                src_path = paths.content_root() / src_rel
                 if not src_path.is_file():
                     new_per_book[code] = ""
                     continue
                 suffix = src_path.suffix.lstrip(".") or "jpg"
                 fmt = {"jpg": "jpeg"}.get(suffix.lower(), suffix.lower())
                 rel_new = _covers.storage_path_for_book(new_id, code, fmt)
-                abs_new = REPO / "content" / rel_new
+                abs_new = paths.content_root() / rel_new
                 abs_new.parent.mkdir(parents=True, exist_ok=True)
                 notes_io.atomic_write_bytes(abs_new, src_path.read_bytes())
                 copied.append(abs_new)
@@ -569,7 +569,7 @@ def api_clone_edition(payload: dict) -> dict:
                     pass
             return {"error": f"failed to clone files: {e}"}
 
-    yaml_path = REPO / "content" / "editions.yaml"
+    yaml_path = paths.editions_yaml()
     try:
         text = yaml_path.read_text(encoding="utf-8")
         new_text = _append_cloned_edition(
@@ -1283,7 +1283,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     if not updates and not list_field_updates:
         return {"error": "no updates supplied"}
 
-    path = REPO / "content" / "editions.yaml"
+    path = paths.editions_yaml()
     text = path.read_text(encoding="utf-8")
     try:
         if updates:
@@ -1345,7 +1345,7 @@ def _set_note_id_in_field(
     if new_list == sorted(current):
         return {"unchanged": True, "count": len(new_list)}
 
-    path = REPO / "content" / "editions.yaml"
+    path = paths.editions_yaml()
     text = path.read_text(encoding="utf-8")
 
     block_re = re.compile(
@@ -1568,7 +1568,7 @@ def api_save_publisher_meta(edition_id: str, payload: dict) -> dict:
     if not text_updates and not list_updates:
         return {"error": "no updates supplied"}
 
-    path = REPO / "content" / "editions.yaml"
+    path = paths.editions_yaml()
     text = path.read_text(encoding="utf-8")
 
     if text_updates:

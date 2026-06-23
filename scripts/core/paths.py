@@ -163,6 +163,16 @@ def _content_root_cached() -> Path:
     env = os.environ.get(_ENV_VAR)
     if env:
         return Path(env).expanduser()
+    # Frozen (PyInstaller binary): the bundled content/ lives under the
+    # read-only/ephemeral _MEIPASS extraction dir, so it must NOT shadow the
+    # writable per-user dir — in-app edits there are lost on exit / blocked on
+    # macOS. Mirror _build_output_root()'s frozen guard. Placed AFTER the
+    # explicit YHWH_CONTENT_ROOT override (which still wins) and BEFORE in-tree
+    # detection (the bundle's editions.yaml marker would otherwise win).
+    # (round-11 frozen-app content_root() HIGH; all content read/write sites are
+    # routed through this resolver so the guard reaches every one.)
+    if getattr(sys, "frozen", False):
+        return user_data_root()
     in_tree = _detect_in_tree_content()
     if in_tree is not None:
         return in_tree

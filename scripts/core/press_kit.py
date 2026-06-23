@@ -64,7 +64,7 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-from . import notes_io
+from . import notes_io, paths
 
 
 SCHEMA_VERSION = 1
@@ -100,8 +100,12 @@ _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 def _press_kit_path() -> Path:
     """Canonical state-file path. Function (not constant) so tests can
-    monkeypatch via a single attribute — mirrors event_log + distribution."""
-    return _REPO_ROOT / "content" / "press_kit.json"
+    monkeypatch via a single attribute — mirrors event_log + distribution.
+    Routes through the ω.5 paths resolver (at call time) so a frozen desktop
+    build reads/writes the press-kit state in the writable user-data content
+    root, not the read-only bundle; in a dev checkout this is the same
+    ``<repo>/content/press_kit.json`` as before."""
+    return paths.content_root() / "press_kit.json"
 
 
 def _now_iso() -> str:

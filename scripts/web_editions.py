@@ -12,8 +12,7 @@ namespace.
 
 from __future__ import annotations
 
-from scripts.core import config
-from scripts.web_helpers import REPO
+from scripts.core import config, paths
 
 
 def api_edition_templates_list() -> dict:
@@ -221,7 +220,7 @@ def api_build_tracker_book(edition_id: str, book_code: str) -> dict:
         return {"error": f"book {book_code} not in {edition_id}'s canon", "http": 404}
     enabled_kinds = m.edition_enabled_kinds.get(edition_id, set())
 
-    notes_dir = REPO / "content" / "notes"
+    notes_dir = paths.notes_dir()
     book_file = notes_dir / f"{book_code}.py"
     if not book_file.is_file():
         raw = []
@@ -582,7 +581,7 @@ def _filter_traditions_default(raw) -> list[str]:
 
 def _load_themes() -> list[dict]:
     """Read content/themes.yaml — registry of available CSS themes."""
-    path = REPO / "content" / "themes.yaml"
+    path = paths.themes_yaml()
     if not path.is_file():
         return [{"id": "classic", "name": "Classic", "description": ""}]
     import yaml

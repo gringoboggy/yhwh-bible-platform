@@ -156,7 +156,7 @@ def load_traditions_yaml(path: Path | str | None = None) -> dict:
     without it; ``edition_to_tradition()`` then always returns
     ``DEFAULT_TRADITION``).
     """
-    p = Path(path) if path else DEFAULT_TRADITIONS_YAML
+    p = Path(path) if path else _traditions_yaml_path()
     if not p.is_file():
         return {}
     text = p.read_text(encoding="utf-8")

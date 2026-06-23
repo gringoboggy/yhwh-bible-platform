@@ -62,8 +62,6 @@ from scripts.core.covers import UPLOAD_MAX_BYTES as COVERS_UPLOAD_MAX_BYTES  # n
 # keep resolving for external callers + tests.
 from scripts.web_helpers import NOTES_DIR, REPO  # noqa: E402, F401
 
-SCENARIOS_DIR = REPO / "content" / "scenarios"
-
 
 # ============================================================
 # Module-level route functions + helpers — moved into focused
@@ -207,6 +205,7 @@ from scripts.api.snapshots import (  # noqa: E402, F401
     api_snapshot_restore,
 )
 from scripts.api.scenarios import (  # noqa: E402, F401
+    SCENARIOS_DIR as SCENARIOS_DIR,  # constant, re-exported for external callers + tests
     _resolve_scenario_recipe as _resolve_scenario_recipe,  # internal helper, used by some tests
     _scenario_path as _scenario_path,  # internal helper, used by some tests
     _SCENARIO_NAME_RE as _SCENARIO_NAME_RE,  # constant, used by some tests
@@ -1956,12 +1955,13 @@ class Handler(BaseHTTPRequestHandler):
             # after the route prefix is treated as a path RELATIVE
             # TO content/covers/.
             rel = path[len("/content/covers/") :]
+            from scripts.core import paths
             from scripts.core.safe_path import (
                 SafePathError,
                 resolve_under,
             )
 
-            covers_root = REPO / "content" / "covers"
+            covers_root = paths.covers_dir()
             try:
                 file_path = resolve_under(covers_root, rel)
             except SafePathError:

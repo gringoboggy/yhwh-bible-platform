@@ -18,7 +18,7 @@ import time
 from pathlib import Path
 
 from scripts.api.preflight import api_preflight
-from scripts.core import audit_log
+from scripts.core import audit_log, paths
 from scripts.web_helpers import REPO
 from scripts.web_sources import api_attribution_audit
 
@@ -281,7 +281,7 @@ def api_sample_html(
         total_verses += len(rows)
 
     # --- Notes (compose notes_io + edition kind filter) ---
-    notes_path = REPO / "content" / "notes" / f"{book}.py"
+    notes_path = paths.notes_dir() / f"{book}.py"
     if notes_path.is_file():
         loaded = notes_io.load_notes_checked(notes_path, book=book)
         if isinstance(loaded, dict):
@@ -496,9 +496,9 @@ def _resolve_content_path(rel_path: str) -> tuple[Path | None, str | None]:
     # Reject obvious traversal patterns before resolving
     if ".." in Path(rel_path).parts:
         return None, "path traversal not allowed"
-    content_root = (REPO / "content").resolve()
+    content_root = paths.content_root().resolve()
     try:
-        candidate = (REPO / "content" / rel_path).resolve()
+        candidate = (paths.content_root() / rel_path).resolve()
     except (OSError, RuntimeError):
         return None, "could not resolve path"
     # Ensure the resolved path is still under content/. The
@@ -561,7 +561,7 @@ def api_list_backups(file_path: str) -> dict:
     snapshots.reverse()
     return {
         "status": "ok",
-        "file": str(abs_path.relative_to((REPO / "content").resolve())),
+        "file": str(abs_path.relative_to(paths.content_root().resolve())),
         "snapshots": snapshots,
         "count": len(snapshots),
     }
@@ -620,7 +620,7 @@ def api_restore_backup(file_path: str, snapshot_id: str) -> dict:
 
     # Defense-in-depth: snapshot_path must also be under content/,
     # in case backup_dir was a symlink or something equally weird.
-    content_root = (REPO / "content").resolve()
+    content_root = paths.content_root().resolve()
     try:
         snapshot_path.resolve().relative_to(content_root)
     except ValueError:

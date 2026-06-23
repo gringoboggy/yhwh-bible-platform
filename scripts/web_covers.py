@@ -15,8 +15,8 @@ from __future__ import annotations
 import functools
 
 from scripts.api.editions import api_save_edition_meta
-from scripts.core import config, notes_io
-from scripts.web_helpers import REPO, _files_signature, _notes_dir_signature
+from scripts.core import config, notes_io, paths
+from scripts.web_helpers import _files_signature, _notes_dir_signature
 
 
 @functools.lru_cache(maxsize=4)
@@ -76,8 +76,8 @@ def api_covers() -> dict:
     structural inputs (editions, books, notes); image metadata is
     re-read each call so newly-uploaded covers reflect immediately."""
     return _cached_covers(
-        _files_signature(REPO / "content" / "editions.yaml"),
-        _files_signature(REPO / "content" / "books.yaml"),
+        _files_signature(paths.editions_yaml()),
+        _files_signature(paths.books_yaml()),
         _notes_dir_signature(),
     )
 
@@ -111,7 +111,7 @@ def _save_cover_bytes(data: bytes, edition_id: str, book_code: str | None) -> di
         rel_path = _covers.storage_path_for_main(edition_id, meta["format"])
     else:
         rel_path = _covers.storage_path_for_book(edition_id, book_code, meta["format"])
-    abs_path = REPO / "content" / rel_path
+    abs_path = paths.content_root() / rel_path
 
     # Back up any existing file before overwrite. ensure_backup is a
     # no-op when the file doesn't exist — first-upload case.

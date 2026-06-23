@@ -35,7 +35,7 @@ from __future__ import annotations
 import functools
 from pathlib import Path
 
-from scripts.core import config
+from scripts.core import config, paths
 
 REPO = Path(__file__).resolve().parent.parent.parent
 
@@ -49,10 +49,10 @@ def api_preflight() -> dict:
     from scripts.web import _files_signature, _notes_dir_signature
 
     return _cached_preflight(
-        _files_signature(REPO / "content" / "editions.yaml"),
-        _files_signature(REPO / "content" / "books.yaml"),
-        _files_signature(REPO / "content" / "kinds.yaml"),
-        _files_signature(REPO / "content" / "categories.yaml"),
+        _files_signature(paths.editions_yaml()),
+        _files_signature(paths.books_yaml()),
+        _files_signature(paths.kinds_yaml()),
+        _files_signature(paths.categories_yaml()),
         _notes_dir_signature(),
     )
 

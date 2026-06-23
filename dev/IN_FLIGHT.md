@@ -1,6 +1,7 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active — full-audit round-10 split run + remediation (2026-06-22) -->
+<!-- TRACKER-STATE: active -->
+<!-- task: full-audit round-10/11 remediation + frozen-app (2026-06-23) -->
 
 > **Last arc CLOSED (2026-06-21): the Grok-revert cleanup — DONE + pushed** (4 commits →
 > GitLab + GitHub + E: + F:, HEAD `b45a9ff1`). Loop machinery removed, rules/docs de-bloated,
@@ -42,15 +43,12 @@
 > - **✅ Round-10 byte-stability leftovers — W3 + W6 + W7 + theme_id DONE** (3 commits): W3a removed the stray `theme:"modern"` (added 2026-06-22 `dd7bb53f`, wedged in a comment; the only `theme:` decl) → restores intended default `classic` + fixes `test_editions_do_not_pin_theme_skus`; W3b `build_cache` hashes the ACTIVE theme CSS unconditionally (default classic included) + theme_id mirrors `build_edition` exactly; W6 `kobo_tap_calibration` targets/docstring → round-5 bracket; W7 `verify_kr2_build` non-failing byte-size WARN (>500KB, true bytes). 44 cache + 8 theme tests green.
 >   - **⛔ char-vs-byte split-measure = conservative DEFER (re-verified NO-GO this pass).** REAL DATA: catholic-study = **297 pieces, ALL non-ASCII, 20.7M non-ASCII bytes** → switching the file-split packing from codepoints to UTF-8 bytes would shift boundaries on **every** edition, **breaking the sacred 9-KJV-byte-stable invariant** + re-cutting the shipped product structure. It's LOW severity, the **W7 byte-WARN already catches the symptom** (oversized pieces), and an all-edition re-cut + golden re-baseline is a deliberate, user-aware change → folded into the **FINAL grand audit** (rebuilds everything anyway), not a buried leftover commit. Sites for when it's taken on: `build_edition.py` 4728/4796/4799/4971/4990/5016.
 >
+> - **✅ frozen-app `content_root()` HIGH DONE** — added the `sys.frozen` guard to `paths._content_root_cached()` (mirrors `_build_output_root`; placed after the `YHWH_CONTENT_ROOT` override, before in-tree detection) + **routed ~37 read/write sites through `paths.*` across 20 files** (config.py loaders+mtimes, web_helpers `write_book`/`_canons_index`, web_notes/sources/matrix/covers/content/editions, api/editions/covers/sources/customize/scenarios/preflight, core/translations/covers/preview/traditions/press_kit) + deleted the dead `web.py:65 SCENARIOS_DIR`. **No-op in dev** (content_root()==repo/content) — proven: **test_core 46 + test_scripts 994 green** + 4 new frozen-sim pins (`tests/test_frozen_app_paths.py`). Also fixed 2 fallout: config caching tests re-homed to `set_content_root_for_testing` (loaders are now content-root-aware) + a **pre-existing malformed IN_FLIGHT marker** (`active — extra text`, present since session start; broke `flip_inflight`+lint+3 pytest tests) → strict `<!-- TRACKER-STATE: active -->`. **Deferred (sources_base lazy-PATH):** `sources_lexicon`/`sources_commentary` `PATH` class-attrs freeze at import; routing them needs a lazy-PATH refactor that changes the test-monkeypatched `loader_cls.PATH` shape → grand-audit follow-up (read-only published data, bundle-read is correct meanwhile). **★ ALL WIN round-10/11 remediation COMPLETE.**
+>
 > **▶ REMAINING:**
-> 1. **Frozen-app `content_root()` HIGH (LAST — most invasive)** — Mac's exact surface →
->    **`dev/audit/round11-frozen-app-sites.md`** (~19 WRITE + ~17 READ across 11 files; writes first). Two-part:
->    add the frozen guard to `paths._content_root_cached()` (mirror `_build_output_root`) THEN route every
->    content read/write through `paths.content_root()`/`notes_dir()` (guard+routing land TOGETHER — coupling trap);
->    confirm a frozen note-save lands in `user_data_root/content/notes`.
-> 2. **Then: the FINAL joint grand audit** (user 2026-06-23) — once Mac's 6 workstreams + WIN's leftovers are done, both lanes run the full auditor top-to-bottom, down to verse + word, no time limit. **Fold the deferred char-vs-byte re-cut decision in here.**
-> 3. **Delegated to Mac (file-disjoint):** structural auditor (`dev/audit_book_structure.py` regex + run) · round-12 new-dim audit · Phase-1 docs · tablet re-verify · EREADERS/device-QA · gap-4 empirical repro.
-> 4. gap-2 LOW (verse_of_day/preview) = ✅ already done.
+> 1. **FINAL joint grand audit** (user 2026-06-23) — once Mac's batch + WIN are done (both nearly there), both lanes run the full auditor top-to-bottom, down to verse + word, no time limit. **Grand-audit agenda:** (a) the deferred **char-vs-byte** all-edition re-cut + golden re-baseline; (b) Mac's **2 round-12 HIGH** non-reproducible zip writers (`press_kit.py` / `api/exports.py` — pin `date_time`, same class as W2/W5); (c) Mac's **`1en` misordering** in ethiopian-tewahedo (structural auditor's 1 real FAIL — likely the known 1En 37–108 residual, WIN to confirm); (d) the `sources_base` lazy-PATH frozen-app tail.
+> 2. **▶ Mac: cross-OS verify** gap-7 + frozen-app + W3 (Mac already ✅'d gap-6 + gap-8). See `LANE_HANDOFF.md`.
+> 3. gap-2 LOW (verse_of_day/preview) = ✅ already done.
 >
 > ⚠ The user's **K-R4-2 vnote Kobo bug** stays on the **M2 / K-R4-2** backlog (surfaced + refuted-as-known-
 > deferred), NOT closed. Device-QA gates live in `dev/HUMAN_DECISIONS.md`.
