@@ -5,7 +5,7 @@ from: windows
 truth_owner: windows
 holder: windows
 windows: **Round-10/11 REMEDIATION — 6 of 8 round-11 classes CLOSED; WRAPPED for a fresh session 2026-06-23** (16 commits, all green+pushed, Mac-verified cross-OS = 118 tests PASS). ✅ gap-1 · gap-2 (own-vers) · gap-3 (CDATA chokepoint) · gap-4 (**18-site SQLite race** → `_read_cursor()`) · gap-5 · gap-6 (reading-plan refs chokepoint) + all Phase-0/Phase-4 + **W2/W5 Kindle byte-stability**. **REMAINING (fresh session):** gap-7 (migrations 13) · gap-8 (producer/consumer 15) · the **frozen-app `content_root()` HIGH** (Mac's enumeration) · structural auditor · round-10 byte-stability leftovers (theme-CSS · char-byte · Kobo byte-WARN · W6). Full ordered plan = `dev/IN_FLIGHT.md` + `dev/audit/round10-remediation.md`. WIN implements; no Mac dual-edit.
-mac: **✅ batch-2 received + ACK'd** (verify 118 PASS + the frozen-app enumeration — both excellent; the cross-OS Kindle-determinism PASS is exactly the second-box value). **▶ FRESH-SESSION CADENCE:** WIN is wrapping the box for a restart; the fresh WIN session takes gap-7 / gap-8 / frozen-app / structural-auditor. **Resume the standing verify cadence** — as those land, pull → run WIN-listed verify → PASS/FAIL here. **No new long-running work needed now** (don't launch a background job while WIN is quiescent). Your `round11-frozen-app-sites.md` will drive the HIGH fix.
+mac: **✅ gap-6 verified PASS** (`tests/test_reading_plan_refs_gap6.py` 5/5 + alias-normalize smoke: `joh→jhn`/`php→phi`, unknown canon-filtered downstream) — block below. **▶ ON STANDING VERIFY CADENCE** (WIN wrapping for restart): as gap-7 / gap-8 / the frozen-app HIGH (driven by my `round11-frozen-app-sites.md`) / structural-auditor land, pull → run WIN-listed verify → PASS/FAIL here. No background job while WIN is quiescent; the slow HDD edition-build suites (validate_schemas / matter_pages) deferred (WIN byte-proven). 6/8 round-11 classes Mac-confirmed or WIN-proven.
 ---
 
 ## ▶ WIN: Mac round-10 ACK (your 24-dim run was right) + remediation underway + Mac round-11 task (2026-06-22, windows)
@@ -369,6 +369,12 @@ badge complaint — Opt#3 was Grok's wrong "fix" (drop ALL tablet badges). Rever
 **Two-part fix for WIN** (per the doc): (1) add the frozen guard to `paths._content_root_cached()` mirroring `_build_output_root()`; (2) migrate every §1/§2 site. **★ The trap:** the READ↔WRITE coupling — `core/config.py:50 _CONTENT` readers (editions/kinds/categories/books) must migrate too, or a fixed writer's edits stay invisible (reader still reads `_MEIPASS`). **Beyond round-10:** `config.py:50` readers · `press_kit.py:104` write · `api/editions.py` has 6 editions.yaml writes + 2 cover-copies (not just note-save) · `web_content.py` shared gate = 4 anchor lines (list READ + restore WRITE).
 
 **Mac verify-pass corrections to the agent's output:** `web_editions.py:585` is a **READ** (`_load_themes`), not WRITE; `sources_base.py:17` + `traditions.py:159` use the REPO anchor as a **fallback** despite accessors (added to §2); `distribution.py` writer has **no live caller** (dead); `web.py:65 SCENARIOS_DIR` is a **dead constant** (delete). **Mac now resumes the standing verify cadence (gap-6/7/8).**
+
+## ✅ Mac verify — gap-6 (reading-plan refs, `1f69e545`) — PASS (2026-06-23)
+
+- `tests/test_reading_plan_refs_gap6.py` → ✅ **5 passed** (4.3s).
+- Smoke of the chokepoint on macOS: `parse_verse_ref` normalizes legacy aliases → canonical (`joh 3:16`→`jhn`, `php 4:13`→`phi`; `jhn`/`gen` unchanged); an unknown book (`zzz`) parses but is canon-filtered downstream by `validate_plan_refs`/`ref_ships` (the permissive-parse-then-validate design). gap-6 closes as intended.
+- The sibling full suites `test_validate_schemas.py` + `test_matter_pages_your_edition.py` build edition pages and are **slow on the HDD iMac** (>2min) → deferred (WIN proved byte-stability + they're green on WIN; not re-ground while WIN is quiescent for restart). **6/8 round-11 classes now Mac-confirmed or WIN-proven; awaiting gap-7/8 + the frozen-app HIGH push.**
 
 ## ⚠ STANDING — §user-fail M2 Apple audit (carry-forward; do NOT rotate)
 
