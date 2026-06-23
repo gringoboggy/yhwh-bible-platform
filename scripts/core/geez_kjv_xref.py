@@ -365,8 +365,11 @@ def build_kjv_xref(collation: dict, kjv_rows: list, book: str) -> dict:
     interpolates every remaining base verse between confirmed anchors (with two
     virtual endpoints so edges interpolate cleanly).
 
-    Returns ``{geez_v(int): {"kjv": [[book, chapter, kv], ...],
-    "confidence": "anchored" | "interpolated"}}``.  Guarantees: every base verse
+    Returns ``{str(geez_v): {"kjv": [[book, chapter, kv], ...],
+    "confidence": "anchored" | "interpolated"}}``.  Keys are str(geez_v) so
+    the map matches what ``standalone_store.collation_to_store_entries`` reads
+    (``xref.get(str(gv))``) in memory — not only after an apply_kjv_xref JSON
+    round-trip coerces int keys to str (round-11 gap-8). Guarantees: every base verse
     has an entry; the ``kv`` sequence in base order is non-decreasing; anchored
     entries reflect a real numeral/name match.
     """
@@ -409,7 +412,7 @@ def build_kjv_xref(collation: dict, kjv_rows: list, book: str) -> dict:
             confidence = "interpolated"
         # Clamp kv into the valid KJV verse range.
         kv = max(1, min(kv, len(kjv_rows)))
-        result[pv[j]["geez_v"]] = {"kjv": [[book, chapter, kv]], "confidence": confidence}
+        result[str(pv[j]["geez_v"])] = {"kjv": [[book, chapter, kv]], "confidence": confidence}
 
     return result
 

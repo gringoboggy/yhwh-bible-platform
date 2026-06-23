@@ -228,9 +228,17 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
     if edition is None or not edition.get("standalone"):
         return {"status": "error", "message": f"not a standalone edition: {edition_id}"}
 
-    books = [b for b in _STANDALONE_BOOKS if tx.has_book("geez-tewahedo", b)]
+    # gap-8: the body + popup stores come from the EDITION record, not a
+    # hardcoded geez id — so standalone-amharic renders the Amharic store, not
+    # Ge'ez (the cross-edition bleed the class names). standalone-geez's
+    # base_translation IS geez-tewahedo, so its output is byte-identical.
+    base_translation = edition.get("base_translation") or "geez-tewahedo"
+    popup_translation = edition.get("popup_translation") or None
+    store_dir = REPO / "content" / "translations" / base_translation
+
+    books = [b for b in _STANDALONE_BOOKS if tx.has_book(base_translation, b)]
     if not books:
-        return {"status": "error", "message": "no own-versification books found in geez-tewahedo"}
+        return {"status": "error", "message": f"no own-versification books found in {base_translation}"}
 
     tmp = Path(tempfile.mkdtemp(prefix="standalone_"))
     try:
@@ -245,10 +253,10 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
         chapter_items: list[tuple[str, str]] = []  # (item_id, href) in spine order
         toc_entries: list[tuple[str, str]] = []  # (href, label)
         for book in books:
-            by_ch = chapter_verses_in_source_order("geez-tewahedo", book)
-            appmap_path = GEEZ_STORE / f"{book}_apparatus.json"
+            by_ch = chapter_verses_in_source_order(base_translation, book)
+            appmap_path = store_dir / f"{book}_apparatus.json"
             appmap_all = json.loads(appmap_path.read_text(encoding="utf-8")) if appmap_path.is_file() else {}
-            en_by_ch = en_occurrence_map("geez-tewahedo-en", book)
+            en_by_ch = en_occurrence_map(popup_translation, book) if popup_translation else {}
             for ch in sorted(by_ch):
                 verses = by_ch[ch]  # source order — NOT re-sorted by verse number (faithful)
                 frag = render_chapter_body(book, ch, verses, appmap_all.get(str(ch), {}), en_by_ch.get(ch, {}))

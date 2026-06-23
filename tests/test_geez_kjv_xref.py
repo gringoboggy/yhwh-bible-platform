@@ -69,17 +69,38 @@ def test_build_kjv_xref_1ki6_anchors():
     col = _load_v2("1ki", 6)
     kjv_rows = load_kjv_skeleton("1ki", 6)
     xref = gx.build_kjv_xref(col, kjv_rows, "1ki")
-    # every base verse covered + honestly tagged
-    assert set(xref) == {pv["geez_v"] for pv in col["primary_verses"]}
+    # every base verse covered + honestly tagged. gap-8: keys are str(geez_v)
+    # so the map matches collation_to_store_entries' str-keyed reads in memory.
+    assert set(xref) == {str(pv["geez_v"]) for pv in col["primary_verses"]}
     for e in xref.values():
         assert e["confidence"] in {"anchored", "interpolated"}
         assert e["kjv"] and all(len(t) == 3 for t in e["kjv"])
     # the two known hard anchors (480-year / temple dimensions)
-    assert xref[1]["confidence"] == "anchored" and xref[1]["kjv"] == [["1ki", 6, 1]]
-    assert xref[2]["confidence"] == "anchored" and [t[2] for t in xref[2]["kjv"]] == [2]
+    assert xref["1"]["confidence"] == "anchored" and xref["1"]["kjv"] == [["1ki", 6, 1]]
+    assert xref["2"]["confidence"] == "anchored" and [t[2] for t in xref["2"]["kjv"]] == [2]
     # monotonic non-decreasing KJV verse across base order
-    seq = [xref[pv["geez_v"]]["kjv"][0][2] for pv in col["primary_verses"]]
+    seq = [xref[str(pv["geez_v"])]["kjv"][0][2] for pv in col["primary_verses"]]
     assert seq == sorted(seq)
+
+
+def test_build_kjv_xref_str_keys_feed_store_entries_without_json_roundtrip():
+    # gap-8 str/int join: build_kjv_xref's keys must match what
+    # collation_to_store_entries reads (str(geez_v)), so handing the xref map
+    # STRAIGHT into the consumer in memory (no json.dump key coercion) drops
+    # NO cross-references. Before the fix, int keys vs str lookups silently
+    # zeroed every kjv xref unless the apply_kjv_xref json round-trip ran.
+    from scripts.core.manuscript_collation import load_kjv_skeleton
+    from scripts.core import standalone_store as ss
+
+    col = _load_v2("1ki", 6)
+    xref = gx.build_kjv_xref(col, load_kjv_skeleton("1ki", 6), "1ki")
+    assert all(isinstance(k, str) for k in xref), "build_kjv_xref must key by str(geez_v)"
+    col_in_memory = dict(col)
+    col_in_memory["kjv_xref"] = xref  # in-memory hand-off, no json round-trip
+    _verses, appmap = ss.collation_to_store_entries(col_in_memory)
+    for pv in col["primary_verses"]:
+        gv = pv["geez_v"]
+        assert appmap[str(gv)]["kjv"], f"verse {gv} lost its kjv xref in the in-memory hand-off"
 
 
 def test_kjv_coverage_shape():

@@ -249,6 +249,51 @@ class TestDispatchGuard:
         assert tripped["v"] is False
 
 
+class TestGap8EditionDeHardcode:
+    """Round-11 gap-8: the standalone build reads its body + popup stores from
+    the EDITION record (base_translation / popup_translation), not a hardcoded
+    geez id — so standalone-amharic queries the AMHARIC stores, never Ge'ez
+    (the cross-edition bleed the class names). Ge'ez output stays byte-identical
+    because standalone-geez's base/popup translations ARE geez-tewahedo[-en]."""
+
+    def test_build_standalone_amharic_never_reads_geez_stores(self, tmp_path, monkeypatch):
+        seen = {"base": [], "popup": []}
+        real_cv = bs.chapter_verses_in_source_order
+        real_en = bs.en_occurrence_map
+        monkeypatch.setattr(
+            bs,
+            "chapter_verses_in_source_order",
+            lambda translation, book: (seen["base"].append(translation), real_cv(translation, book))[1],
+        )
+        monkeypatch.setattr(
+            bs,
+            "en_occurrence_map",
+            lambda translation, book: (seen["popup"].append(translation), real_en(translation, book))[1],
+        )
+        try:
+            bs.build_standalone("standalone-amharic", tmp_path, "v28a")
+        except Exception:
+            pass  # build success is irrelevant — we only assert WHICH stores it read
+        # The bug rendered Ge'ez into the Amharic edition; the fix must not.
+        assert "geez-tewahedo" not in seen["base"], seen
+        assert "geez-tewahedo-en" not in seen["popup"], seen
+
+    def test_render_book_module_stamps_given_translation(self):
+        from scripts.core import standalone_store as ss
+
+        text = ss._render_book_module("psa", [(1, 1, "ሰላም")], translation="amharic-tewahedo")
+        assert 'TRANSLATION = "amharic-tewahedo"' in text
+        assert "amharic-tewahedo" in text.splitlines()[0]  # docstring header carries it too
+
+    def test_render_book_module_defaults_to_geez(self):
+        from scripts.core import standalone_store as ss
+
+        # Default must stay geez-tewahedo so the existing committed store +
+        # main() output are byte-identical.
+        text = ss._render_book_module("1ki", [(6, 1, "ወእምዝ")])
+        assert 'TRANSLATION = "geez-tewahedo"' in text
+
+
 class TestDuplicateVerseIds:
     def test_duplicate_verse_numbers_get_unique_ids(self):
         verses = [(14, "first line"), (14, "second line")]

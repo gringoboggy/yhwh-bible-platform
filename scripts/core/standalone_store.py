@@ -45,9 +45,9 @@ def collation_to_store_entries(
     return verses, appmap
 
 
-def _render_book_module(book: str, verses: list[tuple[int, int, str]]) -> str:
+def _render_book_module(book: str, verses: list[tuple[int, int, str]], translation: str = "geez-tewahedo") -> str:
     out = [
-        f'"""Translation: geez-tewahedo · Book: {book}',
+        f'"""Translation: {translation} · Book: {book}',
         "",
         "Own-versification store generated from the base-structured manuscript",
         "collations (Phase C2). Verse coordinates are the base witness's OWN",
@@ -55,7 +55,7 @@ def _render_book_module(book: str, verses: list[tuple[int, int, str]]) -> str:
         f"manuscript apparatus live in {book}_apparatus.json.",
         '"""',
         "",
-        'TRANSLATION = "geez-tewahedo"',
+        f'TRANSLATION = "{translation}"',
         f'BOOK = "{book}"',
         'VERSIFICATION = "own"',
         'SOURCE_QUALITY = "manuscript-collation-tier2"',
@@ -69,9 +69,10 @@ def _render_book_module(book: str, verses: list[tuple[int, int, str]]) -> str:
     return "\n".join(out) + "\n"
 
 
-def build_book_store(book: str, collation_paths: list[Path], out_dir: Path) -> dict:
+def build_book_store(book: str, collation_paths: list[Path], out_dir: Path, translation: str = "geez-tewahedo") -> dict:
     """Aggregate a book's chapter collations → ``<book>.py`` + ``<book>_apparatus.json``
-    in ``out_dir``. Returns a stats dict."""
+    in ``out_dir``. ``translation`` stamps the produced store module (gap-8: the
+    producer is no longer hardwired to geez-tewahedo). Returns a stats dict."""
     all_verses: list[tuple[int, int, str]] = []
     appmap: dict[str, dict] = {}  # {str(chapter): {str(geez_v): {...}}}
     for p in collation_paths:
@@ -83,7 +84,7 @@ def build_book_store(book: str, collation_paths: list[Path], out_dir: Path) -> d
     from scripts.core.notes_io import atomic_write  # mint-11 #4: atomic corpus writes
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    atomic_write(out_dir / f"{book}.py", _render_book_module(book, all_verses))
+    atomic_write(out_dir / f"{book}.py", _render_book_module(book, all_verses, translation))
     atomic_write(out_dir / f"{book}_apparatus.json", json.dumps(appmap, ensure_ascii=False, indent=2))
     return {"book": book, "verses": len(all_verses), "chapters": len(appmap)}
 
@@ -142,16 +143,18 @@ def lxx_psalms_to_kjv(lxx_ch: int) -> list[int]:
     return []
 
 
-def build_psalms_apparatus(out_dir: Path = GEEZ_STORE) -> dict:
-    """Generate geez-tewahedo/psa_apparatus.json for the standalone render path.
+def build_psalms_apparatus(out_dir: Path = GEEZ_STORE, translation: str = "geez-tewahedo") -> dict:
+    """Generate <translation>/psa_apparatus.json for the standalone render path.
 
     Psalms is single-source (no manuscript apparatus); each own-vers (LXX) verse
     gets a KJV cross-reference via lxx_psalms_to_kjv with confidence 'interpolated'
     (chapter-anchored, verse-approximate — the LXX/KJV verse offset within a chapter
-    is not resolved here, so we never claim verse-exact precision). Returns a stats dict."""
+    is not resolved here, so we never claim verse-exact precision). ``translation``
+    selects the body store to read (gap-8: no longer hardwired to geez-tewahedo).
+    Returns a stats dict."""
     from scripts.core import translations as tx
 
-    verses = tx._load_book("geez-tewahedo", "psa") or []
+    verses = tx._load_book(translation, "psa") or []
     appmap: dict[str, dict] = {}
     for ch, v, _t in verses:
         kjv_chs = lxx_psalms_to_kjv(ch)
