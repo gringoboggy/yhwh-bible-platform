@@ -1,0 +1,297 @@
+{
+  "round": 12,
+  "lane": "mac",
+  "now": "2026-06-23",
+  "scope": "4 NEW dims round-10 left uncovered",
+  "task": "round-12 deep-audit on the NEW dimensions round-10 did not cover (WIN BIG-batch ②): platform-apple/play, popup new-emitter hunt, all-zipfile-writer byte-repro, audit_caches @cache blindness. FINDINGS-ONLY; no code modified.",
+  "method": "focused workflow w3fyie8yt (8 agents): 1 auditor + 1 independent verify/completeness-critic per dim. Chosen over the generic 24-dim deep-audit.js engine for precision on these 4 specific NEW dims + to avoid re-litigating settled round-11 findings (args-propagation caveat moot). general-purpose agents, Opus 4.8.",
+  "counts": {
+    "dims": 4,
+    "total": 26,
+    "by_severity": {
+      "medium": 10,
+      "low": 5,
+      "info": 9,
+      "high": 2
+    },
+    "by_dim": {
+      "platform-apple-play": 7,
+      "popup-new-emitter": 6,
+      "zipfile-byte-repro": 8,
+      "audit-caches-cache-blindness": 5
+    }
+  },
+  "dims": [
+    {
+      "dimId": "platform-apple-play",
+      "name": "Apple (tablet/eink) + Google Play Books build-profile correctness/coverage",
+      "classFix": "The Apple/tablet correctness class is rooted in one anti-pattern: target-specific build behavior that BYPASSES the edition's stored/user value instead of resolving through it. The canonical fix is to make resolve_reader_toc_collapsible() honor the strict opt-in for ALL targets (return `edition.get('reader_toc_collapsible') is True`), move the tablet 'collapsible by default' to a wizard/customize presentation DEFAULT (overridable), surface the RESOLVED value in api_customize_data + customize.py so matrix==build holds, and gate the customize checkbox by target so a collapsible ToC can never reach the everywhere/Play profile. Play needing no own profile is intentional and documented (spec §2 row 5, EREADERS open-question #4) — not a defect; only the everywhere-build collapsible-ToC leak needs a guard. The stale spec §4.3 de-dupe note is a doc-sync, not a code fix.",
+      "findings": [
+        {
+          "file": "scripts/build_edition.py",
+          "line": "4476-4485",
+          "issue": "resolve_reader_toc_collapsible() returns True UNCONDITIONALLY for target_reader=='tablet' (Apple Books), ignoring the edition's saved reader_toc_collapsible value. This defeats the documented STRICT OPT-IN contract for exactly the one target where the wizard ENABLES the toggle (TARGET_CAPS.tablet.toc_expandable=true, box not disabled). A user who picks 'Phone / tablet' and then UNCHECKS 'Expandable Contents' in the wizard still saves reader_toc_collapsible:false (wizard.py:1218), but the tablet build re-forces collapsible <details> ToC anyway. The companion comment at build_edition.py:5535-5543 explicitly states the opposite intent ('reader_toc_collapsible must be exactly true ... this also makes the /customize checkbox actually effective'), and wizard.py:1209-1211 states 'the build keeps the base's <details> only when this is exactly true' — the tablet branch contradicts both.",
+          "severity": "medium",
+          "fix": "Make tablet honor the strict opt-in like every other target: change the resolver to `return edition.get('reader_toc_collapsible') is True` for all targets, and set the wizard/customize DEFAULT for tablet to true (presentation-default, overridable) instead of hard-forcing it in the resolver. If a true tablet-always-collapsible policy is genuinely intended, then gate the wizard box disabled for tablet (like eink) and surface the resolved value in api_customize_data — but the cleaner fix is to drop the unconditional override so user choice wins.",
+          "status": "DETECTED"
+        },
+        {
+          "file": "scripts/web_editions.py",
+          "line": "473",
+          "issue": "api_customize_data surfaces the RAW stored reader_toc_collapsible (e.get('reader_toc_collapsible', False)) instead of the resolved value resolve_reader_toc_collapsible(e). Combined with the tablet hard-override in build_edition.py:4483, the /customize + matrix surfaces show 'off' for a tablet edition where the user disabled it, while the built EPUB ships it ON — a matrix==build / one-resolver drift (MATRIX_MAP finding #3 class). Note max_popup_languages/target_reader ARE surfaced through their resolvers on adjacent lines (462,476), so toc_collapsible is the odd one out.",
+          "severity": "medium",
+          "fix": "Either (a) report the resolved value here: 'reader_toc_collapsible': resolve_reader_toc_collapsible(e) — and the same in customize.py:557 — so the displayed matrix value always equals the build; or (b) fix the build override (primary finding) so raw==resolved for tablet too. Do both for full consistency: surface resolved, and drop the build's tablet override.",
+          "status": "DETECTED"
+        },
+        {
+          "file": "scripts/templates/customize.py",
+          "line": "557",
+          "issue": "The /customize 'Expandable chapter lists' checkbox (data-field=reader_toc_collapsible) is freely editable on ANY target, with no target gating (unlike the wizard, which disables it for non-capable targets). A user can set reader_toc_collapsible:true on an everywhere-target edition; the Google Play Books catalog cell builds from the everywhere base (FORMAT_MATRIX play -> target_reader 'everywhere'), so that edition's Play asset would ship <details> collapsible ToC, which dev/EREADERS.md:186 documents as rendering 'CLOSED AND STUCK' on Play Books (the one reader that locks them). Does not affect the 4 catalog editions today (all set reader_toc_collapsible:false in editions.yaml), so latent rather than active.",
+          "severity": "low",
+          "fix": "Gate the customize checkbox by target the way the wizard does (TARGET_CAPS-style: disable + force-off for everywhere/computer/eink/kindle, enabled only for tablet), OR have resolve_reader_toc_collapsible refuse <details> on the everywhere/computer profiles regardless of stored value (it already does for the default path; make it explicit that everywhere never collapses). Keeps the Play=everywhere alias safe under custom builds.",
+          "status": "DETECTED"
+        },
+        {
+          "file": "docs/superpowers/specs/2026-06-10-website-format-matrix-design.md",
+          "line": "133-137",
+          "issue": "Stale spec claim: '§4 De-dupe note ... until the everywhere/tablet/computer profiles diverge, 27 of the 45 base artifacts are byte-aliases — build ~18 real bases + alias the rest; the catalog's Apple cell aliases the everywhere artifact until tablet has a real profile delta.' The tablet profile NOW diverges from everywhere in at least 7 build branches (file-split OFF vs ON at build_edition.py:4471; toc_collapsible forced ON at 4483; note_popup_split_cap 0 at 3245; left-align notes CSS at 7464; note_popup_style category-color at 2238; strip vn-sep separators at 2708; marker badge). Verified: build_format_matrix.distinct_base_targets(M1) == ['everywhere','tablet'] — the driver builds a REAL distinct tablet base and does NOT alias apple to everywhere. The spec note is therefore obsolete and contradicts both the code and EREADERS.md:19 (Apple 'Proven' with its own profile fixes). Code is correct; only the spec annotation is wrong.",
+          "severity": "low",
+          "fix": "Update the §4.3 de-dupe note to state that tablet/apple now has a real profile delta (list the divergences) so the Apple cell is a genuine separate base, not a byte-alias of everywhere. Note that only play (and the kindle base) legitimately share the everywhere base.",
+          "status": "DETECTED"
+        },
+        {
+          "file": "scripts/build_edition.py",
+          "line": "3320-3335",
+          "issue": "Latent footgun (NOT an active defect): resolve_note_popup_split_byte_cap() is the ONLY popup/reader resolver that is not internally target-gated — it returns DEFAULT_NOTE_POPUP_SPLIT_BYTE_CAP=8858 for every edition including tablet. The Apple M2 intent (build_edition.py:3239 'one merged badge per verse') is preserved ONLY because the single call site at line 3913 guards it with `if eink_target else 0`. If any future caller invokes the resolver without replicating that eink gate, tablet/Apple builds would silently split heavy-verse popups into (N/M) part-badges, contradicting the M2 layout directive. Verified the current call site is correct, so no live defect.",
+          "severity": "info",
+          "fix": "For defense-in-depth and consistency with the sibling resolvers (resolve_note_popup_split_cap returns 0 for tablet internally), gate the byte-cap resolver itself: `if resolve_target_reader(edition) != 'eink': return 0` at the top, and drop the now-redundant `if eink_target else 0` at line 3913. Then the eink-only contract lives in one place.",
+          "status": "MISSED"
+        },
+        {
+          "file": "scripts/templates/wizard.py",
+          "line": "561-567 / 564",
+          "issue": "TARGET_CAPS.tablet declares max_popup_languages:null (uncapped) and the gate_reason is empty (toc_expandable enabled), which the code honors — that part is fine. The MISSED defect is the inverse asymmetry of confirmed Finding #1 at the wizard layer: applyTargetGating (wizard.py:600-602) FORCES STATE.toc_expandable=false whenever caps.toc_expandable is falsy, so for everywhere/eink/computer/kindle the wizard can ONLY ever save reader_toc_collapsible:false. That means the ONLY target whose stored value the build is allowed to read back (a non-tablet edition with the flag set true via /customize or hand-edited YAML) is exactly the path with no wizard producer — i.e. the resolver's non-tablet honor-branch (4485) is reachable ONLY through the ungated customize.py:557 checkbox / raw YAML, never the wizard. This makes Finding #3's latent Play-Books <details> hazard the SOLE producer of a true value on an everywhere/play edition.",
+          "severity": "low",
+          "fix": "Gate reader_toc_collapsible in customize.py and api/editions.py the same way the wizard gates it: reject/force-false reader_toc_collapsible:true unless resolve_target_reader(edition)=='tablet'. This closes the only path that can ship collapsible <details> to a Play-Books ('everywhere') asset and makes the toggle's effective domain consistent across wizard + /customize + API.",
+          "status": "MISSED"
+        },
+        {
+          "file": "dev/EREADERS.md",
+          "line": "19",
+          "issue": "The Apple Books row claims 'Page-break CSS ✅ honored' and 'Embedded fonts ✅ honored' as if tablet-specific, but I verified there are NO target-conditional page-break or @font-face/font-embed branches anywhere in build_edition.py (grep for page-break/page_break/break-before/@font-face/font_embed crossed with tablet/eink/kindle/target returned zero hits; the only page-break mention tied to a target is the Kindle SEAM CSS noted at 1973, and fonts at 6714 are OPF-registration for all editions). So those two Apple cells describe BASE/universal EPUB behavior, not an Apple-profile fix. Not a code contradiction (the base does ship them for everyone, so the ✅ is truthful), but the table's per-reader framing implies profile-specific honoring that the build does not actually branch on — a documentation-precision gap, not a build defect.",
+          "severity": "info",
+          "fix": "Optionally annotate the EREADERS Apple/everywhere/computer rows to note that page-break and embedded-font handling are BASE (universal) behaviors, not per-target build branches, so a future reader does not assume a tablet-specific font/page-break code path exists. No code change.",
+          "status": "MISSED (low-value / doc-precision)"
+        }
+      ],
+      "searchMethod": "ripgrep across scripts/ (incl core/, api/, templates/): `TARGET_CAPS|target_reader|FORMAT_MATRIX`, `tablet|eink|apple|'play'|everywhere|kindle` in wizard.py, `page-break|break-before|break-after|break-inside`, `font` (excluding CSS shorthand), `max_popup_languages|popup_language_cap`, `reader_toc_collapsible|toc_expandable|reader_file_split|note_popup_split_cap|note_popup_split_byte_cap`, `dc:language|hbo|grc|gez`, `valid_targets|TARGET_READERS`. Files READ in full or in relevant ranges: scripts/build_edition.py (resolve_target_reader/apply_target_override/FORMAT_MATRIX 1955-2085; resolve_note_popup_style/tablet branches 2230-2429; apply_tablet_popup_strip_separators 2700-2760; resolve_note_popup_split_cap + byte-cap driver 3230-3335; resolve_reader_file_split/toc_collapsible/file_split_target 4460-4495; eink keep_inline 5140-5180; toc_collapsible apply 5528-5567; dc:language block + OPF target stamp 1716-1772; popup-language cap resolvers 1000-1094; font OPF patch 6711-6770; tablet left-align CSS 7440-7468), scripts/templates/wizard.py (target picker 144-176; TARGET_CAPS + applyTargetGating 540-636; save payload 1205-1228), scripts/build_format_matrix.py (full — base_build_target/distinct_base_targets/build_edition_assets), scripts/gen_release_catalog.py (column-live gating 95-156), scripts/web_editions.py (api_customize_data 462-500), scripts/templates/customize.py (toc checkbox 548-567), scripts/api/editions.py (target_reader validation 821-830), dev/EREADERS.md (full — Apple/Kobo/Kindle/Play/everywhere rows + Play QA protocol + cross-reader invariants), docs/superpowers/specs/2026-06-10-website-format-matrix-design.md (full). Executed: a python probe confirming matrix_cells(M1) distinct_base_targets==['everywhere','tablet'] and play/kindle base==everywhere; grep of content/editions.yaml confirming all 6 editions set reader_toc_collapsible:false; grep of epub_working/stylesheet.css confirming page-break CSS ships in the base; style_config.EMBED_FONT_PATHS confirming Cardo+Noto Ethiopic embedding. NOT a Kobo re-audit; round-11 gap-1..6 and the vnote-translation arc excluded.",
+      "completenessNote": "High confidence the Apple+Play dimension is fully covered. I independently confirmed all 5 auditor findings by reading each cited site plus its companions (wizard.py:594-602/1218, build_edition.py:5535-5543, web_editions.py:462/473/476, customize.py:557, api/editions.py:125/818-832, the FORMAT_MATRIX rows 2033-2085, the spec §4, build_format_matrix.py target_for_cell/distinct_base_targets, gen_release_catalog.py, and the single split-byte-cap call site at 3913). I enumerated ALL 18 target_reader/is_kindle_target branch sites in build_edition.py (grep-verified: 1735/1765/2238/2286/2307/2389/2404/2708/2739/3245/3894/4471/4483/4494/5155/7297/7464) and accounted for each — the tablet-specific ones are file-split OFF, toc forced ON, split_cap 0, popup_style category-color, vn-sep strip, left-align CSS; the rest are eink/kindle. I chased two of my own candidate defects to disproof: (a) apply_tablet_popup_strip_separators (2701) only touches index_split_* files, but I verified via line 4424 that the calibre BASE always ships ~61 index_split_*.html files (reader_file_split only controls FURTHER fan-out) and the strip runs at 7717 BEFORE apply_file_split at 7788, so tablet IS covered — not a defect; (b) play/apple aliasing — confirmed the catalog generator and matrix driver build a REAL distinct tablet base and never alias apple->everywhere, so the spec note (Finding #4) is the only stale artifact. Confirmed play uses the 'everywhere' alias intentionally (spec §2 row 5 + EREADERS:177-191 'provisional', no 'play' value in TARGET_READERS) — consistent across code/spec/EREADERS, no mismatch. The cache key (build_cache.py:304) correctly folds the resolved target so apple/tablet vs everywhere do not collide. Blind spots: I did not run the test suite or build a tablet/everywhere EPUB to byte-verify the divergence (read-only audit); and I did not deep-audit the kepub/kindle post-process paths since those are out of this Apple+Play dimension. The two missed items I report are both low/info (a wizard-vs-customize gating asymmetry that sharpens Finding #3, and an EREADERS doc-precision gap on page-break/font framing); no additional high/medium Apple-or-Play build defect was found beyond the auditor's set.",
+      "counts": {
+        "reported": 5,
+        "falsePositive": 0,
+        "confirmed": 5,
+        "missed": 2,
+        "final": 7
+      }
+    },
+    {
+      "dimId": "popup-new-emitter",
+      "name": "NEW popup/aside/noteref/badge emitter or hidden-target integrity class",
+      "classFix": "Enforce a prefix-free id namespace at EVERY noteref/footnote emitter: no emitted target id may be a strict prefix of any sibling footnote id in the same artifact (the K-R6-2 Kobo forward-scan 'slice-swallow' rule already applied to the KJV popup-unit path via the `-sN` tail). Two emitters re-broke it by using variable-length human tokens as the terminal id segment: build_edition._emit_backmatter_glossary_inner (category id, where `lit`⊂`liturgy`) and build_standalone.render_chapter_body (bare first-occurrence vs `-N` duplicate-verse occurrences). Fix both by giving every id a fixed terminal disambiguator (always-present `-gN`/`-oN` index, never a bare or variable token), and add a single cross-emitter guard/test: collect all `epub:type=\\\"footnote\\\"` ids in a built artifact and assert none is a strict prefix of another.",
+      "findings": [
+        {
+          "file": "scripts/build_edition.py",
+          "line": "3737-3756, 4159-4189",
+          "issue": "eink-backmatter study-glossary noteref namespace is NOT prefix-free across categories. Each category badge targets a padded-footnote aside id `vnotes-{code}-{ch}-{v}-{cat}` (line 3740 sid / 3737 badge_target; emitted as href at 4185 `href=\"#{target_id}\"`, with the matching aside id at 3740). The category ids include both `lit` and `liturgy`, and `lit` is a STRICT PREFIX of `liturgy`. On any verse carrying both a `lit` note and a `liturgy` note (both are real, populated categories: 5 `lit` kinds + 3 `liturgy` kinds in content/kinds.yaml; co-occurrence is normal in Ethiopian Tewahedo study editions), the build emits two sibling footnote asides `vnotes-{c}-{ch}-{v}-lit` and `vnotes-{c}-{ch}-{v}-liturgy` in the SAME relocated glossary file. The `lit` badge targets `#vnotes-{c}-{ch}-{v}-lit`, a strict prefix of its sibling — exactly the K-R6-2 'slice-swallow' Kobo forward-scan failure the popup-unit path (lines 4206-4214) deliberately avoids by giving every id a single-digit `-sN` tail. The category-suffixed backmatter path re-introduces that class. Note: when a category splits, ids gain `-cN`, but the UNSPLIT `lit` badge_target stays bare `vnotes-...-lit` (line 3737), so the collision against `vnotes-...-liturgy[-c1]` survives. The existing test (tests/test_marker_badge_style.py:263) only asserts the WRAPPER id is not a prefix; it never tests the lit/liturgy cross-category collision, so this is uncaught.",
+          "severity": "medium",
+          "fix": "Make the eink-backmatter category id namespace prefix-free, mirroring the popup-unit `-sN` solution. Cheapest correct fix: append a fixed terminal token to every category sid/badge_target so no id is a prefix of another — e.g. emit `vnotes-{code}-{ch}-{v}-{cat}-g{n}` for ALL groups (drop the `len(groups)>1` special-case at lines 3739-3742 so even single groups carry `-g1`), and set `badge_target` to the `-g1` id. Equivalent: pad short category ids or use a separator the regex can anchor on. Then extend test_marker_badge_style with a verse carrying both a `lit` and a `liturgy` note and assert no emitted noteref target id is a strict prefix of any other footnote id in the artifact.",
+          "status": "MISSED (new class, not the vnote-translation arc)"
+        },
+        {
+          "file": "scripts/build_standalone.py",
+          "line": "96-105",
+          "issue": "Standalone Ge'ez noteref/footnote id namespace is NOT prefix-free for duplicate verse numbers within a chapter. render_chapter_body uses `suffix = \"\" if seen[gv] == 1 else f\"-{seen[gv]}\"` (line 96), so the FIRST occurrence of a repeated verse number gets a BARE id (`v-psa-36-24` / `vnote-psa-36-24`, lines 97-98) while later occurrences get `-2`,`-3` (`vnote-psa-36-24-2`). The bare first-occurrence id is a strict prefix of its later-occurrence siblings, and all sit as `epub:type=\"footnote\"` asides in the same hidden verse-refs-section (lines 106-108). The first v24 noteref (`href=\"#vnote-psa-36-24\"`, line 101) thus prefixes a sibling footnote id — the same Kobo forward-scan slice-swallow class fixed for the KJV popup-unit path. The HaCohen Ge'ez Psalter stores Ps 36 exactly as 24/25/24/25 (documented in this file's own docstrings, lines 188-190 / 199-207, and spec §10.6), so this fires on real shipped standalone content.",
+          "severity": "medium",
+          "fix": "Give every occurrence a non-prefix-free-safe suffix: make occurrence 1 carry an explicit terminal token too (e.g. always `-o{n}`: `v-{book}-{ch}-{gv}-o1`, `-o2`, …) so no id is ever a strict prefix of another. Apply identically to both `vid` and `nid` (line 97-98) and to the back-link in _render_vnote (line 55 `href=\"#v-{code}-{ch}-{vs}\"`, which is built from the same coordinate). Keep the displayed verse number unchanged.",
+          "status": "MISSED (new class, not the vnote-translation arc)"
+        },
+        {
+          "file": "scripts/core/kindle_post.py",
+          "line": "277,282",
+          "issue": "Latent (info): the Kindle m4b coordinate parsers `_VNOTES_COORD_RE`/`_VNOTE_COORD_RE` (`^vnotes-([a-z0-9]+)-(\\d+)-(\\d+)`) and the collect regex `_VNOTES_ASIDE_RE` (matches any aside with class containing `verse-notes` + id `vnotes-`) would also match the eink-backmatter `study-glossary-cat verse-notes` footnote asides if a Kindle post-process ever ran over an eink-backmatter artifact: the category suffix `-lit`/`-liturgy` is silently dropped by the coord regex (anchored, non-greedy on the suffix), collapsing distinct category targets to one (code,ch,v) key in _vnotes_sort_key/back-link. Today these are disjoint build targets (Kindle vs eink), so it does not fire — but the two emitters share the `vnotes-` prefix + `verse-notes` class with no namespace guard separating them.",
+          "severity": "info",
+          "fix": "Either reserve distinct id prefixes per emitter (e.g. eink-backmatter category footnotes use `gloss-` not `vnotes-`), or make the m4b coord/collect regexes reject category-suffixed ids explicitly, so the two namespaces can never alias if the pipelines ever cross.",
+          "status": "DETECTED (latent, not currently exercised)"
+        },
+        {
+          "file": "scripts/build_standalone.py",
+          "line": "96-98",
+          "issue": "The standalone prefix-collision is FAR broader than finding #2's dup-verse framing. Because single-occurrence verses get a BARE id (suffix=''), EVERY chapter with >=10 verses mints cross-verse digit-extension prefix pairs in the same hidden verse-refs-section: vnote-psa-36-1 < vnote-psa-36-10..19, vnote-psa-36-2 < vnote-psa-36-20..29, vnote-psa-36-3 < vnote-psa-36-30..39, etc. Ps36 alone yields 33 strict-prefix sibling footnote-id pairs (computed), of which only 2 are the dup-verse pairs the auditor flagged; the other 31 are plain consecutive verses. This is verbatim the failure build_edition.py:4210-4211 cites for the KJV path ('bare singles minted 20 adjacent cross-verse digit-extension pairs like jub-7-1 < jub-7-13') — the standalone Ge'ez Bibles (a shipping artifact, editions.yaml:335) re-introduce it across the WHOLE Psalter, not just dup chapters. Same for the v-{...} noteref source ids.",
+          "severity": "medium",
+          "fix": "Give EVERY noteref/footnote id in render_chapter_body an unconditional disambiguating tail (e.g. -sN per occurrence index, mirroring the KJV popup-unit -sN at build_edition.py:4212) so no id is ever a strict prefix of a sibling, regardless of dup-verse status. Add a prefix-free guard test over a real chapter (Ps36/any chapter >=10 verses), not just the dup-verse uniqueness test at tests/test_build_standalone.py:257-262.",
+          "status": "MISSED"
+        },
+        {
+          "file": "scripts/inject.py",
+          "line": "227, 746",
+          "issue": "The MAIN inject popup path has the same same-verse bare-vs-suffix prefix collision the auditor only flagged for backmatter/standalone. full_id = f'{prefix}{ch:02d}{v:02d}{suffix}' and the store convention gives the FIRST note of a verse a bare suffix '' while later notes get 'a','b','c' (verified in content/notes/zec.py: first-20 suffix fields = ['','a','b','c','',...]). So note-zec0101 (bare) is a strict prefix of siblings note-zec0101a / note-zec0101b in the same chapter notes-section, and the noteref id ref-zec0101 likewise prefixes ref-zec0101a. The fixed-width {cc}{vv} padding DOES prevent the cross-verse case (note-gen0101 is not a prefix of note-gen0111), so the hazard is confined to multi-note verses — but those are common across catholic-study/KJV/protestant editions.",
+          "severity": "low",
+          "fix": "If the Kobo forward-scan slice-swallow is confirmed to affect these reflowable note- asides, make the first note's suffix non-empty (e.g. always emit a single-char tail) so bare ids never prefix their a/b siblings; otherwise document why the legacy reflowable path is exempt. Lower confidence on Kobo-impact: this is the legacy reflowable popup path, not the Kobo-calibrated badge path where K-R6-2 was diagnosed — verify before treating as ship-blocking (do not re-derive the de-scoped vnote-decline arc).",
+          "status": "MISSED"
+        },
+        {
+          "file": "scripts/build_standalone.py",
+          "line": "89, 3636 (ch-anchor scheme)",
+          "issue": "Standalone chapter-opener anchors ch-{book}-c{chapter} (line 89) and the build_edition fallback return-link ch-{bxx}-cN have cross-chapter prefix collisions (ch-psa-c1 ⊂ ch-psa-c10..c19; 11 pairs for a 20-chapter span). Lower risk than the footnote case because each chapter is its own XHTML file (build_manifest_and_spine) so these anchors are NOT siblings in a single hidden footnote section scanned by one popup target — but if any tool forward-scans by id-prefix across the spine (e.g. the kindle_post m4b glossary which concatenates), the bare c1 could shadow c10.",
+          "severity": "info",
+          "fix": "Note for completeness; only act if a cross-file id-prefix scan is introduced. Zero-pad or tail-disambiguate chapter anchors (ch-psa-c01) if a forward-scan consumer ever spans chapter files."
+        }
+      ],
+      "searchMethod": "rg over scripts/ for noteref|epub:type|aside|data-aside|badge|retarget|glossary|href=\\\"#|vnotes-|vbadge|vnote-. Read in full: scripts/core/kindle_post.py (m4b glossary collect/retarget/verify), scripts/build_standalone.py, scripts/generate_verse_popups.py, scripts/fix_xref_targets.py, scripts/core/vnote_separators.py. Read build_edition.py emit paths: badge/aside merge (3680-3920), eink-backmatter category badge+footnote (4140-4300), split_study_glossary_document (4982-5067), _unique_cats_sorted/_study_glossary_footnote (3619-3677). Read content/categories.yaml (full id list) + content/kinds.yaml (category->kind counts: lit=5, liturgy=3). Verified the prefix-colliding category-pair set programmatically (python: only ('lit','liturgy')). Cross-checked test coverage in tests/test_marker_badge_style.py (lines 240-319): the existing K-R6-2 assertion (line 263) only guards the wrapper id, not the lit/liturgy cross-category collision. Confirmed the two findings are NEW (prefix-free-namespace class on freshly-suffixed emitters), distinct from the de-scoped vnote-translation arc and from round-11 gap-1..gap-6.",
+      "completenessNote": "All three reported findings CONFIRMED genuine by reading source + the live store + the kinds registry (finding #1 medium, #2 medium, #3 info — severities accurate). #1 and #2 are genuinely NEW emitter prefix-collision classes, not the de-scoped vnote-translation decline arc. KEY GAP I FOUND: finding #2 is materially under-scoped — the standalone bare-first-occurrence id scheme produces 33 strict-prefix sibling footnote-id pairs in Ps36 alone (only 2 are dup-verse), and the IDENTICAL class lives in the MAIN inject.py popup path (note-/ref- ids, first-note bare suffix). Coverage confidence: HIGH for the build_edition backmatter-glossary + build_standalone + kindle_post emitters (read every id= emit site: vnotes-/vbadge-/vnote-/v-/note-/ref-/study-entry-/ch- schemes and their guard tests). Blind spots: (1) I did NOT empirically confirm whether Kobo's forward-scan slice-swallow actually fires on the legacy reflowable note- asides vs only the badge/popup-unit path — that determination borders the de-scoped K-R arc and needs device evidence, so I flagged inject.py at low confidence rather than asserting. (2) I did not audit the catholic-filtered edition's spliced cross-book sections for id collisions at book boundaries (out of this dimension's emitter focus). (3) No new zipfile-writer/cache-decorator enumeration was in-scope for this popup dimension; not assessed.",
+      "counts": {
+        "reported": 3,
+        "falsePositive": 0,
+        "confirmed": 3,
+        "missed": 3,
+        "final": 6
+      }
+    },
+    {
+      "dimId": "zipfile-byte-repro",
+      "name": "every zipfile.ZipFile(..,\"w\") writer pins reproducible metadata",
+      "classFix": "Add one shared reproducible-zip helper (e.g. in scripts/core/ or a small zip_repro module): _ZIP_EPOCH = (1980, 1, 1, 0, 0, 0) plus a factory like def _zip_member(name, *, stored=False) -> zipfile.ZipInfo that returns a ZipInfo with date_time=_ZIP_EPOCH, external_attr=0o644<<16, and compress_type set to ZIP_STORED (mimetype) or ZIP_DEFLATED. Route ALL five writers through it. This (a) fixes the two genuine UNPINNED shipping writers — press_kit.build_zip (4 writestr sites) and exports All-Editions bundle (the bare zf.write) — and (b) collapses the three duplicated _ZIP_EPOCH definitions (build_epub inline tuple x2, swap_epub_cover, kindle_post) into a single source of truth so a future writer can't silently regress. Add a byte-stability test: build each shipping zip twice over identical input and assert byte-identical output (the existing build_epub byte-stability gate pattern), covering press_kit and exports.",
+      "findings": [
+        {
+          "file": "scripts/core/press_kit.py",
+          "line": "305-350",
+          "issue": "UNPINNED (SHIPS, high). build_zip() opens ZipFile(buf,'w',ZIP_DEFLATED) then writes every member with bare zf.writestr(name, body) — blurbs/sample at L315, cover PNGs at L331, manifest.json at L350. None pass a ZipInfo, so zipfile stamps the current build wall-clock time into every local-file-header + central-directory date_time. Two runs over identical edition+blurbs+cover produce byte-different zips. Compounded: the manifest body itself embeds generated_at = datetime.now(timezone.utc) (L298) when the now= param is not injected. This zip is a SHIPPING artifact: served for download via api/press_kit.build_press_kit_zip (api/press_kit.py:102/123) AND uploaded to archive.org via archive_org.upload_press_kit — non-reproducible bytes churn the upload + any SHA256 over it.",
+          "severity": "high",
+          "fix": "Build a pinned ZipInfo for each member: zi = zipfile.ZipInfo(name); zi.date_time = _ZIP_EPOCH; zi.external_attr = 0o644 << 16; zi.compress_type = zipfile.ZIP_DEFLATED; zf.writestr(zi, body) — for all four writestr sites (L315, L331, L350). Already accepts a now= param for generated_at, so the manifest is reproducible once a now is passed; document/require an explicit now for byte-stable output.",
+          "status": "UNPINNED"
+        },
+        {
+          "file": "scripts/api/exports.py",
+          "line": "407-409",
+          "issue": "UNPINNED (SHIPS, high). The All-Editions bundle opens ZipFile(zip_path,'w',ZIP_DEFLATED) (L407) and adds each built EPUB with bare zf.write(fp, arcname=fp.name) (L409). zf.write() reads the file's on-disk st_mtime into the member date_time, so the bundle's central directory varies with filesystem mtimes even when the contained EPUB bytes are byte-identical reproducible builds. The bundle is a user-facing download (download_url = /api/export/download/{zip_name}, L413). Secondary non-determinism: the zip filename embeds a wall-clock timestamp ts = datetime.now(timezone.utc) (L404) — acceptable for a unique download name but means the artifact path is never stable either.",
+          "severity": "high",
+          "fix": "Replace zf.write(fp, arcname=fp.name) with a pinned member: zi = zipfile.ZipInfo(fp.name); zi.date_time = _ZIP_EPOCH; zi.external_attr = 0o644 << 16; zi.compress_type = zipfile.ZIP_DEFLATED; zf.writestr(zi, fp.read_bytes(), compresslevel=9). Iterate successful_files in a deterministic (sorted) order so central-directory ordering is stable too.",
+          "status": "UNPINNED"
+        },
+        {
+          "file": "scripts/build_epub.py",
+          "line": "143-159",
+          "issue": "PINNED (reference). ZipFile(out_path,'w') with mimetype STORED-first; every member gets date_time=(1980,1,1,0,0,0) + external_attr=0o644<<16 (L148-159). Reproducible. Note: it inlines the (1980,1,1,0,0,0) tuple literal rather than referencing a shared _ZIP_EPOCH constant, so it does not participate in the class fix's single source of truth.",
+          "severity": "info",
+          "fix": "No defect. When extracting the shared helper, replace the two inline (1980,1,1,0,0,0) literals (L149, L156) with the shared _ZIP_EPOCH / _zip_epoch_info() so all writers share one constant.",
+          "status": "PINNED"
+        },
+        {
+          "file": "scripts/core/kindle_post.py",
+          "line": "98-119",
+          "issue": "PINNED (reference, W2/W5). _ocf_rezip() pins date_time=_ZIP_EPOCH + external_attr=0o644<<16 on mimetype (L107-111) and every member (L115-119); _ZIP_EPOCH defined L95. Reproducible. Output ships (Kindle-safe EPUB).",
+          "severity": "info",
+          "fix": "No defect. This _ZIP_EPOCH constant (L95) is a candidate home / import target for the shared helper.",
+          "status": "PINNED"
+        },
+        {
+          "file": "scripts/swap_epub_cover.py",
+          "line": "60-71",
+          "issue": "PINNED. ZipFile(out_path,'w') copies entry order verbatim; each member gets a fresh ZipInfo with date_time=_ZIP_EPOCH + external_attr=0o644<<16 (L63-71); mimetype STORED, rest DEFLATED compresslevel=9; _ZIP_EPOCH defined L33. Reproducible. Output ships (cover-swapped EPUB).",
+          "severity": "info",
+          "fix": "No defect. Third independent copy of _ZIP_EPOCH (L33) — fold into the shared helper.",
+          "status": "PINNED"
+        },
+        {
+          "file": "scripts/api/exports.py",
+          "line": "404 & scripts/core/press_kit.py:298",
+          "issue": "Secondary non-determinism beyond the writer itself: both artifacts also embed a wall-clock value INSIDE the payload, not just the zip header. exports.py L404 ts=datetime.now() goes into the zip filename (acceptable for a unique download name, but the path is never stable), and press_kit.py L298 generated_at=datetime.now() is written into manifest.json BODY when now= is not injected — so even after pinning every ZipInfo date_time, the manifest member's bytes still churn run-to-run. The class fix for press_kit must also thread now= from the API caller (api/press_kit.build_press_kit_zip L123 calls build_zip(edition, blurbs) with no now=).",
+          "severity": "medium",
+          "fix": "When pinning press_kit.build_zip, also default generated_at to the _ZIP_EPOCH-equivalent or thread a deterministic now= through build_press_kit_zip; for exports, leave the timestamped filename (intentional uniqueness) but note the bundle path is non-stable by design.",
+          "status": "MISSED-SECONDARY"
+        },
+        {
+          "file": "dev/cc-hooks/memory_hygiene.py",
+          "line": "277-280",
+          "issue": "Out-of-scripts/ write-mode zip writer the dimension's scripts/-only enumeration excludes by scope, but it IS unpinned: write_memory_zip opens ZipFile(dest,'w') then bare zf.write(f, ...) (L280) stamping wall-clock into each member. Backs up the Claude memory dir to external E:/F:. Not a shipping Bible artifact and the backup filename is already timestamped-by-name (stamp L289), so SHA256 churn is irrelevant here — flagged only for enumeration completeness.",
+          "severity": "info",
+          "fix": "No action required (dev backup tool, out of dimension scope); pin only if memory backups ever need content-hash dedup.",
+          "status": "OUT-OF-SCOPE-DEV"
+        },
+        {
+          "file": "dev/kindle_bisect.py",
+          "line": "106,231,366,413,462,532,601,750,819",
+          "issue": "Out-of-scripts/ scope, but nine write-mode ZipFile(...,'w') rung-builders that re-zip staged EPUB probe artifacts the USER uploads to Send-to-Kindle. Spot-checked: these are DIAGNOSTIC one-variable probes (intentionally dead popups) for STK-failure bisecting, not the shipped EPUB, and each rung is a throwaway forensic artifact. Unpinned, but byte-reproducibility is immaterial to a one-shot manual upload. Flagged only so the writer enumeration is exhaustive repo-wide.",
+          "severity": "info",
+          "fix": "No action required (dev forensics tool, out of dimension scope and ephemeral by design).",
+          "status": "OUT-OF-SCOPE-DEV"
+        }
+      ],
+      "searchMethod": "Greps across scripts/ (incl core/, api/, templates/): rg 'zipfile|ZipFile|ZipInfo' --include=*.py; rg \\\"\\\\.writestr\\\\(|\\\\.write\\\\(|ZipFile\\\\(.*['\\\\\\\"][wax]['\\\\\\\"]\\\"; rg '_ZIP_EPOCH|ZIP_EPOCH|1980, 1, 1'. Enumerated all 9 zipfile-importing files; isolated the 5 write-mode ('w') ZipFile opens (the rest — note_diff:91, audit_epub_structure:127, build_format_matrix:179, fetch_sources:218/459, kindle_post:191/239/668/723 — are all default read-mode, confirmed by reading). READ each of the 5 writers in full: build_epub.py L130-162 (PINNED ref), core/kindle_post.py L90-119 (PINNED ref, _ocf_rezip), swap_epub_cover.py L40-72 (PINNED), api/exports.py L385-424 (UNPINNED, bare zf.write + wall-clock zip name), core/press_kit.py L290-352 (UNPINNED, 4 bare writestr + generated_at). Traced ship-vs-ephemeral: press_kit.build_zip -> api/press_kit.build_press_kit_zip (download, L102/123) + archive_org.upload_press_kit (web.py:2000 route) = SHIPS; exports bundle -> download_url /api/export/download (exports.py:413) = SHIPS. Confirmed no existing shared _ZIP_EPOCH helper (three independent copies).",
+      "completenessNote": "HIGH confidence the dimension is fully covered for the stated scope (scripts/). I ran an exhaustive repo-wide grep for ZipFile(...,'w'/'a'/'x'), .write(), .writestr(), plus shutil.make_archive and kepubify paths. Within scripts/ there are EXACTLY 5 write-mode zip writers: build_epub.py:143 (PINNED), swap_epub_cover.py:60 (PINNED), kindle_post.py:106 (PINNED), press_kit.py:305 (UNPINNED), exports.py:407 (UNPINNED). The auditor caught both UNPINNED defects and all 3 PINNED references with accurate line cites — its scripts/ enumeration is complete, no scripts/ writer was missed. The remaining 6 ZipFile sites in scripts/ (fetch_sources x2, audit_epub_structure, note_diff, build_format_matrix, kindle_post x4 read-paths) are all default read mode — verified, correctly excluded. No shutil.make_archive paths exist; kepub is produced by the external kepubify binary (not a Python zipfile writer, so no in-repo churn site). Blind spots: (1) the kepubify subprocess could itself emit non-reproducible kepub bytes, but that is outside any Python zipfile writer and outside this dimension; (2) two write-mode writers exist OUTSIDE scripts/ (dev/kindle_bisect.py x9, dev/cc-hooks/memory_hygiene.py:277) — both unpinned but out of the scripts/ dimension scope and non-shipping/ephemeral (forensic probes + timestamped memory backups), reported as info for enumeration completeness only. Net new genuine in-scope finding beyond the auditor: the press_kit manifest-body generated_at (L298) churns independently of the ZipInfo fix and must be threaded with now= as part of the class fix (medium).",
+      "counts": {
+        "reported": 5,
+        "falsePositive": 0,
+        "confirmed": 5,
+        "missed": 3,
+        "final": 8
+      }
+    },
+    {
+      "dimId": "audit-caches-cache-blindness",
+      "name": "audit_caches.py blind to @functools.cache / @cache / @cached_property",
+      "classFix": "Rename/extend `_is_lru_cache_decorator` (scripts/audit_caches.py:46-59) into a general cache-decorator recognizer that returns a classification tag. Match four families: (1) ast.Name id in {\"lru_cache\",\"cache\"}; (2) ast.Attribute with attr in {\"lru_cache\",\"cache\"} whose value is Name \"functools\"; (3) cached_property in both Name and functools.Attribute forms. Have discover_lru_caches carry the tag through. Treat lru_cache/cache identically (both expose a module-level function.cache_clear() surface → existing clear-path + whitelist logic just works, and the two already-present whitelist entries at .cache_audit_whitelist.py:67,70 immediately re-arm, taking discovered caches 44→46 with both classified 'whitelisted'). Treat cached_property separately — it has no function.cache_clear() surface, so exclude it from find_clear_sites() and report it informationally rather than as no_clear_path. This closes the whole class: today's two real @functools.cache misses plus any future @cache/@cached_property additions.",
+      "findings": [
+        {
+          "file": "scripts/audit_caches.py",
+          "line": "46-59",
+          "issue": "_is_lru_cache_decorator() only recognizes @lru_cache and @functools.lru_cache. It returns False for @functools.cache, bare @cache, @cached_property, and @functools.cached_property. Therefore discover_lru_caches() never emits any function decorated with those memoizers, and audit() never classifies them (no clear-path check, no whitelist check, no no_clear_path failure). The cache-hygiene audit is structurally blind to the entire @cache / @cached_property family. Verified empirically: a live run of `python3 scripts/audit_caches.py --json` discovers 44 caches and neither @functools.cache site appears.",
+          "severity": "medium",
+          "fix": "Extend _is_lru_cache_decorator to also match: ast.Name id in {lru_cache, cache} (covers bare @cache / @lru_cache from-imports); ast.Attribute on functools with attr in {lru_cache, cache} (covers @functools.cache); and cached_property in both Name and functools.Attribute forms. Best done by renaming to _is_cache_decorator and returning a classifier tag (lru_cache | cache | cached_property) so the audit can treat @cached_property specially (it is per-instance, not a module-level function.cache_clear() surface — see note below).",
+          "status": "ROOT-CAUSE"
+        },
+        {
+          "file": "scripts/manuscript_qa.py",
+          "line": "156",
+          "issue": "@functools.cache on top-level _collate_case(ref, suf, ch, book) is a MISSED site — the audit never discovers it. It caches a (gg, cam, golden, collation) tuple loaded from the four immutable Samuel calibration JSONs (content/manuscript/samuel/calibration/*). Per its own docstring it is a §7.1 read-once project-internal-published-data singleton: pure-value / whitelist-able, NOT runtime-mutable (updates ship via git + process restart). No _collate_case.cache_clear() call exists anywhere in scripts/ or tests/.",
+          "severity": "medium",
+          "fix": "Once _is_lru_cache_decorator recognizes @functools.cache, this site is auto-discovered and the EXISTING whitelist entry at scripts/.cache_audit_whitelist.py:70 (`_._collate_case`) takes effect, classifying it 'whitelisted'. No code change to the function needed; the whitelist already documents the rationale.",
+          "status": "MISSED / pure-value (whitelist-able; entry already present but currently dead)"
+        },
+        {
+          "file": "scripts/core/manuscript_collation.py",
+          "line": "180",
+          "issue": "@functools.cache on top-level load_kjv_skeleton(book, chapter) is a MISSED site — the audit never discovers it. It caches KJV spine rows parsed via ast.literal_eval from content/translations/kjv/<book>.py. Per its docstring it is project-internal published data, immutable in-process: pure-value / whitelist-able, NOT runtime-mutable. No load_kjv_skeleton.cache_clear() call exists anywhere in scripts/ or tests/.",
+          "severity": "medium",
+          "fix": "Once @functools.cache is recognized, this site is auto-discovered and the EXISTING whitelist entry at scripts/.cache_audit_whitelist.py:67 (`_.load_kjv_skeleton`) takes effect, classifying it 'whitelisted'. No function change needed.",
+          "status": "MISSED / pure-value (whitelist-able; entry already present but currently dead)"
+        },
+        {
+          "file": "scripts/.cache_audit_whitelist.py",
+          "line": "67,70",
+          "issue": "Two whitelist entries — `_.load_kjv_skeleton` (line 67) and `_._collate_case` (line 70) — are currently DEAD / ineffective. The whitelist authors explicitly intended both @functools.cache functions to be governed by the cache audit (each has a documented §7.1 rationale), but because _is_lru_cache_decorator never matches @functools.cache, discover_lru_caches never emits these functions, so audit() never reaches the whitelist lookup for them. The whitelist documents an intent the audit silently fails to enforce — a false sense of coverage. This proves the blindness is a real defect, not a theoretical one: the team already treated these as audit-managed caches.",
+          "severity": "medium",
+          "fix": "No edit to the whitelist needed — fixing _is_lru_cache_decorator to recognize @functools.cache reactivates both entries. After the fix, re-run scripts/audit_caches.py and confirm load_kjv_skeleton and _collate_case appear classified 'whitelisted' (total discovered should rise from 44 to 46).",
+          "status": "DEAD whitelist entries (re-armed by the class fix)"
+        },
+        {
+          "file": "scripts/audit_caches.py",
+          "line": "102-116",
+          "issue": "Forward-looking gap (no current offending site): discover_lru_caches breaks on the FIRST matching decorator and records node.name as a top-level function name. @cached_property is fundamentally different — it is a per-instance descriptor with NO module-level <func>.cache_clear() surface (you clear it by `del instance.__dict__[name]`). If a future @cached_property is added under scripts/ and the recognizer naively lumps it with lru_cache, find_clear_sites('<prop>') would search for a non-existent <prop>.cache_clear() and wrongly report no_clear_path. Today scripts/ has ZERO real @cached_property decorators (the only hit, scripts/core/matrix.py:108, is inside a comment), so this is a latent design gap, not an active false-positive.",
+          "severity": "low",
+          "fix": "When extending the recognizer, classify @cached_property separately: either (a) skip it from the cache_clear()-surface audit entirely with an explicit comment that per-instance descriptors are out of scope, or (b) add a distinct status ('per_instance_property') that is reported informationally rather than as a no_clear_path failure. Do not route @cached_property through find_clear_sites().",
+          "status": "LATENT (no live site; matrix.py:108 is a comment, not a decorator)"
+        }
+      ],
+      "searchMethod": "READ in full: scripts/audit_caches.py (esp. _is_lru_cache_decorator L46-59, discover_lru_caches L62-116, find_clear_sites L124-170, audit L203-248) and scripts/.cache_audit_whitelist.py (L1-91). Greps over scripts/ (incl scripts/core/, scripts/api/, scripts/templates/): `@cache|@functools\\.cache|@cached_property|@lru_cache|@functools\\.lru_cache|import functools|from functools`; isolated `^\\s*@functools\\.cache\\b` (→ exactly 2 hits: manuscript_qa.py:156, manuscript_collation.py:180); `^\\s*@cache\\b` (0 hits); `@cached_property|cached_property` (1 hit, matrix.py:108 — inside a comment, not a decorator); `from functools import` (all 13 are `import lru_cache`, none import cache/cached_property); broad `^\\s*@[A-Za-z_.]*cache` minus lru_cache (confirms the same 2 @functools.cache sites); repo-wide `--type py` decorator sweep (same 2 sites, nothing outside scripts/). READ both missed sites to classify (manuscript_qa.py L148-192, manuscript_collation.py L170-200): both are read-once immutable §7.1 singletons = pure-value/whitelist-able. Grepped scripts/+tests/ for `_collate_case.cache_clear|load_kjv_skeleton.cache_clear` → 0 (no clear path, consistent with whitelist intent). Grepped the whitelist → both funcs ALREADY listed (L67, L70) but dead. EMPIRICAL CONFIRMATION: ran `python3 scripts/audit_caches.py --json` (Python 3.14.5 venv) → 44 caches discovered, `_collate_case in? False`, `load_kjv_skeleton in? False` — proving both @functools.cache sites are invisible to the current audit despite their whitelist entries.",
+      "completenessNote": "HIGH confidence the dimension is fully and exhaustively covered; the prior auditor missed nothing. I independently ran the live audit (44 caches discovered, all @lru_cache; neither @functools.cache site present) and ran five orthogonal greps over scripts/: (1) @functools.cache -> exactly 2 (manuscript_qa.py:156, manuscript_collation.py:180), both already reported; (2) bare @cache -> 0; (3) @cached_property/@functools.cached_property -> 0 real (the only matrix.py:108 hit is inside a docstring, already noted as latent); (4) 'from functools import' -> only lru_cache forms (no 'import cache'/'import cached_property' aliases) so the two missed sites are reachable only via the @functools.cache attribute form, which is exactly what the recognizer misses; (5) custom/aliased memoize decorators -> none (cache=functools.cache assignment absent; methodtools etc. absent). The @audit_log.audit_endpoint(action='...cache...') hits in scripts/api/sources.py are unrelated endpoint-logging decorators, not memoizers. Full accounting: 44 lru_cache funcs (100% audit-covered) + 2 functools.cache funcs (100% missed) = 60 total cache decorator lines reconcile. The two missed @functools.cache functions are both pure-value/§7.1 read-once singletons (whitelist-able, no runtime-mutable data, no existing cache_clear); neither needs a clear path, but both currently escape the audit entirely so the whitelist's documented governance is unenforced. Class fix is correct: extend _is_lru_cache_decorator to also match Name 'cache', Attribute functools.cache, Name/Attribute cached_property, and classify @cached_property specially (no module-level cache_clear surface) so a future descriptor isn't false-flagged no_clear_path. No blind spots remain for this dimension.\"",
+      "counts": {
+        "reported": 5,
+        "falsePositive": 0,
+        "confirmed": 5,
+        "missed": 0,
+        "final": 5
+      }
+    }
+  ]
+}
