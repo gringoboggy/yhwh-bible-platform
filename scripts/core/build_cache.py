@@ -332,7 +332,7 @@ def compute_cache_key(
     # "classic" default) — the old `if theme_id:` gate skipped every
     # default-theme edition, so a classic.css edit served them a stale build
     # (round-11 W3b).
-    theme_id = (edition.get("theme") or "").strip() or "classic"
+    theme_id = edition.get("theme", "classic")  # mirror build_edition.py:7422 EXACTLY (absent-key default; not `or`)
     parts.append(("themes.yaml", _hash_file(_CONTENT / "themes.yaml")))
     parts.append(
         (

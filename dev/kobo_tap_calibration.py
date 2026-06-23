@@ -2,19 +2,20 @@
 """kobo_tap_calibration.py — emit the K-R4-2 calibration tap-list from a built artifact.
 
 The Kobo e-ink Footnote-preview heuristic DECLINES large popups and navigates
-instead (the round-4 "teleport"/"nothing" class). Round-4 bracketed the
-threshold at 3,313 < T <= 7,748 *tag-stripped* characters (what the preview
-heuristic sees — kepub spans add no text, so EPUB and kepub measure alike).
+instead (the round-4 "teleport"/"nothing" class). Round-4 first bracketed the
+threshold at 3,313 < T <= 7,748 *tag-stripped* characters; round-5 NARROWED it
+to 4,498 < T < 5,500 (pops <= 4,498; declines >= 5,500 — the BRACKET_LO/HI
+constants below). EPUB and kepub measure alike (kepub spans add no text).
 
 This tool scans a built EPUB/kepub, measures every popup aside's stripped
-size, and picks REAL badges nearest the probe targets (~3.5k/4.5k/5.5k/6.5k/
-7.5k) inside the bracket, plus the two known controls (the largest aside at or
-under the proven-POP floor and the round-4 proven-decline point). One device
-tap-pass over the list pins T so the K-R4-2 cap is data-set, not guessed
-(QA note: docs/superpowers/notes/2026-06-10-kobo-round4-device-qa.md).
+size, and picks REAL badges nearest the probe targets (inside the round-5
+4,498-5,500 bracket: ~4.6k/4.8k/5.0k/5.2k/5.4k), plus the two known controls
+(the largest aside at or under the proven-POP floor and the proven-decline
+point). One device tap-pass over the list pins T so the K-R4-2 cap is data-set,
+not guessed (QA note: docs/superpowers/notes/2026-06-10-kobo-round4-device-qa.md).
 
     py -3 dev/kobo_tap_calibration.py build/round5/<artifact>.kepub.epub
-    py -3 dev/kobo_tap_calibration.py <artifact> --targets 3500,4500,5500,6500,7500
+    py -3 dev/kobo_tap_calibration.py <artifact> --targets 4600,4800,5000,5200,5400
 """
 
 from __future__ import annotations
@@ -29,7 +30,7 @@ from pathlib import Path
 # gen-1-3 / gen-1-26 remain useful anchors but the shipped cap is 4,400).
 BRACKET_LO = 4_498  # largest size PROVEN to pop (inclusive control)
 BRACKET_HI = 5_500  # smallest size PROVEN to decline (inclusive control)
-DEFAULT_TARGETS = (3_500, 4_500, 5_500, 6_500, 7_500)
+DEFAULT_TARGETS = (4_600, 4_800, 5_000, 5_200, 5_400)  # probes inside the round-5 bracket (4,498 < T < 5,500)
 
 _ASIDE_RE = re.compile(
     r'<aside\b[^>]*\bepub:type="footnote"[^>]*>.*?</aside>',

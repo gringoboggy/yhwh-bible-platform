@@ -726,6 +726,21 @@ def main(path: str) -> int:
     )
     print(f"noterefs: {total_refs:,} all-resolve={unresolved == 0}")
     print(f"promoted-noterefs: {promoted}  dup-ids: {len(dup_ids)}  ch-spilled-badges: {len(spilled)}")
+
+    # W7 (round-11): non-failing byte-size WARN. Kobo's kepub renderer breaks on
+    # pieces past ~881 KB (EREADERS §Kobo); the `sizes` summary above counts
+    # CODEPOINTS, but the renderer measures SERIALIZED BYTES — multi-byte Ge'ez
+    # inflates ~2-3x, so a piece that looks safe by chars can ship oversized
+    # (the round-9 882 KB regression). Flag pieces approaching the break by their
+    # true uncompressed byte size so it's caught before a device run.
+    KOBO_PIECE_BYTE_WARN = 500_000
+    oversize = sorted(
+        ((zf.getinfo(n).file_size, n) for n in pieces if zf.getinfo(n).file_size > KOBO_PIECE_BYTE_WARN),
+        reverse=True,
+    )
+    for b, n in oversize:
+        print(f"WARN (W7 piece-bytes): {n} is {b:,} bytes (> {KOBO_PIECE_BYTE_WARN:,}; Kobo break ~881 KB)")
+
     if fails:
         print("\nFAILURES:")
         for f in fails:
