@@ -673,44 +673,71 @@ _CACHED_CONN_PATH: str | None = None
 _CONN_LOCK = threading.Lock()
 
 
+def _ensure_conn() -> sqlite3.Connection:
+    """Open-or-reuse the cached connection: the check-then-create plus the
+    path-change invalidation. **Must be called while holding ``_CONN_LOCK``**
+    (callers: ``connection()`` and ``_read_cursor()``).
+    """
+    global _CACHED_CONN, _CACHED_CONN_PATH
+    current_path = str(_index_path())
+    if _CACHED_CONN is not None and current_path != _CACHED_CONN_PATH:
+        try:
+            _CACHED_CONN.close()
+        except sqlite3.Error:
+            pass
+        _CACHED_CONN = None
+        _CACHED_CONN_PATH = None
+    if _CACHED_CONN is None:
+        # check_same_thread=False: the web server is a ThreadingHTTPServer and
+        # _warm_corpus_index() opens this connection in the main thread, while
+        # requests are served on worker threads — without this, every
+        # /customize + /matrix request 500'd with a cross-thread
+        # sqlite3.ProgrammingError. Safe because the index is read-only by
+        # convention (all writes go through a separate connection in rebuild()),
+        # Python's sqlite3 serializes access in its default threadsafety mode,
+        # and _CONN_LOCK serializes the open itself.
+        _CACHED_CONN = sqlite3.connect(current_path, check_same_thread=False)
+        _CACHED_CONN.row_factory = sqlite3.Row
+        _CACHED_CONN_PATH = current_path
+    return _CACHED_CONN
+
+
 def connection() -> sqlite3.Connection:
     """Return a (cached) connection to the index. Triggers rebuild()
     on first call. The connection is read-only-by-convention; do
     not write through it (the index is fully derived).
 
     The cache invalidates itself if the resolved index path changes
-    (i.e. tests monkeypatched `paths.user_data_root`) — without that
-    check, a synthetic test leaves the conn pointing at a tmp file
-    that the next real test's call would reuse and find empty.
+    (i.e. tests monkeypatched `paths.user_data_root`).
+
+    ⚠ Callers that ``.execute()`` on the returned handle do so OUTSIDE
+    ``_CONN_LOCK`` and therefore race with ``invalidate()`` / ``rebuild()`` /
+    ``_build_to()`` closing it (the gap-4 use-after-close window). Internal
+    query helpers use ``_read_cursor()`` instead; ``connection()`` stays for
+    back-compat / external callers that hold the handle only transiently.
     """
-    global _CACHED_CONN, _CACHED_CONN_PATH
     rebuild()  # Idempotent fast-path when fingerprint matches.
-    current_path = str(_index_path())
-    # mint-10: guard the check-then-create with _CONN_LOCK so two worker threads
-    # can't both observe `_CACHED_CONN is None` and each open a connection, leaking
-    # one fd. rebuild() stays OUTSIDE the lock (it has its own cross-process file
-    # lock); this lock is purely for the in-process cached connection.
+    # mint-10: guard the check-then-create so two worker threads can't both open
+    # a connection and leak one fd. rebuild() stays OUTSIDE the lock (own
+    # cross-process file lock); this lock is purely for the in-process cache.
     with _CONN_LOCK:
-        if _CACHED_CONN is not None and current_path != _CACHED_CONN_PATH:
-            try:
-                _CACHED_CONN.close()
-            except sqlite3.Error:
-                pass
-            _CACHED_CONN = None
-            _CACHED_CONN_PATH = None
-        if _CACHED_CONN is None:
-            # check_same_thread=False: the web server is a ThreadingHTTPServer and
-            # _warm_corpus_index() opens this connection in the main thread, while
-            # requests are served on worker threads — without this, every
-            # /customize + /matrix request 500'd with a cross-thread
-            # sqlite3.ProgrammingError. Safe because the index is read-only by
-            # convention (all writes go through a separate connection in rebuild()),
-            # Python's sqlite3 serializes access in its default threadsafety mode,
-            # and _CONN_LOCK serializes the open itself.
-            _CACHED_CONN = sqlite3.connect(current_path, check_same_thread=False)
-            _CACHED_CONN.row_factory = sqlite3.Row
-            _CACHED_CONN_PATH = current_path
-        return _CACHED_CONN
+        return _ensure_conn()
+
+
+@contextlib.contextmanager
+def _read_cursor():
+    """Yield the cached connection while holding ``_CONN_LOCK`` for the WHOLE
+    read, so a concurrent ``invalidate()`` / ``rebuild()`` / ``_build_to()``
+    close (all of which take ``_CONN_LOCK``) cannot pull the handle out from
+    under an in-flight ``execute()`` — the gap-4 use-after-close race under the
+    ThreadingHTTPServer + the build ``ThreadPoolExecutor(max_workers=5)``.
+    ``rebuild()`` runs OUTSIDE the lock (its own cross-process file lock); the
+    lock spans only the open/swap + the caller's (sub-ms, indexed) query.
+    **Fetch ALL rows inside the ``with`` — never let a lazy cursor escape.**
+    """
+    rebuild()  # idempotent fast-path; outside the lock (has its own file lock)
+    with _CONN_LOCK:
+        yield _ensure_conn()
 
 
 def invalidate() -> None:
@@ -753,7 +780,6 @@ def count_by_kind(*, book: str | None = None, kinds: list[str] | None = None) ->
     single book if `book` is given). Optional ``kinds`` filter
     restricts the result; empty filter means "all kinds in corpus."
     """
-    conn = connection()
     sql = "SELECT kind, COUNT(*) FROM notes WHERE 1=1"
     args: list = []
     if book:
@@ -764,12 +790,12 @@ def count_by_kind(*, book: str | None = None, kinds: list[str] | None = None) ->
         sql += f" AND kind IN ({placeholders})"
         args.extend(kinds)
     sql += " GROUP BY kind"
-    return {row[0]: row[1] for row in conn.execute(sql, args)}
+    with _read_cursor() as conn:
+        return {row[0]: row[1] for row in conn.execute(sql, args).fetchall()}
 
 
 def count_by_book(*, kinds: list[str] | None = None) -> dict[str, int]:
     """Return ``{book_code: count}``. Optional `kinds` filter."""
-    conn = connection()
     sql = "SELECT book_code, COUNT(*) FROM notes WHERE 1=1"
     args: list = []
     if kinds:
@@ -777,7 +803,8 @@ def count_by_book(*, kinds: list[str] | None = None) -> dict[str, int]:
         sql += f" AND kind IN ({placeholders})"
         args.extend(kinds)
     sql += " GROUP BY book_code"
-    return {row[0]: row[1] for row in conn.execute(sql, args)}
+    with _read_cursor() as conn:
+        return {row[0]: row[1] for row in conn.execute(sql, args).fetchall()}
 
 
 def count_by_kind_and_book(
@@ -786,7 +813,6 @@ def count_by_kind_and_book(
     books: list[str] | None = None,
 ) -> dict[tuple[str, str], int]:
     """Return ``{(book_code, kind): count}``. Optional filters."""
-    conn = connection()
     sql = "SELECT book_code, kind, COUNT(*) FROM notes WHERE 1=1"
     args: list = []
     if kinds:
@@ -798,20 +824,21 @@ def count_by_kind_and_book(
         sql += f" AND book_code IN ({placeholders})"
         args.extend(books)
     sql += " GROUP BY book_code, kind"
-    return {(row[0], row[1]): row[2] for row in conn.execute(sql, args)}
+    with _read_cursor() as conn:
+        return {(row[0], row[1]): row[2] for row in conn.execute(sql, args).fetchall()}
 
 
 def total_note_count() -> int:
     """Total notes in the corpus."""
-    conn = connection()
-    row = conn.execute("SELECT COUNT(*) FROM notes").fetchone()
+    with _read_cursor() as conn:
+        row = conn.execute("SELECT COUNT(*) FROM notes").fetchone()
     return int(row[0]) if row else 0
 
 
 def kinds_present() -> list[str]:
     """All distinct kinds present in the corpus, sorted."""
-    conn = connection()
-    return [row[0] for row in conn.execute("SELECT DISTINCT kind FROM notes ORDER BY kind")]
+    with _read_cursor() as conn:
+        return [row[0] for row in conn.execute("SELECT DISTINCT kind FROM notes ORDER BY kind").fetchall()]
 
 
 # ----------------------------------------------------------------------
@@ -888,12 +915,12 @@ def audit_attribution() -> dict:
     counts = {"total": 0, "missing": 0, "thin": 0, "user": 0, "sourced": 0}
     needs_attention: list[dict] = []
 
-    conn = connection()
-    rows = conn.execute(
-        "SELECT book_code, chapter, verse, suffix, kind, title, body, attribution "
-        "FROM notes "
-        "ORDER BY book_code, chapter, verse, suffix"
-    ).fetchall()
+    with _read_cursor() as conn:
+        rows = conn.execute(
+            "SELECT book_code, chapter, verse, suffix, kind, title, body, attribution "
+            "FROM notes "
+            "ORDER BY book_code, chapter, verse, suffix"
+        ).fetchall()
 
     for r in rows:
         book_code = r["book_code"]
@@ -1006,10 +1033,10 @@ def compute_matrix_indexed():
 
     # Single SQL roll-up: (book, kind, chapter, count). Groups
     # the 51K-row notes table down to ~5K aggregate rows.
-    conn = connection()
-    rows = conn.execute(
-        "SELECT book_code, kind, chapter, COUNT(*) as cnt FROM notes GROUP BY book_code, kind, chapter"
-    ).fetchall()
+    with _read_cursor() as conn:
+        rows = conn.execute(
+            "SELECT book_code, kind, chapter, COUNT(*) as cnt FROM notes GROUP BY book_code, kind, chapter"
+        ).fetchall()
 
     # Pivot into nested dicts keyed by book → kind → chapter
     # for fast per-edition filtering below.
@@ -1163,7 +1190,6 @@ def search(
                 if isinstance(canon_def, dict):
                     canon_book_set = set(canon_def.get("books") or [])
 
-    conn = connection()
     # Build SQL with the LIKE filter against any of the 5 fields.
     # Score is a SUM(CASE WHEN field LIKE ? THEN weight ELSE 0 END)
     # computed in the SELECT so we can ORDER BY it directly.
@@ -1209,7 +1235,8 @@ def search(
     # Cap before sort/order — the score order needs all candidates,
     # so we apply LIMIT after. SQLite handles this efficiently.
     sql_parts.append(sql)
-    rows = conn.execute(sql, args).fetchall()
+    with _read_cursor() as conn:
+        rows = conn.execute(sql, args).fetchall()
 
     # Order: -score, canonical_book_order, chapter, verse, suffix
     # Canonical book order comes from books.yaml. Build the lookup.
@@ -1328,7 +1355,6 @@ def fts5_search(
             return []
         match_q = " ".join(tokens)
 
-    conn = connection()
     sql_parts = [
         "SELECT n.book_code, n.chapter, n.verse, n.suffix, n.anchor, n.kind, n.title, n.label, n.attribution,",
         "snippet(notes_fts, -1, '‹', '›', '…', 30) AS excerpt,",
@@ -1352,7 +1378,8 @@ def fts5_search(
 
     sql = " ".join(sql_parts)
     try:
-        rows = conn.execute(sql, args).fetchall()
+        with _read_cursor() as conn:
+            rows = conn.execute(sql, args).fetchall()
     except sqlite3.OperationalError as e:
         # FTS5 rejects malformed queries (e.g., unbalanced quotes).
         # Re-raise as ValueError so callers can distinguish from
@@ -1449,7 +1476,6 @@ def dashboard_stats(books: list[dict]) -> dict:
             "chapter_density": chapter_density,
         }
 
-    conn = connection()
     placeholders = ",".join("?" * len(book_codes))
 
     # Per (book, kind): count + attributed-count. The attribution
@@ -1458,13 +1484,14 @@ def dashboard_stats(books: list[dict]) -> dict:
     # attribution as a TEXT column (default ''); the file-walk's
     # `len(tup) >= 9` branch is automatic here because non-9-element
     # rows insert '' for attribution at build time.
-    rows = conn.execute(
-        f"SELECT book_code, kind, COUNT(*) AS cnt, "
-        f"SUM(CASE WHEN TRIM(attribution) != '' THEN 1 ELSE 0 END) AS attr_cnt "
-        f"FROM notes WHERE book_code IN ({placeholders}) "
-        f"GROUP BY book_code, kind",
-        book_codes,
-    ).fetchall()
+    with _read_cursor() as conn:
+        rows = conn.execute(
+            f"SELECT book_code, kind, COUNT(*) AS cnt, "
+            f"SUM(CASE WHEN TRIM(attribution) != '' THEN 1 ELSE 0 END) AS attr_cnt "
+            f"FROM notes WHERE book_code IN ({placeholders}) "
+            f"GROUP BY book_code, kind",
+            book_codes,
+        ).fetchall()
 
     book_kind_counts: dict[str, dict[str, int]] = {}
     book_attr_counts: dict[str, int] = {}
