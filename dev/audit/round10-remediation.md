@@ -69,11 +69,19 @@ Source: `dev/audit/round11-mac-{survivors.json,plan.md}` (`3742c1b9`). 8 single-
 | 7 | migration runner `ok:False` handling + per-migration | 13 | **high** | ✅ **DONE** — tri-state `deferred` outcome in `scripts/migrate.py` (`apply_up` returns it un-recorded; `run_up` collects a `deferred` list, never aborts, exit 0; hard failures still abort) + 0002 returns `deferred` on pending rewrites (was the `ok:False` wedge) + **argv crash-fix** (`backfill_traditions.main(argv)`; 0002 calls `main([])` — was re-parsing the runner's argv → SystemExit) + **frozen-safe ledger** (`_default_state_path()` → `paths.content_root()`; +sys.path insert for standalone CLI; `.gitignore`'d) + **`core/migrate.py` atomicity** (DDL+bookkeeping in one explicit BEGIN/COMMIT via `_iter_sql_statements`, no `executescript` ahead-of-ledger window). TDD: 9 new tests + CLI subprocess guard; 57 migrate + 205 dependent green. **Scope calls:** version-aware-copy *blanket-overwrite* = conservative **NO-GO** (it would clobber user-created editions in user-data `content/` — keep `force=False`; shipped content updates land via NEW numbered migrations or a future 3-way-merge spec, not a re-copy); launcher→ledger routing = LOW follow-up (both first-run paths already idempotent via the marker). |
 | 8 | paired producer/consumer with hardcoded edition/key-shape | 15 | **high** | ✅ **DONE** — `build_standalone()` reads `edition['base_translation']`/`['popup_translation']` + resolves the apparatus dir from the body store (was hardcoded `geez-tewahedo`/`-en`/`GEEZ_STORE` → rendered Ge'ez into the Amharic edition); `standalone_store` `_render_book_module`/`build_book_store`/`build_psalms_apparatus` take a `translation` arg (default geez → byte-identical); **`geez_kjv_xref.build_kjv_xref` keys by `str(geez_v)`** so the in-memory hand-off to `collation_to_store_entries` (str-keyed) drops no xrefs (was int-keyed, only survived the apply_kjv_xref JSON round-trip). **Byte-PROVEN: standalone-geez bodies SHA-256 `870ad9e5…486aca` identical pre/post** (165 chapters). TDD: 4 new tests (in-memory no-drop guard, amharic-never-reads-geez, store-param stamp + geez default) + migrated test_geez_kjv_xref int→str keys. **Scope call:** `gen_website_progress` amharic-track (211/352) = conservative **DEFER to LANE P** — re-verified with real data: `_bible_progress` marks `stage="ready"` for any `code in standalone` UNCONDITIONALLY, so feeding the geez `_standalone_books()` set to the amharic track would falsely advertise amharic psa "ready" with no buildable amharic EPUB; the reader renderer is geez-templated throughout (`page: geez`). Proper home = the amharic standalone constitution (LANE P), not a misleading tracker now. |
 
-**Remediation order:** gap-4 → gap-2 → gap-1 → gap-3 → gap-5 → gap-6 → **gap-7 ✅** → **gap-8 ✅ (both 2026-06-23)** →
-**NEXT: round-10 byte-stability leftovers** (theme-CSS cache key, char-vs-byte split, Kobo byte gate, W6) →
-**frozen-app `content_root()` HIGH last** (most invasive; `round11-frozen-app-sites.md`). **Structural auditor +
-round-12 new-dim audit + Phase-1 docs = delegated to Mac** (file-disjoint; see `LANE_HANDOFF.md` top block).
-**All 8 round-11 gap classes now CLOSED.**
+**Remediation order:** gap-4 → gap-2 → gap-1 → gap-3 → gap-5 → gap-6 → **gap-7 ✅** → **gap-8 ✅** →
+**byte-stability leftovers ✅** (W3a stray-theme removal · W3b default-theme cache-key hash · W6 tap-calibration sync ·
+W7 Kobo byte-WARN · theme_id mirror) **— all 2026-06-23** → **NEXT: frozen-app `content_root()` HIGH** (most invasive;
+`round11-frozen-app-sites.md`). **Structural auditor + round-12 new-dim audit + Phase-1 docs = delegated to Mac**
+(file-disjoint; see `LANE_HANDOFF.md` top block). **All 8 round-11 gap classes CLOSED.**
+
+> **⛔ char-vs-byte file-split measure = conservative DEFER → grand audit (re-verified NO-GO this pass).** REAL DATA:
+> catholic-study builds to **297 pieces, ALL 297 non-ASCII, 20.7M non-ASCII bytes** — so switching the packer from
+> codepoints to UTF-8 bytes (`build_edition.py` 4728/4796/4799/4971/4990/5016) shifts boundaries on **every** edition,
+> **breaking the 9-KJV-byte-stable invariant** + re-cutting the shipped product structure (epubcheck/K-R2/golden
+> re-verify across every edition×platform). LOW severity; the **W7 byte-WARN already catches the symptom**. An
+> all-edition re-cut + golden re-baseline is a deliberate, user-aware change → take it on in the FINAL grand audit
+> (which rebuilds everything), not a buried leftover commit.
 
 Full fix text + evidence: `round10-win-survivors.json` (slim) · `round10-win-result.json` (raw, +logs/panels)
 · `round10-win-plan.md` (synthesized phased plan) · Mac's → `round10-mac-*` (pending).

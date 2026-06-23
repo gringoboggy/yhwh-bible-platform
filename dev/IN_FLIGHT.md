@@ -39,18 +39,18 @@
 > - **✅ gap-7 DONE** (migration runner, 13 sites) — tri-state `deferred` outcome (`apply_up`/`run_up` non-fatal skip, exit 0; hard failures still abort) + 0002 deferred-on-pending (was the `ok:False` wedge) + argv crash-fix (`backfill_traditions.main(argv)`; 0002→`main([])`) + frozen-safe ledger (`_default_state_path()`→`content_root()`, gitignored, +sys.path) + `core/migrate.py` atomic DDL+ledger (`_iter_sql_statements`, no `executescript`). 9 new tests + CLI subprocess guard; 57 migrate + 205 dependent green. Scope: version-aware-copy blanket-overwrite = conservative NO-GO (would clobber user editions); launcher→ledger routing = LOW follow-up. Detail in `round10-remediation.md` gap-7 row.
 > - **✅ gap-8 DONE** (producer/consumer, 15 sites) — `build_standalone` reads `edition['base_translation']`/`['popup_translation']` + resolves apparatus dir from the body store (was hardcoded geez → rendered Ge'ez into the Amharic edition); `standalone_store` `_render_book_module`/`build_book_store`/`build_psalms_apparatus` take a `translation` arg (default geez); `geez_kjv_xref.build_kjv_xref` keys by `str(geez_v)` (in-memory hand-off drops no xrefs). **Byte-PROVEN: standalone-geez bodies SHA-256 `870ad9e5…486aca` identical pre/post (165 ch); 71 build-suite tests green (17.7 min).** Scope: `gen_website_progress` amharic-track = conservative DEFER to LANE P (false-"ready" risk; reader is geez-templated). **★ ALL 8 round-11 gap classes CLOSED.**
 >
+> - **✅ Round-10 byte-stability leftovers — W3 + W6 + W7 + theme_id DONE** (3 commits): W3a removed the stray `theme:"modern"` (added 2026-06-22 `dd7bb53f`, wedged in a comment; the only `theme:` decl) → restores intended default `classic` + fixes `test_editions_do_not_pin_theme_skus`; W3b `build_cache` hashes the ACTIVE theme CSS unconditionally (default classic included) + theme_id mirrors `build_edition` exactly; W6 `kobo_tap_calibration` targets/docstring → round-5 bracket; W7 `verify_kr2_build` non-failing byte-size WARN (>500KB, true bytes). 44 cache + 8 theme tests green.
+>   - **⛔ char-vs-byte split-measure = conservative DEFER (re-verified NO-GO this pass).** REAL DATA: catholic-study = **297 pieces, ALL non-ASCII, 20.7M non-ASCII bytes** → switching the file-split packing from codepoints to UTF-8 bytes would shift boundaries on **every** edition, **breaking the sacred 9-KJV-byte-stable invariant** + re-cutting the shipped product structure. It's LOW severity, the **W7 byte-WARN already catches the symptom** (oversized pieces), and an all-edition re-cut + golden re-baseline is a deliberate, user-aware change → folded into the **FINAL grand audit** (rebuilds everything anyway), not a buried leftover commit. Sites for when it's taken on: `build_edition.py` 4728/4796/4799/4971/4990/5016.
+>
 > **▶ REMAINING:**
-> 1. **Round-10 byte-stability leftovers:** theme-CSS cache key (W3 `editions.yaml theme:"modern"` removal
->    + hash `themes.yaml` unconditionally) · char-vs-byte split-measure · Kobo oversize-piece byte WARN (W7)
->    · W6 `kobo_tap_calibration` doc/targets sync. Each carries a regen + `git diff` proof.
-> 2. **Frozen-app `content_root()` HIGH (LAST — most invasive)** — Mac's exact surface →
+> 1. **Frozen-app `content_root()` HIGH (LAST — most invasive)** — Mac's exact surface →
 >    **`dev/audit/round11-frozen-app-sites.md`** (~19 WRITE + ~17 READ across 11 files; writes first). Two-part:
 >    add the frozen guard to `paths._content_root_cached()` (mirror `_build_output_root`) THEN route every
 >    content read/write through `paths.content_root()`/`notes_dir()` (guard+routing land TOGETHER — coupling trap);
 >    confirm a frozen note-save lands in `user_data_root/content/notes`.
-> 3. **Then: the FINAL joint grand audit** (user 2026-06-23) — once Mac's 6 workstreams + WIN's leftovers are done, both lanes run the full auditor top-to-bottom, down to verse + word, no time limit.
-> 4. **Delegated to Mac (file-disjoint):** structural auditor (`dev/audit_book_structure.py` regex + run) · round-12 new-dim audit · Phase-1 docs · tablet re-verify · EREADERS/device-QA · gap-4 empirical repro.
-> 5. gap-2 LOW (verse_of_day/preview) = ✅ already done.
+> 2. **Then: the FINAL joint grand audit** (user 2026-06-23) — once Mac's 6 workstreams + WIN's leftovers are done, both lanes run the full auditor top-to-bottom, down to verse + word, no time limit. **Fold the deferred char-vs-byte re-cut decision in here.**
+> 3. **Delegated to Mac (file-disjoint):** structural auditor (`dev/audit_book_structure.py` regex + run) · round-12 new-dim audit · Phase-1 docs · tablet re-verify · EREADERS/device-QA · gap-4 empirical repro.
+> 4. gap-2 LOW (verse_of_day/preview) = ✅ already done.
 >
 > ⚠ The user's **K-R4-2 vnote Kobo bug** stays on the **M2 / K-R4-2** backlog (surfaced + refuted-as-known-
 > deferred), NOT closed. Device-QA gates live in `dev/HUMAN_DECISIONS.md`.
