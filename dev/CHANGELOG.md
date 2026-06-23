@@ -4,6 +4,15 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-23 (cont.) — Round-13 grand audit: WIN OPEN items #5 / #6 / #9 remediated (Windows; autonomous)
+
+Continued the round-13 grand-audit remediation. The 3 file-disjoint WIN OPEN items were each scouted (re-verified vs real data + full class enumeration via a parallel investigation workflow), then fixed TDD + byte-proven + committed separately. Mac's round-13 half (`LANE=mac` deep-audit + the verse/word structural pass) still running on the iMac; the remaining joint items (char-vs-byte #2, #7 `audit_popup_formula`, device-QA) await the merge.
+
+- **round-13 #9** (inject title escaping, `04340574`): new `inject.escape_attr` escapes `& < > "` but **preserves `'`** (valid inside a double-quoted attribute; "Nave's Topical Bible …" is a real kind title) — applied at all 4 title-attribute sites (`build_marker`, the `resync_titles` re-bake pair, `rewrite_asides`, matching `build_aside`). TDD surfaced that `html.escape(quote=True)` would over-escape the apostrophe and churn the byte-stable base (caught by `test_resyncs_default_note_to_title_attr`). No-op on the clean corpus; +`TestTitleEscaping`.
+- **round-13 #5** (dead constants, `c85a772b`): removed 3 truly-dead module-level `REPO` (`api/customize`+`editions`+`sources`, + customize's orphaned `pathlib` import) left by the frozen-app routing. **Re-verification caught 2 false-positives in the audit spec** — `api/exports.REPO` (used L180/221) and `api/preflight.REPO` (L378) are LIVE dev-server paths, kept; the `web_helpers` re-export hubs kept. +`TestNoOrphanedApiConstants` AST guard.
+- **round-13 #6** (cross-OS zip repro, `243efb7`): pinned `ZipInfo.create_system=0` in `zip_repro.reproducible_zipinfo` (press_kit + exports inherit) + the 3 hand-built EPUB writers (`build_epub`, `kindle_post`, `swap_epub_cover`) — `ZipInfo` otherwise defaults `create_system` to 0/FAT on Windows but 3/UNIX on macOS/Linux, diverging the central directory + SHA256SUMS cross-machine. **Byte-PROVEN WIN no-op:** built catholic-study → all 383 entries `create_system=0`, epubcheck 0/0/0/0; Mac/Linux converge onto WIN bytes. +`create_system==0` pins across 4 test files.
+- **`sources_base` lazy-PATH = conservative DEFER** (re-verified vs real data): the lexicon/commentary loaders freeze `PATH` at import, but read read-only PUBLISHED data → an in-bundle read is correct for a frozen app (not the writable-content data-loss bug the routing fixed). The 12-loader + 6-test-monkeypatch-shape refactor is not a bug-fix → fold into the frozen-build cross-OS verify with Mac.
+
 ## 2026-06-23 — Round-10/11/12 remediation COMPLETE + round-13 grand audit (Windows; autonomous)
 
 Autonomous session: finished every round-10/11 audit gap class + the byte-stability leftovers + the two HIGHs, then launched the user-directed FINAL grand audit and remediated its top finding. ~13 commits, each TDD-verified + pushed (5 legs). Mac ran its half in parallel (①②⑥ + cross-OS verifies).
