@@ -17,10 +17,12 @@ Adding a new migration:
        (the runner enforces this and refuses to apply otherwise).
     3. Name is a short snake_case slug (used in logs +
        `schema_migrations.name`).
-    4. SQL can be one statement or many — the runner uses
-       `executescript()`. If the change is purely procedural
-       (no DDL), use a SQL comment + a callable in a future
-       extension; today the runner is SQL-only.
+    4. SQL can be one statement or many — the runner splits on the
+       statement terminator and runs each inside ONE transaction (so
+       the DDL + the schema_migrations bookkeeping commit or roll back
+       atomically). If the change is purely procedural (no DDL), use a
+       SQL comment + a callable in a future extension; today the runner
+       is SQL-only.
 
 Future migrations sketched in PROPOSAL_FEATURE_LANDSCAPE.md §7
 (Track L — database evolution):

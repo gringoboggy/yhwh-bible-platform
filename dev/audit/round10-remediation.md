@@ -66,14 +66,14 @@ Source: `dev/audit/round11-mac-{survivors.json,plan.md}` (`3742c1b9`). 8 single-
 | 4 | shared `_CACHED_CONN` read outside `_CONN_LOCK` (race) | **18** | **high** | ✅ **DONE `75e77595`** — all 10 readers (18 execute sites) → `_read_cursor()`; +2 deterministic race guards; 133 corpus tests green |
 | 5 | cache key from UNRESOLVED id vs resolved mtime/payload | 1 | med | ✅ **DONE** — `_book_index_cached` re-keyed on the resolved path (dedups exo/ex → 1 entry/file; key matches the mtime'd file) + reuses `_load_book_cached` |
 | 6 | user-editable scripture refs → built output, no resolve | 9 | **high** | ✅ **DONE** — chokepoint: `parse_verse_ref` normalizes alias + `validate_plan_refs`/`ref_ships` + render **canon-filters** out-of-canon/unparseable refs (`build_edition:7750` now passes `canon_books`) + `validate_schemas` validates verse refs at save. **Byte-stable: no edition emits the page (`enabled_reading_plans` empty) + current plans (gen/psa) are universal → zero EPUB change** |
-| 7 | migration runner `ok:False` handling + per-migration | 13 | **high** | `scripts/migrations/` runner + 0001/0002 |
+| 7 | migration runner `ok:False` handling + per-migration | 13 | **high** | ✅ **DONE** — tri-state `deferred` outcome in `scripts/migrate.py` (`apply_up` returns it un-recorded; `run_up` collects a `deferred` list, never aborts, exit 0; hard failures still abort) + 0002 returns `deferred` on pending rewrites (was the `ok:False` wedge) + **argv crash-fix** (`backfill_traditions.main(argv)`; 0002 calls `main([])` — was re-parsing the runner's argv → SystemExit) + **frozen-safe ledger** (`_default_state_path()` → `paths.content_root()`; +sys.path insert for standalone CLI; `.gitignore`'d) + **`core/migrate.py` atomicity** (DDL+bookkeeping in one explicit BEGIN/COMMIT via `_iter_sql_statements`, no `executescript` ahead-of-ledger window). TDD: 9 new tests + CLI subprocess guard; 57 migrate + 205 dependent green. **Scope calls:** version-aware-copy *blanket-overwrite* = conservative **NO-GO** (it would clobber user-created editions in user-data `content/` — keep `force=False`; shipped content updates land via NEW numbered migrations or a future 3-way-merge spec, not a re-copy); launcher→ledger routing = LOW follow-up (both first-run paths already idempotent via the marker). |
 | 8 | paired producer/consumer with hardcoded edition/key-shape | 15 | **high** | `standalone_store`↔`geez_kjv_xref` apparatus + class |
 
-**Remediation order (next):** gap-4 (18 HIGH, real concurrency bug, one file) → gap-2 (finish `api_compare`
-own-vers, same fn) → gap-1 remaining 2 → gap-3 (CDATA chokepoint) → gap-5 → gap-6/7/8 (larger, model-bound
-classes — read each `round11-mac-plan.md` block + apply the canonical pattern at every listed site) → then
-the round-10 leftovers (theme-CSS cache key, char-vs-byte split, Kobo byte gate, frozen-app HIGH last) +
-fix/run the structural auditor. **Phase-1 docs delegated to Mac** (file-disjoint; see `LANE_HANDOFF.md`).
+**Remediation order:** gap-4 → gap-2 → gap-1 → gap-3 → gap-5 → gap-6 → **gap-7 ✅ (2026-06-23)** → **NEXT: gap-8**
+(producer/consumer; `round11-mac-plan.md` gap8 block) → then the round-10 byte-stability leftovers (theme-CSS
+cache key, char-vs-byte split, Kobo byte gate, W6) → **frozen-app `content_root()` HIGH last** (most invasive;
+`round11-frozen-app-sites.md`). **Structural auditor + round-12 new-dim audit + Phase-1 docs = delegated to Mac**
+(file-disjoint; see `LANE_HANDOFF.md` top block).
 
 Full fix text + evidence: `round10-win-survivors.json` (slim) · `round10-win-result.json` (raw, +logs/panels)
 · `round10-win-plan.md` (synthesized phased plan) · Mac's → `round10-mac-*` (pending).

@@ -35,19 +35,20 @@
 > chokepoint) · **gap-4 (18-site SQLite use-after-close race → `_read_cursor()`)** · gap-5 (cache-key) ·
 > gap-6 (reading-plan refs chokepoint).
 >
-> **▶ REMAINING (fresh session — the 3 large items + leftovers):**
-> 1. **gap-7** migration runner (13 sites) · **gap-8** producer/consumer (15 sites) — canonical fix per class
->    in `round11-mac-plan.md`; apply at every listed site + a guard.
-> 2. **Frozen-app `content_root()` HIGH** — the Mac enumerated the exact surface →
->    **`dev/audit/round11-frozen-app-sites.md`** (~19 WRITE + ~17 READ across 11 files; writes = the
->    data-loss sites, do first). Two-part: add the frozen guard to `paths._content_root_cached()` (mirror
->    `_build_output_root`) THEN route every content read/write through `paths.content_root()`/`notes_dir()`;
->    curl the frozen app to confirm note-save lands in `user_data_root/content/notes`.
-> 3. **Structural auditor** `dev/audit_book_structure.py` — authored-but-UNRUN; fix the badge regex (matches
->    1 of 2 emitters) then run on a built catholic-study epub+kepub.
-> 4. **Round-10 byte-stability leftovers:** theme-CSS cache key (W3 `editions.yaml theme:"modern"` removal
+> **▶ 2026-06-23 session — IN PROGRESS (autonomous; Mac running a BIG 6-workstream parallel batch — `LANE_HANDOFF.md` top):**
+> - **✅ gap-7 DONE** (migration runner, 13 sites) — tri-state `deferred` outcome (`apply_up`/`run_up` non-fatal skip, exit 0; hard failures still abort) + 0002 deferred-on-pending (was the `ok:False` wedge) + argv crash-fix (`backfill_traditions.main(argv)`; 0002→`main([])`) + frozen-safe ledger (`_default_state_path()`→`content_root()`, gitignored, +sys.path) + `core/migrate.py` atomic DDL+ledger (`_iter_sql_statements`, no `executescript`). 9 new tests + CLI subprocess guard; 57 migrate + 205 dependent green. Scope: version-aware-copy blanket-overwrite = conservative NO-GO (would clobber user editions); launcher→ledger routing = LOW follow-up. Detail in `round10-remediation.md` gap-7 row.
+>
+> **▶ REMAINING:**
+> 1. **gap-8** producer/consumer (15 sites) — `round11-mac-plan.md` gap8 block: de-hardcode `base_translation`/`popup_translation` + str/int xref key; byte-identical geez output; guard tests.
+> 2. **Round-10 byte-stability leftovers:** theme-CSS cache key (W3 `editions.yaml theme:"modern"` removal
 >    + hash `themes.yaml` unconditionally) · char-vs-byte split-measure · Kobo oversize-piece byte WARN (W7)
 >    · W6 `kobo_tap_calibration` doc/targets sync. Each carries a regen + `git diff` proof.
+> 3. **Frozen-app `content_root()` HIGH (LAST — most invasive)** — Mac's exact surface →
+>    **`dev/audit/round11-frozen-app-sites.md`** (~19 WRITE + ~17 READ across 11 files; writes first). Two-part:
+>    add the frozen guard to `paths._content_root_cached()` (mirror `_build_output_root`) THEN route every
+>    content read/write through `paths.content_root()`/`notes_dir()` (guard+routing land TOGETHER — coupling trap);
+>    confirm a frozen note-save lands in `user_data_root/content/notes`.
+> 4. **Delegated to Mac (file-disjoint):** structural auditor (`dev/audit_book_structure.py` regex + run) · round-12 new-dim audit · Phase-1 docs · tablet re-verify · EREADERS/device-QA · gap-4 empirical repro.
 > 5. gap-2 LOW (verse_of_day/preview) = ✅ already done.
 >
 > ⚠ The user's **K-R4-2 vnote Kobo bug** stays on the **M2 / K-R4-2** backlog (surfaced + refuted-as-known-

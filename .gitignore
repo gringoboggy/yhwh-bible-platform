@@ -148,6 +148,13 @@ content/print_covers/*.pdf
 # re-accumulate junk in the repo; refactor.py recreates it on next real use.
 content/.refactor_log.yaml
 
+# --- Migration ledger runtime artifact (ω.22 / round-11 gap-7) ---
+# scripts/migrate.py's applied-migration ledger, written under the ACTIVE
+# content_root() (in-tree content/ in dev; user_data_root() when frozen).
+# It records THIS machine's migration history — environment-specific runtime
+# state, not source; never tracked. migrate.py recreates it on first apply.
+content/.migration_state.yaml
+
 # Built EPUB artifacts at project root (regenerable, do not track)
 /Ethiopian_Bible*.epub
 /exports/

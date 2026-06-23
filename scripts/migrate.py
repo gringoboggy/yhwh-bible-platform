@@ -53,7 +53,27 @@ from collections.abc import Callable
 
 _REPO = Path(__file__).resolve().parent.parent
 _MIGRATIONS_DIR = _REPO / "scripts" / "migrations"
-_DEFAULT_STATE_PATH = _REPO / "content" / ".migration_state.yaml"
+
+# Allow `python scripts/migrate.py …` standalone: the ledger resolver
+# imports scripts.core.paths, which needs the repo root on sys.path
+# (mirrors run_migrations.py / backfill_traditions.py). Harmless under
+# pytest, where the repo root is already importable.
+if str(_REPO) not in sys.path:
+    sys.path.insert(0, str(_REPO))
+
+
+def _default_state_path() -> Path:
+    """Resolve the migration ledger path under the ACTIVE content root.
+
+    The ledger lives wherever the mutable content lives — ``content_root()``,
+    which resolves to ``user_data_root()`` in a frozen desktop build and to
+    the in-tree ``content/`` directory in a dev checkout. Anchoring it to the
+    repo root instead (the pre-gap-7 behavior) made a frozen build try to
+    write ``.migration_state.yaml`` into the read-only ``_MEIPASS`` bundle.
+    (Round-11 gap-7.)"""
+    from scripts.core import paths
+
+    return paths.content_root() / ".migration_state.yaml"
 
 
 # ----------------------------------------------------------------------
@@ -112,7 +132,7 @@ def load_state(
 ) -> dict:
     """Read the migration ledger. Missing file → empty
     ``{applied: []}``."""
-    path = state_path or _DEFAULT_STATE_PATH
+    path = state_path or _default_state_path()
     if not path.is_file():
         return {"applied": []}
     try:
@@ -137,7 +157,7 @@ def save_state(
     history of state changes accumulates."""
     from scripts.core import notes_io
 
-    path = state_path or _DEFAULT_STATE_PATH
+    path = state_path or _default_state_path()
     if path.is_file():
         notes_io.ensure_backup(path)
     import yaml
@@ -208,6 +228,22 @@ def apply_up(
         return {
             "ok": False,
             "message": f"{migration['id']}: up() raised: {e}",
+        }
+    if result.get("deferred"):
+        # Tri-state outcome: a migration that is intentionally "not
+        # applicable yet" (e.g. 0002 before the ψ.8.0.1 AST-aware
+        # tradition rewriter ships). NOT a failure — do NOT record it
+        # in the ledger, so it stays pending and is re-attempted on the
+        # next run; the aggregate runner continues the chain rather
+        # than wedging on it. (Round-11 gap-7.)
+        return {
+            "ok": True,
+            "deferred": True,
+            "skipped": False,
+            "message": (
+                f"{migration['id']}: deferred (not applicable yet) — "
+                f"{result.get('message', 'will be re-attempted next run')}"
+            ),
         }
     if not result.get("ok", True):
         return {
@@ -305,6 +341,7 @@ def run_up(
     pending = pending_migrations(state, migrations)
     applied: list[dict] = []
     skipped: list[dict] = []
+    deferred: list[dict] = []
     failed: dict | None = None
     for m in pending:
         if to is not None and m["id"] > to:
@@ -313,7 +350,11 @@ def run_up(
         if not result.get("ok"):
             failed = result
             break
-        if result.get("skipped"):
+        if result.get("deferred"):
+            # Soft-skip: not applicable yet — not recorded, chain
+            # continues, exit stays 0. (Round-11 gap-7.)
+            deferred.append(result)
+        elif result.get("skipped"):
             skipped.append(result)
         else:
             applied.append(result)
@@ -321,10 +362,12 @@ def run_up(
         "ok": failed is None,
         "applied": applied,
         "skipped": skipped,
+        "deferred": deferred,
         "failed": failed,
         "summary": {
             "applied_count": len(applied),
             "skipped_count": len(skipped),
+            "deferred_count": len(deferred),
             "stopped_at": to,
         },
     }
@@ -397,7 +440,7 @@ def status(
 # ----------------------------------------------------------------------
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: list[str] | None = None) -> int:  # noqa: C901  (CLI dispatcher; branchy by design)
     parser = argparse.ArgumentParser(
         prog="migrate",
         description=("ω.22 — versioned, idempotent migration runner for the project's content/ schema."),
@@ -458,6 +501,8 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"  ✓ {r['message']}")
             for r in result["skipped"]:
                 print(f"  · {r['message']}")
+            for r in result.get("deferred", []):
+                print(f"  ⏭ {r['message']}")
             if result["failed"]:
                 print(f"  ✗ {result['failed']['message']}", file=sys.stderr)
         return 0 if result["ok"] else 1

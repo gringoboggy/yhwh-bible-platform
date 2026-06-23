@@ -46,22 +46,30 @@ def up() -> dict:
     repo = Path(__file__).resolve().parent.parent.parent
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
-    # The wrapped script's main() doesn't accept argv; call directly.
+    # main() now accepts argv (gap-7) — pass [] so the wrapped argparse
+    # parses an empty arg list, NOT the migration runner's own argv
+    # (which previously raised SystemExit and crashed the runner).
     from scripts.backfill_traditions import main as _main  # noqa: E402
 
-    rc = _main()
+    rc = _main([])
     if rc == 0:
         return {
             "ok": True,
             "message": ("backfill_traditions.main() audit clean (no rewrites needed)"),
         }
-    # rc=1 means "would rewrite but --apply wasn't given." For the
-    # framework's purposes, that's a soft failure — the migration
-    # is real, but actually applying it requires the AST-aware
-    # rewriter (ψ.8.0.1) that hasn't shipped yet.
+    # rc=1 means "would rewrite but the AST-aware rewriter (ψ.8.0.1)
+    # hasn't shipped." That is NOT a failure — return the tri-state
+    # 'deferred' outcome so the runner skips it non-fatally (not
+    # recorded, chain continues, exit 0) and re-attempts on the next
+    # run, instead of wedging every launch on a hard ok:False.
+    # (Round-11 gap-7.)
     return {
-        "ok": False,
-        "message": (f"backfill_traditions audit found pending rewrites (rc={rc}); see ψ.8.0.1 for the apply path"),
+        "ok": True,
+        "deferred": True,
+        "message": (
+            f"backfill_traditions audit found pending rewrites (rc={rc}); "
+            "deferred until the ψ.8.0.1 AST-aware rewriter ships"
+        ),
     }
 
 

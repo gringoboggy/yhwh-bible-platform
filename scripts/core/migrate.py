@@ -37,6 +37,7 @@ DDL), extend the framework then — not preemptively.
 from __future__ import annotations
 
 import sqlite3
+from collections.abc import Iterator
 from datetime import datetime, timezone
 
 # Import the module (not the name) so tests can monkeypatch
@@ -119,6 +120,27 @@ def pending(conn: sqlite3.Connection) -> list[tuple[int, str]]:
     return [(v, name) for (v, name, _sql) in _migrations() if v > head]
 
 
+def _iter_sql_statements(sql: str) -> Iterator[str]:
+    """Yield individual executable statements from a migration's SQL.
+
+    ``conn.execute`` runs ONE statement at a time, so a multi-statement
+    migration body is split on the statement terminator. Migration SQL
+    is project-controlled DDL (``CREATE TABLE/INDEX ... IF NOT EXISTS``,
+    ``CREATE VIRTUAL TABLE ... USING fts5(...)``) with no semicolons
+    inside string literals, so a plain split is safe; blank chunks and
+    comment-only chunks are skipped. (Round-11 gap-7 — replaces the
+    auto-committing ``executescript`` so DDL + bookkeeping stay atomic.)
+    """
+    for chunk in sql.split(";"):
+        stripped = chunk.strip()
+        if not stripped:
+            continue
+        non_comment = "\n".join(line for line in stripped.splitlines() if not line.strip().startswith("--")).strip()
+        if not non_comment:
+            continue
+        yield stripped
+
+
 def apply_pending(conn: sqlite3.Connection) -> list[tuple[int, str]]:
     """Apply every migration with version > current_version, in order.
 
@@ -136,34 +158,28 @@ def apply_pending(conn: sqlite3.Connection) -> list[tuple[int, str]]:
     for version, name, sql in _migrations():
         if version <= head:
             continue
-        # `executescript` auto-commits and ends any open transaction.
-        # We want each migration + its bookkeeping row to land or fail
-        # together, so issue an explicit BEGIN/COMMIT around both via
-        # `conn:` and use `executescript` only for the migration body.
+        # Run the migration body AND its bookkeeping INSERT inside ONE
+        # explicit transaction so they commit or roll back together.
+        # `executescript()` is deliberately avoided: it issues an
+        # implicit COMMIT before running, which would leave the DDL
+        # committed "ahead" of the ledger if the bookkeeping INSERT (or
+        # a later statement) failed. Statements run individually within
+        # the BEGIN/COMMIT, so a mid-migration failure rolls the whole
+        # migration back — no "DB ahead of ledger" window. (gap-7.)
         try:
-            with conn:
-                # NB: conn.executescript ends the implicit txn; the
-                # `with conn` block manages its own. To keep both the
-                # DDL and the bookkeeping insert atomic, run the DDL
-                # via execute(...) for single-statement migrations is
-                # impractical (multi-statement SQL is the common case).
-                # The compromise: use executescript for the body
-                # (which auto-commits), then immediately insert the
-                # bookkeeping row in the surrounding `with conn` txn.
-                # In the rare event the bookkeeping insert fails after
-                # the DDL committed, the DB ends up "ahead" of the
-                # metadata — the next apply_pending will re-attempt
-                # the same DDL (which is idempotent per the
-                # CREATE ... IF NOT EXISTS contract) and re-record it.
-                conn.executescript(sql)
-                conn.execute(
-                    f"INSERT INTO {SCHEMA_MIGRATIONS_TABLE} (version, name, applied_at) VALUES (?, ?, ?)",
-                    (version, name, datetime.now(timezone.utc).isoformat()),
-                )
+            conn.execute("BEGIN")
+            for statement in _iter_sql_statements(sql):
+                conn.execute(statement)
+            conn.execute(
+                f"INSERT INTO {SCHEMA_MIGRATIONS_TABLE} (version, name, applied_at) VALUES (?, ?, ?)",
+                (version, name, datetime.now(timezone.utc).isoformat()),
+            )
+            conn.commit()
         except sqlite3.Error as e:
-            # Surface with context. Don't continue the chain — a later
-            # migration may assume the failed one's tables/columns
-            # exist.
+            # Roll the partial migration back, then surface with
+            # context. Don't continue the chain — a later migration may
+            # assume the failed one's tables/columns exist.
+            conn.rollback()
             raise sqlite3.Error(
                 f"migration #{version} ({name!r}) failed: {e}; chain aborted at HEAD={current_version(conn)}"
             ) from e

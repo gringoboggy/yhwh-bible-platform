@@ -168,6 +168,41 @@ class TestDelta10MigrateRunner:
         finally:
             conn.close()
 
+    def test_multi_statement_migration_is_atomic(self, monkeypatch):
+        # gap-7: a migration whose LATER statement fails must leave
+        # NONE of its statements committed — the DDL + the
+        # schema_migrations bookkeeping land together or not at all
+        # (no 'DB ahead of ledger' window where executescript()
+        # auto-commits the first statement before the second fails).
+        from scripts.core import migrate
+        from scripts.core import migrations as migmod
+
+        conn = sqlite3.connect(":memory:")
+        try:
+            migrate.apply_pending(conn)
+            head = migrate.current_version(conn)
+            bad = (
+                head + 1,
+                "test_partial_atomic",
+                "CREATE TABLE IF NOT EXISTS _atomic_a (id INTEGER);\n"
+                "CREATE TABLE _atomic_bad (;",  # 2nd statement: invalid SQL
+            )
+            monkeypatch.setattr(migmod, "MIGRATIONS", [*migmod.MIGRATIONS, bad])
+
+            import pytest
+
+            with pytest.raises(sqlite3.Error):
+                migrate.apply_pending(conn)
+
+            # The FIRST statement's table must have been rolled back —
+            # the whole migration is one transaction, not per-statement.
+            cur = conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='_atomic_a'")
+            assert cur.fetchone() is None, "partial migration left a table committed (not atomic)"
+            # And the ledger did not advance.
+            assert migrate.current_version(conn) == head
+        finally:
+            conn.close()
+
     def test_failed_migration_aborts_chain(self, monkeypatch):
         # A migration with broken SQL should fail loudly and leave
         # the DB at the version BEFORE the failure (no half-applied

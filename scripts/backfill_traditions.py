@@ -187,7 +187,7 @@ def _print_audit(report: dict) -> None:
     print()
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(
         description="Audit + (optionally) backfill the ψ.8 tradition field on every note in content/notes/.",
     )
@@ -199,7 +199,7 @@ def main() -> int:
     p.add_argument(
         "--books", help="comma-separated subset of book codes to audit (default: every book in content/notes/)"
     )
-    args = p.parse_args()
+    args = p.parse_args(argv)
 
     books = args.books.split(",") if args.books else discover_books()
 

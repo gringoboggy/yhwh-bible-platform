@@ -422,3 +422,156 @@ class TestOmega22MigrationFramework:
 
             with pytest.raises(NotImplementedError):
                 m["module"].down()
+
+
+class TestGap7MigrationDeferredContract:
+    """Round-11 gap-7: a migration's up() may return a third
+    'deferred' outcome — ok:True WITH deferred:True — meaning
+    'not a failure, but not applicable yet'. The runner must NOT
+    record it in the ledger, must NOT abort the chain, and keeps
+    exit 0 (later migrations still run). Only a genuine hard
+    failure (raise / ok:False without deferred) aborts the chain.
+
+    This closes the round-11 wedge: migration 0002 was designed to
+    return ok:False as a routine 'soft failure' once a tradition-
+    tagged corpus lands, which the old binary contract treated as a
+    hard stop — permanently blocking every later migration on every
+    launch."""
+
+    @staticmethod
+    def _make(d, ident, name, up_returns):
+        from pathlib import Path
+
+        path = Path(d) / f"{ident}_{name}.py"
+        path.write_text(
+            f'ID = "{ident}"\n'
+            f'DESCRIPTION = "test {name}"\n'
+            f"def up(): return {up_returns!r}\n"
+            'def down():\n    raise NotImplementedError("fwd-only")\n',
+            encoding="utf-8",
+        )
+        return path
+
+    def test_apply_up_deferred_is_not_recorded(self, tmp_path):
+        from scripts.migrate import apply_up, discover_migrations, load_state
+
+        d = tmp_path / "migs"
+        d.mkdir()
+        self._make(d, "0001", "deferred_one", {"ok": True, "deferred": True, "message": "not yet"})
+        sp = tmp_path / "state.yaml"
+        m = discover_migrations(d)[0]
+        result = apply_up(m, load_state(sp), state_path=sp)
+        assert result["ok"] is True
+        assert result.get("deferred") is True
+        # A deferred migration stays pending — the ledger is untouched.
+        assert load_state(sp)["applied"] == []
+
+    def test_run_up_deferred_does_not_abort_chain(self, tmp_path):
+        from scripts.migrate import run_up, load_state
+
+        d = tmp_path / "migs"
+        d.mkdir()
+        self._make(d, "0001", "first", {"ok": True, "message": "ok"})
+        self._make(d, "0002", "deferred", {"ok": True, "deferred": True, "message": "not yet"})
+        self._make(d, "0003", "third", {"ok": True, "message": "ok"})
+        sp = tmp_path / "state.yaml"
+        result = run_up(migrations_dir=d, state_path=sp)
+        assert result["ok"] is True
+        assert result["failed"] is None
+        # 0001 + 0003 recorded; 0002 deferred (still pending).
+        ids = {e["id"] for e in load_state(sp)["applied"]}
+        assert ids == {"0001", "0003"}
+        assert any("0002" in r["message"] for r in result["deferred"])
+
+    def test_run_up_hard_failure_still_aborts(self, tmp_path):
+        # ok:False WITHOUT deferred is a genuine failure → abort the
+        # chain (0003 is never attempted). Distinguishes the soft case.
+        from scripts.migrate import run_up, load_state
+
+        d = tmp_path / "migs"
+        d.mkdir()
+        self._make(d, "0001", "first", {"ok": True})
+        self._make(d, "0002", "bad", {"ok": False, "message": "corrupt"})
+        self._make(d, "0003", "third", {"ok": True})
+        sp = tmp_path / "state.yaml"
+        result = run_up(migrations_dir=d, state_path=sp)
+        assert result["ok"] is False
+        ids = {e["id"] for e in load_state(sp)["applied"]}
+        assert ids == {"0001"}
+
+    def test_cli_status_runs_standalone(self):
+        # gap-7 regression guard: `python scripts/migrate.py status`
+        # must run as a bare script. The ledger resolver imports
+        # scripts.core.paths, which needs the repo root on sys.path — a
+        # standalone invocation (scripts/ on path, not the repo root)
+        # would otherwise ModuleNotFoundError at _default_state_path().
+        import subprocess
+        import sys
+        from scripts.core import paths
+
+        script = paths.repo_root() / "scripts" / "migrate.py"
+        proc = subprocess.run(
+            [sys.executable, str(script), "status"],
+            capture_output=True,
+            text=True,
+            stdin=subprocess.DEVNULL,
+            timeout=60,
+        )
+        assert proc.returncode == 0, proc.stderr
+        assert "applied:" in proc.stdout or "pending:" in proc.stdout
+
+    def test_default_state_path_follows_content_root(self, tmp_path):
+        # gap-7: the ledger must resolve under content_root() (→
+        # user_data when frozen), not a hard in-tree repo anchor, so a
+        # frozen build never writes into the read-only _MEIPASS bundle.
+        from scripts.core import paths
+        import scripts.migrate as migrate
+
+        paths.set_content_root_for_testing(tmp_path)
+        try:
+            assert migrate._default_state_path() == tmp_path / ".migration_state.yaml"
+        finally:
+            paths.set_content_root_for_testing(None)
+
+
+class TestGap7BackfillArgvAndDeferred:
+    """Round-11 gap-7: backfill_traditions.main() must accept an argv
+    param so the migration runner can call main([]) without the
+    wrapped argparse re-parsing the runner's OWN argv (which raised
+    SystemExit that apply_up's `except Exception` did not catch → the
+    runner crashed outright). And 0002.up() must surface 'pending
+    rewrites' as the tri-state deferred outcome, not ok:False."""
+
+    def test_backfill_main_accepts_argv(self):
+        from scripts.backfill_traditions import main
+
+        # Passing an explicit argv must be parsed instead of sys.argv
+        # (under pytest, sys.argv carries pytest's own flags — if main
+        # read sys.argv this would raise SystemExit). A clean subset
+        # audit exits 0.
+        assert main([]) == 0
+        assert main(["--books", "gen"]) == 0
+
+    def _module_0002(self):
+        from scripts.migrate import discover_migrations
+
+        return {m["id"]: m["module"] for m in discover_migrations()}["0002"]
+
+    def test_0002_up_returns_deferred_when_rewrites_pending(self, monkeypatch):
+        import scripts.backfill_traditions as bt
+
+        mod = self._module_0002()
+        # Simulate the audit finding pending rewrites (rc=1).
+        monkeypatch.setattr(bt, "main", lambda argv=None: 1)
+        result = mod.up()
+        assert result["ok"] is True
+        assert result.get("deferred") is True
+
+    def test_0002_up_clean_audit_records_ok(self, monkeypatch):
+        import scripts.backfill_traditions as bt
+
+        mod = self._module_0002()
+        monkeypatch.setattr(bt, "main", lambda argv=None: 0)
+        result = mod.up()
+        assert result["ok"] is True
+        assert not result.get("deferred")
