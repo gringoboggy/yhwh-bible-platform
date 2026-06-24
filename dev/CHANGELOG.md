@@ -88,6 +88,31 @@ spine file, splitting only an over-ceiling book at chapter boundaries (never mid
 0 + 0, audit PASS, epubcheck 0/0/0/0; merged `.kepub` staged for the user's device eyeball at
 `C:\Users\bogda\YHWH-device-staging\YHWH-koboQA.kepub.epub`). No KJV-byte change (eink-gated).
 
+**Page-break fix — Part 2b: standalone per-book merge (the standalone chapter-per-page breaks).**
+The standalone Bibles (`standalone-geez` / `standalone-amharic`) use a separate render path
+(`build_standalone`) that emitted one spine file PER CHAPTER (`geez_{book}_{ch}.xhtml`) — so on a
+Kobo kepub every chapter forced a new page (Mac's `spine-breaks-all-editions.md`: geez 161 /
+amharic 125 chapter-per-page breaks; Parts 1+2 fixed only the study path's `apply_file_split`). New
+pure `pack_book_chapters(book, chapters, ceiling)` concatenates each book's chapter fragments into
+one spine file (sharding only at chapter boundaries when a book exceeds
+`build_edition.FILE_SPLIT_CEILING` = 8 MB — never mid-chapter), while the existing per-chapter
+`#ch-{book}-c{ch}` anchors keep chapter-level TOC navigation. Noterefs stay same-file so no chapter
+straddles a boundary. UX-only — the standalones are not byte-stable-pinned editions and every
+verse / popup / anchor is preserved.
+
+- **Verified on real builds:** `standalone-geez` (4 books / 165 chapters) → 4 spine pieces, **0
+  mid-chapter + 0 chapter-boundary** (3 intended book-title breaks; was 161); `standalone-amharic`
+  (psa / 126 chapters) → 1 piece, **0 + 0** (was 125). `dev/audit_spine_breaks.py` PASS +
+  **epubcheck 0/0/0/0** on both.
+- **+5 TDD pins** (`TestPerBookMerge`: single-file-under-ceiling · shard-at-chapter-boundary ·
+  lone-oversize-chapter-never-split · completeness/order across shards; `TestStandaloneSpineMerge`:
+  end-to-end one-file-per-book + same-file noteref resolution). `test_build_standalone` **57/57**.
+- `build_standalone` now returns `spine_files` alongside `chapters`; `patch_standalone_opf`'s param
+  renamed `chapter_items → body_items` (files are no longer per-chapter).
+
+**This completes the page-break defect across ALL editions** — study editions on eink (Parts 1+2)
+and the standalones (Part 2b). ⏳ Mac cross-OS verify queued (`dev/LANE_HANDOFF.md`).
+
 **Hebrew/Greek/Ge'ez popup font fix (eink, byte-safe).** Kobo's kepub firmware injects
 `* { font-family:<userfont> !important }` when a NAMED reading font is picked, clobbering the
 original-language popup fonts (whose base rules carried NO `!important`) → Hebrew/Greek tofu

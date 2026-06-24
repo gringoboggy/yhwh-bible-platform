@@ -157,9 +157,9 @@ def _skeleton_ignore(_d: object, names: list[str]) -> list[str]:
     return [n for n in names if n.startswith(".") or n.endswith(".bak")]
 
 
-def patch_standalone_opf(opf_text: str, chapter_items: list[tuple[str, str]]) -> str:
+def patch_standalone_opf(opf_text: str, body_items: list[tuple[str, str]]) -> str:
     """Replace the scripture-body portion of the skeleton manifest+spine with the
-    generated chapter files, RETAINING non-body resources (css/nav/ncx/cover/titlepage/
+    generated body files, RETAINING non-body resources (css/nav/ncx/cover/titlepage/
     introduction). Body items are the ``index_split_*.html`` files; their spine itemrefs
     reference the body item ids (e.g. ``id161``), so we collect those ids and drop their
     itemrefs by id. Stdlib regex only (mirrors build_edition.patch_opf)."""
@@ -174,7 +174,7 @@ def patch_standalone_opf(opf_text: str, chapter_items: list[tuple[str, str]]) ->
     for bid in body_ids:
         opf_text = re.sub(r'\s*<itemref\b[^>]*idref="' + re.escape(bid) + r'"[^>]*/>', "", opf_text)
     # 4. inject the generated manifest items + spine itemrefs
-    manifest_items, spine_items = build_manifest_and_spine(chapter_items)
+    manifest_items, spine_items = build_manifest_and_spine(body_items)
     opf_text = opf_text.replace("</manifest>", manifest_items + "\n</manifest>", 1)
     opf_text = opf_text.replace("</spine>", spine_items + "\n</spine>", 1)
     return opf_text
@@ -236,6 +236,45 @@ def _output_filename(base_translation: str, edition_id: str, version: str, ts: s
     return f"{_script_label(base_translation)}_Standalone_{edition_id}_{version}_{ts}.epub"
 
 
+def pack_book_chapters(
+    book: str,
+    chapters: list[tuple[int, str]],
+    ceiling: int,
+) -> list[tuple[str, list[tuple[int, str]]]]:
+    """Group a book's chapter body fragments into spine files, each at most ``ceiling``
+    UTF-8 bytes, splitting ONLY at chapter boundaries (never mid-chapter — a single chapter
+    larger than the ceiling still gets its own file).
+
+    Page-break fix Part-2b (2026-06-24): the standalone path emitted one spine file per
+    chapter, so on a Kobo kepub (where every spine-file boundary forces a page break) each
+    chapter started a new page — Psalms alone = 151 breaks. Merging each book into one
+    contiguous spine file (the few that exceed the ceiling split at chapter boundaries only)
+    yields book-only page breaks, mirroring the study-edition eink merge (Parts 1+2).
+
+    ``chapters``: ``[(chapter_number, body_fragment), …]`` in spine order. Returns
+    ``[(file_stem, [(chapter_number, body_fragment), …]), …]`` in spine order — a book that
+    fits in one file → ``[("geez_{book}", […])]``; an over-ceiling book →
+    ``geez_{book}_part1``, ``geez_{book}_part2``, …. The bodies concatenate with ``"\n"``
+    (matching the writer), so byte sizing here tracks the file actually written."""
+    sep = len(b"\n")
+    groups: list[list[tuple[int, str]]] = []
+    current: list[tuple[int, str]] = []
+    current_bytes = 0
+    for ch, frag in chapters:
+        frag_bytes = len(frag.encode("utf-8"))
+        added = frag_bytes + (sep if current else 0)
+        if current and current_bytes + added > ceiling:
+            groups.append(current)  # chapter would overflow → start a new file at this boundary
+            current, current_bytes, added = [], 0, frag_bytes
+        current.append((ch, frag))
+        current_bytes += added
+    if current:
+        groups.append(current)
+    if len(groups) == 1:
+        return [(f"geez_{book}", groups[0])]
+    return [(f"geez_{book}_part{i}", group) for i, group in enumerate(groups, 1)]
+
+
 def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
     """Render a standalone Ge'ez Bible EPUB from the own-versification store.
     Returns {"status":"ok","output_path":str,"books":int,"chapters":int} or
@@ -270,22 +309,36 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
         for f in tmp.glob("index_split_*.html"):
             f.unlink()
 
-        # 3. generate the Ge'ez body files (one per chapter), in book/chapter order
-        chapter_items: list[tuple[str, str]] = []  # (item_id, href) in spine order
-        toc_entries: list[tuple[str, str]] = []  # (href, label)
+        # 3. generate the body files, MERGED one spine file per book (page-break fix
+        #    Part-2b, 2026-06-24). Emitting one file per chapter forced a new page at every
+        #    chapter on a Kobo kepub (Psalms alone = 151 breaks); pack_book_chapters now
+        #    concatenates each book's chapter fragments into one spine file (sharded at
+        #    FILE_SPLIT_CEILING, chapter boundaries only — never mid-chapter), while the
+        #    per-chapter TOC anchors (#ch-{book}-c{ch}, emitted by render_chapter_body) keep
+        #    chapter-level navigation. UX-only: standalones are not byte-stable-pinned
+        #    editions, and every verse / popup / anchor is preserved.
+        spine_items: list[tuple[str, str]] = []  # (item_id, href) — one per spine FILE
+        toc_entries: list[tuple[str, str]] = []  # (href#anchor, label) — one per CHAPTER
+        chapters_total = 0
         for book in books:
             by_ch = chapter_verses_in_source_order(base_translation, book)
             appmap_path = store_dir / f"{book}_apparatus.json"
             appmap_all = json.loads(appmap_path.read_text(encoding="utf-8")) if appmap_path.is_file() else {}
             en_by_ch = en_occurrence_map(popup_translation, book) if popup_translation else {}
+            book_title = _BOOK_TITLES.get(book, book)
+            chapter_frags: list[tuple[int, str]] = []
             for ch in sorted(by_ch):
                 verses = by_ch[ch]  # source order — NOT re-sorted by verse number (faithful)
                 frag = render_chapter_body(book, ch, verses, appmap_all.get(str(ch), {}), en_by_ch.get(ch, {}))
-                title = f"{_BOOK_TITLES.get(book, book)} {ch}"
-                href = f"geez_{book}_{ch}.xhtml"
-                (tmp / href).write_text(wrap_xhtml_doc(title, frag), encoding="utf-8")
-                chapter_items.append((f"geez_{book}_{ch}", href))
-                toc_entries.append((href, title))
+                chapter_frags.append((ch, frag))
+            chapters_total += len(chapter_frags)
+            for stem, group in pack_book_chapters(book, chapter_frags, be.FILE_SPLIT_CEILING):
+                href = f"{stem}.xhtml"
+                body_fragment = "\n".join(frag for _ch, frag in group)
+                (tmp / href).write_text(wrap_xhtml_doc(book_title, body_fragment), encoding="utf-8")
+                spine_items.append((stem, href))
+                for ch, _frag in group:
+                    toc_entries.append((f"{href}#ch-{book}-c{ch}", f"{book_title} {ch}"))
 
         # 4. patch the OPF — metadata (best-effort) + body manifest/spine swap
         opf_path = tmp / _find_opf(tmp)
@@ -294,7 +347,7 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
             opf_text = be.patch_opf(opf_text, edition, version)
         except Exception:  # noqa: BLE001 — metadata patch is best-effort for the proof
             pass
-        opf_text = patch_standalone_opf(opf_text, chapter_items)
+        opf_text = patch_standalone_opf(opf_text, spine_items)
         # RX Phase 3 (2026-06-05) — register the embedded original-language
         # fonts (style_config.EMBED_FONT_PATHS) in the standalone manifest.
         # The font bytes already ship via the epub_working/fonts/ copytree
@@ -331,7 +384,8 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
             "status": "ok",
             "output_path": str(out_path),
             "books": len(books),
-            "chapters": len(chapter_items),
+            "chapters": chapters_total,
+            "spine_files": len(spine_items),
         }
     finally:
         shutil.rmtree(tmp, ignore_errors=True)

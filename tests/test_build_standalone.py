@@ -135,6 +135,44 @@ class TestXhtmlDocAndOpf:
         assert 'id="geez_1ki_6"' in out and 'href="geez_1ki_6.xhtml"' in out and 'idref="geez_1ki_6"' in out
 
 
+class TestPerBookMerge:
+    """Page-break fix Part-2b (2026-06-24): ``pack_book_chapters`` groups a book's chapter
+    body fragments into spine files of at most ``FILE_SPLIT_CEILING`` UTF-8 bytes, splitting
+    ONLY at chapter boundaries — so a book becomes one spine file when it fits (book-only page
+    breaks on a Kobo kepub instead of one forced page per chapter)."""
+
+    def test_single_file_when_book_fits_under_ceiling(self):
+        chapters = [(1, "a" * 100), (2, "b" * 100), (3, "c" * 100)]
+        groups = bs.pack_book_chapters("1ki", chapters, ceiling=1_000_000)
+        assert len(groups) == 1
+        stem, ch_frags = groups[0]
+        assert stem == "geez_1ki"  # single file → unsuffixed book stem
+        assert [c for c, _ in ch_frags] == [1, 2, 3]
+
+    def test_shards_at_chapter_boundary_when_over_ceiling(self):
+        chapters = [(1, "a" * 100), (2, "b" * 100), (3, "c" * 100)]
+        groups = bs.pack_book_chapters("psa", chapters, ceiling=250)
+        assert [stem for stem, _ in groups] == ["geez_psa_part1", "geez_psa_part2"]
+        assert [c for c, _ in groups[0][1]] == [1, 2]  # 100 + 1 + 100 = 201 ≤ 250
+        assert [c for c, _ in groups[1][1]] == [3]  # adding ch3 would exceed → new file
+        for _stem, ch_frags in groups:  # never exceeds the ceiling
+            body = "\n".join(f for _c, f in ch_frags)
+            assert len(body.encode("utf-8")) <= 250
+
+    def test_lone_oversize_chapter_keeps_its_own_file_never_split(self):
+        groups = bs.pack_book_chapters("psa", [(1, "x" * 500)], ceiling=100)
+        assert len(groups) == 1
+        assert groups[0][0] == "geez_psa"
+        assert [c for c, _ in groups[0][1]] == [1]  # not split mid-chapter despite > ceiling
+
+    def test_chapters_complete_and_in_order_across_shards(self):
+        chapters = [(c, "z" * 80) for c in range(1, 11)]
+        groups = bs.pack_book_chapters("psa", chapters, ceiling=200)
+        flat = [c for _stem, ch_frags in groups for c, _ in ch_frags]
+        assert flat == list(range(1, 11))  # every chapter present, order preserved
+        assert len(groups) > 1  # actually sharded
+
+
 class TestBuildStandalone:
     def test_build_standalone_produces_epub(self, tmp_path):
         out = bs.build_standalone("standalone-geez", tmp_path, "v28a")
@@ -146,7 +184,8 @@ class TestBuildStandalone:
         with zipfile.ZipFile(epub) as z:
             names = z.namelist()
             assert names[0] == "mimetype"  # OCF: mimetype first
-            assert any(n == "geez_1ki_6.xhtml" for n in names)  # a generated body file is packaged
+            assert any(n == "geez_1ki.xhtml" for n in names)  # per-book merged body file (Part-2b)
+            assert not any(n == "geez_1ki_6.xhtml" for n in names)  # NOT one file per chapter anymore
             assert not any("index_split_" in n for n in names)  # original body fully swapped out
         assert out["chapters"] == 165  # 10 (1ki) + 3 (1sa) + 1 (2sa) + 151 (psa)
 
@@ -162,6 +201,46 @@ class TestBuildStandalone:
         if not vnote_text_blocks:
             pytest.skip("no vnote-text blocks in current standalone corpus slice")
         assert all('class="vn-sep"' in b for b in vnote_text_blocks), "K-R4-1 separators missing in standalone vnotes"
+
+
+class TestStandaloneSpineMerge:
+    """Page-break fix Part-2b (2026-06-24): the standalone build emitted one spine file PER
+    CHAPTER (``geez_{book}_{ch}.xhtml``), so on a Kobo kepub every chapter forced a new page
+    (Psalms alone = 151 page breaks). Each book is now merged into ONE spine file (sharded at
+    ``FILE_SPLIT_CEILING``, chapter boundaries only), giving book-only breaks, while per-chapter
+    TOC anchors keep chapter navigation. Mirrors the study-edition eink merge (Parts 1+2)."""
+
+    def test_build_merges_each_book_into_one_spine_file(self, tmp_path):
+        import re
+        import zipfile
+
+        out = bs.build_standalone("standalone-geez", tmp_path, "v28a")
+        assert out["status"] == "ok", out
+        with zipfile.ZipFile(out["output_path"]) as z:
+            names = z.namelist()
+            bodies = {n: z.read(n).decode("utf-8") for n in names if n.startswith("geez_") and n.endswith(".xhtml")}
+            nav = next(z.read(n).decode("utf-8") for n in names if n.endswith("nav.xhtml"))
+
+        # one spine file per small book — NOT one per chapter
+        assert "geez_1ki.xhtml" in names and "geez_1sa.xhtml" in names and "geez_2sa.xhtml" in names
+        assert "geez_1ki_6.xhtml" not in names  # the old per-chapter file is gone
+        assert len(bodies) <= 10, f"expected ~one spine file per book, got {len(bodies)}: {sorted(bodies)}"
+
+        # the merged 1 Kings file holds every chapter contiguously (anchors preserved)
+        ki = bodies["geez_1ki.xhtml"]
+        assert 'id="ch-1ki-c1"' in ki and 'id="ch-1ki-c6"' in ki
+
+        # per-chapter navigation preserved via fragment anchors into the merged files
+        assert "#ch-1ki-c6" in nav and "#ch-psa-c119" in nav
+
+        # no chapter straddles a spine boundary: every noteref resolves WITHIN its own file
+        for name, txt in bodies.items():
+            ids = set(re.findall(r'id="(vnote-[^"]+)"', txt))
+            for ref in re.findall(r'href="#(vnote-[^"]+)"', txt):
+                assert ref in ids, f"{name}: noteref {ref} target not in same file (chapter split across files)"
+
+        assert out["chapters"] == 165  # every chapter still rendered
+        assert out["spine_files"] < 165  # but far fewer spine files than chapters
 
 
 class TestStandaloneCoverReachesEpub:

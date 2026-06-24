@@ -28,10 +28,19 @@
 > `audit_spine_breaks.py` PASS; **epubcheck 0/0/0/0**; kepubified → `YHWH-koboQA.kepub.epub` (39.1 MB).
 > **⏳ STAGED for the user's device eyeball at `C:\Users\bogda\YHWH-device-staging\YHWH-koboQA.kepub.epub`** (the Kobo
 > `G:` is NOT mounted — when the user connects it, DELETE the old `G:\YHWH-koboQA.kepub.epub` then copy this one).
+> **✅ Page-break Part 2b DONE (standalone per-book merge — completes the defect across ALL editions):** the standalones
+> (`standalone-geez`/`standalone-amharic`) use a SEPARATE path (`build_standalone`) that emitted one spine file PER
+> CHAPTER → chapter-per-page on Kobo (Mac's audit: geez 161 / amharic 125). New pure `pack_book_chapters(book, chapters,
+> ceiling)` merges each book's chapter fragments into one spine file (shards at `be.FILE_SPLIT_CEILING`=8 MB, chapter
+> boundaries only, never mid-chapter); per-chapter `#ch-{book}-c{ch}` anchors keep TOC nav; noterefs stay same-file.
+> **Verified on real builds: standalone-geez 4 books/165 ch → 4 spine pieces 0 mid + 0 chapter (was 161); standalone-amharic
+> psa/126 ch → 1 piece 0+0 (was 125)**; `audit_spine_breaks.py` PASS + **epubcheck 0/0/0/0** on both; +5 TDD pins
+> (`TestPerBookMerge` + `TestStandaloneSpineMerge`); `test_build_standalone` 57/57. UX-only (standalones are not
+> byte-stable-pinned). ⏳ Mac cross-OS verify queued in `LANE_HANDOFF.md`.
 > **▶ NEXT (WIN, in priority order):**
 > 1. **[USER] device eyeball** of the staged flagship kepub on the color Kobo (confirms the page-break fix on-device);
->    **Mac cross-OS verify Parts 1+2 + re-baseline `dev/audit/spine-breaks-all-editions.md`** across all editions
->    (instructed in `LANE_HANDOFF.md`; Mac already pushed `spine-breaks-post-part1.json`).
+>    **Mac cross-OS verify Parts 1+2+2b + re-baseline `dev/audit/spine-breaks-all-editions.md`** across all editions incl.
+>    the standalones (instructed in `LANE_HANDOFF.md`; Mac already pushed `spine-breaks-post-part1.json`).
 > 2. **✅ Hebrew/Greek/Ge'ez popup-font fix DONE (eink CSS, byte-safe):** added `!important` `font-family` rules for
 >    `.vnote-hebrew/greek/greek-nt/geez/amharic` to the eink-only `_EINK_READER_CSS` (Hebrew/Greek = embedded Cardo;
 >    Ge'ez/Amharic = embedded `"Noto Serif Ethiopic"`, not the stale wrong `"Noto Sans Ethiopic"`). **Verified on a real
@@ -46,48 +55,6 @@
 >    — Mac fetched the PD Charles source `dev/audit/1en-charles-source-71-90.md` · 5 Mac mediums I remediate / Mac verifies).
 > Plan: `dev/audit/page-breaks-root-cause-2026-06-23.md`. **⏳ Mac cross-OS verifies the re-cut when Part 2 lands.**
 >
-> **▶▶ FRESH AUTONOMOUS SESSION — START HERE (2026-06-23 wrap).** Two live workstreams:
-> 1. **Kobo device-QA B-1/C/D — ✅ FIXED + verified + LOADED (awaiting the user's on-device eyeball).** The user
->    QA'd the `ethiopian-tewahedo` eink kepub on his color Kobo (Cardo font) → 3 actionable clusters, ALL fixed at
->    the REAL emitter (ground-truthed live base HTML + empirical Cardo cmap, NOT trace line-numbers; prior "didn't
->    land" = build-cache masking, `--force` bypasses it), grep-verified against the BUILT kepub + **epubcheck
->    0/0/0/0** + `verify_kr2_build` GREEN (36,350 noterefs all-resolve) + **14 pins** (`tests/test_kobo_device_qa.py`),
->    new kepub LOADED to `G:` (old deleted). **B-1 = 5 Cardo-safe surfaces via the new shared
->    `scripts/core/eink_glyphs.py`** (inline badge `◇→◊` · cascade header · note-sym · legend page · book-page
->    ornament `❖→❦`); **C** = dict/topic body-boiler strip (lossless); **D** = eink popup CSS (caught+fixed a real
->    CSS-001 `direction` en route). All eink-only → 9-KJV byte-stable editions untouched. Detail: `dev/CHANGELOG.md`
->    (2026-06-23) + `dev/audit/kobo-device-qa-2026-06-23.md`. **▶ NEXT: user ejects/reconnects + eyeballs on-device;**
->    if good, fold device-QA into the round-13 merge. **▶▶ WRAPPED 2026-06-24 for a fresh MAC-HELPING session —
->    handoff `.remember/remember.md`.** **A (page breaks) — 🔴 ROOT-CAUSED + MEASURED, merge VIABLE:** packer
->    cuts spine files BETWEEN VERSES (`_VN_LINK_RE`) → **130 mid-chapter + 40 chapter breaks**; finder
->    `dev/audit_spine_breaks.py`; **measurement DONE — not sub-splitting kills 129/130, Kobo renders ≤6.2 MB
->    merged files w/o lag → per-book merge is GO** (1 WIP in build_edition.py:~5213, byte-safe, KEEP). **3 NEW
->    device-QA issues:** E back-link popups instead of navigates (K-R12) · F category symbol still redundant
->    (drop per-note `note-sym`; supersedes B-1c) · **Hebrew — Cardo does NOT trigger Hebrew on Kobo** (re-embed
->    a Hebrew font). Plans = `page-breaks-root-cause-2026-06-23.md` + `kobo-device-qa-2026-06-23.md`; Mac tasks
->    in `LANE_HANDOFF.md`. byte-stability-critical (golden re-baseline). **B-2**/**B-3** await repro / `dev/HUMAN_DECISIONS.md`.
->    Kobo at `G:` (`KOBOeReader`), kepubify on-box; STANDING: always DELETE the old `YHWH-koboQA.kepub.epub` before
->    copying. Font pack settled = Cardo + Geʽez + Arabic (3 fonts / 5 files), pushed.
-> 2. **Round-13 grand-audit joint merge:** WIN OPEN #5/#6/#9 done+pushed (`11b86baf`/`42da11c3`).
->    **✅ Mac half DONE + pushed (2026-06-23):** `deep-audit LANE=mac` (18 dims, Opus) → `round13-mac-*`
->    (`333e7366`: 33 survivors — 5 med / 17 low / 11 info; 12 refuted; no high/crit survived) + platform-research
->    briefs (`804d8d95`); **#7 `audit_popup_formula` FIXED + pushed** (`00b2de3d`: root-cause dead aside-index +
->    K-R9c/K-R13 by-design exemptions + device-proven floors POP_FLOOR/GLOSSARY_DECLINE_HI, TDD).
->    **Remaining for the merge** = char-vs-byte #2 (WIN, the big all-edition re-cut) · the `1en` 71/90 base fix
->    (needs the PD Charles source) · the 5 Mac mediums (corpus_index gap-4 race `scripts/core/corpus_index.py` ·
->    M4b ↩-link drop, 371 entries `scripts/core/kindle_post.py` · Play-Books QA-artifact-mislabel ×3) ·
->    6 completeness gaps. Tracker = `dev/audit/round13-remediation.md`.
->
-> **Last arc CLOSED (2026-06-21): the Grok-revert cleanup — DONE + pushed** (4 commits →
-> GitLab + GitHub + E: + F:, HEAD `b45a9ff1`). Loop machinery removed, rules/docs de-bloated,
-> truth records reconstructed, **115 notes + 4 kinds restored** (corpus 91,712), editions junk
-> fixed. Bible verified intact. Rollback branch `pre-grok-cleanup-snapshot`. Details:
-> `dev/CHANGELOG.md` (2026-06-21) + memory `project_grok_cleanup` (task `ww7ughmf7`).
->
-> **Mac follow-up DONE (2026-06-21):** the Mac-local Grok footprint is also removed — `~/.grok`
-> CLI (1.2 GB → Trash), `~/.config/kilo/`, the `~/.zshrc` PATH block, repo `.grok/` + orphaned
-> loop logs, and the tracked `.vscode/extensions.json` + `TOOLCHAIN.md §Grok` (now a decommission
-> note). Cover-art Grok-image feature preserved. Claude is the sole coding agent.
 
 ## ▶ Full-audit program — WIN audit DONE · Mac running · REMEDIATION NEXT (2026-06-22, autonomous)
 
