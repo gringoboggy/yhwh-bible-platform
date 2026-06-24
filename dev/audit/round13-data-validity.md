@@ -32,10 +32,10 @@ notes store, the findings it surfaces, and their adversarially-verified disposit
 
 | # | sev | class | finding | owner |
 |---|-----|-------|---------|-------|
-| DV1 | low (latent) | correctness | Ge'ez-Psalter occurrence-multi collapse | WIN (`scripts/core/translations.py`) |
-| DV2 | low (latent) | correctness | `coord_in_canonical_extent` wrong for non-1-start books | WIN (`scripts/core/canonical_verse_counts.py`) |
+| DV1 | low (latent) | correctness | Ge'ez-Psalter occurrence-multi collapse | hold for merge (dev-console-only; `scripts/core/translations.py`) |
+| DV2 | low (latent) | correctness | `coord_in_canonical_extent` used `1≤v≤count`, wrong for non-1-start `aes` ch10 | ✅ **FIXED (`5bac50d5`, Mac, TDD + byte-stable)** |
 | DV3 | info | classification | `VERSIFICATION="own"` under-applied to Tewahedo stores | merge triage (sensitive data) |
-| DV4 | low (latent) | book_code_canonical | Exodus stores named `ex.py` (canonical stem `exo`) | WIN (alias) |
+| DV4 | low (latent) | book_code_canonical | `ex→exo` (+`1k`/`2k`) store-stem aliases scattered across 5 local maps, not centralized | hold for merge (cross-file refactor) |
 
 ### DV1 — Ge'ez-Psalter occurrence-multi collapse (the headline; shipped output NOT affected)
 
@@ -71,22 +71,29 @@ each carry **9 duplicate `(chapter, verse)` coordinates** — `(21,14) (36,24) (
   place** — `audit_translation_integrity.py` now permanently WARNs on any `own`-store
   dup-coord, so a future Ge'ez-popup wiring gets a heads-up.
 
-### DV2 — `coord_in_canonical_extent` is wrong for non-1-start books (the one true latent defect)
+### DV2 — `coord_in_canonical_extent` wrong for non-1-start books — ✅ FIXED (`5bac50d5`)
 
 The `kjv` store's `aes` (Additions to Esther) carries verses **10:11, 10:12, 10:13** — the
 KJV-Apocrypha numbers Esther-Additions ch10 as verses **4–13** (continuing from canonical
-Esther 10:3). But `canonical_verse_counts.coord_in_canonical_extent` models the extent as
-`1 <= v <= count` where `count` is the per-chapter **verse count** (10), so it:
+Esther 10:3). `coord_in_canonical_extent` modeled the extent as `1 <= v <= count` (count =
+10), so it **wrongly rejected** legitimate `aes 10:11/12/13` (the promote-boundary guard
+would drop any future ingest there) and **wrongly accepted** impossible `aes 10:1/2/3`
+(ch10 starts at v4). (`_book_shape_cached` already handled the chapter-START case — `aes`
+resolves to chapters 10..16; the residual defect was within-chapter verse numbering.)
 
-- **wrongly rejects** legitimate `aes 10:11/12/13` (the promote-boundary guard would drop
-  any future ingest there — the `kjv` store *exceeds its own skeleton*), **and**
-- **wrongly accepts** impossible `aes 10:1/2/3` (which don't exist — ch10 starts at v4).
-
-Latent today (no notes currently sit at `aes 10:11-13`, so nothing is dropped), and
-superset-only (Additions are excluded from the 4 canon-filtered editions). **Remediation
-(WIN, `scripts/core/canonical_verse_counts.py`):** track the real per-chapter verse-number
-*set* (or `min..max` range) for non-1-start folded additions (`aes`, and check `bel`/`sus`/
-`paz`/`man`), not just the count.
+**Fixed (Mac, `5bac50d5`, entirely within `canonical_verse_counts.py` — the off-limits
+`manuscript_collation.load_kjv_skeleton` already returns full `(ch,verse,text)` rows):**
+new `_book_verse_sets_cached` captures the ACTUAL verse numbers per chapter;
+`_book_shape_cached` derives counts from it (the `canonical_book_shape` count contract is
+unchanged); `coord_in_canonical_extent` tests true **membership**. **Proven byte-stable** —
+across the whole skeleton, **1361 of 1362 chapters are exactly `{1..count}`**, so membership
+≡ the old range check everywhere except `aes` 10 (wrong→right); no current store has `aes`
+10:1-3 or notes at 10:11-13, so no live data changes today. TDD:
+`tests/test_canonical_extent_membership.py` (red-first on the 2 `aes` cases + a
+slow-tagged whole-skeleton byte-stability sweep); regression green
+(`test_aes_notes_extent` · `test_canonical_verse_counts` · `test_promote_html_chapter_guard`
+· `test_mint11_phase3`). *(No other non-1-start folded addition exists in the skeleton —
+the whole-skeleton sweep confirmed `aes` 10 is the sole case.)*
 
 ### DV3 — `VERSIFICATION="own"` under-applied to the Tewahedo translation stores (classification)
 
@@ -102,25 +109,33 @@ to faith-content stores touches scripture-adjacent data and could shift consumer
 the auditor's per-store `INFO nonkjv-versification` rollup keeps it visible for the joint
 merge to decide.
 
-### DV4 — Exodus stores use the non-canonical stem `ex.py` (`book_code_canonical` class)
+### DV4 — Tewahedo store-stem aliases (`ex→exo`, `1k`, `2k`) are scattered, not centralized (`book_code_canonical` class)
 
 Four Tewahedo stores name Exodus `ex.py` (`geez-tewahedo`, `geez-tewahedo-en`,
-`amharic-tewahedo`, `amharic-tewahedo-en`), but the canonical stem is `exo` (used by
-`content/notes/`, the KJV skeleton, `books.yaml`) and **`ex` is absent from
-`BOOK_CODE_ALIASES`**. So `coord_in_canonical_extent('ex', …)` raises `FileNotFoundError`
-→ caught → returns `True` (keep-all): Exodus in these stores **silently escapes extent
-validation**, and canonical-code lookups (`has_book(tr, 'exo')`) would miss the file.
-Latent (Ge'ez/Amharic aren't wired as popups). **Remediation (WIN):** add `"ex": "exo"`
-to `scripts/core/book_codes.BOOK_CODE_ALIASES` (non-destructive) — or rename the four
-store files to `exo.py`. The auditor now permanently WARNs (`book-code-noshape`).
+`amharic-tewahedo`, `amharic-tewahedo-en`); the canonical stem is `exo`. **The deeper
+finding (on investigation): `ex→exo` is a *deliberate but decentralized* convention** —
+the `ex→exo` / `1k→1ki` / `2k→2ki` store-stem mapping already lives in **5 separate local
+maps** (`scripts/core/sources_lexicon.py:448`, `scripts/link_xrefs.py:45`,
+`scripts/render_coverage.py:56`, `scripts/gen_website_progress.py:39`, + the reverse
+`exo→ex` in `scripts/core/translations.py:43`), but is **absent from the central
+`scripts/core/book_codes.BOOK_CODE_ALIASES`**. So any path that normalizes only through
+`canonical_book_code` (e.g. `coord_in_canonical_extent` → `FileNotFoundError` → keep-all)
+**silently skips validation** of these stores. Latent (Ge'ez/Amharic aren't wired as
+popups). **Remediation = centralize (hold for the joint merge — cross-file, WIN's core):**
+fold `ex/1k/2k` into `BOOK_CODE_ALIASES` and delegate the 5 local maps, carefully (the
+reverse `translations.py` map is a canonical→store lookup — don't double-convert). The
+auditor now permanently WARNs (`book-code-noshape`) so a new such stem can't slip in.
 
 ## What's Mac-owned vs handed to WIN
 
 - **DONE (Mac, this session):** the reusable auditor (`dev/audit_translation_integrity.py`,
-  green + selftest 13/13 + ruff-clean) and this verified findings record. The gap is
-  **closed** — the dimension now has a real, repeatable enumeration.
-- **Handed to WIN (all `scripts/` surface, all low/latent):** DV1 dev-console occurrence
-  fix · DV2 non-1-start extent model · DV4 `ex→exo` alias. **DV3** is merge-triage (sensitive).
+  green + selftest 13/13 + ruff-clean), this verified findings record, **and the DV2 fix
+  (`5bac50d5`, TDD + byte-stable)** — the one true correctness defect, remediated.
+- **Held for the joint merge (all low/latent):** DV1 dev-console occurrence-preserve
+  (`web_content.py`; localhost-only, no shipped impact) · DV4 store-stem alias
+  centralization (cross-file refactor of 5 maps) · **DV3** versification-declaration
+  triage (sensitive faith-content metadata). None block a ship; the auditor WARNs keep
+  all three permanently visible.
 - **Suggested follow-up (WIN, `scripts/lint_rules.py`):** wire
   `audit_translation_integrity.audit_repo(...)` (fail on any `FAIL`) into the pre-commit
   lint so the data-validity invariant is enforced every commit, not just on demand.
