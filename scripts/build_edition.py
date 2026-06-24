@@ -4618,11 +4618,15 @@ _BP_TITLEPAGE_RE = re.compile(r'<div class="book-title-page" id="bp-\d+"')
 # K-R2 kepub inspection; target is 400 KB).
 _CH_HEADING_RE = re.compile(r'<p\b[^>]*\bclass="[^"]*\bch-heading\b[^"]*"')
 
-# Inline verse anchors — extra cut candidates so a heavily-noted chapter can split
-# between verses. A vn-link sits inside its <p class="verse-p"> (and a chapter anchor can
-# sit inside the PREVIOUS chapter's trailing <p class="verse-p">), so any cut may land
-# inside an open element — the stack-aware splitter closes/reopens whatever is open.
-_VN_LINK_RE = re.compile(r'<a class="vn-link" id="v-[^"]+"')
+# NOTE (page-break fix, 2026-06-24): the inline `_VN_LINK_RE` verse-anchor cut candidate
+# was REMOVED. It let a heavily-noted chapter split BETWEEN verses, and because Kobo's
+# kepub renderer forces a page break at every spine-file boundary, each such cut became a
+# spurious mid-chapter page break (130 on the flagship — the weeks-long defect). The
+# packer now cuts ONLY at book/chapter boundaries; an over-cap chapter becomes its own
+# (over-cap) piece. A chapter anchor can still sit inside the previous chapter's trailing
+# <p class="verse-p">, so a boundary cut may land inside an open element — the stack-aware
+# splitter (below) closes/reopens whatever is open. Per-book base-file merging (so a book
+# spanning several base files becomes one spine file) is the companion Part-2.
 
 # Generic element scanner for the open-tag stack. Groups: leading '/', tag name, trailing
 # '/' (self-close). Non-greedy attrs so <br/>'s trailing slash is captured, not swallowed.
@@ -4808,12 +4812,14 @@ def split_html_document(
             aside_by_id[aid] = aside_html
             ordered_aside_ids.append(aid)
 
-    # Cut candidates: every book/chapter start (id="bp-"/"ch-…", backed up to its '<'),
-    # every ch-heading by CLASS (the real base's page_N-id form), and every verse
-    # anchor. The packer cuts ONLY at a candidate; the stack-aware wrapper below makes
-    # any such cut well-formed even when it lands inside a <p>/<div>. cand_kind tracks
-    # WHAT each cut position opens ('bp' = book title, 'ch' = chapter opener) for the
-    # forced-isolation and no-trailing-opener rules.
+    # Cut candidates: every book/chapter start (id="bp-"/"ch-…", backed up to its '<')
+    # and every ch-heading by CLASS (the real base's page_N-id form). The packer cuts
+    # ONLY at a book/chapter boundary — NEVER between verses (the removed `_VN_LINK_RE`
+    # candidate; see the page-break note above). A heavily-noted chapter over target
+    # becomes its own over-cap piece rather than splitting mid-chapter. The stack-aware
+    # wrapper below makes any boundary cut well-formed even when it lands inside a
+    # <p>/<div>. cand_kind tracks WHAT each cut position opens ('bp' = book title,
+    # 'ch' = chapter opener) for the forced-isolation and no-trailing-opener rules.
     cands: set[int] = set()
     cand_kind: dict[int, str] = {}
     for m in _BOUNDARY_HARD_RE.finditer(content):
@@ -4825,9 +4831,6 @@ def split_html_document(
         if m.start() > 0:
             cands.add(m.start())
             cand_kind.setdefault(m.start(), "ch")
-    for m in _VN_LINK_RE.finditer(content):
-        if m.start() > 0:
-            cands.add(m.start())
     # Title positions for forced isolation. A title's '<' may sit at position 0 (a file
     # that BEGINS with a book title): 0 is never a cut, but atom 0 must still be
     # recognized as a title atom so the piece after it starts fresh.
@@ -4908,29 +4911,9 @@ def split_html_document(
             # vn-link and never pops.
             nxt.insert(0, g.pop())
     groups = [g for g in groups if g]
-    # K-R15b: Kobo treats every spine file as a page break. When the greedy packer
-    # breaks exactly at a verse atom (next vn-link), merge the pair if the combined
-    # weight stays within a soft overshoot cap — prevents mid-chapter page breaks
-    # like Gen 10:27 / 10:28 straddling two pieces.
-    verse_soft_cap = int(target * 1.12)
-    gi = 0
-    while gi < len(groups) - 1:
-        g, nxt = groups[gi], groups[gi + 1]
-        if (
-            g
-            and nxt
-            and nxt[0] not in title_atoms
-            and cuts[g[-1]] in cands
-            and cuts[nxt[0]] in cands
-            and cuts[nxt[0]] > 0
-            and _VN_LINK_RE.match(atoms[nxt[0]].lstrip())
-            and sum(atom_weight[j] for j in g + nxt) <= verse_soft_cap
-        ):
-            groups[gi] = g + nxt
-            del groups[gi + 1]
-            continue
-        gi += 1
-    groups = [g for g in groups if g]
+    # K-R15b (the verse-pair re-merge pass) is obsolete: with no verse-level cut
+    # candidate the packer can no longer break between verses, so there is nothing to
+    # re-merge — every cut already lands at a book/chapter boundary (page-break fix above).
     if len(groups) <= 1:
         return [(f"{stem}.html", text)]
 
@@ -5212,10 +5195,11 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
         text = p.read_text(encoding="utf-8")
         if p.stem == EINK_STUDY_BACKMATTER_STEM:
             # The study-glossary backmatter is NAVIGATED (badge → jump), not read
-            # linearly, so it stays finely split at the default cap even when an edition
-            # raises the SCRIPTURE cap to merge books (page-break fix 2026-06-24). No-op
-            # for editions that don't raise reader_file_split_target (target == default).
-            plan[p.name] = split_study_glossary_document(text, p.stem, FILE_SPLIT_TARGET_DEFAULT)
+            # linearly, so it never grows with a RAISED scripture cap: cap it at the
+            # default (page-break fix 2026-06-24) while still honoring an explicitly
+            # LOWER target. Byte-identical for every real edition (all targets ≥ default
+            # → min == default); only a sub-default override (e.g. tests) splits finer.
+            plan[p.name] = split_study_glossary_document(text, p.stem, min(target, FILE_SPLIT_TARGET_DEFAULT))
         else:
             plan[p.name] = split_html_document(
                 text,

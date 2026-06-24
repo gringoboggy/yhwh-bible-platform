@@ -30,9 +30,39 @@ What shipped:
 
 No EPUB-byte change (CLI/filename only; geez output identical). TDD throughout.
 
+**Page-break fix — Part 1: drop the `_VN_LINK_RE` verse-level cut (the 130 mid-chapter breaks).**
+The file-split packer (`apply_file_split`/`split_html_document`) cut spine files BETWEEN
+verses when a heavily-noted chapter exceeded the byte cap; because Kobo's kepub renderer
+forces a page break at every spine-file boundary, each such cut became a spurious
+mid-chapter page break (130 on the flagship — the weeks-long defect, root-caused
+2026-06-23). Removed the `_VN_LINK_RE` cut candidate + the now-obsolete K-R15b verse-pair
+re-merge pass + the dead regex def: the packer now cuts ONLY at book/chapter boundaries; an
+over-cap chapter becomes its own over-cap piece.
+
+- **Verified on real data:** a fresh `catholic-study --target-reader eink` build went from
+  **111 mid-chapter breaks → 1** (`dev/audit_spine_breaks.py`). The lone remaining
+  `psa 119:88→89` is the documented **base** calibre-split artifact (`index_split_035`), not
+  a packer cut — Part 2 (per-book base-file merge) fixes it for free.
+- **Companion fix:** the wrap session's backmatter-decoupling WIP had hardcoded
+  `FILE_SPLIT_TARGET_DEFAULT` for the study glossary, ignoring a lowered
+  `reader_file_split_target` and breaking `test_file_split.TestStudyGlossaryTocPatch`
+  (confirmed failing at HEAD pre-change). Fixed to `min(target, FILE_SPLIT_TARGET_DEFAULT)`
+  — byte-identical for every real edition (all targets ≥ default) while honoring an explicit
+  lower override.
+- **+2 TDD pins** (`TestNoMidChapterSplit`: single over-cap chapter not split between verses;
+  two over-cap chapters cut only at the boundary). `test_file_split` 46/46 (`-m "not slow"`).
+- Byte-stability is **determinism-only** (no KJV golden hash); the packer change is
+  deterministic (`test_file_split::test_deterministic` green). Part 2 (per-book merge) is the
+  follow-on; the Hebrew/Arabic font fix (Mac's `kobo-font-override-research.md`) is a separate
+  eink/non-KJV-gated slice with a hard user-device A/B gate.
+
+No KJV-byte change intended (the split editions re-cut; the 9 KJV editions hold via
+determinism + Mac cross-OS verify). TDD throughout.
+
 Continuity pointers:
-- `dev/audit/spine-breaks-all-editions.md` (Mac's audit that flagged both)
-- `dev/audit/page-breaks-root-cause-2026-06-23.md` (the next WIN slice: per-book merge)
+- `dev/audit/spine-breaks-all-editions.md` (Mac's audit that flagged both standalone bugs)
+- `dev/audit/page-breaks-root-cause-2026-06-23.md` (the page-break plan; Part 2 = per-book merge)
+- `dev/audit/kobo-font-override-research.md` (the gated Hebrew/Arabic fix, next slice)
 
 ## 2026-06-23 (cont.) — Kobo device-QA B-1/C/D FIXED + verified + loaded (Windows; autonomous)
 

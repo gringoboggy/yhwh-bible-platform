@@ -1090,3 +1090,61 @@ class TestStudyGlossaryTocPatch:
         assert len(child_nps) >= 6, "ncx must carry nested per-book Study Notes navPoints"
         orders = [int(x) for x in re.findall(r'playOrder="(\d+)"', ncx_out)]
         assert orders == list(range(1, len(orders) + 1)), f"ncx playOrder not gapless: {orders}"
+
+
+class TestNoMidChapterSplit:
+    """Page-break fix (2026-06-24): the packer must cut ONLY at book/chapter boundaries,
+    never between verses. A heavily-noted chapter that exceeds the target becomes its own
+    over-cap piece rather than splitting mid-chapter — which forced a spurious Kobo page
+    break between two verses of one chapter (the weeks-long defect: 130 mid-chapter breaks
+    on the flagship, root-caused to the `_VN_LINK_RE` verse-level cut candidate)."""
+
+    @staticmethod
+    def _doc(chapters: dict[int, int]) -> str:
+        """``{chapter: verse_count}`` → one synthetic split file (page_N headings + heavy
+        per-verse asides so each chapter is well over a small target)."""
+        body = []
+        asides = []
+        for c, vmax in chapters.items():
+            body.append(f'<p id="page_{c}" class="ch-heading"><span class="bold-num">{c}</span></p>')
+            for v in range(1, vmax + 1):
+                body.append(
+                    f'<p class="verse-p"><a class="vn-link" id="v-gen-{c}-{v}" href="#vnote-gen-{c}-{v}" '
+                    f'epub:type="noteref"><span class="vn">{v}</span></a> {"word " * 30}</p>'
+                )
+                asides.append(
+                    f'<aside class="vnote" id="vnote-gen-{c}-{v}" epub:type="footnote"><p>{"X" * 200}</p></aside>'
+                )
+        return (
+            "<?xml version='1.0' encoding='utf-8'?>\n"
+            '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">\n'
+            '<head><title>T</title><link rel="stylesheet" type="text/css" href="stylesheet.css"/></head>\n'
+            '<body class="bible-body">' + "\n".join(body) + "\n"
+            '<aside class="notes-section" epub:type="footnotes" hidden="">\n' + "\n".join(asides) + "\n"
+            "</aside>\n</body></html>"
+        )
+
+    @staticmethod
+    def _verse_pieces(pieces, chapter, vmax):
+        return {n for n, t in pieces for v in range(1, vmax + 1) if f'id="v-gen-{chapter}-{v}"' in t}
+
+    def test_single_oversized_chapter_is_not_split_between_verses(self):
+        from scripts.build_edition import split_html_document
+
+        # One chapter, 30 heavy verses, target far below the chapter size: pre-fix the
+        # packer cut between verses, scattering them across pieces.
+        pieces = split_html_document(self._doc({1: 30}), "index_split_050", 2000)
+        holders = self._verse_pieces(pieces, 1, 30)
+        assert len(holders) == 1, f"a single chapter must not split mid-chapter; verses in {holders}"
+
+    def test_each_chapter_stays_whole_cut_only_at_boundary(self):
+        from scripts.build_edition import split_html_document
+
+        # Two over-target chapters: the packer must still split (at the chapter boundary)
+        # but keep every chapter's verses together.
+        pieces = split_html_document(self._doc({1: 20, 2: 20}), "index_split_051", 3000)
+        ch1 = self._verse_pieces(pieces, 1, 20)
+        ch2 = self._verse_pieces(pieces, 2, 20)
+        assert len(ch1) == 1, f"ch1 verses split across pieces {ch1} — mid-chapter cut"
+        assert len(ch2) == 1, f"ch2 verses split across pieces {ch2} — mid-chapter cut"
+        assert ch1 != ch2, "two over-target chapters should still split into separate pieces"

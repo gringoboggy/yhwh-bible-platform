@@ -10,12 +10,28 @@
 > `build_one` raises on standalone error for contract parity); (2) Amharic standalone misnamed
 > `Geez_Standalone_*` (new `_output_filename` derives the script label; Ge'ez filename byte-stable).
 > +9 TDD pins; `test_build_standalone` 52/52. No EPUB-byte change. CHANGELOG 2026-06-24.
-> **▶ NEXT (active WIN slice): the page-break per-book merge** — drop `_VN_LINK_RE` (kills the 130
-> mid-chapter breaks; measured GO) then merge each book's base files into one spine file ≤ ceiling;
-> gate `dev/audit_spine_breaks.py` mid-chapter==0; byte-stability is determinism-based (no global
-> golden hash) — update the packer tests (`test_file_split`). Plan: `dev/audit/page-breaks-root-cause-2026-06-23.md`.
-> Then: verify the Kindle `FILE_SPLIT_TARGET_KINDLE` cap (Mac flagged artifacts split ~495KB), the
-> device-QA E/F/Hebrew fixes, and the round-13 merge remainder (char-vs-byte · 1en · 5 Mac mediums).
+> **✅ Page-break Part 1 DONE (drop `_VN_LINK_RE`):** the packer now cuts ONLY at book/chapter
+> boundaries (removed the verse-level cut candidate + the obsolete K-R15b re-merge + the dead regex).
+> **Verified on real data: catholic-study eink 111 mid-chapter → 1** (`audit_spine_breaks.py`); the lone
+> `psa 119:88→89` is the documented BASE calibre-split artifact (`index_split_035`), not a packer cut →
+> Part 2 fixes it for free. +2 TDD pins (`TestNoMidChapterSplit`); `test_file_split` 46/46. Companion: fixed
+> a pre-existing glossary-test breakage from the wrap's backmatter WIP (`min(target, default)`; byte-safe).
+> **▶ NEXT (WIN, in priority order):**
+> 1. **Page-break Part 2 — per-book base-file merge:** `apply_file_split` currently shards each base
+>    `index_split_NNN` independently and never merges across them, so a book spanning several base files keeps
+>    chapter-boundary breaks (163 on catholic-study) + the 1 psa119 base cut. Merge each book's base files into
+>    one spine file ≤ a Kobo-safe ceiling (~8–10 MB; device-measured GO), chapter-split only books that exceed
+>    it. Gate `audit_spine_breaks.py` mid-chapter==0 + chapter-breaks only on genuinely over-ceiling books.
+> 2. **Hebrew/Arabic font fix** per Mac's `dev/audit/kobo-font-override-research.md` — 3-part (embed Noto Naskh
+>    Arabic + `!important` original-language `font-family` + Ge'ez→`"Noto Serif Ethiopic"` + greek-nt stack;
+>    eink "Publisher Default" front-matter page). **MUST gate to eink/non-KJV** (no KJV golden gate → changing the
+>    shared base stylesheet text breaks KJV byte-identity; manual `git diff` over ALL editions is the only catch).
+>    The author-`!important`-vs-firmware-override question is **undecided without the user's real-device "Cardo" vs
+>    "Publisher Default" A/B** → log the device gate in `dev/HUMAN_DECISIONS.md`.
+> 3. Device-QA **E** (study-note back-link navigate) + **F** (drop redundant per-note `note-sym`); round-13 merge
+>    remainder (char-vs-byte · 1en 71/90 needs PD Charles · 5 Mac mediums). Kindle cap = Mac confirmed correct
+>    (stale-artifact), fresh re-measure only — fold into the Part-2 build verification.
+> Plan: `dev/audit/page-breaks-root-cause-2026-06-23.md`. **⏳ Mac cross-OS verifies the re-cut when Part 2 lands.**
 >
 > **▶▶ FRESH AUTONOMOUS SESSION — START HERE (2026-06-23 wrap).** Two live workstreams:
 > 1. **Kobo device-QA B-1/C/D — ✅ FIXED + verified + LOADED (awaiting the user's on-device eyeball).** The user
