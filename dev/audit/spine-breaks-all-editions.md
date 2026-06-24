@@ -75,10 +75,15 @@ m4b 06-18). All pre-re-cut → the live baseline.
     code fix needed, only a re-measure on a true `--target-reader kindle` build.** (Note for
     interpretation: kindle's KFX repaginates internally, so even a residual spine boundary is
     not the user-visible page break it is on Kobo; the cap matters for KFX converter overhead
-    — the K-KIN aggregate-doc-count blocker — not for page breaks.) Empirical confirmation
-    (fresh build + re-run the auditor) still owed; held off this slice to avoid a heavy
-    91k-noteref build under RAM pressure (8 GB box, VS Code open). Re-verify per
-    `feedback_reverify_conservative_nogo`.
+    — the K-KIN aggregate-doc-count blocker — not for page breaks.)
+  - **★ Resolver empirically PROVEN with real data (Mac, 2026-06-24) — not just a code read.**
+    `apply_target_override({'id':'probe'}, 'kindle')` → `resolve_file_split_target` returns
+    **2_000_000**; eink/default → **400_000**; an explicit `reader_file_split_target` still
+    wins (→ 999 in the probe). So the per-target cap selection is confirmed correct at HEAD.
+    The **only** step still owed is the **end-to-end full-build re-measure** (build
+    `--target-reader kindle` + re-run `audit_spine_breaks.py` → expect scripture pieces ≤2 MB,
+    mid-chapter near-zero) — held off to avoid a heavy 91k-noteref build under RAM pressure
+    (8 GB box, VS Code open). Re-verify per `feedback_reverify_conservative_nogo`.
 
 ## Cross-edition observations
 
