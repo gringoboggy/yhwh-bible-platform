@@ -156,3 +156,26 @@ via a new `apply_*` for eink). Proposed CSS (re-use): muted/tight `.vnote-kobo-s
 **Byte-stability:** B-1/C change only the eink build's rendered output (eink-only; the 9-KJV byte-stable
 gate builds `everywhere`-target editions → unaffected). D touches the shared stylesheet (deliberate) — prove
 "only the intended CSS changed" + run the determinism gate. A is the deliberate all-edition re-cut.
+
+## ▶ NEW issues from the 2026-06-24 device read (E / F / Hebrew) — fix next session (verify each on-device)
+
+Full plan + lane split in `.remember/remember.md` + `page-breaks-root-cause-2026-06-23.md`. Summary:
+
+- **A (page breaks) — ROOT-CAUSED + MEASURED, merge VIABLE.** Packer cuts spine files between verses
+  (`_VN_LINK_RE`); finder `dev/audit_spine_breaks.py`. Measurement: not sub-splitting kills 129/130
+  mid-chapter breaks, Kobo renders ≤6.2 MB merged files fine → implement the per-book merge (drop
+  `_VN_LINK_RE` + merge a book's base files; golden re-baseline). 1 WIP in build_edition.py:~5213 (backmatter
+  keeps default cap — KEEP).
+- **E — study-note back-link popups instead of navigating.** `_study_verse_return_link` emits a bare
+  `<a href="#v-…" class="note-back study-return">`; Kobo's K-R12 heuristic popups bare `<a>`. The INBOUND
+  badge forces navigate via cross-file `epub:type="noteref"` — give the back-link the same (confirm its href
+  is cross-file-rewritten first). Verify on-device.
+- **F — category symbol still redundant.** The grouped S2 cascade shows the category symbol in the HEADER
+  (`vn-cat-head`→`vn-cat-sym`) AND on every note row (`note-sym`). DROP the per-note `note-sym` in
+  `_emit_cascade_sections` (header conveys it). ⚠ SUPERSEDES this session's B-1c note-sym substitution.
+- **Hebrew — Cardo does NOT trigger Hebrew on Kobo (user-confirmed).** Cardo has the glyphs + is embedded +
+  `.vnote-hebrew` lists it first, but the device renders nothing until Kobo manually supplements a Hebrew
+  font → the "removed NotoSerifHebrew" decision was wrong for the device. Re-embed + FORCE `NotoSerifHebrew`
+  on `.vnote-hebrew` (re-verify Greek/Arabic too) + put it in TOP-LEVEL `G:\fonts\` (currently mis-placed in
+  `G:\fonts\kobo\`). Mac researches Kobo's reading-font-override behaviour first (`kobo-font-override-research.md`).
+- **B-2** spacing + **B-3** dagger→"II" still await a clearer repro / `dev/HUMAN_DECISIONS.md`.

@@ -14,12 +14,15 @@
 >    ornament `❖→❦`); **C** = dict/topic body-boiler strip (lossless); **D** = eink popup CSS (caught+fixed a real
 >    CSS-001 `direction` en route). All eink-only → 9-KJV byte-stable editions untouched. Detail: `dev/CHANGELOG.md`
 >    (2026-06-23) + `dev/audit/kobo-device-qa-2026-06-23.md`. **▶ NEXT: user ejects/reconnects + eyeballs on-device;**
->    if good, fold device-QA into the round-13 merge. **A (page breaks) — 🔴 ROOT-CAUSED + ACTIVE (NEW top
->    priority):** the file-split packer cuts spine files BETWEEN VERSES (400 KB cap + `_VN_LINK_RE`) → **130
->    mid-chapter + 40 chapter breaks** on the flagship; new deterministic finder `dev/audit_spine_breaks.py`;
->    user chose "measure, then merge per-book" + asked Mac to help after its current tasks. Plan + lane-split =
->    `dev/audit/page-breaks-root-cause-2026-06-23.md`; byte-stability-critical (golden re-baseline). **B-2**
->    spacing + **B-3** dagger→"II" still await repro / `dev/HUMAN_DECISIONS.md`.
+>    if good, fold device-QA into the round-13 merge. **▶▶ WRAPPED 2026-06-24 for a fresh MAC-HELPING session —
+>    handoff `.remember/remember.md`.** **A (page breaks) — 🔴 ROOT-CAUSED + MEASURED, merge VIABLE:** packer
+>    cuts spine files BETWEEN VERSES (`_VN_LINK_RE`) → **130 mid-chapter + 40 chapter breaks**; finder
+>    `dev/audit_spine_breaks.py`; **measurement DONE — not sub-splitting kills 129/130, Kobo renders ≤6.2 MB
+>    merged files w/o lag → per-book merge is GO** (1 WIP in build_edition.py:~5213, byte-safe, KEEP). **3 NEW
+>    device-QA issues:** E back-link popups instead of navigates (K-R12) · F category symbol still redundant
+>    (drop per-note `note-sym`; supersedes B-1c) · **Hebrew — Cardo does NOT trigger Hebrew on Kobo** (re-embed
+>    a Hebrew font). Plans = `page-breaks-root-cause-2026-06-23.md` + `kobo-device-qa-2026-06-23.md`; Mac tasks
+>    in `LANE_HANDOFF.md`. byte-stability-critical (golden re-baseline). **B-2**/**B-3** await repro / `dev/HUMAN_DECISIONS.md`.
 >    Kobo at `G:` (`KOBOeReader`), kepubify on-box; STANDING: always DELETE the old `YHWH-koboQA.kepub.epub` before
 >    copying. Font pack settled = Cardo + Geʽez + Arabic (3 fonts / 5 files), pushed.
 > 2. **Round-13 grand-audit joint merge:** WIN OPEN #5/#6/#9 done+pushed (`11b86baf`/`42da11c3`).

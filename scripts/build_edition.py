@@ -5211,7 +5211,11 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     for p in src_files:
         text = p.read_text(encoding="utf-8")
         if p.stem == EINK_STUDY_BACKMATTER_STEM:
-            plan[p.name] = split_study_glossary_document(text, p.stem, target)
+            # The study-glossary backmatter is NAVIGATED (badge → jump), not read
+            # linearly, so it stays finely split at the default cap even when an edition
+            # raises the SCRIPTURE cap to merge books (page-break fix 2026-06-24). No-op
+            # for editions that don't raise reader_file_split_target (target == default).
+            plan[p.name] = split_study_glossary_document(text, p.stem, FILE_SPLIT_TARGET_DEFAULT)
         else:
             plan[p.name] = split_html_document(
                 text,

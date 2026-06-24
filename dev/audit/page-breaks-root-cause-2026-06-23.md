@@ -68,6 +68,30 @@ gates the fix: Kobo's real max spine-file size.** It needs ONE device measuremen
    work (the long-deferred char-vs-byte re-cut; the user has now authorized it). Prove "only the
    intended boundary changes" + re-baseline + run the determinism gate.
 
+## ✅ MEASUREMENT DONE (2026-06-24) — the gating unknown is answered; merge is GO
+
+Step 2 (measure Kobo's limit) is complete. Method: temporarily set `reader_file_split_target: 20000000`
+on ethiopian-tewahedo (huge cap → packer never sub-splits a base file) + made the backmatter glossary use
+`FILE_SPLIT_TARGET_DEFAULT` regardless (build_edition.py:~5213 — so the navigated glossary stays finely
+split; **byte-safe no-op for every current edition**, KEEP this WIP). Built + kepubified + loaded.
+
+- **129 of 130 mid-chapter breaks VANISHED** just by not sub-splitting (`audit_spine_breaks.py`). The lone
+  holdout `psa 119:88→89` is a **base**-split artifact (calibre cut `index_split_035` mid-Psalm-119) — the
+  per-book merge (which merges base files) fixes it for free. → CONFIRMS the packer's verse-level
+  sub-splitting is the sole mid-chapter cause.
+- **Kobo renders the big merged files without lag** — the user read the merged build (scripture pieces up
+  to **~6.2 MB post-kepubify**, vs the old ~880 KB) and reported NO lag. → **one-file-per-book merge is
+  VIABLE**; pick a safe ceiling (~8–10 MB) and only chapter-split books that exceed it (never mid-chapter).
+- Remaining in that measurement build: the ~36/40 **chapter-boundary** breaks (the base split, layer 2 —
+  e.g. gen 3→4, which the user flagged) + the 1 psa119 residual. Layer-2 = the per-book base-file MERGE
+  (step 3), which `apply_file_split` does NOT yet do (it sub-splits base files but never merges across them;
+  a book spans several base files — Genesis = `index_split_000/001/002`).
+
+**So step 3 (the implementation) is now unblocked:** (a) drop `_VN_LINK_RE`; (b) MERGE each book's base
+files into one spine file ≤ ceiling (concatenate bodies, regen spine+manifest, rewrite cross-file hrefs —
+the existing href-rewrite pass is the model); (c) golden re-baseline. Gate: `audit_spine_breaks.py`
+mid-chapter == 0 AND chapter-breaks only on books that genuinely exceed the ceiling.
+
 ## Lane split (WIN + Mac — file-disjoint, no rebase collision)
 
 - **WIN owns** `scripts/build_edition.py` (the packer re-cut), the golden re-baseline, and the Kobo
