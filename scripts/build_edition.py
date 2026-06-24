@@ -2397,6 +2397,20 @@ _EINK_READER_CSS = (
     ".vnote-arabic { text-align: right; font-size: 1.08em; line-height: 1.5;\n"
     "  border-top: 1px dotted rgba(100, 116, 139, 0.25); padding-top: 0.15em; margin-top: 0.15em;\n"
     "  color: #1e293b; }\n"
+    # device-QA 2026-06-24 (Hebrew/Greek/Ge'ez tofu): Kobo's kepub firmware injects
+    # `* { font-family:<userfont> !important }` when a NAMED reading font is selected,
+    # clobbering the original-language popup fonts (whose base rules carry NO !important →
+    # lowest cascade tier). Re-assert each EMBEDDED family with !important — the only
+    # author-CSS lever (Mac's dev/audit/kobo-font-override-research.md; the user's "Cardo"
+    # vs "Publisher Default" real-device A/B is the deciding gate). Cardo (Hebrew + polytonic
+    # Greek) and Noto Serif Ethiopic (Ge'ez/Amharic) are already embedded; greek-nt had NO
+    # font-family, and geez/amharic only had a stale apply_style rule naming the wrong family
+    # ("Noto Sans Ethiopic"). Arabic is omitted here: it has no embedded face yet, and a
+    # global embed would change KJV bytes (deferred follow-up). eink-only → 9-KJV untouched.
+    "/* K-R-font: force original-language fonts past Kobo's reading-font override === */\n"
+    '.vnote-hebrew { font-family: "Cardo", "SBL Hebrew", "Ezra SIL", "Frank Ruehl CLM", "Times New Roman", serif !important; }\n'
+    '.vnote-greek, .vnote-greek-nt { font-family: "Cardo", "SBL Greek", "GFS Didot", "Times New Roman", serif !important; }\n'
+    '.vnote-geez, .vnote-amharic { font-family: "Noto Serif Ethiopic", "Abyssinica SIL", "Nyala", serif !important; }\n'
 )
 
 

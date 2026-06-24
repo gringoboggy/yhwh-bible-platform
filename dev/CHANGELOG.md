@@ -84,8 +84,25 @@ spine file, splitting only an over-ceiling book at chapter boundaries (never mid
   unchanged; determinism-pinned.
 
 **The weeks-long "page breaks throughout the Bibles" defect is resolved on eink** (Parts 1+2,
-catholic-study verified). Remaining: Mac cross-OS verify + re-baseline across all editions;
-the eink Hebrew/Arabic font fix; device-QA E/F. No KJV-byte change (eink-gated).
+**catholic-study AND flagship ethiopian-tewahedo verified**: flagship 130 mid + 40 chapter →
+0 + 0, audit PASS, epubcheck 0/0/0/0; merged `.kepub` staged for the user's device eyeball at
+`C:\Users\bogda\YHWH-device-staging\YHWH-koboQA.kepub.epub`). No KJV-byte change (eink-gated).
+
+**Hebrew/Greek/Ge'ez popup font fix (eink, byte-safe).** Kobo's kepub firmware injects
+`* { font-family:<userfont> !important }` when a NAMED reading font is picked, clobbering the
+original-language popup fonts (whose base rules carried NO `!important`) → Hebrew/Greek tofu
+under the user's Cardo reading font (Mac's `dev/audit/kobo-font-override-research.md`). Added
+`!important` `font-family` rules for `.vnote-hebrew` / `.vnote-greek` / `.vnote-greek-nt` /
+`.vnote-geez` / `.vnote-amharic` to the eink-only `_EINK_READER_CSS` (the only author-CSS
+lever): Hebrew/Greek name the already-embedded Cardo; Ge'ez/Amharic name the EMBEDDED
+`"Noto Serif Ethiopic"` (greek-nt previously had NO font-family; geez/amharic only had a stale
+`apply_style` rule naming the wrong `"Noto Sans Ethiopic"`). **Verified on a real eink build:**
+all three rules ship in the built `stylesheet.css`, no `"Noto Sans Ethiopic"`, **epubcheck
+0/0/0/0**; +2 TDD pins (`test_kobo_device_qa` 16/16). eink-only → 9-KJV byte-stable editions
+untouched. **Deferred (tracked):** the Arabic embed (a global `EMBED_FONT_PATHS` add would
+change KJV bytes) + the eink "Publisher Default" front-matter page. **Device gate:** whether an
+author `!important` beats the firmware override is undecided by sources → the user's real-device
+"Cardo" vs "Publisher Default" A/B decides it (queued in `dev/HUMAN_DECISIONS.md`).
 
 Continuity pointers:
 - `dev/audit/spine-breaks-all-editions.md` (Mac's audit that flagged both standalone bugs)

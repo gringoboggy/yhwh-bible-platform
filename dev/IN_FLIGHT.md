@@ -32,15 +32,18 @@
 > 1. **[USER] device eyeball** of the staged flagship kepub on the color Kobo (confirms the page-break fix on-device);
 >    **Mac cross-OS verify Parts 1+2 + re-baseline `dev/audit/spine-breaks-all-editions.md`** across all editions
 >    (instructed in `LANE_HANDOFF.md`; Mac already pushed `spine-breaks-post-part1.json`).
-> 2. **Hebrew/Arabic font fix** per Mac's `dev/audit/kobo-font-override-research.md` — 3-part (embed Noto Naskh
->    Arabic + `!important` original-language `font-family` + Ge'ez→`"Noto Serif Ethiopic"` + greek-nt stack;
->    eink "Publisher Default" front-matter page). **MUST gate to eink/non-KJV** (no KJV golden gate → changing the
->    shared base stylesheet text breaks KJV byte-identity; manual `git diff` over ALL editions is the only catch).
->    The author-`!important`-vs-firmware-override question is **undecided without the user's real-device "Cardo" vs
->    "Publisher Default" A/B** → log the device gate in `dev/HUMAN_DECISIONS.md`.
-> 3. Device-QA **E** (study-note back-link navigate) + **F** (drop redundant per-note `note-sym`); round-13 merge
->    remainder (char-vs-byte · 1en 71/90 needs PD Charles · 5 Mac mediums). Kindle cap = Mac confirmed correct
->    (stale-artifact), fresh re-measure only — fold into the Part-2 build verification.
+> 2. **✅ Hebrew/Greek/Ge'ez popup-font fix DONE (eink CSS, byte-safe):** added `!important` `font-family` rules for
+>    `.vnote-hebrew/greek/greek-nt/geez/amharic` to the eink-only `_EINK_READER_CSS` (Hebrew/Greek = embedded Cardo;
+>    Ge'ez/Amharic = embedded `"Noto Serif Ethiopic"`, not the stale wrong `"Noto Sans Ethiopic"`). **Verified on a real
+>    eink build:** all 3 rules ship in the built `stylesheet.css`, **epubcheck 0/0/0/0**; `test_kobo_device_qa` 16/16
+>    (+2 pins). eink-only → 9-KJV untouched. **⏳ DEVICE GATE (`dev/HUMAN_DECISIONS.md`):** does the author `!important`
+>    beat Kobo's firmware override? — the user's "Cardo" vs "Publisher Default" A/B decides (the staged kepub carries it).
+>    **DEFERRED follow-ups:** (a) embed **Noto Naskh Arabic** for `.vnote-arabic` (a global `EMBED_FONT_PATHS` add changes
+>    KJV bytes → needs an eink-only embed path; Arabic is tofu today); (b) the eink "Publisher Default" front-matter page
+>    (Kobo's only guaranteed lever + the only fix for the native footnote-PREVIEW overlay). Plan: `kobo-font-override-research.md`.
+> 3. Device-QA **E** (study-note back-link navigate, `_study_verse_return_link` → cross-file noteref) + **F** (drop redundant
+>    per-note `note-sym` in `_emit_cascade_sections`; supersedes B-1c). round-13 merge remainder (char-vs-byte · 1en 71/90
+>    — Mac fetched the PD Charles source `dev/audit/1en-charles-source-71-90.md` · 5 Mac mediums I remediate / Mac verifies).
 > Plan: `dev/audit/page-breaks-root-cause-2026-06-23.md`. **⏳ Mac cross-OS verifies the re-cut when Part 2 lands.**
 >
 > **▶▶ FRESH AUTONOMOUS SESSION — START HERE (2026-06-23 wrap).** Two live workstreams:

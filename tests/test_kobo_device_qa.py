@@ -111,6 +111,25 @@ def test_eink_css_has_no_forbidden_direction_property():
     assert "direction:" not in css
 
 
+# --- Hebrew/Greek/Ge'ez tofu fix: force the original-language fonts past Kobo's override ---
+def test_eink_css_forces_original_language_fonts():
+    # Kobo's kepub firmware injects `* { font-family:<userfont> !important }` for a named
+    # reading font, clobbering the original-language popup fonts (which had NO !important).
+    # The eink stylesheet re-asserts each embedded family with !important (Mac's research).
+    css = apply_eink_reader_css("/* base */\n", {"target_reader": "eink"})
+    forced = " ".join(ln for ln in css.splitlines() if "font-family" in ln and "!important" in ln)
+    for cls in ("vnote-hebrew", "vnote-greek", "vnote-greek-nt", "vnote-geez", "vnote-amharic"):
+        assert cls in forced, f".vnote-{cls.split('-', 1)[1]} lacks a forced (!important) font-family"
+    assert '"Cardo"' in forced, "Hebrew/Greek must name the embedded Cardo face"
+    # Ge'ez/Amharic must name the EMBEDDED family, never the stale wrong one
+    assert "Noto Serif Ethiopic" in forced and "Noto Sans Ethiopic" not in css
+
+
+def test_forced_fonts_are_eink_only():
+    base = "/* base */\n"
+    assert apply_eink_reader_css(base, {"target_reader": "tablet"}) == base, "KJV/tablet bytes must not change"
+
+
 # --- shared module: legend matches the body (one source of truth) ------------
 def test_eink_glyphs_is_single_source():
     # The badge/header/note-sym emitters and the legend page resolve through the SAME
