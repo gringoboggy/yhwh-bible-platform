@@ -13,7 +13,40 @@ target) suffices. Toolchain validated against WIN's measurement: flagship eink =
 **130 mid-chapter + 40 chapter**, first break `gen 10:6→10:7` (the user's exact Kobo
 QA finding). ✅
 
-## ★ POST-PART-1 RE-BASELINE — fresh macOS builds, Part-1 applied (2026-06-24)
+## ★★ POST-PART-2 FINAL — full fix verified cross-OS on macOS (2026-06-24)
+
+WIN's **Part-2** (`2c3a7899` — `_merge_scripture_base_files`: concatenate a book's scripture
+base files so a book the calibre base split across `index_split` files is contiguous, then shard
+at `FILE_SPLIT_CEILING` = 8 MB → **one spine file per book**; EINK target only) is in HEAD. Mac
+rebuilt all 6 editions on macOS (`--target-reader eink --force`), re-ran `audit_spine_breaks.py`,
+and ran **epubcheck** on each.
+
+| edition (fresh eink build) | mid ERROR | chapter WARN | book OK | pieces | epubcheck F/E/W/I | verdict |
+|---|---|---|---|---|---|---|
+| **catholic-study** | **0** | **0** | 71 | 72 | **0/0/0/0** | ✅ PASS |
+| **evangelical-reformed** | **0** | **0** | 65 | 66 | **0/0/0/0** | ✅ PASS |
+| **eastern-orthodox** | **0** | **0** | 74 | 75 | **0/0/0/0** | ✅ PASS |
+| **ethiopian-tewahedo** | **0** | **0** | 77 | 77 | **0/0/0/0** | ✅ PASS |
+| standalone-geez | 0 | **161** ‡‡‡ | 3 | 165 | 0/0/0/0 | ⚠ residual |
+| standalone-amharic | 0 | **125** ‡‡‡ | 0 | 126 | 0/0/0/0 | ⚠ residual |
+
+**✅ THE PAGE-BREAK DEFECT IS RESOLVED ON EINK — CROSS-OS CONFIRMED.** Every study edition now
+has **ZERO mid-chapter AND ZERO chapter-boundary breaks** — only the intended book-title breaks
+(one spine file per book; `pieces == book_breaks [+1 nav]`). **epubcheck 0/0/0/0 on all six.**
+`test_file_split.py` **54/54** on macOS. Reproduces WIN's Windows result exactly (catholic 0 + 0).
+The weeks-long "page breaks throughout the Bibles" defect is **closed for the 4 study editions.**
+
+‡‡‡ **STANDALONE RESIDUAL — flagged for WIN (a follow-up, NOT a regression).** The two standalone
+Bibles still show chapter-per-page breaks (geez 161 / amharic 125, e.g. `1ki 1:52 → 1ki 2:1
+(geez_1ki_2.xhtml)`) because **Part-2's merge lives in `apply_file_split` (the study-edition path),
+which the standalones do NOT use** — `build_standalone.py` emits one spine file per chapter
+(`geez_{book}_{ch}.xhtml`). So Part-2 correctly did not touch them (mid stays 0, epubcheck clean),
+but the standalone Ge'ez/Amharic Bibles will still force a page break at **every chapter** on Kobo.
+**▶ Part-2b (WIN): apply an equivalent per-book merge to the standalone build path** (collapse the
+per-chapter `geez_{book}_{ch}.xhtml` files into per-book spine files ≤ the same `FILE_SPLIT_CEILING`).
+Until then the standalones remain at the chapter-per-page extreme of the pre-Part-1 matrix.
+
+## ★ POST-PART-1 RE-BASELINE — fresh macOS builds, Part-1 applied (2026-06-24) — *intermediate snapshot (Part-1 only); superseded by the POST-PART-2 FINAL above*
 
 WIN's **page-break Part-1** (`39d04301` — dropped the `_VN_LINK_RE` verse-level cut so the
 packer never splits between verses) is applied. Mac rebuilt all 6 editions from source on
