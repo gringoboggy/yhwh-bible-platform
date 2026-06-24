@@ -13,6 +13,60 @@ target) suffices. Toolchain validated against WIN's measurement: flagship eink =
 **130 mid-chapter + 40 chapter**, first break `gen 10:6→10:7` (the user's exact Kobo
 QA finding). ✅
 
+## ★ POST-PART-1 RE-BASELINE — fresh macOS builds, Part-1 applied (2026-06-24)
+
+WIN's **page-break Part-1** (`39d04301` — dropped the `_VN_LINK_RE` verse-level cut so the
+packer never splits between verses) is applied. Mac rebuilt all 6 editions from source on
+macOS (`--target-reader eink --force` for the 4 study editions; standalones via their own
+path) and re-ran `audit_spine_breaks.py`. **Full per-edition break lists (the Part-2 spec
+input) → `dev/audit/spine-breaks-post-part1.json`.**
+
+| edition (fresh eink build) | mid-chapter ERROR | chapter WARN | pieces | build s | Δ mid (pre→post) |
+|---|---|---|---|---|---|
+| **catholic-study** | **1** ‡‡ | 163 | 238 | 436 | 111 → 1 |
+| **evangelical-reformed** | **1** ‡‡ | 159 | 226 | 389 | 109 → 1 |
+| **eastern-orthodox** | **1** ‡‡ | 164 | 242 | 392 | 111 → 1 |
+| **ethiopian-tewahedo** | **1** ‡‡ | 186 | 266 | 689 | 130 → 1 |
+| **standalone-geez** | 0 | 161 | 165 | 10 | 0 → 0 (unchanged) |
+| **standalone-amharic** | 0 | 125 | 126 | 2 | 0 → 0 (unchanged) |
+
+‡‡ The lone remaining mid-chapter ERROR is **identical on all 4 study editions**:
+`psa 119:88 → psa 119:89  (index_split_035_00.html)` — the documented **BASE calibre-split
+artifact** (Psalm 119, the longest chapter, is cut at the source `index_split_035` file
+boundary), **not** a packer cut. **Part-2's per-book merge fixes it for free** (merging psa's
+base files). So Part-1 drives the *packer* mid-chapter cuts to **ZERO** on every edition. ✅
+
+**✅ Cross-OS CONFIRMED:** Part-1's effect reproduces on macOS exactly as WIN measured on
+Windows (catholic-study 111 → 1). `test_file_split.py` **46/46** on macOS.
+
+### The Part-2 target — the remaining ~160 chapter-boundary (WARN) breaks
+
+Part-1 converted the between-verse cuts into **at-chapter-boundary** cuts: an over-cap chapter
+now becomes its own piece instead of splitting mid-verse, so the WARN count rose (pre-Part-1
+~35–42 → post-Part-1 159–186) while the ERROR count collapsed. **Every remaining break is an
+INTRA-book chapter start** (e.g. `gen 3:24 → gen 4:1`, `gen 9:29 → gen 10:1`): a book whose base
+`index_split_NNN` file exceeds the cap is cut at its next chapter boundary. These are **exactly
+what Part-2 (per-book base-file merge) collapses** — merge a book's base files into one spine
+file ≤ the Kobo-safe ceiling and the intra-book chapter breaks vanish, leaving only the intended
+book-title breaks (73–79 OK per edition).
+
+Distribution is note-density-driven, concentrated in the large books. **ethiopian-tewahedo
+(superset, 186 breaks / 44 books):** psa:14 · gen:11 · exo:9 · eze:9 · jer:9 · num:9 · isa:8 ·
+deu:7 · 1ch:6 · 1ki:6 · job:6 · luk:6 · mat:6 · 1sa:5 · 2ch:5 · 2ki:5 · act:5 · lev:5 · pro:5 ·
+(…+24 more books at 1–4 each). The study editions are canon-subsets (catholic 163 / evangelical
+159 / orthodox 164). **Standalones** are already chapter-per-page (161 / 125) — Part-2's per-book
+merge applies to them too (collapse `geez_{book}_{ch}.xhtml` into per-book files ≤ ceiling).
+
+**Part-2 spec for WIN:** collapse every INTRA-book chapter-boundary break above — full exact lists
+per edition in `spine-breaks-post-part1.json` (the `chapter` arrays). **Success = mid-chapter == 0**
+(incl. psa119, fixed by merging psa's base files) **+ chapter breaks only on books that genuinely
+exceed the per-book ceiling.** Mac will cross-OS verify the Part-2 re-cut the same way when it lands.
+
+---
+
+> The matrix below is the **PRE-Part-1 baseline** (it audited the then-live on-disk artifacts).
+> Retained for the before/after delta; the **eink numbers are superseded by the re-baseline above.**
+
 ## Matrix (mid-chapter ERROR = the bug; chapter WARN = policy)
 
 | edition | eink/kobo | tablet/apple | kindle |
