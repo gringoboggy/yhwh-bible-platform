@@ -118,12 +118,21 @@ class Finding:
 # Pure checks (operate on already-parsed data → unit-testable via --selftest)
 # ──────────────────────────────────────────────────────────────────────────────
 def check_translation_store(
-    store: str, book_code: str, versification: str, verses: list, *, translation: str = ""
+    store: str,
+    book_code: str,
+    versification: str,
+    verses: list,
+    *,
+    translation: str = "",
+    check_extent: bool = True,
 ) -> list[Finding]:
     """Structural checks for one parsed translation ``VERSES`` list.
 
     ``translation`` is the translation id (the parent dir); ``kjv`` is the canonical
     reference, so an extent overflow there means the skeleton and the store disagree.
+    ``check_extent=False`` skips the canonical-extent pass (which builds the KJV
+    skeleton — the slow part), leaving the fast dup-coord / non-int / arity checks
+    that catch silent text loss; used by the per-push gate.
     """
     out: list[Finding] = []
     seen: dict[tuple, list[str]] = {}
@@ -181,7 +190,8 @@ def check_translation_store(
                 )
             )
 
-    out += _extent_findings(store, book_code, versification, translation, list(seen))
+    if check_extent:
+        out += _extent_findings(store, book_code, versification, translation, list(seen))
     return out
 
 
@@ -315,8 +325,14 @@ def _string_assign(src: str, name: str) -> str | None:
     return val if isinstance(val, str) else None
 
 
-def audit_repo(repo: Path) -> list[Finding]:
-    """Walk every translation + notes store under *repo* and collect findings."""
+def audit_repo(repo: Path, *, check_extent: bool = True) -> list[Finding]:
+    """Walk every translation + notes store under *repo* and collect findings.
+
+    ``check_extent=False`` skips the canonical-extent pass (the KJV-skeleton build —
+    the slow part) and runs only the fast dup-coord / non-int / arity checks that
+    catch silent text loss; the per-push gate uses this, the full scan runs on the
+    schedule / on demand.
+    """
     findings: list[Finding] = []
 
     tr_dir = repo / "content" / "translations"
@@ -332,7 +348,9 @@ def audit_repo(repo: Path) -> list[Finding]:
             versification = "canonical"
         translation = path.parent.name
         store = f"{translation}/{path.name}"
-        findings += check_translation_store(store, path.stem, versification, verses, translation=translation)
+        findings += check_translation_store(
+            store, path.stem, versification, verses, translation=translation, check_extent=check_extent
+        )
 
     notes_dir = repo / "content" / "notes"
     for path in sorted(notes_dir.glob("*.py")):
