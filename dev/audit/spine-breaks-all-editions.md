@@ -59,6 +59,26 @@ m4b 06-18). All pre-re-cut → the live baseline.
   silently bypassed (post-process / m4b path rebuilding off a default-split base), kindle
   needs the same packer fix as eink. *(A fresh kindle build is needed to settle this —
   flagged for WIN, who owns the build path + the kindle device.)*
+  - **★ Code trace (Mac, 2026-06-24) — the wiring at HEAD is CORRECT; "~495 KB" is a
+    stale-artifact measurement, not a bug.** The auditor reads *existing on-disk* artifacts
+    (`audit_spine_breaks.py` has no build step; it measured `build/kindle` = catholic 06-14
+    + an older ethiopian build), and those predate / bypass the current cap path. At HEAD the
+    cap IS honored end-to-end: `--target-reader kindle` → `apply_target_override`
+    (build_edition.py:1985, folds `target_reader="kindle"` into the in-memory record) →
+    `is_kindle_target` (:2014) → `resolve_file_split_target` (:4554) returns
+    `FILE_SPLIT_TARGET_KINDLE = 2_000_000` (:4524) → `apply_file_split` uses it for every
+    scripture file (`split_html_document(..., target)`, :5220-5223). The only intentional
+    400 KB holdout is the **navigated study-glossary backmatter** (`EINK_STUDY_BACKMATTER_STEM`,
+    :5213-5218 — finely split by design, jump-to not read-through), which the ~495 KB pieces
+    are NOT (those are scripture). **Expectation for the fresh build:** scripture pieces pack
+    to ≤2 MB, most chapters stop sub-splitting, mid-chapter → near-zero — i.e. **no kindle
+    code fix needed, only a re-measure on a true `--target-reader kindle` build.** (Note for
+    interpretation: kindle's KFX repaginates internally, so even a residual spine boundary is
+    not the user-visible page break it is on Kobo; the cap matters for KFX converter overhead
+    — the K-KIN aggregate-doc-count blocker — not for page breaks.) Empirical confirmation
+    (fresh build + re-run the auditor) still owed; held off this slice to avoid a heavy
+    91k-noteref build under RAM pressure (8 GB box, VS Code open). Re-verify per
+    `feedback_reverify_conservative_nogo`.
 
 ## Cross-edition observations
 
@@ -85,10 +105,15 @@ the name is cosmetic):
 
 - ✅ **All 6 editions audited** (4 study + 2 standalone) across the platforms that matter;
   epub≡kepub confirmed; toolchain validated vs WIN's flagship measurement.
-- ✅ **Platform question answered:** e-ink AFFECTED (all editions), kindle AFFECTED (cap not
-  applied), tablet clean (1 base break), standalones use the opposite (chapter-per-page) split.
-- ⏳ **WIN to verify:** a fresh `--target-reader kindle` build actually applies the 2 MB cap
-  (these artifacts don't); the `psa 119` base-level mid-chapter on tablet; the 2 build bugs.
+- ✅ **Platform question answered:** e-ink AFFECTED (all editions), tablet clean (1 base
+  break), standalones use the opposite (chapter-per-page) split. **Kindle: the measured
+  artifacts split at the 400 KB default, but that is a STALE-ARTIFACT measurement — the code
+  trace (above) shows the 2 MB `FILE_SPLIT_TARGET_KINDLE` is correctly wired at HEAD;** a
+  fresh `--target-reader kindle` build is expected to pack scripture to ≤2 MB with mid-chapter
+  near-zero (no kindle code fix anticipated, only a re-measure).
+- ⏳ **Owed (Mac or WIN, build-capable):** empirically confirm the 2 MB cap on a *fresh*
+  `--target-reader kindle` build (HEAD wiring is correct per the code trace; only a re-measure
+  is needed). Also: the `psa 119` base-level mid-chapter on tablet; the 2 standalone build bugs.
 - ⏳ **cross-OS verify of WIN's re-cut** — pending WIN landing the packer fix (rebuild on
   macOS → `audit_spine_breaks.py` mid-chapter == 0 across all editions + golden re-baseline
   holds cross-OS).
