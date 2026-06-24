@@ -215,6 +215,27 @@ def en_occurrence_map(translation: str, book: str) -> dict[int, dict[tuple[int, 
     return by_ch
 
 
+# Output-filename script label, derived from the body translation so each standalone
+# Bible's filename is faithful to its own language. Round-13 (Mac): the prefix was a
+# hardcoded "Geez_Standalone", so the Amharic standalone shipped misnamed
+# "Geez_Standalone_standalone-amharic_…". Ge'ez keeps the label "Geez" → its filename is
+# byte-for-byte unchanged.
+_SCRIPT_LABELS = {"geez-tewahedo": "Geez", "amharic-tewahedo": "Amharic"}
+
+
+def _script_label(base_translation: str) -> str:
+    """Script label for the output filename. Falls back to the capitalized first segment
+    of the translation id for any future standalone body store."""
+    if base_translation in _SCRIPT_LABELS:
+        return _SCRIPT_LABELS[base_translation]
+    return base_translation.split("-")[0].capitalize()
+
+
+def _output_filename(base_translation: str, edition_id: str, version: str, ts: str) -> str:
+    """``<Script>_Standalone_<edition_id>_<version>_<ts>.epub``."""
+    return f"{_script_label(base_translation)}_Standalone_{edition_id}_{version}_{ts}.epub"
+
+
 def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
     """Render a standalone Ge'ez Bible EPUB from the own-versification store.
     Returns {"status":"ok","output_path":str,"books":int,"chapters":int} or
@@ -304,7 +325,7 @@ def build_standalone(edition_id: str, output_dir: Path, version: str) -> dict:
         # 7. package
         output_dir.mkdir(parents=True, exist_ok=True)
         ts = time.strftime("%Y%m%d_%H%M%S")
-        out_path = output_dir / f"Geez_Standalone_{edition_id}_{version}_{ts}.epub"
+        out_path = output_dir / _output_filename(base_translation, edition_id, version, ts)
         build_epub.build(tmp, out_path, bump=True)
         return {
             "status": "ok",

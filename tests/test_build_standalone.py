@@ -455,3 +455,87 @@ class TestEnglishPsalmsProofBatch:
         for ch, lst in en.items():
             assert [v for v, _ in lst] == [v for v, _ in geez[ch]], f"Ps {ch}: EN seq != Ge'ez"
             assert all(t.strip() for _v, t in lst), f"Ps {ch}: empty EN"
+
+
+class TestStandaloneFilenamePrefix:
+    """Round-13 (Mac): the output filename hardcoded a ``Geez_Standalone`` prefix, so
+    the Amharic standalone shipped misnamed ``Geez_Standalone_standalone-amharic_…``.
+    The prefix must be derived from the edition's body script — and the Ge'ez filename
+    must stay byte-for-byte unchanged (no churn)."""
+
+    def test_geez_label(self):
+        assert bs._script_label("geez-tewahedo") == "Geez"
+
+    def test_amharic_label(self):
+        assert bs._script_label("amharic-tewahedo") == "Amharic"
+
+    def test_unknown_label_capitalized_fallback(self):
+        assert bs._script_label("syriac-foo") == "Syriac"
+
+    def test_geez_filename_is_byte_stable(self):
+        # The existing Ge'ez filename format must NOT change.
+        fn = bs._output_filename("geez-tewahedo", "standalone-geez", "v28a", "20260101_000000")
+        assert fn == "Geez_Standalone_standalone-geez_v28a_20260101_000000.epub"
+
+    def test_amharic_filename_is_not_geez_prefixed(self):
+        fn = bs._output_filename("amharic-tewahedo", "standalone-amharic", "v28a", "20260101_000000")
+        assert fn == "Amharic_Standalone_standalone-amharic_v28a_20260101_000000.epub"
+        assert "Geez" not in fn
+
+
+class TestStandaloneBuildSummary:
+    """Round-13 (Mac): the post-build summary print in ``main()`` assumed the
+    kind-filter stats shape a normal build returns, so a *successful* standalone build
+    crashed the CLI with ``KeyError: 'enabled_kinds'``. The summary printer must
+    tolerate the standalone shape, and ``build_one`` must raise (not return an error
+    dict) on a standalone failure so callers' except-blocks see it."""
+
+    def test_summary_tolerates_standalone_stats_shape(self, capsys):
+        from scripts import build_edition as be
+
+        stats = {
+            "status": "ok",
+            "output_path": "/tmp/Amharic_Standalone_standalone-amharic_v.epub",
+            "books": 5,
+            "chapters": 120,
+        }
+        be._print_edition_build_summary(stats)  # must NOT raise KeyError
+        out = capsys.readouterr().out
+        assert "Amharic_Standalone_standalone-amharic_v.epub" in out
+        assert "5 books" in out and "120 chapters" in out
+
+    def test_summary_preserves_normal_edition_lines(self, capsys):
+        from scripts import build_edition as be
+
+        stats = {
+            "enabled_kinds": 40,
+            "disabled_kinds": 5,
+            "markers_removed": 10,
+            "asides_removed": 8,
+            "output_path": Path("/tmp/catholic-study.epub"),
+            "size_mb": 12.34,
+        }
+        be._print_edition_build_summary(stats)
+        out = capsys.readouterr().out
+        assert "40 kinds enabled, 5 disabled" in out
+        assert "10 markers + 8 asides" in out
+        assert "catholic-study.epub" in out and "12.34 MB" in out
+
+    def test_summary_skips_output_line_when_show_output_false(self, capsys):
+        from scripts import build_edition as be
+
+        stats = {"enabled_kinds": 1, "disabled_kinds": 0, "markers_removed": 0, "asides_removed": 0}
+        be._print_edition_build_summary(stats, show_output=False)
+        out = capsys.readouterr().out
+        assert "1 kinds enabled" in out
+        assert "✓" not in out  # the output/check line is suppressed
+
+    def test_build_one_raises_on_standalone_error(self, tmp_path, monkeypatch):
+        from scripts import build_edition as be
+
+        monkeypatch.setattr(
+            "scripts.build_standalone.build_standalone",
+            lambda *a, **k: {"status": "error", "message": "no own-versification books found"},
+        )
+        with pytest.raises(Exception, match="no own-versification books"):
+            be.build_one("standalone-geez", tmp_path, "v28a", [], False, False)

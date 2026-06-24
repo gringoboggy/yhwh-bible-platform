@@ -1,8 +1,22 @@
 # In-flight work — current task tracker
 
 <!-- TRACKER-STATE: active -->
-<!-- task: Kobo device-QA fixes (B/C/D) + round-13 joint merge (2026-06-23) -->
+<!-- task: Mac-helping arc — standalone build-bugs DONE; page-break per-book merge + round-13 joint merge (2026-06-24) -->
 
+> **▶ 2026-06-24 (Windows, autonomous Mac-helping session) — IN PROGRESS.**
+> **✅ Slice 1 DONE (committed):** the 2 WIN-surface standalone build-bugs Mac flagged in
+> `dev/audit/spine-breaks-all-editions.md` — (1) `build_one` summary-print `KeyError:'enabled_kinds'`
+> that crashed the CLI *after* a successful standalone build (new `_print_edition_build_summary` +
+> `build_one` raises on standalone error for contract parity); (2) Amharic standalone misnamed
+> `Geez_Standalone_*` (new `_output_filename` derives the script label; Ge'ez filename byte-stable).
+> +9 TDD pins; `test_build_standalone` 52/52. No EPUB-byte change. CHANGELOG 2026-06-24.
+> **▶ NEXT (active WIN slice): the page-break per-book merge** — drop `_VN_LINK_RE` (kills the 130
+> mid-chapter breaks; measured GO) then merge each book's base files into one spine file ≤ ceiling;
+> gate `dev/audit_spine_breaks.py` mid-chapter==0; byte-stability is determinism-based (no global
+> golden hash) — update the packer tests (`test_file_split`). Plan: `dev/audit/page-breaks-root-cause-2026-06-23.md`.
+> Then: verify the Kindle `FILE_SPLIT_TARGET_KINDLE` cap (Mac flagged artifacts split ~495KB), the
+> device-QA E/F/Hebrew fixes, and the round-13 merge remainder (char-vs-byte · 1en · 5 Mac mediums).
+>
 > **▶▶ FRESH AUTONOMOUS SESSION — START HERE (2026-06-23 wrap).** Two live workstreams:
 > 1. **Kobo device-QA B-1/C/D — ✅ FIXED + verified + LOADED (awaiting the user's on-device eyeball).** The user
 >    QA'd the `ethiopian-tewahedo` eink kepub on his color Kobo (Cardo font) → 3 actionable clusters, ALL fixed at

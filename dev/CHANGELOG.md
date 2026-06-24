@@ -4,6 +4,36 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-24 — Mac-helping session: standalone build-bug fixes (Windows; autonomous)
+
+Resumed the in-flight Mac-helping arc (round-13 joint merge + page-break per-book
+merge). First slice: fixed the two WIN-surface standalone-build bugs Mac flagged in
+`dev/audit/spine-breaks-all-editions.md` (both surfaced building standalone-geez/amharic;
+neither corrupts output).
+
+**Test delta:** +9 (new `TestStandaloneFilenamePrefix` + `TestStandaloneBuildSummary` in
+`tests/test_build_standalone.py`; full file 52/52 green incl. real geez builds).
+**Save tag:** pending (this commit).
+
+What shipped:
+- **CLI summary KeyError on a *successful* standalone build.** `build_one`'s post-build
+  summary print assumed the kind-filter stats shape (`enabled_kinds`/…), which the
+  standalone path doesn't produce → `KeyError` aborted the CLI *after* a clean build
+  (exit non-zero). New `_print_edition_build_summary()` is the single printer for both
+  `main()` call sites and tolerates the standalone shape (prints `standalone: N books,
+  M chapters`). `build_one` now RAISES on a standalone error (contract parity) instead
+  of returning an error dict that slipped past callers' except-blocks.
+- **Amharic standalone filename mislabeled `Geez_Standalone_*`.** The output filename
+  hardcoded a `Geez_Standalone` prefix. New `_output_filename()` derives the script
+  label from `base_translation`; Ge'ez keeps `Geez` so its filename is byte-for-byte
+  unchanged, Amharic becomes `Amharic_Standalone_*`.
+
+No EPUB-byte change (CLI/filename only; geez output identical). TDD throughout.
+
+Continuity pointers:
+- `dev/audit/spine-breaks-all-editions.md` (Mac's audit that flagged both)
+- `dev/audit/page-breaks-root-cause-2026-06-23.md` (the next WIN slice: per-book merge)
+
 ## 2026-06-23 (cont.) — Kobo device-QA B-1/C/D FIXED + verified + loaded (Windows; autonomous)
 
 Fixed all three actionable Kobo device-QA defect clusters the user surfaced on his colour Kobo (under his Cardo

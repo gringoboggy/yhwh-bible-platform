@@ -7332,7 +7332,13 @@ def build_one(
     if edition.get("standalone"):
         from scripts import build_standalone
 
-        return build_standalone.build_standalone(edition_id, output_dir, version)
+        standalone_result = build_standalone.build_standalone(edition_id, output_dir, version)
+        # Contract parity: build_one raises on failure (callers' except-blocks handle
+        # it). The standalone path returned an error dict, which slipped past those
+        # handlers and crashed the summary print downstream (round-13, Mac).
+        if standalone_result.get("status") != "ok":
+            raise RuntimeError(standalone_result.get("message") or f"standalone build failed: {edition_id}")
+        return standalone_result
 
     from scripts.core.notes_io import assert_notes_corpus_parseable
 
@@ -7941,6 +7947,31 @@ def cmd_list(eds: list[dict], all_kinds: list[dict]) -> None:
     print()
 
 
+def _print_edition_build_summary(stats: dict, *, show_output: bool = True) -> None:
+    """Print the per-edition build summary lines (after the BOLD edition header).
+
+    Tolerates the standalone build's stats shape (``status`` / ``output_path`` str /
+    ``books`` / ``chapters``), which lacks the kind-filter fields a normal build returns
+    — the missing-key crash that aborted a *successful* standalone build (round-13, Mac).
+    ``show_output=False`` prints the detail lines but suppresses the output/✓ line
+    (the dry-run case)."""
+    if "enabled_kinds" in stats:
+        print(f"  {DIM}{stats['enabled_kinds']} kinds enabled, {stats['disabled_kinds']} disabled{RESET}")
+        print(f"  {DIM}filtered: {stats['markers_removed']} markers + {stats['asides_removed']} asides{RESET}")
+    elif "books" in stats:
+        print(f"  {DIM}standalone: {stats['books']} books, {stats['chapters']} chapters{RESET}")
+    if not show_output:
+        return
+    out = stats.get("output_path")
+    name = Path(out).name if out else "?"
+    size = stats.get("size_mb")
+    if size is None and out and Path(out).exists():
+        size = Path(out).stat().st_size / 1_000_000
+    size_str = f"  {DIM}({size:.2f} MB){RESET}" if isinstance(size, (int, float)) else ""
+    tag = f" {DIM}(cached){RESET}" if stats.get("skipped") else ""
+    print(f"  {GREEN}✓{RESET} {name}{size_str}{tag}")
+
+
 def main() -> None:
     p = argparse.ArgumentParser(
         description="Build a per-edition EPUB from the master corpus.",
@@ -8035,10 +8066,7 @@ def main() -> None:
                 continue
             stats = results[ed_id]
             print(f"\n{BOLD}{ed_id}{RESET}")
-            print(f"  {DIM}{stats['enabled_kinds']} kinds enabled, {stats['disabled_kinds']} disabled{RESET}")
-            print(f"  {DIM}filtered: {stats['markers_removed']} markers + {stats['asides_removed']} asides{RESET}")
-            tag = f" {DIM}(cached){RESET}" if stats.get("skipped") else ""
-            print(f"  {GREEN}✓{RESET} {stats['output_path'].name}  {DIM}({stats['size_mb']:.2f} MB){RESET}{tag}")
+            _print_edition_build_summary(stats)
         print()
         sys.exit(1 if failures else 0)
 
@@ -8061,11 +8089,7 @@ def main() -> None:
             failures += 1
             continue
 
-        print(f"  {DIM}{stats['enabled_kinds']} kinds enabled, {stats['disabled_kinds']} disabled{RESET}")
-        print(f"  {DIM}filtered: {stats['markers_removed']} markers + {stats['asides_removed']} asides{RESET}")
-        if not args.dry_run:
-            tag = f" {DIM}(cached){RESET}" if stats.get("skipped") else ""
-            print(f"  {GREEN}✓{RESET} {stats['output_path'].name}  {DIM}({stats['size_mb']:.2f} MB){RESET}{tag}")
+        _print_edition_build_summary(stats, show_output=not args.dry_run)
 
     sys.exit(0 if failures == 0 else 1)
 
