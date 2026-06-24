@@ -16,12 +16,17 @@
 > `psa 119:88→89` is the documented BASE calibre-split artifact (`index_split_035`), not a packer cut →
 > Part 2 fixes it for free. +2 TDD pins (`TestNoMidChapterSplit`); `test_file_split` 46/46. Companion: fixed
 > a pre-existing glossary-test breakage from the wrap's backmatter WIP (`min(target, default)`; byte-safe).
+> **✅ Page-break Part 2 DONE (per-book base-file merge):** new `_merge_scripture_base_files` concatenates the
+> scripture base files (EINK target only) so a book the calibre base split across files is contiguous; then shards
+> at `FILE_SPLIT_CEILING` (8 MB, device-validated) → one spine file per book (over-ceiling books chapter-split, never
+> mid-chapter). **Verified end-to-end: catholic-study eink 111 mid + 163 chapter → 0 + 0** (only 71 intended
+> book-title breaks; 238→72 pieces); `audit_spine_breaks.py` PASS; **epubcheck 0/0/0/0**; +5 TDD pins incl. eink-merge
+> determinism (the byte-stability guard); `test_file_split` 54/54. The cross-file opener pop is skipped post-merge.
+> **★ The weeks-long page-break defect is RESOLVED on eink (Parts 1+2).** eink-only → tablet/default/KJV untouched.
 > **▶ NEXT (WIN, in priority order):**
-> 1. **Page-break Part 2 — per-book base-file merge:** `apply_file_split` currently shards each base
->    `index_split_NNN` independently and never merges across them, so a book spanning several base files keeps
->    chapter-boundary breaks (163 on catholic-study) + the 1 psa119 base cut. Merge each book's base files into
->    one spine file ≤ a Kobo-safe ceiling (~8–10 MB; device-measured GO), chapter-split only books that exceed
->    it. Gate `audit_spine_breaks.py` mid-chapter==0 + chapter-breaks only on genuinely over-ceiling books.
+> 1. **Mac cross-OS verify Parts 1+2 + re-baseline `dev/audit/spine-breaks-all-editions.md`** across all editions
+>    (instructed in `LANE_HANDOFF.md`); then confidence-rebuild the flagship ethiopian-tewahedo eink → `audit_spine_breaks`
+>    PASS → stage the merged `.kepub` for the user's on-device eyeball.
 > 2. **Hebrew/Arabic font fix** per Mac's `dev/audit/kobo-font-override-research.md` — 3-part (embed Noto Naskh
 >    Arabic + `!important` original-language `font-family` + Ge'ez→`"Noto Serif Ethiopic"` + greek-nt stack;
 >    eink "Publisher Default" front-matter page). **MUST gate to eink/non-KJV** (no KJV golden gate → changing the

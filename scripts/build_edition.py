@@ -5175,6 +5175,89 @@ def _patch_study_glossary_nav(tmp: Path, plan: dict[str, list[tuple[str, str]]],
             ncx_path.write_text(_renumber_ncx_play_order(pat.sub(nested_np, ncx, count=1)), encoding="utf-8")
 
 
+# Page-break fix Part 2 — per-book base-file ceiling. After the scripture base files are
+# merged (below), the combined stream is re-sharded at THIS cap instead of the 400 KB
+# default, so each book becomes one spine file when it fits; only a book that genuinely
+# exceeds the ceiling splits (at chapter boundaries — never mid-chapter, Part 1). The Kobo
+# device measurement (2026-06-24) confirmed merged scripture pieces up to ~6.2 MB render
+# without lag; 8 MB gives headroom. The study-glossary backmatter is unaffected (it keeps
+# the 400 KB cap via the min() in apply_file_split — it is navigated, not read linearly).
+FILE_SPLIT_CEILING = 8_000_000
+
+
+def _merge_scripture_base_files(tmp: Path) -> int:
+    """Concatenate the scripture ``index_split_*.html`` base files (EXCLUDING the
+    study-glossary backmatter stem) into the FIRST one, keeping its name + spine slot.
+
+    The calibre base splits a long book across several files at ~chapter boundaries; on a
+    Kobo kepub every spine-file boundary forces a page break, so those per-base-file SEAMS
+    appear as spurious chapter-boundary breaks mid-book (page-break fix Part 2, 2026-06-24).
+    Merging makes each book contiguous; the subsequent ``apply_file_split`` sharding then
+    re-cuts the combined stream at book/chapter boundaries up to ``FILE_SPLIT_CEILING`` —
+    book-title isolation keeps the intended per-book page break, and an over-cap chapter
+    never splits between verses (Part 1).
+
+    ids are NOT changed, so every ``#frag`` target still resolves; only the filename
+    changes. Rewrites ``content.opf`` (drops the merged-away items + itemrefs; the kept
+    file stays in its spine slot) and every cross-file href (merged-away filename → the
+    kept name) in nav/ncx/content files. Returns the count of files merged away (0 when
+    there are fewer than two scripture base files → byte-identical no-op)."""
+    srcs = [p for p in list_split_html_files(tmp) if p.stem != EINK_STUDY_BACKMATTER_STEM]
+    if len(srcs) < 2:
+        return 0
+    keep, merged_away = srcs[0], srcs[1:]
+
+    keep_parts = _split_head_body_tail(keep.read_text(encoding="utf-8"))
+    if keep_parts is None:
+        return 0  # malformed — never risk a bad merge
+    head, body, tail = keep_parts
+    bodies = [body]
+    for p in merged_away:
+        pp = _split_head_body_tail(p.read_text(encoding="utf-8"))
+        if pp is None:
+            return 0
+        bodies.append(pp[1])
+    keep.write_text(head + "\n".join(bodies) + tail, encoding="utf-8")
+    for p in merged_away:
+        p.unlink()
+
+    remap = {p.name: keep.name for p in merged_away}
+
+    # content.opf — drop each merged-away <item> + its <itemref> (the kept file's item,
+    # same name, stays in its spine position so order is preserved).
+    opf_path = tmp / "content.opf"
+    if opf_path.is_file():
+        opf_text = opf_path.read_text(encoding="utf-8")
+        for name in remap:
+            item_m = re.search(rf'<item\b[^>]*\bhref="{re.escape(name)}"[^>]*/>', opf_text)
+            if not item_m:
+                continue
+            idm = re.search(r'\bid="([^"]+)"', item_m.group(0))
+            opf_text = re.sub(r"\s*" + re.escape(item_m.group(0)), "", opf_text, count=1)
+            if idm:
+                opf_text = re.sub(
+                    r'\s*<itemref\b[^>]*\bidref="' + re.escape(idm.group(1)) + r'"[^>]*/>',
+                    "",
+                    opf_text,
+                    count=1,
+                )
+        opf_path.write_text(opf_text, encoding="utf-8")
+
+    # Rewrite the merged-away filenames → the kept name in every content file (nav/ncx/
+    # pieces/matter); #frag targets are unchanged so they still resolve in the combined file.
+    for fp in sorted(tmp.iterdir()):
+        if fp.suffix not in (".html", ".xhtml", ".ncx"):
+            continue
+        txt = fp.read_text(encoding="utf-8")
+        new = txt
+        for old, new_name in remap.items():
+            new = new.replace(old, new_name)
+        if new != txt:
+            fp.write_text(new, encoding="utf-8")
+
+    return len(merged_away)
+
+
 def apply_file_split(tmp: Path, edition: dict) -> dict:
     """Split the per-edition temp tree's big ``index_split_*.html`` files into ~0.4 MB
     pieces, remap every cross-file href, and regenerate the OPF manifest+spine +
@@ -5184,6 +5267,16 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     if not resolve_reader_file_split(edition):
         return stats
     target = resolve_file_split_target(edition)
+
+    # Page-break fix Part 2: on the EINK target (where Kobo's kepub renderer forces a page
+    # break at every spine-file boundary) merge the scripture base files so each book is
+    # contiguous, then shard the combined stream at the per-book ceiling — so a book the
+    # calibre base split across several files becomes one spine file (no mid-book seam
+    # breaks), splitting only a book that genuinely exceeds the ceiling (at chapter
+    # boundaries, never mid-chapter). Tablet doesn't shard; the default/everywhere build is
+    # read on CSS-page-break-capable readers — neither needs the merge.
+    merged_count = _merge_scripture_base_files(tmp) if resolve_target_reader(edition) == "eink" else 0
+    scripture_target = FILE_SPLIT_CEILING if merged_count else target
 
     src_files = list_split_html_files(tmp)
     if not src_files:
@@ -5204,7 +5297,7 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
             plan[p.name] = split_html_document(
                 text,
                 p.stem,
-                target,
+                scripture_target,
                 keep_inline_verse_notes=(
                     resolve_target_reader(edition) == "eink"
                     and resolve_reader_eink_study_layout(edition) in ("inline", "popup")
@@ -5217,8 +5310,10 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     # chapter's verses start the next file. Move the trailing opener into the
     # NEXT file's first piece. Runs BEFORE the idmap is built, so every link to
     # the moved ids follows automatically. Skipped when the next file opens with
-    # a book-title page (an opener never precedes a new book).
-    ordered = sorted(plan.keys())
+    # a book-title page (an opener never precedes a new book). Also skipped entirely
+    # after a per-book merge: the base-file seams this fixes no longer exist (scripture
+    # is one file), and the intra-file trailing-opener pop in split_html_document covers it.
+    ordered = [] if merged_count else sorted(plan.keys())
     popped: set[str] = set()
     for a, b in zip(ordered, ordered[1:], strict=False):
         last_name, last_text = plan[a][-1]

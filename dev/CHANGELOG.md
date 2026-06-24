@@ -59,6 +59,34 @@ over-cap chapter becomes its own over-cap piece.
 No KJV-byte change intended (the split editions re-cut; the 9 KJV editions hold via
 determinism + Mac cross-OS verify). TDD throughout.
 
+**Page-break fix — Part 2: per-book base-file merge (the chapter-boundary breaks).**
+`apply_file_split` sharded each calibre base `index_split_NNN.html` independently and never
+merged across them, so a book the base split across several files kept a spine SEAM (= a
+Kobo page break) at each base-file boundary. New `_merge_scripture_base_files` concatenates
+the scripture base files into one (excluding the navigated study-glossary backmatter;
+regens OPF/nav/ncx + remaps hrefs; ids unchanged so `#frag` still resolves), so each book
+is contiguous. `apply_file_split` runs it **only for the eink target** (where every spine
+boundary forces a page break; tablet doesn't shard, default/everywhere reads on
+CSS-page-break-capable readers), then shards the combined stream at a per-book
+`FILE_SPLIT_CEILING` (8 MB, device-validated ≤6.2 MB renders fine) — each book becomes one
+spine file, splitting only an over-ceiling book at chapter boundaries (never mid-chapter).
+
+- **Verified end-to-end on real data:** `catholic-study --target-reader eink` went from
+  **111 mid-chapter + 163 chapter-boundary breaks → 0 + 0** (only 71 intended book-title
+  breaks; scripture pieces 238 → 72). The lone `psa 119` base artifact from Part 1 is gone.
+  `dev/audit_spine_breaks.py` **RESULT: PASS**; **epubcheck 0/0/0/0** on the merged build.
+- **+5 TDD pins** (`TestMergeScriptureBaseFiles`: concatenation, glossary-excluded, OPF/nav/
+  ncx remap, no-op on a single file, end-to-end eink book-unification, default-target-does-
+  not-merge, **eink merge determinism** — the byte-stability guard since there's no golden
+  hash). `test_file_split` 54/54 (`-m "not slow"`).
+- The cross-file opener pop (K-R2-4) is skipped after a merge (its base-file seams no longer
+  exist; the intra-file trailing-opener pop covers it). eink-only → tablet/default/KJV builds
+  unchanged; determinism-pinned.
+
+**The weeks-long "page breaks throughout the Bibles" defect is resolved on eink** (Parts 1+2,
+catholic-study verified). Remaining: Mac cross-OS verify + re-baseline across all editions;
+the eink Hebrew/Arabic font fix; device-QA E/F. No KJV-byte change (eink-gated).
+
 Continuity pointers:
 - `dev/audit/spine-breaks-all-editions.md` (Mac's audit that flagged both standalone bugs)
 - `dev/audit/page-breaks-root-cause-2026-06-23.md` (the page-break plan; Part 2 = per-book merge)

@@ -1148,3 +1148,210 @@ class TestNoMidChapterSplit:
         assert len(ch1) == 1, f"ch1 verses split across pieces {ch1} — mid-chapter cut"
         assert len(ch2) == 1, f"ch2 verses split across pieces {ch2} — mid-chapter cut"
         assert ch1 != ch2, "two over-target chapters should still split into separate pieces"
+
+
+def _scripture_file(body_inner: str) -> str:
+    return (
+        "<?xml version='1.0' encoding='utf-8'?>\n"
+        '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">\n'
+        '<head><title>T</title><link rel="stylesheet" type="text/css" href="stylesheet.css"/></head>\n'
+        '<body class="bible-body">\n' + body_inner + "\n</body></html>"
+    )
+
+
+def _chapter_block(book_idx: int, ch: int, *, title: str | None = None) -> str:
+    parts = []
+    if title is not None:
+        parts.append(
+            f'<div class="book-title-page" id="bp-{book_idx:02d}" epub:type="bodymatter"><h1>{title}</h1></div>'
+        )
+    parts.append(f'<a id="ch-b{book_idx:02d}-c{ch}" class="ch-anchor"></a>')
+    parts.append(f'<p id="page_{ch}" class="ch-heading"><span class="bold-num">{ch}</span></p>')
+    parts.append(
+        f'<p class="verse-p"><a class="vn-link" id="v-x{book_idx}-{ch}-1" href="#vnote-x{book_idx}-{ch}-1" '
+        f'epub:type="noteref"><span class="vn">1</span></a> book {book_idx} chapter {ch}.</p>'
+    )
+    parts.append(
+        f'<aside class="notes-section" epub:type="footnotes" hidden="">'
+        f'<aside class="vnote" id="vnote-x{book_idx}-{ch}-1" epub:type="footnote"><p>n</p></aside></aside>'
+    )
+    return "\n".join(parts)
+
+
+# A 3-file scripture run where ONE book (Genesis, bp-00) spans all three calibre base
+# files (calibre cuts a long book across files at ~chapter boundaries) + the study-glossary
+# backmatter (index_split_900) that must NOT merge. nav/ncx/opf reference all four.
+_MERGE_OPF = (
+    '<?xml version="1.0" encoding="UTF-8"?>\n'
+    '<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uuid_id">\n'
+    "  <metadata/>\n  <manifest>\n"
+    '    <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>\n'
+    '    <item id="titlepage" href="titlepage.xhtml" media-type="application/xhtml+xml"/>\n'
+    '    <item id="s0" href="index_split_000.html" media-type="application/xhtml+xml"/>\n'
+    '    <item id="s1" href="index_split_001.html" media-type="application/xhtml+xml"/>\n'
+    '    <item id="s2" href="index_split_002.html" media-type="application/xhtml+xml"/>\n'
+    '    <item id="gloss" href="index_split_900.html" media-type="application/xhtml+xml"/>\n'
+    '    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>\n'
+    '    <item id="css" href="stylesheet.css" media-type="text/css"/>\n'
+    "  </manifest>\n"
+    '  <spine toc="ncx">\n'
+    '    <itemref idref="titlepage"/>\n'
+    '    <itemref idref="s0"/>\n    <itemref idref="s1"/>\n    <itemref idref="s2"/>\n'
+    '    <itemref idref="gloss"/>\n'
+    "  </spine>\n</package>\n"
+)
+_MERGE_NAV = (
+    '<?xml version="1.0" encoding="utf-8"?>\n'
+    '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">\n'
+    "<head><title>Navigation</title></head><body>\n"
+    '<nav epub:type="toc" id="toc"><h2>Contents</h2><ol>\n'
+    '<li><a href="index_split_000.html#bp-00">Genesis</a></li>\n'
+    '<li><a href="index_split_001.html#ch-b00-c2">2</a></li>\n'
+    '<li><a href="index_split_002.html#ch-b00-c3">3</a></li>\n'
+    '<li><a href="index_split_900.html">Study Notes</a></li>\n'
+    "</ol></nav></body></html>\n"
+)
+_MERGE_NCX = (
+    "<?xml version='1.0' encoding='utf-8'?>\n"
+    '<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1"><head/>'
+    "<docTitle><text>T</text></docTitle><navMap>\n"
+    '<navPoint id="n1" playOrder="1"><navLabel><text>Genesis</text></navLabel>'
+    '<content src="index_split_000.html#bp-00"/></navPoint>\n'
+    '<navPoint id="n2" playOrder="2"><navLabel><text>2</text></navLabel>'
+    '<content src="index_split_001.html#ch-b00-c2"/></navPoint>\n'
+    "</navMap></ncx>\n"
+)
+
+
+class TestMergeScriptureBaseFiles:
+    """Page-break fix Part 2: a book the calibre base split across several
+    ``index_split_*.html`` files becomes contiguous when those files are concatenated
+    into one — so the per-base-file spine SEAMS (which Kobo renders as page breaks at
+    chapter boundaries) disappear. The study-glossary backmatter (index_split_900) is
+    NAVIGATED, not read linearly, so it must NOT be merged."""
+
+    def _setup(self, tmp_path, name="build"):
+        tmp = tmp_path / name
+        tmp.mkdir()
+        (tmp / "index_split_000.html").write_text(
+            _scripture_file(_chapter_block(0, 1, title="Genesis")), encoding="utf-8"
+        )
+        (tmp / "index_split_001.html").write_text(_scripture_file(_chapter_block(0, 2)), encoding="utf-8")
+        (tmp / "index_split_002.html").write_text(_scripture_file(_chapter_block(0, 3)), encoding="utf-8")
+        (tmp / "index_split_900.html").write_text(
+            _scripture_file('<h2 class="study-book-head" id="study-b0">Notes</h2><p>gloss</p>'), encoding="utf-8"
+        )
+        (tmp / "content.opf").write_text(_MERGE_OPF, encoding="utf-8")
+        (tmp / "nav.xhtml").write_text(_MERGE_NAV, encoding="utf-8")
+        (tmp / "toc.ncx").write_text(_MERGE_NCX, encoding="utf-8")
+        return tmp
+
+    def test_merges_scripture_files_keeping_glossary_separate(self, tmp_path):
+        from scripts import build_edition as be
+
+        tmp = self._setup(tmp_path)
+        n = be._merge_scripture_base_files(tmp)
+        assert n == 2, "files 001 + 002 merge into 000"
+        assert (tmp / "index_split_000.html").exists()
+        assert not (tmp / "index_split_001.html").exists()
+        assert not (tmp / "index_split_002.html").exists()
+        assert (tmp / "index_split_900.html").exists(), "the study-glossary backmatter must NOT merge"
+
+    def test_combined_file_holds_every_chapter_and_is_wellformed(self, tmp_path):
+        from scripts import build_edition as be
+
+        tmp = self._setup(tmp_path)
+        be._merge_scripture_base_files(tmp)
+        combined = (tmp / "index_split_000.html").read_text(encoding="utf-8")
+        for marker in (
+            'id="bp-00"',
+            'id="ch-b00-c1"',
+            'id="ch-b00-c2"',
+            'id="ch-b00-c3"',
+            'id="v-x0-1-1"',
+            'id="v-x0-2-1"',
+            'id="v-x0-3-1"',
+        ):
+            assert combined.count(marker) == 1, f"{marker} count {combined.count(marker)} != 1 in combined file"
+        assert combined.count("<body") == 1 and combined.count("</body>") == 1, "exactly one body in the combined doc"
+        assert combined.count("<html") == 1 and combined.rstrip().endswith("</html>")
+        assert combined.startswith("<?xml")
+
+    def test_opf_drops_merged_itemrefs_keeps_order(self, tmp_path):
+        from scripts import build_edition as be
+
+        tmp = self._setup(tmp_path)
+        be._merge_scripture_base_files(tmp)
+        opf = (tmp / "content.opf").read_text(encoding="utf-8")
+        assert "index_split_001.html" not in opf and "index_split_002.html" not in opf
+        assert opf.count('href="index_split_000.html"') == 1, "the combined scripture item remains once"
+        assert "index_split_900.html" in opf, "glossary item kept"
+        # spine order preserved: titlepage → combined scripture → glossary
+        assert opf.index('idref="s0"') < opf.index('idref="gloss"')
+        assert opf.index('idref="titlepage"') < opf.index('idref="s0"')
+        assert 'idref="s1"' not in opf and 'idref="s2"' not in opf
+
+    def test_cross_file_hrefs_remap_to_combined(self, tmp_path):
+        from scripts import build_edition as be
+
+        tmp = self._setup(tmp_path)
+        be._merge_scripture_base_files(tmp)
+        nav = (tmp / "nav.xhtml").read_text(encoding="utf-8")
+        ncx = (tmp / "toc.ncx").read_text(encoding="utf-8")
+        assert "index_split_001.html" not in nav and "index_split_002.html" not in nav
+        assert "index_split_001.html" not in ncx
+        # the chapter anchors now live in the combined file, so their nav/ncx hrefs point there
+        assert 'href="index_split_000.html#ch-b00-c2"' in nav
+        assert 'href="index_split_000.html#ch-b00-c3"' in nav
+        assert 'src="index_split_000.html#ch-b00-c2"' in ncx
+
+    def test_noop_when_single_scripture_file(self, tmp_path):
+        from scripts import build_edition as be
+
+        tmp = tmp_path / "one"
+        tmp.mkdir()
+        before = _scripture_file(_chapter_block(0, 1, title="Genesis"))
+        (tmp / "index_split_000.html").write_text(before, encoding="utf-8")
+        (tmp / "index_split_900.html").write_text(_scripture_file("<p>gloss</p>"), encoding="utf-8")
+        (tmp / "content.opf").write_text(_MERGE_OPF, encoding="utf-8")
+        n = be._merge_scripture_base_files(tmp)
+        assert n == 0, "a single scripture file (besides the glossary) needs no merge"
+        assert (tmp / "index_split_000.html").read_text(encoding="utf-8") == before
+
+    def test_apply_file_split_eink_unifies_a_split_book(self, tmp_path):
+        from scripts import build_edition as be
+
+        # End-to-end: a book the base split across 3 files, built for the eink target,
+        # must end up with all its chapters in ONE spine body piece (no per-base-file
+        # seam break) — the title page stays its own piece (intended per-book break).
+        tmp = self._setup(tmp_path)
+        be.apply_file_split(tmp, {"id": "x", "reader_file_split": True, "target_reader": "eink"})
+        pieces = {p.name: p.read_text(encoding="utf-8") for p in sorted(tmp.glob("index_split_*.html"))}
+        holders = {n for n, t in pieces.items() for ch in ("ch-b00-c1", "ch-b00-c2", "ch-b00-c3") if f'id="{ch}"' in t}
+        assert len(holders) == 1, f"book chapters split across pieces {holders} — merge didn't unify the book"
+        title_pieces = {n for n, t in pieces.items() if 'id="bp-00"' in t}
+        assert len(title_pieces) == 1, "the book-title page is its own piece (intended per-book break)"
+        assert holders != title_pieces, "chapters lead a fresh piece after the title singleton"
+
+    def test_apply_file_split_default_target_does_not_merge(self, tmp_path):
+        from scripts import build_edition as be
+
+        # The default (no target_reader) build must NOT merge — only the eink target does.
+        tmp = self._setup(tmp_path)
+        be.apply_file_split(tmp, {"id": "x", "reader_file_split": True})
+        # the per-base-file structure is preserved (each base file shards independently);
+        # the second base file's content is NOT absorbed into the first.
+        names = sorted(p.name for p in tmp.glob("index_split_*.html"))
+        assert any(n.startswith("index_split_001") for n in names), f"default build merged unexpectedly: {names}"
+
+    def test_eink_merge_is_deterministic(self, tmp_path):
+        from scripts import build_edition as be
+
+        # Byte-stability for the merge path is determinism-based (no golden hash): the
+        # eink per-book merge + re-shard must produce byte-identical output across runs.
+        def run(name):
+            tmp = self._setup(tmp_path, name)
+            be.apply_file_split(tmp, {"id": "x", "reader_file_split": True, "target_reader": "eink"})
+            return {p.name: p.read_text(encoding="utf-8") for p in sorted(tmp.glob("*")) if p.is_file()}
+
+        assert run("a") == run("b"), "eink per-book merge is not deterministic"
