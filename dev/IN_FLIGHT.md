@@ -23,10 +23,15 @@
 > book-title breaks; 238→72 pieces); `audit_spine_breaks.py` PASS; **epubcheck 0/0/0/0**; +5 TDD pins incl. eink-merge
 > determinism (the byte-stability guard); `test_file_split` 54/54. The cross-file opener pop is skipped post-merge.
 > **★ The weeks-long page-break defect is RESOLVED on eink (Parts 1+2).** eink-only → tablet/default/KJV untouched.
+> **✅ FLAGSHIP VERIFIED (the user's exact 130-break case):** `ethiopian-tewahedo --target-reader eink` rebuilt →
+> **130 mid + 40 chapter breaks → 0 + 0** (77 intended book-title breaks; scripture pieces → 77; 29.69 MB);
+> `audit_spine_breaks.py` PASS; **epubcheck 0/0/0/0**; kepubified → `YHWH-koboQA.kepub.epub` (39.1 MB).
+> **⏳ STAGED for the user's device eyeball at `C:\Users\bogda\YHWH-device-staging\YHWH-koboQA.kepub.epub`** (the Kobo
+> `G:` is NOT mounted — when the user connects it, DELETE the old `G:\YHWH-koboQA.kepub.epub` then copy this one).
 > **▶ NEXT (WIN, in priority order):**
-> 1. **Mac cross-OS verify Parts 1+2 + re-baseline `dev/audit/spine-breaks-all-editions.md`** across all editions
->    (instructed in `LANE_HANDOFF.md`); then confidence-rebuild the flagship ethiopian-tewahedo eink → `audit_spine_breaks`
->    PASS → stage the merged `.kepub` for the user's on-device eyeball.
+> 1. **[USER] device eyeball** of the staged flagship kepub on the color Kobo (confirms the page-break fix on-device);
+>    **Mac cross-OS verify Parts 1+2 + re-baseline `dev/audit/spine-breaks-all-editions.md`** across all editions
+>    (instructed in `LANE_HANDOFF.md`; Mac already pushed `spine-breaks-post-part1.json`).
 > 2. **Hebrew/Arabic font fix** per Mac's `dev/audit/kobo-font-override-research.md` — 3-part (embed Noto Naskh
 >    Arabic + `!important` original-language `font-family` + Ge'ez→`"Noto Serif Ethiopic"` + greek-nt stack;
 >    eink "Publisher Default" front-matter page). **MUST gate to eink/non-KJV** (no KJV golden gate → changing the
