@@ -14,8 +14,12 @@
 >    ornament `❖→❦`); **C** = dict/topic body-boiler strip (lossless); **D** = eink popup CSS (caught+fixed a real
 >    CSS-001 `direction` en route). All eink-only → 9-KJV byte-stable editions untouched. Detail: `dev/CHANGELOG.md`
 >    (2026-06-23) + `dev/audit/kobo-device-qa-2026-06-23.md`. **▶ NEXT: user ejects/reconnects + eyeballs on-device;**
->    if good, fold device-QA into the round-13 merge. **STILL DEFERRED:** **A** (mid-chapter page-break → the
->    char-vs-byte all-edition re-cut) · **B-2** spacing + **B-3** dagger→"II" (await repro / `dev/HUMAN_DECISIONS.md`).
+>    if good, fold device-QA into the round-13 merge. **A (page breaks) — 🔴 ROOT-CAUSED + ACTIVE (NEW top
+>    priority):** the file-split packer cuts spine files BETWEEN VERSES (400 KB cap + `_VN_LINK_RE`) → **130
+>    mid-chapter + 40 chapter breaks** on the flagship; new deterministic finder `dev/audit_spine_breaks.py`;
+>    user chose "measure, then merge per-book" + asked Mac to help after its current tasks. Plan + lane-split =
+>    `dev/audit/page-breaks-root-cause-2026-06-23.md`; byte-stability-critical (golden re-baseline). **B-2**
+>    spacing + **B-3** dagger→"II" still await repro / `dev/HUMAN_DECISIONS.md`.
 >    Kobo at `G:` (`KOBOeReader`), kepubify on-box; STANDING: always DELETE the old `YHWH-koboQA.kepub.epub` before
 >    copying. Font pack settled = Cardo + Geʽez + Arabic (3 fonts / 5 files), pushed.
 > 2. **Round-13 grand-audit joint merge:** WIN OPEN #5/#6/#9 done+pushed (`11b86baf`/`42da11c3`).
