@@ -21,8 +21,16 @@ QA finding). ✅
 | **catholic-study** | **111** mid · 36 ch | *(predict ~1)* | **108** mid · 36 ch |
 | **evangelical-reformed** | **109** mid · 35 ch | *(predict ~1)* | *(predict heavy)* |
 | **eastern-orthodox** | **111** mid · 37 ch | *(predict ~1)* | *(predict heavy)* |
-| **standalone geez** | *(building)* | *(building)* | — |
-| **standalone amharic** | *(building)* | *(building)* | — |
+| **standalone geez** | **0** mid · 161 ch ‡ | n/a (no reader profiles) | — |
+| **standalone amharic** | **0** mid · 125 ch ‡ | n/a | — |
+
+‡ The standalone build path (`build_standalone.py`) emits **one spine file per chapter**
+(`geez_{book}_{ch}.xhtml`, :264) → it never cuts mid-chapter (**0 ERROR**), but every
+chapter is its own spine file → a forced page break at **every** chapter (161 geez / 125
+amharic). So the standalone Bibles do NOT have the mid-chapter bug, but they sit at the
+*opposite* extreme of the study editions: maximally split (chapter-per-page) rather than
+400 KB-packed. WIN's "merge per-book up to the Kobo limit" applies here too (collapse the
+per-chapter files into per-book files within the device size limit).
 
 Artifacts audited (dates): eink = `build/round9-kobo-tap` (ethiopian, 06-17) +
 `build/matrix-m3` (the other 3 study editions, kobo kepub, v0.1.0); tablet =
@@ -62,11 +70,25 @@ m4b 06-18). All pre-re-cut → the live baseline.
   splits + intended book-title pages. The user's model keeps book-title breaks; whether to
   also merge across base chapter boundaries is the "measure the Kobo limit" question (WIN).
 
+## Two minor build bugs found while building the standalones (WIN surface — flagged, not fixed)
+
+Both surfaced building `standalone-geez` / `standalone-amharic` (`scripts/build_edition.py`,
+Mac is verify-only there). Neither corrupts output (the epub is packaged before the crash /
+the name is cosmetic):
+1. **`KeyError: 'enabled_kinds'`** at `build_edition.py:8060` — the post-build summary print
+   assumes a `stats` shape the standalone path doesn't produce → the CLI exits non-zero
+   *after* a successful build. Guard the print for standalone editions.
+2. **Amharic epub misnamed `Geez_Standalone_standalone-amharic_…`** — the title/filename
+   template hardcodes the `Geez_Standalone` prefix; the Amharic standalone inherits it.
+
 ## Status / remaining
 
-- ✅ 4 study editions × {eink, tablet*, kindle*} from existing artifacts (*partial per the
-  matrix). epub≡kepub confirmed.
-- ⏳ **standalone geez + amharic** — no built artifacts on disk → building eink (the affected
-  platform) to complete the edition coverage; results appended below.
+- ✅ **All 6 editions audited** (4 study + 2 standalone) across the platforms that matter;
+  epub≡kepub confirmed; toolchain validated vs WIN's flagship measurement.
+- ✅ **Platform question answered:** e-ink AFFECTED (all editions), kindle AFFECTED (cap not
+  applied), tablet clean (1 base break), standalones use the opposite (chapter-per-page) split.
+- ⏳ **WIN to verify:** a fresh `--target-reader kindle` build actually applies the 2 MB cap
+  (these artifacts don't); the `psa 119` base-level mid-chapter on tablet; the 2 build bugs.
 - ⏳ **cross-OS verify of WIN's re-cut** — pending WIN landing the packer fix (rebuild on
-  macOS → `audit_spine_breaks.py` mid-chapter == 0 + golden re-baseline holds).
+  macOS → `audit_spine_breaks.py` mid-chapter == 0 across all editions + golden re-baseline
+  holds cross-OS).
