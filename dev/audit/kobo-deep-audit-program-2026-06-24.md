@@ -160,11 +160,16 @@ flagship eink + kepubify + epubcheck 0/0/0/0 + auditor green + Kobo device eyeba
       survive kepubify**. 9-KJV/tablet/default base untouched (eink-gated, no re-baseline). TDD 24 pins +
       file-split 54. **epubcheck 0/0/0/0 ✓ · Mac cross-OS PASS ✓ (`39799498`, incl. byte-stability eink-gate).**
       ⏳ device eyeball (HUMAN_DECISIONS).
-- [ ] WS1 mixed-translation: normalize KJV-contaminated verses → WEB (NO guessing). **SCOPED →
-      `dev/audit/ws1-mixed-translation-worklist.md`:** 67 candidates (18 ¶ + 49 non-apocrypha [bracket]);
-      WEB source CACHED (`content/translations/sources/web/eng-web_vpl.txt`). ⚠ per-verse VERIFY (base vs WEB —
-      the [bracket] signal can false-positive) ; **act 24:7 + luk 17:36 are WEB-OMITTED (textual-critical, KJV-only —
-      decide keep/footnote/omit).** Impl = a verify→replace workflow + base eink-gate/re-baseline + build-verify.
+- [ ] WS1 "¶" (was "mixed-translation") — **ROOT CAUSE CORRECTED by Mac (`90d48cfb`,
+      `dev/audit/ws1-mixed-translation-finding.md`): NOT KJV-in-WEB / NOT a verse rewrite.** It's a
+      **dropped verse boundary**: **162 EMPTY verse anchors** whose WEB text was merged into the *next* verse
+      (base[N+1] = WEB[N]+WEB[N+1]); on eink the empty verse's inlined KJV popup shows its ¶ = the "weird symbol."
+      **Fix = RE-SPLIT** base[N+1] at the WEB[N]/WEB[N+1] seam, moving WEB[N] back under the empty v-N anchor —
+      **NO wording change** (data: `dev/audit/ws1-empty-verse-resplit-data.json`). My earlier worklist
+      (`ws1-mixed-translation-worklist.md`) used the WRONG (KJV→WEB-rewrite) premise → **SUPERSEDED**, do not action.
+      162-verse all-edition versification re-baseline → **USER RATIFICATION queued in `dev/HUMAN_DECISIONS.md`**;
+      34 triage cases (legit WEB omissions + Sirach/deuterocanon offsets). **Sub-task: correct the auditor to detect
+      EMPTY verse anchors** (the ¶/bracket classes are wrong — Mac proof: 0 body ¶, all 2,970 are KJV popups).
 - [x] **WS2 note-cascade de-dup DONE** (`8115876f`). Class 1 — drop leaf `note-sym` in grouped
       `_emit_cascade_sections`; Class 2 — strip `xref-citation`/`text-witness` body lead-ins
       (`_strip_redundant_body_boilerplate`, exact-kind, s1_dedup-gated). 6 TDD pins + 96 cascade green.

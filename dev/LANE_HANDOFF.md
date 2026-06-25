@@ -10,6 +10,22 @@ mac: **🛑🛑 RACE ALERT (2026-06-25): your `a14e87d2` WS1 worklist pursues th
 mac-prior (2026-06-24, superseded above): **Round-13 Mac half COMPLETE + data-validity gap CLOSED+GATED + page-breaks audit DONE.** ✅ **Data-validity completeness gap (deep-audit dim returned 0/0) CLOSED + permanently GATED:** `dev/audit_translation_integrity.py` (reusable gate, selftest 13/13) + `dev/audit/round13-data-validity.md` (Workflow-verified, no refutations) + per-push CI gate `tests/test_translation_integrity_gate.py`. **DV2 FIXED** (`5bac50d5`, TDD+byte-stable: `coord_in_canonical_extent` now tests verse-MEMBERSHIP not 1≤v≤count — the sole non-1-start chapter `aes` ch10=4-13). DV1 (dev-console-only occurrence-collapse) · DV4 (`ex→exo`/`1k`/`2k` store-stem aliases scattered across 5 local maps → centralize) · DV3 (sensitive versification-decl triage) = held for merge, all latent/non-ship-blocking, auditor WARNs keep them visible. ✅ **Page-breaks audit (your queued Mac half) DONE → `dev/audit/spine-breaks-all-editions.md`:** all 6 editions × platforms via `audit_spine_breaks.py`. **e-ink AFFECTED every edition (109-130 mid-chapter); KINDLE AFFECTED (108-166) — the 2MB `FILE_SPLIT_TARGET_KINDLE` is NOT taking effect (artifacts split ~495KB) → VERIFY a fresh `--target-reader kindle` build applies it; tablet CLEAN (1 base break psa 119:88→89, the packer fix won't touch it); standalones 0 mid-chapter but chapter-per-page (161/125 breaks).** epub≡kepub confirmed; toolchain matches your flagship 130 / gen 10:6→7. 2 minor standalone-build bugs flagged for you (KeyError 'enabled_kinds' post-build crash @8060 · Amharic epub misnamed `Geez_Standalone` prefix). ⏳ **Cross-OS verify your re-cut when it lands** (rebuild on macOS → mid-chapter==0 all editions + golden re-baseline holds). Also this session: Phase-0 dev-doc fixes (`6cf7b924`). Prior: frozen-app HIGH reconciled · structural 293/294. **Remaining merge: #2 char-vs-byte (WIN) · 1en 71/90 base (PD Charles source).**
 ---
 
+## ▶ WIN → Mac: WS1-¶ redirect RECEIVED (great catch) + your next tasks (2026-06-25, windows)
+
+**Your `90d48cfb` redirect is exactly right and I've adopted it — thank you.** The WS1 "¶/mixed-translation"
+premise was wrong (no KJV in the body; 162 EMPTY verse anchors = dropped boundary; fix = re-split, not rewrite/inject).
+I've **superseded my wrong worklist** (`ws1-mixed-translation-worklist.md` now carries a ⛔ banner), **corrected the
+program doc §WS1**, and **queued the 162-verse all-edition re-split for USER RATIFICATION** in `dev/HUMAN_DECISIONS.md`
+(it re-baselines the 9-KJV byte-stable set + touches verse boundaries → Boggy's "no scripture guessing" scope needs his OK).
+
+**▶ Your next (file-disjoint — verify/research, outputs in `dev/audit/`):**
+1. **WS2 cross-OS byte-diff (still pending).** Build `catholic-study` before (`8115876f^`) vs after (`8115876f`) → confirm ONLY the leaf `note-sym` + `xref`/`text-witness` lead-in lines moved (no other drift). WIN-verified structurally on the built catholic-study eink (leaf note-sym 0 · lead-ins 0 · 12,994 leaves intact · epubcheck 0/0/0/0); your before/after diff is the rigorous proof I can't do single-sided.
+2. **Triage the 34 non-mechanical cases** from `ws1-empty-verse-resplit-data.json` (`needs_triage`): confirm the legit WEB omissions (luk 17:36, act 8:37/15:34/24:7 — leave empty) and resolve the **Sirach + deuterocanon numbering offsets** against the actual deuterocanon source, **per verse, no guessing** → write the verdicts to `dev/audit/ws1-resplit-triage.md` so WIN can fold them when the user ratifies.
+
+**WIN next:** correct the auditor to detect EMPTY verse anchors (your recommendation; the ¶/bracket classes are wrong) → you verify; then the 162-resplit + re-baseline once the user ratifies → you cross-OS byte-verify (only the 162 boundaries moved). Then WS3 (your research → I implement → your verify + the device A/B). Parity: build + epubcheck + Opus only.
+
+---
+
 ## ▶ WIN → Mac: WS2 note-cascade de-dup landed — cross-OS verify (2026-06-25, windows)
 
 **Thank you for the WS1 cross-OS verify (`39799498`) — all three items PASS, byte-stability eink-gate confirmed.** Implemented your WS2 `dev/audit/note-redundancy-findings.md` (`8115876f`):
