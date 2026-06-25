@@ -103,8 +103,32 @@ built fresh from HEAD, verified, and loaded to the Kobo. The user's eyeball:
   finding · WS3 popups structured + device-verified · discrete fixes pinned · a clean device eyeball.
 - User-only calls (e.g. the badge-trail keep/tighten decision, any device A/B) → `dev/HUMAN_DECISIONS.md`.
 
+## WS1 — first auditor run (flagship eink, 2026-06-24)
+
+`dev/audit_verse_formatting.py` (built TDD, 8/8 unit pins) run on the fresh flagship eink epub:
+- **472 mid-verse line breaks** (verse-p paragraphs with no `v-` anchor = a paragraph break that
+  landed mid-verse). **18 stray pilcrows ¶** + **109 mixed-translation `[bracket]` verses** —
+  across gen/exo/lev/num/mat, so the WEB/KJV mix is WIDESPREAD, not just gen 46/49. **30,104
+  badge-trail spans.**
+- **Key structural fact (measured):** the doc has **36,329 `v-` verse anchors in only 2,088
+  `<p class="verse-p">` paragraphs** → verses flow WITHIN a paragraph (good); a paragraph holds
+  many verses. So the mid-verse breaks = the 472 *continuation* paragraphs (a source paragraph
+  break that fell inside a verse). The 41,811 ¶ in the whole doc are mostly in the study-note
+  backmatter (KJV cross-ref markers); only 18 are in scripture-body verse text.
+- **Auditor refinement queued (counts are right; labels need polish):** (a) report "verses
+  scanned" as the 36,329 anchors, not the 1,616 anchored paragraphs; (b) attribute ¶/bracket to
+  the nearest PRECEDING `v-` anchor within the paragraph (today it attributes to the paragraph's
+  first verse, so gen 46:13 reads as gen 46:1); (c) attribute apocrypha continuation paragraphs
+  (they showed "unknown" — 1 Clement etc. use a different anchor scheme).
+- **Fix approach (WS1 fix phase):** mid-verse breaks → merge each continuation `<p class="verse-p">`
+  into its preceding verse paragraph at the emitter/base (so a verse never spans a `<p>` boundary);
+  mixed translation → normalize the KJV-text verses to the edition's English base (NO scripture
+  guessing — use the real source), stripping ¶ + `[supplied]` markers. Byte-stability: base-HTML
+  change → deliberate re-baseline, prove only intended bytes moved.
+
 ## Status
-- [ ] WS1 auditor built (TDD) · run on flagship + all editions · root-cause confirmed
+- [x] WS1 auditor built (TDD, 8/8) · first run on flagship · root-cause + scope confirmed (472 breaks · 18 ¶ · 109 mixed-translation)
+- [ ] WS1 auditor refinement (anchor-accurate attribution + verse count + apocrypha)
 - [ ] Discrete: Prayer of Azariah ToC title re-shortened + pinned
 - [ ] WS1 fix (multi-`<p>` verses + mixed-translation) + re-baseline + device-verify
 - [ ] WS2 note-redundancy audit + cascade rework + device-verify
