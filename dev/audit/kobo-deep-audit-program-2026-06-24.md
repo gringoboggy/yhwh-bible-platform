@@ -158,8 +158,12 @@ flagship eink + kepubify + epubcheck 0/0/0/0 + auditor green + Kobo device eyeba
       (`_MIDVERSE_BREAK_KEEP_BOOKS`). **Built flagship `ethiopian-tewahedo` eink: 62 → 0 narrative breaks**
       (auditor); kepubified → staged `C:\Users\bogda\YHWH-device-staging\YHWH-koboQA.kepub.epub` → **0 breaks
       survive kepubify**. 9-KJV/tablet/default base untouched (eink-gated, no re-baseline). TDD 24 pins +
-      file-split 54. ⏳ epubcheck 0/0/0/0 (running) · ⏳ device eyeball (HUMAN_DECISIONS) · ⏳ Mac cross-OS verify.
+      file-split 54. **epubcheck 0/0/0/0 ✓ · Mac cross-OS PASS ✓ (`39799498`, incl. byte-stability eink-gate).**
+      ⏳ device eyeball (HUMAN_DECISIONS).
 - [ ] WS1 mixed-translation: normalize the 18 ¶-verses + co-located KJV brackets to WEB (NO scripture guessing)
-- [ ] WS2 note-redundancy cascade rework (Mac findings DONE → WIN implements `_emit_cascade_sections`)
+- [x] **WS2 note-cascade de-dup DONE** (`8115876f`). Class 1 — drop leaf `note-sym` in grouped
+      `_emit_cascade_sections`; Class 2 — strip `xref-citation`/`text-witness` body lead-ins
+      (`_strip_redundant_body_boilerplate`, exact-kind, s1_dedup-gated). 6 TDD pins + 96 cascade green.
+      Deliberate grouped re-baseline. ⏳ build-verify (catholic-study eink) + Mac cross-OS byte-diff.
 - [ ] WS3 Kobo popup formatting fix (Mac research DONE → WIN implements, eink-gated) + device A/B
 - [ ] Final device eyeball clean → program closed

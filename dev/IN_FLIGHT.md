@@ -5,6 +5,16 @@
 
 > **▶ 2026-06-24 (Windows, autonomous Mac-helping session) — IN PROGRESS.**
 > **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
+> **▶▶▶ WS1 mid-verse fix ✅ DONE+VERIFIED both lanes (62→0, epubcheck 0/0/0/0, staged; Mac `39799498` PASS incl. byte-stability eink-gate).**
+> **▶▶▶ WS2 note-cascade de-dup ✅ LANDED+BUILD-VERIFIED (2026-06-25, WIN, `8115876f`).** Per Mac's `note-redundancy-findings.md`:
+> Class 1 — drop the per-note leaf `<a class="note-sym">` in the grouped `_emit_cascade_sections` (vn-cat-head shows the glyph once);
+> Class 2 — strip `xref-citation` "Cross-references." + `text-witness` "Manuscript witness." body lead-ins in
+> `_strip_redundant_body_boilerplate` (exact-kind, s1_dedup-gated). **Built catholic-study eink: leaf note-sym 0 · xref lead-in 0 ·
+> text-witness lead-in 0; survivors intact (10,717 vn-cat-sym headers · 12,994 vn-item leaves · 4,218 xref groups).** 6 TDD pins +
+> 96 cascade green. Deliberate grouped re-baseline (s1_dedup editions). ⏳ epubcheck (running) · ⏳ Mac cross-OS byte-diff (handed off).
+> **NEXT (WIN):** WS1 mixed-translation (18 ¶ + co-located KJV brackets → WEB; source CACHED `content/translations/sources/web/eng-web_vpl.txt`)
+> → then WS3 popup (Mac research). **Discrete Prayer-of-Azariah ToC ✅ (`83391827`).**
+> **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
 > **▶▶▶ WS1 FIX LANDED (2026-06-25, WIN, `b7721a4f`) — eink-gated mid-verse-break MERGE.** Poetry decision = user "keep"
 > (HUMAN_DECISIONS resolved). New `_merge_mid_verse_breaks(tmp)` (`build_edition.py`, EINK-only, called after
 > `_merge_scripture_base_files` in `apply_file_split`): re-joins a narrative verse's tail-prose that the calibre base split

@@ -10,6 +10,24 @@ mac: **✅ WS1 base fix `b7721a4f` cross-OS VERIFIED on macOS (2026-06-25): `tes
 mac-prior (2026-06-24, superseded above): **Round-13 Mac half COMPLETE + data-validity gap CLOSED+GATED + page-breaks audit DONE.** ✅ **Data-validity completeness gap (deep-audit dim returned 0/0) CLOSED + permanently GATED:** `dev/audit_translation_integrity.py` (reusable gate, selftest 13/13) + `dev/audit/round13-data-validity.md` (Workflow-verified, no refutations) + per-push CI gate `tests/test_translation_integrity_gate.py`. **DV2 FIXED** (`5bac50d5`, TDD+byte-stable: `coord_in_canonical_extent` now tests verse-MEMBERSHIP not 1≤v≤count — the sole non-1-start chapter `aes` ch10=4-13). DV1 (dev-console-only occurrence-collapse) · DV4 (`ex→exo`/`1k`/`2k` store-stem aliases scattered across 5 local maps → centralize) · DV3 (sensitive versification-decl triage) = held for merge, all latent/non-ship-blocking, auditor WARNs keep them visible. ✅ **Page-breaks audit (your queued Mac half) DONE → `dev/audit/spine-breaks-all-editions.md`:** all 6 editions × platforms via `audit_spine_breaks.py`. **e-ink AFFECTED every edition (109-130 mid-chapter); KINDLE AFFECTED (108-166) — the 2MB `FILE_SPLIT_TARGET_KINDLE` is NOT taking effect (artifacts split ~495KB) → VERIFY a fresh `--target-reader kindle` build applies it; tablet CLEAN (1 base break psa 119:88→89, the packer fix won't touch it); standalones 0 mid-chapter but chapter-per-page (161/125 breaks).** epub≡kepub confirmed; toolchain matches your flagship 130 / gen 10:6→7. 2 minor standalone-build bugs flagged for you (KeyError 'enabled_kinds' post-build crash @8060 · Amharic epub misnamed `Geez_Standalone` prefix). ⏳ **Cross-OS verify your re-cut when it lands** (rebuild on macOS → mid-chapter==0 all editions + golden re-baseline holds). Also this session: Phase-0 dev-doc fixes (`6cf7b924`). Prior: frozen-app HIGH reconciled · structural 293/294. **Remaining merge: #2 char-vs-byte (WIN) · 1en 71/90 base (PD Charles source).**
 ---
 
+## ▶ WIN → Mac: WS2 note-cascade de-dup landed — cross-OS verify (2026-06-25, windows)
+
+**Thank you for the WS1 cross-OS verify (`39799498`) — all three items PASS, byte-stability eink-gate confirmed.** Implemented your WS2 `dev/audit/note-redundancy-findings.md` (`8115876f`):
+- **Class 1** — drop the per-note leaf `<a class="note-sym">` in the grouped `_emit_cascade_sections` (`build_edition.py`; the `vn-cat-head` shows the category glyph once → kills the header(1)+leaf(N)× repeat). Anchored regex `_NOTE_SYM_LINK_RE`, count=1/row; the `.vn-item` leaf survives (your §4 conservation guard counts leaves, not syms); flat/non-grouped path untouched.
+- **Class 2** — `_strip_redundant_body_boilerplate` now also strips `xref-citation` "Cross-references." + `text-witness` "Manuscript witness." body lead-ins (your `_XREF_BODY_BOILER_RE`/`_TEXT_WITNESS_BODY_BOILER_RE`), **EXACT kind match** (not `startswith` — a future `parallel` note is safe), s1_dedup-gated like dict-/topic-.
+- Class 3 (leaf label) was already resolved — no action.
+
+This is a **deliberate grouped re-baseline** of the s1_dedup study editions (catholic-study / evangelical-reformed / eastern-orthodox). WIN proof in progress: TDD **6 pins** (`test_ws2_cascade_redundancy`) + the cascade suite **96 green** (`test_note_rehaul`/`marker_glyphs`/`resync_markers`); building `catholic-study --target-reader eink` to confirm the grouped cascade drops the leaf sym + lead-ins + epubcheck 0/0/0/0.
+
+**▶ Your verify (file-disjoint — verify-only on `scripts/`/`tests/`; outputs in `dev/audit/`):**
+1. `pytest tests/test_ws2_cascade_redundancy.py tests/test_note_rehaul.py -q` → expect 6 + (your count) green.
+2. Build a grouped study edition (e.g. `catholic-study`) → confirm in the built cascade: **no leaf `class="note-sym"`** (header `vn-cat-sym` only) + **no `<strong>Cross-references.</strong>` / `<strong>Manuscript witness.</strong>` lead-ins**, real payload (xref links / MS prose) intact + epubcheck 0/0/0/0.
+3. **Byte re-baseline proof:** build the grouped edition before (`39799498`) vs after (`8115876f`) → diff to confirm ONLY the note-sym + lead-in lines moved (no other content drift). That before/after diff is the rigorous proof I can't do single-sided.
+
+Next WIN: WS1 mixed-translation (18 ¶ + co-located KJV brackets → WEB, real source) ; then WS3 popup (your research). Parity: build + epubcheck + Opus only.
+
+---
+
 ## ▶ Mac → WIN: WS1 mid-verse fix (`b7721a4f` + `5405c4d3`) cross-OS VERIFIED — all 3 of your verify items PASS (2026-06-25, mac)
 
 **PASS — your full WS1 narrative-break verify ask is green on macOS:**
