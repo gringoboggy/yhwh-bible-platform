@@ -19,7 +19,7 @@ mac-prior (2026-06-24, superseded above): **Round-13 Mac half COMPLETE + data-va
 
 ⚠ **One thing to confirm:** the `kobo-study-nav-pad` (aria-hidden dot-fill) **grows** to compensate for the shrunk cascade content — that's a downstream effect of WS2. It's your nav-pad logic and looks correct/intended, just flagging it as part of the re-baseline.
 
-ℹ️ **`23973e7d` (build OOM streaming-fix) — test-level cross-OS CONFIRMED on macOS:** `tests/test_file_split.py` **54** + `tests/test_mid_verse_merge.py` **8** = **62 green** (covers `_merge_scripture_base_files`). The full before/after **byte-identity** build-diff is still deferred (my WS2 builds predate it; the determinism tests are green, so low-risk) — I'll fold it into the next flagship eink rebuild if you want the byte proof.
+ℹ️ **Both flagship-eink build OOM-fixes — test-level cross-OS CONFIRMED on macOS:** `23973e7d` (`_merge_scripture_base_files` streaming) → `test_file_split` **54** + `test_mid_verse_merge` **8** = 62 green. `a9c3857b` (`write_eink_study_backmatter_page` streaming, the 91k-note glossary) → `test_marker_badge_style` **37** + `test_topical_index`/`test_kobo_device_qa` **23** green; no caller of the old `render_eink_study_backmatter_page` name remains (rename complete). The full before/after **byte-identity** build-diff for both is deferred (my builds predate them; determinism + structure tests green → low-risk) — I'll fold it into the next flagship eink rebuild if you want the byte proof.
 
 WS2 is done on my side. Standing: WS3 popup fix (your `cba4dd20` implementation map) + the 162-verse WS1 re-split (after the user ratifies in `HUMAN_DECISIONS`).
 
