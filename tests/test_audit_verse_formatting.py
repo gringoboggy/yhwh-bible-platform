@@ -97,6 +97,16 @@ class TestMidVerseLineBreak:
         rep = avf.scan_html(html, "1en", gate_all=True)
         assert [f.verse for f in rep.mid_verse_break] == ["1en 27:1"]
 
+    def test_poetry_book_break_is_warn_not_error(self):
+        # Psalms: a verse split across poetic lines is kept (user: keep poetry) → WARN bucket.
+        html = _vp(_vn("psa", 18, 1), " I love you, Yahweh, my strength.") + _vp(
+            "Yahweh is my rock, my fortress,", _vn("psa", 18, 2), " my God, my rock."
+        )
+        rep = avf.scan_html(html, "psa")
+        assert rep.mid_verse_break == []
+        assert [f.verse for f in rep.poetry_break] == ["psa 18:1"]
+        assert rep.failed is False
+
 
 class TestStrategyBNotFlagged:
     def test_plain_vn_chapter_is_not_a_break(self):

@@ -5272,6 +5272,117 @@ def _merge_scripture_base_files(tmp: Path) -> int:
     return len(merged_away)
 
 
+# Narrative / prose canon: a verse split across a <p class="verse-p"> boundary is a Kobo
+# mid-verse reading defect to merge (eink only). Poetry / wisdom / lament / poetic-prophet
+# books keep their intentional verse-per-line structure (user decision 2026-06-25,
+# dev/HUMAN_DECISIONS.md); irregular-layout apocrypha keep their own layout. Kept in sync
+# with the WS1 auditor's POETRY_BOOKS + IRREGULAR_BOOKS (dev/audit_verse_formatting.py).
+_MIDVERSE_BREAK_KEEP_BOOKS = frozenset(
+    {
+        "psa",
+        "sng",
+        "job",
+        "pro",
+        "ecc",
+        "lam",
+        "bar",
+        "isa",
+        "jer",
+        "hos",
+        "joe",
+        "amo",
+        "oba",
+        "mic",
+        "nah",
+        "hab",
+        "zep",
+        "hag",
+        "zec",
+        "mal",
+        "aes",
+        "1en",
+        "2en",
+        "jub",
+        "mq1",
+        "mq2",
+        "mq3",
+        "sir",
+        "man",
+        "4ba",
+        "1cl",
+        "1es",
+        "2es",
+    }
+)
+
+_MV_VERSE_P_BLOCK_RE = re.compile(r'(<p\b[^>]*\bclass="[^"]*\bverse-p\b[^"]*"[^>]*>)(.*?)(</p>)', re.DOTALL)
+_MV_FIRST_MARKER_RE = re.compile(r'<a\b[^>]*\bid="v-[a-z0-9]+-\d+-\d+"|<span class="vn">')
+_MV_VANCHOR_BOOK_RE = re.compile(r'\bid="v-([a-z0-9]+)-\d+-\d+"')
+_MV_PROSE_WORD_RE = re.compile(r"[A-Za-z]{2,}")
+_MV_TAGS_RE = re.compile(r"<[^>]+>")
+
+
+def _merge_mid_verse_breaks(tmp: Path) -> int:
+    """EINK-only: re-join a scripture verse whose text the calibre base split across a
+    ``<p class="verse-p">`` boundary, so no verse spans a block boundary on a Kobo kepub
+    (the mid-verse line breaks: gen 17:23 / 19:1 / 30:1 / 48:1 …, WS1 2026-06-24).
+
+    Defect signature: a verse-p paragraph that OPENS with the previous verse's tail PROSE
+    (alphabetic words) before its own first verse marker — that leading prose belongs to
+    the prior verse, the ``</p><p>`` fell mid-verse. The fix moves the leading run (tail
+    prose + the prior verse's trailing note markers) onto the END of the prior verse's
+    paragraph; the paragraph then starts cleanly at its own verse marker, so the
+    between-verse paragraph break is preserved while the mid-verse one is gone. ids move
+    with the run (still unique → every #frag still resolves).
+
+    NARRATIVE / prose canon only — poetry / wisdom / lament / poetic-prophet + irregular
+    apocrypha books keep their verse-per-line layout (``_MIDVERSE_BREAK_KEEP_BOOKS``).
+    Returns the count of merged breaks (0 → byte-identical no-op). EINK-gated by the caller;
+    the 9-KJV / tablet / default base is untouched."""
+    merged = 0
+    for fp in list_split_html_files(tmp):
+        if fp.stem == EINK_STUDY_BACKMATTER_STEM:
+            continue
+        text = fp.read_text(encoding="utf-8")
+        blocks = list(_MV_VERSE_P_BLOCK_RE.finditer(text))
+        if len(blocks) < 2:
+            continue
+        inners = [m.group(2) for m in blocks]
+        current_book: str | None = None
+        prev_idx: int | None = None
+        changed = False
+        for i, m in enumerate(blocks):
+            inner = inners[i]
+            mk = _MV_FIRST_MARKER_RE.search(inner)
+            lead = _MV_TAGS_RE.sub("", inner[: mk.start()]) if mk else _MV_TAGS_RE.sub("", inner)
+            has_anchor = _MV_VANCHOR_BOOK_RE.search(inner) is not None
+            is_break = bool(_MV_PROSE_WORD_RE.search(lead)) and mk is not None and has_anchor
+            adjacent = prev_idx is not None and text[blocks[prev_idx].end() : m.start()].strip() == ""
+            owner_fixable = current_book is not None and current_book not in _MIDVERSE_BREAK_KEEP_BOOKS
+            if is_break and adjacent and owner_fixable:
+                prefix = inner[: mk.start()]
+                tail = inners[prev_idx]
+                glue = "" if (tail[-1:].isspace() or prefix[:1].isspace()) else " "
+                inners[prev_idx] = tail + glue + prefix
+                inners[i] = inner[mk.start() :]
+                merged += 1
+                changed = True
+            anchors = _MV_VANCHOR_BOOK_RE.findall(inners[i])
+            if anchors:
+                current_book = anchors[-1]
+            prev_idx = i
+        if changed:
+            out = []
+            last = 0
+            for i, m in enumerate(blocks):
+                out.append(text[last : m.start(2)])
+                out.append(inners[i])
+                last = m.end(2)
+            out.append(text[last:])
+            fp.write_text("".join(out), encoding="utf-8")
+    return merged
+
+
 def apply_file_split(tmp: Path, edition: dict) -> dict:
     """Split the per-edition temp tree's big ``index_split_*.html`` files into ~0.4 MB
     pieces, remap every cross-file href, and regenerate the OPF manifest+spine +
@@ -5290,6 +5401,12 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     # boundaries, never mid-chapter). Tablet doesn't shard; the default/everywhere build is
     # read on CSS-page-break-capable readers — neither needs the merge.
     merged_count = _merge_scripture_base_files(tmp) if resolve_target_reader(edition) == "eink" else 0
+    # WS1 (2026-06-24): after the per-book merge has made scripture contiguous, re-join any
+    # narrative verse the calibre base split across a <p class="verse-p"> boundary so no verse
+    # spans a block (page) boundary on the Kobo kepub. EINK-only → 9-KJV/tablet/default base
+    # untouched; poetry/irregular books keep their verse-per-line layout.
+    if resolve_target_reader(edition) == "eink":
+        _merge_mid_verse_breaks(tmp)
     scripture_target = FILE_SPLIT_CEILING if merged_count else target
 
     src_files = list_split_html_files(tmp)

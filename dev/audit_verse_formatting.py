@@ -72,6 +72,36 @@ _TAG_RE = re.compile(r"<[^>]+>")
 # A mid-verse break here is editorial/known-residual, not a regular-canon defect → WARN.
 IRREGULAR_BOOKS = frozenset({"aes", "1en", "2en", "jub", "mq1", "mq2", "mq3", "sir", "man", "4ba", "1cl", "1es", "2es"})
 
+# Poetry / wisdom / lament / poetic-prophet books: a verse split across poetic LINES is
+# intentional typography, not the device defect (user decision 2026-06-25 "keep" poetry,
+# dev/HUMAN_DECISIONS.md) → WARN, never the ERROR gate. Kept in sync with the build's
+# `_MIDVERSE_BREAK_KEEP_BOOKS` (scripts/build_edition.py). Daniel/Ezekiel/Jonah are
+# prose-dominant → they stay in the narrative (ERROR) gate.
+POETRY_BOOKS = frozenset(
+    {
+        "psa",
+        "sng",
+        "job",
+        "pro",
+        "ecc",
+        "lam",
+        "bar",
+        "isa",
+        "jer",
+        "hos",
+        "joe",
+        "amo",
+        "oba",
+        "mic",
+        "nah",
+        "hab",
+        "zep",
+        "hag",
+        "zec",
+        "mal",
+    }
+)
+
 
 @dataclass
 class Finding:
@@ -85,8 +115,9 @@ class Report:
     edition: str
     verses: int = 0  # deep-linked scripture verses (v- anchors)
     strategy_b_verses: int = 0  # plain-vn verses (1cl etc.)
-    mid_verse_break: list[Finding] = field(default_factory=list)  # ERROR, regular books
+    mid_verse_break: list[Finding] = field(default_factory=list)  # ERROR, narrative/prose books
     irregular_break: list[Finding] = field(default_factory=list)  # WARN, irregular books
+    poetry_break: list[Finding] = field(default_factory=list)  # WARN, poetry/wisdom/prophet (kept)
     strategy_b_continuation: list[Finding] = field(default_factory=list)  # WARN
     superscription: list[Finding] = field(default_factory=list)  # INFO (psalm titles, rubrics, headings)
     pilcrow: list[Finding] = field(default_factory=list)  # ERROR
@@ -142,8 +173,11 @@ def _scan_into(html: str, rep: Report, gate_all: bool = False) -> Report:
                 # Real mid-verse break: prose tail of `current`, then the next verse marker.
                 owner = current  # the verse whose tail spilled = the previous paragraph's last anchor
                 f = Finding("mid_verse_break", _fmt(owner), lead.strip()[:60])
-                if (owner is not None) and (owner[0] in IRREGULAR_BOOKS) and not gate_all:
+                book = owner[0] if owner is not None else None
+                if not gate_all and book in IRREGULAR_BOOKS:
                     rep.irregular_break.append(f)
+                elif not gate_all and book in POETRY_BOOKS:
+                    rep.poetry_break.append(f)
                 else:
                     rep.mid_verse_break.append(f)
             elif mk:  # has_vn but no v- anchor → strategy-B chapter split mid-verse
@@ -183,6 +217,7 @@ def _print(rep: Report, sample: int) -> bool:
     print(f"  verses scanned: {rep.verses} deep-linked + {rep.strategy_b_verses} plain-vn (strategy-B)")
     print(f"  ERROR mid-verse line breaks (regular canon)    : {len(rep.mid_verse_break)}")
     print(f"  ERROR stray pilcrows ¶ in verse text           : {len(rep.pilcrow)}")
+    print(f"  WARN  mid-verse breaks in poetry (kept)         : {len(rep.poetry_break)}")
     print(f"  WARN  mid-verse breaks in irregular apocrypha   : {len(rep.irregular_break)}")
     print(f"  WARN  strategy-B chapter splits                 : {len(rep.strategy_b_continuation)}")
     print(f"  WARN  mixed-translation [bracket] verses        : {len(rep.kjv_bracket)}")
