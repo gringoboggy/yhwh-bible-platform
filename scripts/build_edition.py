@@ -2962,15 +2962,31 @@ def _strip_redundant_note_label(row_html: str, kind: str, kind_defaults: dict) -
 # follows stays. Anchored at the row start (count=1) so an in-body literal never matches.
 _DICT_BODY_BOILER_RE = re.compile(r"<strong>Dictionary \([^)]{1,40}\)\.</strong>\s*")
 _TOPIC_BODY_BOILER_RE = re.compile(r"<strong>Topics\.</strong>\s*")
+# WS2 Class 2 (note-redundancy cascade, 2026-06-25): the xref-citation body opens
+# "<strong>Cross-references.</strong>" — verbatim the xref CATEGORY label the cascade's
+# vn-cat-head already prints — and text-witness opens "<strong>Manuscript witness.</strong>".
+# Both restate the category/byline the cascade states once. Strip them (count=1, anchored)
+# like dict-/topic-; the xref target links / MS prose that follow survive (lossless).
+# EXACT kind match (not startswith) so a future hand-authored `parallel` note that opens
+# with the same phrase is never silently stripped.
+_XREF_BODY_BOILER_RE = re.compile(r"<strong>Cross-references\.</strong>\s*")
+_TEXT_WITNESS_BODY_BOILER_RE = re.compile(r"<strong>Manuscript witness\.</strong>\s*")
 
 
 def _strip_redundant_body_boilerplate(row_html: str, kind: str) -> tuple[str, bool]:
-    """Drop the leading dict-*/topic- body source/topic boiler; keep the real headword."""
+    """Drop the leading dict-*/topic-/xref-citation/text-witness body boiler that restates
+    the cascade's category head + byline; keep the real headword / xref links / MS prose."""
     if kind.startswith("dict-"):
         new, n = _DICT_BODY_BOILER_RE.subn("", row_html, count=1)
         return new, n > 0
     if kind.startswith("topic-"):
         new, n = _TOPIC_BODY_BOILER_RE.subn("", row_html, count=1)
+        return new, n > 0
+    if kind == "xref-citation":
+        new, n = _XREF_BODY_BOILER_RE.subn("", row_html, count=1)
+        return new, n > 0
+    if kind == "text-witness":
+        new, n = _TEXT_WITNESS_BODY_BOILER_RE.subn("", row_html, count=1)
         return new, n > 0
     return row_html, False
 
@@ -3828,6 +3844,13 @@ def _format_category_badge_text(glyph: str, note_count: int) -> str:
     return str(note_count)
 
 
+# WS2 Class 1 (note-redundancy cascade, 2026-06-25): the baked per-note leaf category glyph
+# `<a class="note-sym" href="legend.xhtml#legend-{cat}" …>{glyph}</a>` (inject.py:252). In the
+# grouped cascade the vn-cat-head already shows the category glyph once, so the leaf copy is a
+# pure header(1)+leaf(N)× repeat → drop it (device-QA cluster F). Anchored, count=1 per row.
+_NOTE_SYM_LINK_RE = re.compile(r'\s*<a class="note-sym"[^>]*>.*?</a>', re.DOTALL)
+
+
 def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
     """Emit the verse→category→source→note cascade inner HTML (spec §2) from the
     already category-rank-ordered ``rows``. Each row is a dict with keys
@@ -3866,7 +3889,10 @@ def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
                     f'      <p class="vn-source-byline">{_VN_SEP_BYLINE}{html.escape(display, quote=False)}</p>\n'
                 )
             for rr in src_rows:
-                out.append(f"      {rr['row']}\n")
+                # WS2 Class 1: drop the per-note leaf note-sym (the vn-cat-head conveys the
+                # category glyph once). The .vn-item leaf itself survives (the §4 conservation
+                # guard counts leaves, not syms); flat/non-grouped path is untouched.
+                out.append(f"      {_NOTE_SYM_LINK_RE.sub('', rr['row'], count=1)}\n")
             out.append("    </div>\n")
         out.append("  </section>\n")
     return "".join(out)

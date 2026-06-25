@@ -4,6 +4,39 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-25 — Kobo deep-audit WS1 (mid-verse breaks) + WS2 (note redundancy) (Windows; autonomous, Mac-verified)
+
+Continued the user-triggered Kobo deep-audit program (`dev/audit/kobo-deep-audit-program-2026-06-24.md`).
+
+**WS1 auditor re-architected.** The first `dev/audit_verse_formatting.py` cut measured the WRONG
+thing (its "472 mid-verse breaks" were 1 Clement strategy-B chapters + psalm superscriptions +
+Song rubrics + apocrypha headings; it MISSED the real narrative breaks). Rewrote it: a mid-verse
+break = alphabetic PROSE before a paragraph's first verse marker; ¶/bracket attributed to the
+nearest preceding marker; irregular-apocrypha / strategy-B / superscription / poetry classified out
+of the ERROR gate. True scope (built flagship kepub): **62 narrative breaks + 18 ¶**.
+
+**WS1 mid-verse-break FIX (eink-gated).** New `_merge_mid_verse_breaks` (`build_edition.py`, called
+in `apply_file_split` after the page-break base-file merge): re-joins a narrative verse's tail-prose
+that the calibre base split across a `<p class="verse-p">` boundary into the verse's own paragraph
+(between-verse paragraphing preserved; ids relocate so every `#frag` resolves). NARRATIVE/prose canon
+only — `_MIDVERSE_BREAK_KEEP_BOOKS` keeps poetry/wisdom/poetic-prophet + irregular apocrypha
+verse-per-line (user decision 2026-06-25 "keep" poetry). **Built flagship `ethiopian-tewahedo` eink:
+62 → 0 narrative breaks; epubcheck 0/0/0/0; kepubified → staged → 0 breaks survive kepubify.**
+9-KJV/tablet/default base untouched (eink-gated, no re-baseline). Mac cross-OS PASS incl. byte-stability.
+
+**WS2 note-cascade de-dup** (per Mac's `dev/audit/note-redundancy-findings.md`): Class 1 — drop the
+per-note leaf `note-sym` in the grouped `_emit_cascade_sections` (the `vn-cat-head` shows the category
+glyph once; kills the header(1)+leaf(N)× repeat). Class 2 — strip the `xref-citation`
+"Cross-references." + `text-witness` "Manuscript witness." body lead-ins (which restate the category
+head/byline) in `_strip_redundant_body_boilerplate` (exact-kind, s1_dedup-gated). Deliberate grouped
+re-baseline.
+
+**Discrete:** Prayer-of-Azariah ToC short title verified done + wired (`83391827`).
+
+**Test delta:** +47 pins (`test_audit_verse_formatting` 16 · `test_mid_verse_merge` 8 ·
+`test_ws2_cascade_redundancy` 6 · `test_nav_toc_short_titles` 3 + existing) ; cascade suite 96 green ;
+`test_file_split` 54 green. **Save tags:** `b7721a4f` · `5405c4d3` · (this commit).
+
 ## 2026-06-24 — Mac-helping session: standalone build-bug fixes (Windows; autonomous)
 
 Resumed the in-flight Mac-helping arc (round-13 joint merge + page-break per-book
