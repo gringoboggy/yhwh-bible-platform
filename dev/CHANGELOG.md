@@ -8,6 +8,20 @@
 
 Continued the user-triggered Kobo deep-audit program (`dev/audit/kobo-deep-audit-program-2026-06-24.md`).
 
+**Later same session (wrap):** WS2 confirmed cross-OS + byte-diff by Mac (verified BOTH lanes). **The "¶/weird
+symbol" root cause was CORRECTED** (Mac `90d48cfb`): it is NOT KJV-text-in-WEB to rewrite — it is **162 EMPTY
+verse anchors** (a dropped verse boundary; base[N+1] = WEB[N]+WEB[N+1]); the empty verse's inlined KJV popup
+surfaces the ¶ on eink. Fix = **re-split** (move WEB[N] back under the empty anchor), NOT a rewrite/inject
+(`dev/audit/ws1-mixed-translation-finding.md`, `ws1-empty-verse-resplit-data.json`, full 205-anchor triage). It is a
+162-verse all-edition versification re-baseline → **queued for user ratification** (`dev/HUMAN_DECISIONS.md`); my
+earlier KJV→WEB worklist was superseded. **Fixed 2 flagship-eink-build `MemoryError` sites** (`9a693929`,
+`a9c3857b`): streamed the scripture-merge write (`_merge_scripture_base_files`) and the 91k-note study-glossary
+backmatter write (`render_eink_study_backmatter_page` → `write_eink_study_backmatter_page`) instead of building
+giant whole-page strings — byte-identical, Mac test-level cross-OS confirmed. The flagship eink build still OOMs
+under RAM pressure (≥1 site remains; the 8GB iMac + 16GB WIN both affected) → `dev/IN_FLIGHT.md` task: tracemalloc
+profile + reduce peak. **WS3 Kobo run-on popups:** Mac research done, WIN implementation fully mapped (eink-gated
+`·`+`<br>` separators) — implement fresh + device A/B.
+
 **WS1 auditor re-architected.** The first `dev/audit_verse_formatting.py` cut measured the WRONG
 thing (its "472 mid-verse breaks" were 1 Clement strategy-B chapters + psalm superscriptions +
 Song rubrics + apocrypha headings; it MISSED the real narrative breaks). Rewrote it: a mid-verse
