@@ -494,6 +494,7 @@ books:
 
   - code: paz
     title: "The Prayer of Azariah and the Song of the Three Holy Children"
+    toc_title: "Prayer of Azariah"
     bxx: "b45"
     bp: "bp-45"
     next_bp: "bp-46"
