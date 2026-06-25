@@ -173,6 +173,17 @@ flagship eink + kepubify + epubcheck 0/0/0/0 + auditor green + Kobo device eyeba
 - [x] **WS2 note-cascade de-dup DONE** (`8115876f`). Class 1 — drop leaf `note-sym` in grouped
       `_emit_cascade_sections`; Class 2 — strip `xref-citation`/`text-witness` body lead-ins
       (`_strip_redundant_body_boilerplate`, exact-kind, s1_dedup-gated). 6 TDD pins + 96 cascade green.
-      Deliberate grouped re-baseline. ⏳ build-verify (catholic-study eink) + Mac cross-OS byte-diff.
-- [ ] WS3 Kobo popup formatting fix (Mac research DONE → WIN implements, eink-gated) + device A/B
+      Deliberate grouped re-baseline. ✅ build-verify catholic-study eink: leaf note-sym 0 · xref/text-witness
+      lead-ins 0 · 12,994 leaves intact · epubcheck 0/0/0/0. ⏳ Mac cross-OS byte-diff.
+- [ ] WS3 Kobo popup run-on fix — **Mac research DONE** (`dev/audit/kobo-popup-formatting-research.md`): the study/
+      cascade `verse-notes` popups use hidden U+2028 `.vn-sep` separators that Kobo's native footnote overlay DROPS;
+      give them the K-R14 treatment the translation family already has — **visible `·` (U+00B7, the ONLY device-proven
+      glyph — NOT `•`, which near-crashed) + `<br class="kobo-vn-br"/>`, eink-gated.** Swap `_VN_SEP_ITEM/CAT/BYLINE`
+      → eink variants at `:2825` · `:3877` · `:3889` · `:3595/3597`; add `br.kobo-vn-br{line-height:1.6}` near `:2391`.
+      **Load-bearing threading (eink=False default → non-eink byte-identical):** thread `eink` through
+      `_emit_cascade_sections` ← (`_unit_inner` 4234 has eink_target; `_study_glossary_category_body` 3729 ← footnote
+      builder 3749 ← `_emit_backmatter_glossary_inner` 3759 ← caller 4265 has eink_target) · `_badge_aside_inner_to_row`
+      ← 4143 (eink_target) · `_chunk_vn_item_row` ← 3619 (`apply_note_popup_split` chain). Gates: gate-4n byte-floor
+      (markers inflate koboSpan bytes) · epubcheck 0/0/0/0 · regen+diff non-eink byte-identical · **device A/B (user gate:
+      `·` renders in Cardo + the worst-case unit still POPS not crashes).** Implement fresh (byte-critical refactor).
 - [ ] Final device eyeball clean → program closed
