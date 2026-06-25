@@ -1,1966 +1,2380 @@
 {
- "confirmed_off_by_one": [
+ "resplit_groups": [
   {
-   "book": "gen",
-   "ch": 8,
-   "verse": 15,
+   "empties": [
+    "gen 8:15"
+   ],
+   "terminal": "gen 8:16",
    "file": "index_split_001.html",
-   "web_N": "God spoke to Noah, saying,",
-   "web_N1": "“Go out of the ship, you, your wife, your sons, and your sons’ wives with you.",
-   "base_next_full": "God spoke to Noah, saying, “Go out of the ship, you, your wife, your sons, and your sons’ wives with you.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "8:15": "God spoke to Noah, saying,",
+    "8:16": "“Go out of the ship, you, your wife, your sons, and your sons’ wives with you."
+   },
+   "terminal_base_body": "God spoke to Noah, saying, “Go out of the ship, you, your wife, your sons, and your sons’ wives with you.",
+   "prefix_match": true
   },
   {
-   "book": "gen",
-   "ch": 17,
-   "verse": 3,
+   "empties": [
+    "gen 17:3"
+   ],
+   "terminal": "gen 17:4",
    "file": "index_split_001.html",
-   "web_N": "Abram fell on his face. God talked with him, saying,",
-   "web_N1": "“As for me, behold, my covenant is with you. You will be the father of a multitude of nations.",
-   "base_next_full": "Abram fell on his face. God talked with him, saying, “As for me, behold, my covenant is with you. You will be the father of a multitude of nations.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "17:3": "Abram fell on his face. God talked with him, saying,",
+    "17:4": "“As for me, behold, my covenant is with you. You will be the father of a multitude of nations."
+   },
+   "terminal_base_body": "Abram fell on his face. God talked with him, saying, “As for me, behold, my covenant is with you. You will be the father",
+   "prefix_match": true
   },
   {
-   "book": "gen",
-   "ch": 17,
-   "verse": 22,
+   "empties": [
+    "gen 17:22"
+   ],
+   "terminal": "gen 17:23",
    "file": "index_split_001.html",
-   "web_N": "When he finished talking with him, God went up from Abraham.",
-   "web_N1": "Abraham took Ishmael his son, all who were born in his house, and all who were bought with his money: every male among the men of Abraham’s house, and circumcised the flesh of their foreskin in the same day, as God had said to him.",
-   "base_next_full": "When he finished talking with him, God went up from Abraham. Abraham took Ishmael his son, all who were born in his house, and all who were bought with his money: every male among the men of Abraham’s house, and circumcised the flesh of their foreskin in the same day, as God had said to him.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "17:22": "When he finished talking with him, God went up from Abraham.",
+    "17:23": "Abraham took Ishmael his son, all who were born in his house, and all who were bought with his money: every male among the men of Abraham’s house, and circumcised the flesh of their foreskin in the same day, as God had said to him."
+   },
+   "terminal_base_body": "When he finished talking with him, God went up from Abraham. Abraham took Ishmael his son, all who were born in his hous",
+   "prefix_match": true
   },
   {
-   "book": "gen",
-   "ch": 27,
-   "verse": 44,
+   "empties": [
+    "gen 27:44"
+   ],
+   "terminal": "gen 27:45",
    "file": "index_split_002.html",
-   "web_N": "Stay with him a few days, until your brother’s fury turns away—",
-   "web_N1": "until your brother’s anger turns away from you, and he forgets what you have done to him. Then I will send, and get you from there. Why should I be bereaved of you both in one day?”",
-   "base_next_full": "Stay with him a few days, until your brother’s fury turns away— until your brother’s anger turns away from you, and he forgets what you have done to him. Then I will send, and get you from there. Why should I be bereaved of you both in one day?”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "27:44": "Stay with him a few days, until your brother’s fury turns away—",
+    "27:45": "until your brother’s anger turns away from you, and he forgets what you have done to him. Then I will send, and get you from there. Why should I be bereaved of you both in one day?”"
+   },
+   "terminal_base_body": "Stay with him a few days, until your brother’s fury turns away— until your brother’s anger turns away from you, and he f",
+   "prefix_match": true
   },
   {
-   "book": "gen",
-   "ch": 36,
-   "verse": 41,
+   "empties": [
+    "gen 36:41"
+   ],
+   "terminal": "gen 36:42",
    "file": "index_split_002.html",
-   "web_N": "chief Oholibamah, chief Elah, chief Pinon,",
-   "web_N1": "chief Kenaz, chief Teman, chief Mibzar,",
-   "base_next_full": "chief Oholibamah, chief Elah, chief Pinon, chief Kenaz, chief Teman, chief Mibzar,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "36:41": "chief Oholibamah, chief Elah, chief Pinon,",
+    "36:42": "chief Kenaz, chief Teman, chief Mibzar,"
+   },
+   "terminal_base_body": "chief Oholibamah, chief Elah, chief Pinon, chief Kenaz, chief Teman, chief Mibzar,",
+   "prefix_match": true
   },
   {
-   "book": "gen",
-   "ch": 46,
-   "verse": 13,
+   "empties": [
+    "gen 46:13"
+   ],
+   "terminal": "gen 46:14",
    "file": "index_split_002.html",
-   "web_N": "The sons of Issachar: Tola, Puvah, Iob, and Shimron.",
-   "web_N1": "The sons of Zebulun: Sered, Elon, and Jahleel.",
-   "base_next_full": "The sons of Issachar: Tola, Puvah, Iob, and Shimron. The sons of Zebulun: Sered, Elon, and Jahleel.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "46:13": "The sons of Issachar: Tola, Puvah, Iob, and Shimron.",
+    "46:14": "The sons of Zebulun: Sered, Elon, and Jahleel."
+   },
+   "terminal_base_body": "The sons of Issachar: Tola, Puvah, Iob, and Shimron. The sons of Zebulun: Sered, Elon, and Jahleel.",
+   "prefix_match": true
   },
   {
-   "book": "gen",
-   "ch": 49,
-   "verse": 14,
+   "empties": [
+    "gen 49:14"
+   ],
+   "terminal": "gen 49:15",
    "file": "index_split_002.html",
-   "web_N": "“Issachar is a strong donkey, lying down between the saddlebags.",
-   "web_N1": "He saw a resting place, that it was good, the land, that it was pleasant. He bows his shoulder to the burden, and becomes a servant doing forced labor.",
-   "base_next_full": "“Issachar is a strong donkey, lying down between the saddlebags. He saw a resting place, that it was good, the land, that it was pleasant. He bows his shoulder to the burden, and becomes a servant doing forced labor.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "49:14": "“Issachar is a strong donkey, lying down between the saddlebags.",
+    "49:15": "He saw a resting place, that it was good, the land, that it was pleasant. He bows his shoulder to the burden, and becomes a servant doing forced labor."
+   },
+   "terminal_base_body": "“Issachar is a strong donkey, lying down between the saddlebags. He saw a resting place, that it was good, the land, tha",
+   "prefix_match": true
   },
   {
-   "book": "exo",
-   "ch": 28,
-   "verse": 31,
+   "empties": [
+    "exo 28:31"
+   ],
+   "terminal": "exo 28:32",
    "file": "index_split_004.html",
-   "web_N": "“You shall make the robe of the ephod all of blue.",
-   "web_N1": "It shall have a hole for the head in the middle of it. It shall have a binding of woven work around its hole, as it were the hole of a coat of mail, that it not be torn.",
-   "base_next_full": "“You shall make the robe of the ephod all of blue. It shall have a hole for the head in the middle of it. It shall have a binding of woven work around its hole, as it were the hole of a coat of mail, that it not be torn.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "28:31": "“You shall make the robe of the ephod all of blue.",
+    "28:32": "It shall have a hole for the head in the middle of it. It shall have a binding of woven work around its hole, as it were the hole of a coat of mail, that it not be torn."
+   },
+   "terminal_base_body": "“You shall make the robe of the ephod all of blue. It shall have a hole for the head in the middle of it. It shall have ",
+   "prefix_match": true
   },
   {
-   "book": "exo",
-   "ch": 33,
-   "verse": 20,
+   "empties": [
+    "exo 33:20"
+   ],
+   "terminal": "exo 33:21",
    "file": "index_split_004.html",
-   "web_N": "He said, “You cannot see my face, for man may not see me and live.”",
-   "web_N1": "Yahweh also said, “Behold, there is a place by me, and you shall stand on the rock.",
-   "base_next_full": "He said, “You cannot see my face, for man may not see me and live.” Yahweh also said, “Behold, there is a place by me, and you shall stand on the rock.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "33:20": "He said, “You cannot see my face, for man may not see me and live.”",
+    "33:21": "Yahweh also said, “Behold, there is a place by me, and you shall stand on the rock."
+   },
+   "terminal_base_body": "He said, “You cannot see my face, for man may not see me and live.” Yahweh also said, “Behold, there is a place by me, a",
+   "prefix_match": true
   },
   {
-   "book": "exo",
-   "ch": 40,
-   "verse": 28,
+   "empties": [
+    "exo 40:28"
+   ],
+   "terminal": "exo 40:29",
    "file": "index_split_005.html",
-   "web_N": "He put up the screen of the door to the tabernacle.",
-   "web_N1": "He set the altar of burnt offering at the door of the tabernacle of the Tent of Meeting, and offered on it the burnt offering and the meal offering, as Yahweh commanded Moses.",
-   "base_next_full": "He put up the screen of the door to the tabernacle. He set the altar of burnt offering at the door of the tabernacle of the Tent of Meeting, and offered on it the burnt offering and the meal offering, as Yahweh commanded Moses.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "40:28": "He put up the screen of the door to the tabernacle.",
+    "40:29": "He set the altar of burnt offering at the door of the tabernacle of the Tent of Meeting, and offered on it the burnt offering and the meal offering, as Yahweh commanded Moses."
+   },
+   "terminal_base_body": "He put up the screen of the door to the tabernacle. He set the altar of burnt offering at the door of the tabernacle of ",
+   "prefix_match": true
   },
   {
-   "book": "lev",
-   "ch": 3,
-   "verse": 12,
+   "empties": [
+    "lev 3:12"
+   ],
+   "terminal": "lev 3:13",
    "file": "index_split_005.html",
-   "web_N": "“‘If his offering is a goat, then he shall offer it before Yahweh.",
-   "web_N1": "He shall lay his hand on its head, and kill it before the Tent of Meeting; and the sons of Aaron shall sprinkle its blood around on the altar.",
-   "base_next_full": "“‘If his offering is a goat, then he shall offer it before Yahweh. He shall lay his hand on its head, and kill it before the Tent of Meeting; and the sons of Aaron shall sprinkle its blood around on the altar.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "3:12": "“‘If his offering is a goat, then he shall offer it before Yahweh.",
+    "3:13": "He shall lay his hand on its head, and kill it before the Tent of Meeting; and the sons of Aaron shall sprinkle its blood around on the altar."
+   },
+   "terminal_base_body": "“‘If his offering is a goat, then he shall offer it before Yahweh. He shall lay his hand on its head, and kill it before",
+   "prefix_match": true
   },
   {
-   "book": "lev",
-   "ch": 11,
-   "verse": 20,
+   "empties": [
+    "lev 11:20"
+   ],
+   "terminal": "lev 11:21",
    "file": "index_split_005.html",
-   "web_N": "“‘All flying insects that walk on all fours are an abomination to you.",
-   "web_N1": "Yet you may eat these: of all winged creeping things that go on all fours, which have long, jointed legs for hopping on the earth.",
-   "base_next_full": "“‘All flying insects that walk on all fours are an abomination to you. Yet you may eat these: of all winged creeping things that go on all fours, which have long, jointed legs for hopping on the earth.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "11:20": "“‘All flying insects that walk on all fours are an abomination to you.",
+    "11:21": "Yet you may eat these: of all winged creeping things that go on all fours, which have long, jointed legs for hopping on the earth."
+   },
+   "terminal_base_body": "“‘All flying insects that walk on all fours are an abomination to you. Yet you may eat these: of all winged creeping thi",
+   "prefix_match": true
   },
   {
-   "book": "num",
-   "ch": 3,
-   "verse": 14,
+   "empties": [
+    "num 3:14"
+   ],
+   "terminal": "num 3:15",
    "file": "index_split_007.html",
-   "web_N": "Yahweh spoke to Moses in the wilderness of Sinai, saying,",
-   "web_N1": "“Count the children of Levi by their fathers’ houses, by their families. You shall count every male from a month old and upward.”",
-   "base_next_full": "Yahweh spoke to Moses in the wilderness of Sinai, saying, “Count the children of Levi by their fathers’ houses, by their families. You shall count every male from a month old and upward.”",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "3:14": "Yahweh spoke to Moses in the wilderness of Sinai, saying,",
+    "3:15": "“Count the children of Levi by their fathers’ houses, by their families. You shall count every male from a month old and upward.”"
+   },
+   "terminal_base_body": "Yahweh spoke to Moses in the wilderness of Sinai, saying, “Count the children of Levi by their fathers’ houses, by their",
+   "prefix_match": true
   },
   {
-   "book": "num",
-   "ch": 7,
-   "verse": 63,
+   "empties": [
+    "num 7:63"
+   ],
+   "terminal": "num 7:64",
    "file": "index_split_007.html",
-   "web_N": "one young bull, one ram, one male lamb a year old, for a burnt offering;",
-   "web_N1": "one male goat for a sin offering;",
-   "base_next_full": "one young bull, one ram, one male lamb a year old, for a burnt offering; one male goat for a sin offering;",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "7:63": "one young bull, one ram, one male lamb a year old, for a burnt offering;",
+    "7:64": "one male goat for a sin offering;"
+   },
+   "terminal_base_body": "one young bull, one ram, one male lamb a year old, for a burnt offering; one male goat for a sin offering;",
+   "prefix_match": true
   },
   {
-   "book": "num",
-   "ch": 13,
-   "verse": 5,
+   "empties": [
+    "num 13:5"
+   ],
+   "terminal": "num 13:6",
    "file": "index_split_007.html",
-   "web_N": "Of the tribe of Simeon, Shaphat the son of Hori.",
-   "web_N1": "Of the tribe of Judah, Caleb the son of Jephunneh.",
-   "base_next_full": "Of the tribe of Simeon, Shaphat the son of Hori. Of the tribe of Judah, Caleb the son of Jephunneh.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "13:5": "Of the tribe of Simeon, Shaphat the son of Hori.",
+    "13:6": "Of the tribe of Judah, Caleb the son of Jephunneh."
+   },
+   "terminal_base_body": "Of the tribe of Simeon, Shaphat the son of Hori. Of the tribe of Judah, Caleb the son of Jephunneh.",
+   "prefix_match": true
   },
   {
-   "book": "num",
-   "ch": 13,
-   "verse": 8,
+   "empties": [
+    "num 13:8"
+   ],
+   "terminal": "num 13:9",
    "file": "index_split_007.html",
-   "web_N": "Of the tribe of Ephraim, Hoshea the son of Nun.",
-   "web_N1": "Of the tribe of Benjamin, Palti the son of Raphu.",
-   "base_next_full": "Of the tribe of Ephraim, Hoshea the son of Nun. Of the tribe of Benjamin, Palti the son of Raphu.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "13:8": "Of the tribe of Ephraim, Hoshea the son of Nun.",
+    "13:9": "Of the tribe of Benjamin, Palti the son of Raphu."
+   },
+   "terminal_base_body": "Of the tribe of Ephraim, Hoshea the son of Nun. Of the tribe of Benjamin, Palti the son of Raphu.",
+   "prefix_match": true
   },
   {
-   "book": "num",
-   "ch": 16,
-   "verse": 48,
+   "empties": [
+    "num 16:48"
+   ],
+   "terminal": "num 16:49",
    "file": "index_split_007.html",
-   "web_N": "He stood between the dead and the living; and the plague was stayed.",
-   "web_N1": "Now those who died by the plague were fourteen thousand seven hundred, in addition to those who died about the matter of Korah.",
-   "base_next_full": "He stood between the dead and the living; and the plague was stayed. Now those who died by the plague were fourteen thousand seven hundred, in addition to those who died about the matter of Korah.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "16:48": "He stood between the dead and the living; and the plague was stayed.",
+    "16:49": "Now those who died by the plague were fourteen thousand seven hundred, in addition to those who died about the matter of Korah."
+   },
+   "terminal_base_body": "He stood between the dead and the living; and the plague was stayed. Now those who died by the plague were fourteen thou",
+   "prefix_match": true
   },
   {
-   "book": "num",
-   "ch": 19,
-   "verse": 11,
+   "empties": [
+    "num 19:11"
+   ],
+   "terminal": "num 19:12",
    "file": "index_split_007.html",
-   "web_N": "“He who touches the dead body of any man shall be unclean seven days.",
-   "web_N1": "He shall purify himself with water on the third day, and on the seventh day he shall be clean; but if he doesn’t purify himself the third day, then the seventh day he shall not be clean.",
-   "base_next_full": "“He who touches the dead body of any man shall be unclean seven days. He shall purify himself with water on the third day, and on the seventh day he shall be clean; but if he doesn’t purify himself the third day, then the seventh day he shall not be clean.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "19:11": "“He who touches the dead body of any man shall be unclean seven days.",
+    "19:12": "He shall purify himself with water on the third day, and on the seventh day he shall be clean; but if he doesn’t purify himself the third day, then the seventh day he shall not be clean."
+   },
+   "terminal_base_body": "“He who touches the dead body of any man shall be unclean seven days. He shall purify himself with water on the third da",
+   "prefix_match": true
   },
   {
-   "book": "num",
-   "ch": 23,
-   "verse": 28,
+   "empties": [
+    "num 23:28"
+   ],
+   "terminal": "num 23:29",
    "file": "index_split_007.html",
-   "web_N": "Balak took Balaam to the top of Peor, that looks down on the desert.",
-   "web_N1": "Balaam said to Balak, “Build seven altars for me here, and prepare seven bulls and seven rams for me here.”",
-   "base_next_full": "Balak took Balaam to the top of Peor, that looks down on the desert. Balaam said to Balak, “Build seven altars for me here, and prepare seven bulls and seven rams for me here.”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "23:28": "Balak took Balaam to the top of Peor, that looks down on the desert.",
+    "23:29": "Balaam said to Balak, “Build seven altars for me here, and prepare seven bulls and seven rams for me here.”"
+   },
+   "terminal_base_body": "Balak took Balaam to the top of Peor, that looks down on the desert. Balaam said to Balak, “Build seven altars for me he",
+   "prefix_match": true
   },
   {
-   "book": "num",
-   "ch": 33,
-   "verse": 22,
+   "empties": [
+    "num 33:22"
+   ],
+   "terminal": "num 33:23",
    "file": "index_split_007.html",
-   "web_N": "They traveled from Rissah, and encamped in Kehelathah.",
-   "web_N1": "They traveled from Kehelathah, and encamped in Mount Shepher.",
-   "base_next_full": "They traveled from Rissah, and encamped in Kehelathah. They traveled from Kehelathah, and encamped in Mount Shepher.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "33:22": "They traveled from Rissah, and encamped in Kehelathah.",
+    "33:23": "They traveled from Kehelathah, and encamped in Mount Shepher."
+   },
+   "terminal_base_body": "They traveled from Rissah, and encamped in Kehelathah. They traveled from Kehelathah, and encamped in Mount Shepher.",
+   "prefix_match": true
   },
   {
-   "book": "deu",
-   "ch": 32,
-   "verse": 45,
+   "empties": [
+    "deu 32:45"
+   ],
+   "terminal": "deu 32:46",
    "file": "index_split_009.html",
-   "web_N": "Moses finished reciting all these words to all Israel.",
-   "web_N1": "He said to them, “Set your heart to all the words which I testify to you today, which you shall command your children to observe to do, all the words of this law.",
-   "base_next_full": "Moses finished reciting all these words to all Israel. He said to them, “Set your heart to all the words which I testify to you today, which you shall command your children to observe to do, all the words of this law.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "32:45": "Moses finished reciting all these words to all Israel.",
+    "32:46": "He said to them, “Set your heart to all the words which I testify to you today, which you shall command your children to observe to do, all the words of this law."
+   },
+   "terminal_base_body": "Moses finished reciting all these words to all Israel. He said to them, “Set your heart to all the words which I testify",
+   "prefix_match": true
   },
   {
-   "book": "jos",
-   "ch": 12,
-   "verse": 17,
+   "empties": [
+    "jos 12:17"
+   ],
+   "terminal": "jos 12:18",
    "file": "index_split_009.html",
-   "web_N": "the king of Tappuah, one; the king of Hepher, one;",
-   "web_N1": "the king of Aphek, one; the king of Lassharon, one;",
-   "base_next_full": "the king of Tappuah, one; the king of Hepher, one; the king of Aphek, one; the king of Lassharon, one;",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "12:17": "the king of Tappuah, one; the king of Hepher, one;",
+    "12:18": "the king of Aphek, one; the king of Lassharon, one;"
+   },
+   "terminal_base_body": "the king of Tappuah, one; the king of Hepher, one; the king of Aphek, one; the king of Lassharon, one;",
+   "prefix_match": true
   },
   {
-   "book": "jos",
-   "ch": 15,
-   "verse": 59,
+   "empties": [
+    "jos 15:29",
+    "jos 15:30"
+   ],
+   "terminal": "jos 15:31",
    "file": "index_split_009.html",
-   "web_N": "Maarath, Beth Anoth, and Eltekon; six cities with their villages.",
-   "web_N1": "Kiriath Baal (also called Kiriath Jearim), and Rabbah; two cities with their villages.",
-   "base_next_full": "Maarath, Beth Anoth, and Eltekon; six cities with their villages. Kiriath Baal (also called Kiriath Jearim), and Rabbah; two cities with their villages.",
-   "has_pilcrow": false
+   "n_split": 3,
+   "web_per_verse": {
+    "15:29": "Baalah, Iim, Ezem,",
+    "15:30": "Eltolad, Chesil, Hormah,",
+    "15:31": "Ziklag, Madmannah, Sansannah,"
+   },
+   "terminal_base_body": "Baalah, Iim, Ezem, Eltolad, Chesil, Hormah, Ziklag, Madmannah, Sansannah,",
+   "prefix_match": true
   },
   {
-   "book": "jdg",
-   "ch": 16,
-   "verse": 22,
+   "empties": [
+    "jos 15:59"
+   ],
+   "terminal": "jos 15:60",
+   "file": "index_split_009.html",
+   "n_split": 2,
+   "web_per_verse": {
+    "15:59": "Maarath, Beth Anoth, and Eltekon; six cities with their villages.",
+    "15:60": "Kiriath Baal (also called Kiriath Jearim), and Rabbah; two cities with their villages."
+   },
+   "terminal_base_body": "Maarath, Beth Anoth, and Eltekon; six cities with their villages. Kiriath Baal (also called Kiriath Jearim), and Rabbah;",
+   "prefix_match": true
+  },
+  {
+   "empties": [
+    "jdg 16:22"
+   ],
+   "terminal": "jdg 16:23",
    "file": "index_split_010.html",
-   "web_N": "However, the hair of his head began to grow again after he was shaved.",
-   "web_N1": "The lords of the Philistines gathered together to offer a great sacrifice to Dagon their god, and to rejoice; for they said, “Our god has delivered Samson our enemy into our hand.”",
-   "base_next_full": "However, the hair of his head began to grow again after he was shaved. The lords of the Philistines gathered together to offer a great sacrifice to Dagon their god, and to rejoice; for they said, “Our god has delivered Samson our enemy into our hand.”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "16:22": "However, the hair of his head began to grow again after he was shaved.",
+    "16:23": "The lords of the Philistines gathered together to offer a great sacrifice to Dagon their god, and to rejoice; for they said, “Our god has delivered Samson our enemy into our hand.”"
+   },
+   "terminal_base_body": "However, the hair of his head began to grow again after he was shaved. The lords of the Philistines gathered together to",
+   "prefix_match": true
   },
   {
-   "book": "2sa",
-   "ch": 22,
-   "verse": 33,
+   "empties": [
+    "2sa 22:33"
+   ],
+   "terminal": "2sa 22:34",
    "file": "index_split_012.html",
-   "web_N": "God is my strong fortress. He makes my way perfect.",
-   "web_N1": "He makes his feet like hinds’ feet, and sets me on my high places.",
-   "base_next_full": "God is my strong fortress. He makes my way perfect. He makes his feet like hinds’ feet, and sets me on my high places.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "22:33": "God is my strong fortress. He makes my way perfect.",
+    "22:34": "He makes his feet like hinds’ feet, and sets me on my high places."
+   },
+   "terminal_base_body": "God is my strong fortress. He makes my way perfect. He makes his feet like hinds’ feet, and sets me on my high places.",
+   "prefix_match": true
   },
   {
-   "book": "2sa",
-   "ch": 23,
-   "verse": 32,
+   "empties": [
+    "2sa 23:32"
+   ],
+   "terminal": "2sa 23:33",
    "file": "index_split_012.html",
-   "web_N": "Eliahba the Shaalbonite, the sons of Jashen, Jonathan,",
-   "web_N1": "Shammah the Hararite, Ahiam the son of Sharar the Ararite,",
-   "base_next_full": "Eliahba the Shaalbonite, the sons of Jashen, Jonathan, Shammah the Hararite, Ahiam the son of Sharar the Ararite,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "23:32": "Eliahba the Shaalbonite, the sons of Jashen, Jonathan,",
+    "23:33": "Shammah the Hararite, Ahiam the son of Sharar the Ararite,"
+   },
+   "terminal_base_body": "Eliahba the Shaalbonite, the sons of Jashen, Jonathan, Shammah the Hararite, Ahiam the son of Sharar the Ararite,",
+   "prefix_match": true
   },
   {
-   "book": "1ki",
-   "ch": 6,
-   "verse": 26,
+   "empties": [
+    "1ki 6:26"
+   ],
+   "terminal": "1ki 6:27",
    "file": "index_split_012.html",
-   "web_N": "One cherub was ten cubits high, and so was the other cherub.",
-   "web_N1": "He set the cherubim within the inner house. The wings of the cherubim were stretched out, so that the wing of the one touched the one wall and the wing of the other cherub touched the other wall; and their wings touched one another in the middle of the house.",
-   "base_next_full": "One cherub was ten cubits high, and so was the other cherub. He set the cherubim within the inner house. The wings of the cherubim were stretched out, so that the wing of the one touched the one wall and the wing of the other cherub touched the other wall; and their wings touched one another in the middle of the house.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "6:26": "One cherub was ten cubits high, and so was the other cherub.",
+    "6:27": "He set the cherubim within the inner house. The wings of the cherubim were stretched out, so that the wing of the one touched the one wall and the wing of the other cherub touched the other wall; and their wings touched one another in the middle of the house."
+   },
+   "terminal_base_body": "One cherub was ten cubits high, and so was the other cherub. He set the cherubim within the inner house. The wings of th",
+   "prefix_match": true
   },
   {
-   "book": "1ki",
-   "ch": 8,
-   "verse": 3,
+   "empties": [
+    "1ki 8:3"
+   ],
+   "terminal": "1ki 8:4",
    "file": "index_split_013.html",
-   "web_N": "All the elders of Israel came, and the priests picked up the ark.",
-   "web_N1": "They brought up Yahweh’s ark, the Tent of Meeting, and all the holy vessels that were in the Tent. The priests and the Levites brought these up.",
-   "base_next_full": "All the elders of Israel came, and the priests picked up the ark. They brought up Yahweh’s ark, the Tent of Meeting, and all the holy vessels that were in the Tent. The priests and the Levites brought these up.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "8:3": "All the elders of Israel came, and the priests picked up the ark.",
+    "8:4": "They brought up Yahweh’s ark, the Tent of Meeting, and all the holy vessels that were in the Tent. The priests and the Levites brought these up."
+   },
+   "terminal_base_body": "All the elders of Israel came, and the priests picked up the ark. They brought up Yahweh’s ark, the Tent of Meeting, and",
+   "prefix_match": true
   },
   {
-   "book": "1ki",
-   "ch": 22,
-   "verse": 44,
+   "empties": [
+    "1ki 22:44"
+   ],
+   "terminal": "1ki 22:45",
    "file": "index_split_014.html",
-   "web_N": "Jehoshaphat made peace with the king of Israel.",
-   "web_N1": "Now the rest of the acts of Jehoshaphat, and his might that he showed, and how he fought, aren’t they written in the book of the chronicles of the kings of Judah?",
-   "base_next_full": "Jehoshaphat made peace with the king of Israel. Now the rest of the acts of Jehoshaphat, and his might that he showed, and how he fought, aren’t they written in the book of the chronicles of the kings of Judah?",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "22:44": "Jehoshaphat made peace with the king of Israel.",
+    "22:45": "Now the rest of the acts of Jehoshaphat, and his might that he showed, and how he fought, aren’t they written in the book of the chronicles of the kings of Judah?"
+   },
+   "terminal_base_body": "Jehoshaphat made peace with the king of Israel. Now the rest of the acts of Jehoshaphat, and his might that he showed, a",
+   "prefix_match": true
   },
   {
-   "book": "2ki",
-   "ch": 6,
-   "verse": 7,
+   "empties": [
+    "2ki 6:7"
+   ],
+   "terminal": "2ki 6:8",
    "file": "index_split_015.html",
-   "web_N": "He said, “Take it.” So he put out his hand and took it.",
-   "web_N1": "Now the king of Syria was at war against Israel; and he took counsel with his servants, saying, “My camp will be in such and such a place.”",
-   "base_next_full": "He said, “Take it.” So he put out his hand and took it. Now the king of Syria was at war against Israel; and he took counsel with his servants, saying, “My camp will be in such and such a place.”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "6:7": "He said, “Take it.” So he put out his hand and took it.",
+    "6:8": "Now the king of Syria was at war against Israel; and he took counsel with his servants, saying, “My camp will be in such and such a place.”"
+   },
+   "terminal_base_body": "He said, “Take it.” So he put out his hand and took it. Now the king of Syria was at war against Israel; and he took cou",
+   "prefix_match": true
   },
   {
-   "book": "2ki",
-   "ch": 10,
-   "verse": 20,
+   "empties": [
+    "2ki 10:20"
+   ],
+   "terminal": "2ki 10:21",
    "file": "index_split_015.html",
-   "web_N": "Jehu said, “Sanctify a solemn assembly for Baal!” So they proclaimed it.",
-   "web_N1": "Jehu sent through all Israel; and all the worshipers of Baal came, so that there was not a man left that didn’t come. They came into the house of Baal; and the house of Baal was filled from one end to another.",
-   "base_next_full": "Jehu said, “Sanctify a solemn assembly for Baal!” So they proclaimed it. Jehu sent through all Israel; and all the worshipers of Baal came, so that there was not a man left that didn’t come. They came into the house of Baal; and the house of Baal was filled from one end to another.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "10:20": "Jehu said, “Sanctify a solemn assembly for Baal!” So they proclaimed it.",
+    "10:21": "Jehu sent through all Israel; and all the worshipers of Baal came, so that there was not a man left that didn’t come. They came into the house of Baal; and the house of Baal was filled from one end to another."
+   },
+   "terminal_base_body": "Jehu said, “Sanctify a solemn assembly for Baal!” So they proclaimed it. Jehu sent through all Israel; and all the worsh",
+   "prefix_match": true
   },
   {
-   "book": "1ch",
-   "ch": 4,
-   "verse": 28,
+   "empties": [
+    "1ch 4:28"
+   ],
+   "terminal": "1ch 4:29",
    "file": "index_split_016.html",
-   "web_N": "They lived at Beersheba, Moladah, Hazarshual,",
-   "web_N1": "at Bilhah, at Ezem, at Tolad,",
-   "base_next_full": "They lived at Beersheba, Moladah, Hazarshual, at Bilhah, at Ezem, at Tolad,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "4:28": "They lived at Beersheba, Moladah, Hazarshual,",
+    "4:29": "at Bilhah, at Ezem, at Tolad,"
+   },
+   "terminal_base_body": "They lived at Beersheba, Moladah, Hazarshual, at Bilhah, at Ezem, at Tolad,",
+   "prefix_match": true
   },
   {
-   "book": "1ch",
-   "ch": 5,
-   "verse": 19,
+   "empties": [
+    "1ch 5:19"
+   ],
+   "terminal": "1ch 5:20",
    "file": "index_split_016.html",
-   "web_N": "They made war with the Hagrites, with Jetur, and Naphish, and Nodab.",
-   "web_N1": "They were helped against them, and the Hagrites were delivered into their hand, and all who were with them; for they cried to God in the battle, and he answered them because they put their trust in him.",
-   "base_next_full": "They made war with the Hagrites, with Jetur, and Naphish, and Nodab. They were helped against them, and the Hagrites were delivered into their hand, and all who were with them; for they cried to God in the battle, and he answered them because they put their trust in him.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "5:19": "They made war with the Hagrites, with Jetur, and Naphish, and Nodab.",
+    "5:20": "They were helped against them, and the Hagrites were delivered into their hand, and all who were with them; for they cried to God in the battle, and he answered them because they put their trust in him."
+   },
+   "terminal_base_body": "They made war with the Hagrites, with Jetur, and Naphish, and Nodab. They were helped against them, and the Hagrites wer",
+   "prefix_match": true
   },
   {
-   "book": "1ch",
-   "ch": 11,
-   "verse": 30,
+   "empties": [
+    "1ch 11:30"
+   ],
+   "terminal": "1ch 11:31",
    "file": "index_split_016.html",
-   "web_N": "Maharai the Netophathite, Heled the son of Baanah the Netophathite,",
-   "web_N1": "Ithai the son of Ribai of Gibeah of the children of Benjamin, Benaiah the Pirathonite,",
-   "base_next_full": "Maharai the Netophathite, Heled the son of Baanah the Netophathite, Ithai the son of Ribai of Gibeah of the children of Benjamin, Benaiah the Pirathonite,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "11:30": "Maharai the Netophathite, Heled the son of Baanah the Netophathite,",
+    "11:31": "Ithai the son of Ribai of Gibeah of the children of Benjamin, Benaiah the Pirathonite,"
+   },
+   "terminal_base_body": "Maharai the Netophathite, Heled the son of Baanah the Netophathite, Ithai the son of Ribai of Gibeah of the children of ",
+   "prefix_match": true
   },
   {
-   "book": "1ch",
-   "ch": 16,
-   "verse": 32,
+   "empties": [
+    "1ch 16:32"
+   ],
+   "terminal": "1ch 16:33",
    "file": "index_split_016.html",
-   "web_N": "Let the sea roar, and its fullness! Let the field exult, and all that is in it!",
-   "web_N1": "Then the trees of the forest will sing for joy before Yahweh, for he comes to judge the earth.",
-   "base_next_full": "Let the sea roar, and its fullness! Let the field exult, and all that is in it! Then the trees of the forest will sing for joy before Yahweh, for he comes to judge the earth.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "16:32": "Let the sea roar, and its fullness! Let the field exult, and all that is in it!",
+    "16:33": "Then the trees of the forest will sing for joy before Yahweh, for he comes to judge the earth."
+   },
+   "terminal_base_body": "Let the sea roar, and its fullness! Let the field exult, and all that is in it! Then the trees of the forest will sing f",
+   "prefix_match": true
   },
   {
-   "book": "1ch",
-   "ch": 23,
-   "verse": 23,
+   "empties": [
+    "1ch 23:23"
+   ],
+   "terminal": "1ch 23:24",
    "file": "index_split_016.html",
-   "web_N": "The sons of Mushi: Mahli, Eder, and Jeremoth, three.",
-   "web_N1": "These were the sons of Levi after their fathers’ houses, even the heads of the fathers’ houses of those who were counted individually, in the number of names by their polls, who did the work for the service of Yahweh’s house, from twenty years old and upward.",
-   "base_next_full": "The sons of Mushi: Mahli, Eder, and Jeremoth, three. These were the sons of Levi after their fathers’ houses, even the heads of the fathers’ houses of those who were counted individually, in the number of names by their polls, who did the work for the service of Yahweh’s house, from twenty years old and upward.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "23:23": "The sons of Mushi: Mahli, Eder, and Jeremoth, three.",
+    "23:24": "These were the sons of Levi after their fathers’ houses, even the heads of the fathers’ houses of those who were counted individually, in the number of names by their polls, who did the work for the service of Yahweh’s house, from twenty years old and upward."
+   },
+   "terminal_base_body": "The sons of Mushi: Mahli, Eder, and Jeremoth, three. These were the sons of Levi after their fathers’ houses, even the h",
+   "prefix_match": true
   },
   {
-   "book": "2ch",
-   "ch": 4,
-   "verse": 10,
+   "empties": [
+    "2ch 4:10"
+   ],
+   "terminal": "2ch 4:11",
    "file": "index_split_017.html",
-   "web_N": "He set the sea on the right side of the house eastward, toward the south.",
-   "web_N1": "Huram made the pots, the shovels, and the basins. So Huram finished doing the work that he did for King Solomon in God’s house:",
-   "base_next_full": "He set the sea on the right side of the house eastward, toward the south. Huram made the pots, the shovels, and the basins. So Huram finished doing the work that he did for King Solomon in God’s house:",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "4:10": "He set the sea on the right side of the house eastward, toward the south.",
+    "4:11": "Huram made the pots, the shovels, and the basins. So Huram finished doing the work that he did for King Solomon in God’s house:"
+   },
+   "terminal_base_body": "He set the sea on the right side of the house eastward, toward the south. Huram made the pots, the shovels, and the basi",
+   "prefix_match": true
   },
   {
-   "book": "2ch",
-   "ch": 11,
-   "verse": 5,
+   "empties": [
+    "2ch 11:5"
+   ],
+   "terminal": "2ch 11:6",
    "file": "index_split_017.html",
-   "web_N": "Rehoboam lived in Jerusalem, and built cities for defense in Judah.",
-   "web_N1": "He built Bethlehem, Etam, Tekoa,",
-   "base_next_full": "Rehoboam lived in Jerusalem, and built cities for defense in Judah. He built Bethlehem, Etam, Tekoa,",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "11:5": "Rehoboam lived in Jerusalem, and built cities for defense in Judah.",
+    "11:6": "He built Bethlehem, Etam, Tekoa,"
+   },
+   "terminal_base_body": "Rehoboam lived in Jerusalem, and built cities for defense in Judah. He built Bethlehem, Etam, Tekoa,",
+   "prefix_match": true
   },
   {
-   "book": "neh",
-   "ch": 7,
-   "verse": 40,
+   "empties": [
+    "neh 7:40"
+   ],
+   "terminal": "neh 7:41",
    "file": "index_split_025.html",
-   "web_N": "The children of Immer: one thousand fifty-two.",
-   "web_N1": "The children of Pashhur: one thousand two hundred forty-seven.",
-   "base_next_full": "The children of Immer: one thousand fifty-two. The children of Pashhur: one thousand two hundred forty-seven.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "7:40": "The children of Immer: one thousand fifty-two.",
+    "7:41": "The children of Pashhur: one thousand two hundred forty-seven."
+   },
+   "terminal_base_body": "The children of Immer: one thousand fifty-two. The children of Pashhur: one thousand two hundred forty-seven.",
+   "prefix_match": true
   },
   {
-   "book": "neh",
-   "ch": 12,
-   "verse": 18,
+   "empties": [
+    "neh 10:19",
+    "neh 10:20"
+   ],
+   "terminal": "neh 10:21",
    "file": "index_split_025.html",
-   "web_N": "of Bilgah, Shammua; of Shemaiah, Jehonathan;",
-   "web_N1": "of Joiarib, Mattenai; of Jedaiah, Uzzi;",
-   "base_next_full": "of Bilgah, Shammua; of Shemaiah, Jehonathan; of Joiarib, Mattenai; of Jedaiah, Uzzi;",
-   "has_pilcrow": false
+   "n_split": 3,
+   "web_per_verse": {
+    "10:19": "Hariph, Anathoth, Nobai,",
+    "10:20": "Magpiash, Meshullam, Hezir,",
+    "10:21": "Meshezabel, Zadok, Jaddua,"
+   },
+   "terminal_base_body": "Hariph, Anathoth, Nobai, Magpiash, Meshullam, Hezir, Meshezabel, Zadok, Jaddua,",
+   "prefix_match": true
   },
   {
-   "book": "2es",
-   "ch": 4,
-   "verse": 43,
+   "empties": [
+    "neh 12:18"
+   ],
+   "terminal": "neh 12:19",
    "file": "index_split_025.html",
-   "web_N": "Then you will be shown those things which you desire to see.”",
-   "web_N1": "Then I answered, “If I have found favor in your sight, and if it is possible, and if I am worthy,",
-   "base_next_full": "Then you will be shown those things which you desire to see.” Then I answered, “If I have found favor in your sight, and if it is possible, and if I am worthy,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "12:18": "of Bilgah, Shammua; of Shemaiah, Jehonathan;",
+    "12:19": "of Joiarib, Mattenai; of Jedaiah, Uzzi;"
+   },
+   "terminal_base_body": "of Bilgah, Shammua; of Shemaiah, Jehonathan; of Joiarib, Mattenai; of Jedaiah, Uzzi;",
+   "prefix_match": true
   },
   {
-   "book": "2es",
-   "ch": 7,
-   "verse": 27,
-   "file": "index_split_026.html",
-   "web_N": "Whoever is delivered from the foretold evils will see my wonders.",
-   "web_N1": "For my son Jesus will be revealed with those who are with him, and those who remain will rejoice four hundred years.",
-   "base_next_full": "Whoever is delivered from the foretold evils will see my wonders. For my son Jesus will be revealed with those who are with him, and those who remain will rejoice four hundred years.",
-   "has_pilcrow": false
-  },
-  {
-   "book": "2es",
-   "ch": 15,
-   "verse": 45,
-   "file": "index_split_026.html",
-   "web_N": "Those who remain will serve those who have destroyed it.",
-   "web_N1": "You, Asia, who are partaker in the beauty of Babylon, and in the glory of her person—",
-   "base_next_full": "Those who remain will serve those who have destroyed it. You, Asia, who are partaker in the beauty of Babylon, and in the glory of her person—",
-   "has_pilcrow": false
-  },
-  {
-   "book": "2es",
-   "ch": 16,
-   "verse": 27,
-   "file": "index_split_026.html",
-   "web_N": "for one man will desire to see another, or to hear his voice.",
-   "web_N1": "For of a city there will be ten left, and two of the field, who have hidden themselves in the thick groves, and in the clefts of the rocks.",
-   "base_next_full": "for one man will desire to see another, or to hear his voice. For of a city there will be ten left, and two of the field, who have hidden themselves in the thick groves, and in the clefts of the rocks.",
-   "has_pilcrow": false
-  },
-  {
-   "book": "tob",
-   "ch": 5,
-   "verse": 19,
-   "file": "index_split_026.html",
-   "web_N": "For what the Lord has given us to live is enough for us.”",
-   "web_N1": "Tobit said to her, “Don’t worry, my sister. He will return safe and sound, and your eyes will see him.",
-   "base_next_full": "For what the Lord has given us to live is enough for us.” Tobit said to her, “Don’t worry, my sister. He will return safe and sound, and your eyes will see him.",
-   "has_pilcrow": false
-  },
-  {
-   "book": "tob",
-   "ch": 11,
-   "verse": 7,
-   "file": "index_split_026.html",
-   "web_N": "Raphael said, “I know, Tobias, that your father will open his eyes.",
-   "web_N1": "Therefore anoint his eyes with the bile, and being pricked with it, he will rub, and will make the white films fall away. Then he will see you.”",
-   "base_next_full": "Raphael said, “I know, Tobias, that your father will open his eyes. Therefore anoint his eyes with the bile, and being pricked with it, he will rub, and will make the white films fall away. Then he will see you.”",
-   "has_pilcrow": false
-  },
-  {
-   "book": "jdt",
-   "ch": 5,
-   "verse": 6,
-   "file": "index_split_027.html",
-   "web_N": "These people are descended from the Chaldeans.",
-   "web_N1": "They sojourned before this in Mesopotamia, because they didn’t want to follow the gods of their fathers, which were in the land of the Chaldeans.",
-   "base_next_full": "These people are descended from the Chaldeans. They sojourned before this in Mesopotamia, because they didn’t want to follow the gods of their fathers, which were in the land of the Chaldeans.",
-   "has_pilcrow": false
-  },
-  {
-   "book": "jdt",
-   "ch": 7,
-   "verse": 9,
-   "file": "index_split_027.html",
-   "web_N": "“Let our lord now hear a word, that there not be losses in your army.",
-   "web_N1": "For this people of the children of Israel do not trust in their spears, but in the height of the mountains wherein they dwell, for it is not easy to come up to the tops of their mountains.",
-   "base_next_full": "“Let our lord now hear a word, that there not be losses in your army. For this people of the children of Israel do not trust in their spears, but in the height of the mountains wherein they dwell, for it is not easy to come up to the tops of their mountains.",
-   "has_pilcrow": false
-  },
-  {
-   "book": "aes",
-   "ch": 4,
-   "verse": 21,
+   "empties": [
+    "aes 4:21"
+   ],
+   "terminal": "aes 4:22",
    "file": "index_split_028.html",
-   "web_N": "You are Lord of all, and there is no one who can resist you, Lord.",
-   "web_N1": "You know all things. You know, Lord, that it is not in insolence, nor arrogance, nor love of glory, that I have done this, to refuse to bow down to the arrogant Haman.",
-   "base_next_full": "You are Lord of all, and there is no one who can resist you, Lord. You know all things. You know, Lord, that it is not in insolence, nor arrogance, nor love of glory, that I have done this, to refuse to bow down to the arrogant Haman.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "4:21": "You are Lord of all, and there is no one who can resist you, Lord.",
+    "4:22": "You know all things. You know, Lord, that it is not in insolence, nor arrogance, nor love of glory, that I have done this, to refuse to bow down to the arrogant Haman."
+   },
+   "terminal_base_body": "You are Lord of all, and there is no one who can resist you, Lord. You know all things. You know, Lord, that it is not i",
+   "prefix_match": true
   },
   {
-   "book": "aes",
-   "ch": 10,
-   "verse": 7,
+   "empties": [
+    "aes 10:7"
+   ],
+   "terminal": "aes 10:8",
    "file": "index_split_028.html",
-   "web_N": "The two serpents are Haman and me.",
-   "web_N1": "The nations are those which combined to destroy the name of the Jews.",
-   "base_next_full": "The two serpents are Haman and me. The nations are those which combined to destroy the name of the Jews.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "10:7": "The two serpents are Haman and me.",
+    "10:8": "The nations are those which combined to destroy the name of the Jews."
+   },
+   "terminal_base_body": "The two serpents are Haman and me. The nations are those which combined to destroy the name of the Jews.",
+   "prefix_match": true
   },
   {
-   "book": "job",
-   "ch": 7,
-   "verse": 15,
+   "empties": [
+    "job 7:15"
+   ],
+   "terminal": "job 7:16",
    "file": "index_split_030.html",
-   "web_N": "so that my soul chooses strangling, death rather than my bones.",
-   "web_N1": "I loathe my life. I don’t want to live forever. Leave me alone, for my days are but a breath.",
-   "base_next_full": "so that my soul chooses strangling, death rather than my bones. I loathe my life. I don’t want to live forever. Leave me alone, for my days are but a breath.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "7:15": "so that my soul chooses strangling, death rather than my bones.",
+    "7:16": "I loathe my life. I don’t want to live forever. Leave me alone, for my days are but a breath."
+   },
+   "terminal_base_body": "so that my soul chooses strangling, death rather than my bones. I loathe my life. I don’t want to live forever. Leave me",
+   "prefix_match": true
   },
   {
-   "book": "job",
-   "ch": 13,
-   "verse": 8,
+   "empties": [
+    "job 13:8"
+   ],
+   "terminal": "job 13:9",
    "file": "index_split_030.html",
-   "web_N": "Will you show partiality to him? Will you contend for God?",
-   "web_N1": "Is it good that he should search you out? Or as one deceives a man, will you deceive him?",
-   "base_next_full": "Will you show partiality to him? Will you contend for God? Is it good that he should search you out? Or as one deceives a man, will you deceive him?",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "13:8": "Will you show partiality to him? Will you contend for God?",
+    "13:9": "Is it good that he should search you out? Or as one deceives a man, will you deceive him?"
+   },
+   "terminal_base_body": "Will you show partiality to him? Will you contend for God? Is it good that he should search you out? Or as one deceives ",
+   "prefix_match": true
   },
   {
-   "book": "job",
-   "ch": 15,
-   "verse": 18,
+   "empties": [
+    "job 15:18"
+   ],
+   "terminal": "job 15:19",
    "file": "index_split_030.html",
-   "web_N": "(which wise men have told by their fathers, and have not hidden it;",
-   "web_N1": "to whom alone the land was given, and no stranger passed among them):",
-   "base_next_full": "(which wise men have told by their fathers, and have not hidden it; to whom alone the land was given, and no stranger passed among them):",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "15:18": "(which wise men have told by their fathers, and have not hidden it;",
+    "15:19": "to whom alone the land was given, and no stranger passed among them):"
+   },
+   "terminal_base_body": "(which wise men have told by their fathers, and have not hidden it; to whom alone the land was given, and no stranger pa",
+   "prefix_match": true
   },
   {
-   "book": "job",
-   "ch": 21,
-   "verse": 4,
+   "empties": [
+    "job 21:4"
+   ],
+   "terminal": "job 21:5",
    "file": "index_split_031.html",
-   "web_N": "As for me, is my complaint to man? Why shouldn’t I be impatient?",
-   "web_N1": "Look at me, and be astonished. Lay your hand on your mouth.",
-   "base_next_full": "As for me, is my complaint to man? Why shouldn’t I be impatient? Look at me, and be astonished. Lay your hand on your mouth.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "21:4": "As for me, is my complaint to man? Why shouldn’t I be impatient?",
+    "21:5": "Look at me, and be astonished. Lay your hand on your mouth."
+   },
+   "terminal_base_body": "As for me, is my complaint to man? Why shouldn’t I be impatient? Look at me, and be astonished. Lay your hand on your mo",
+   "prefix_match": true
   },
   {
-   "book": "job",
-   "ch": 30,
-   "verse": 13,
+   "empties": [
+    "job 30:13"
+   ],
+   "terminal": "job 30:14",
    "file": "index_split_032.html",
-   "web_N": "They mar my path. They promote my destruction without anyone’s help.",
-   "web_N1": "As through a wide breach they come. They roll themselves in amid the ruin.",
-   "base_next_full": "They mar my path. They promote my destruction without anyone’s help. As through a wide breach they come. They roll themselves in amid the ruin.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "30:13": "They mar my path. They promote my destruction without anyone’s help.",
+    "30:14": "As through a wide breach they come. They roll themselves in amid the ruin."
+   },
+   "terminal_base_body": "They mar my path. They promote my destruction without anyone’s help. As through a wide breach they come. They roll thems",
+   "prefix_match": true
   },
   {
-   "book": "job",
-   "ch": 32,
-   "verse": 4,
+   "empties": [
+    "job 32:4"
+   ],
+   "terminal": "job 32:5",
    "file": "index_split_032.html",
-   "web_N": "Now Elihu had waited to speak to Job, because they were older than he.",
-   "web_N1": "When Elihu saw that there was no answer in the mouth of these three men, his wrath was kindled.",
-   "base_next_full": "Now Elihu had waited to speak to Job, because they were older than he. When Elihu saw that there was no answer in the mouth of these three men, his wrath was kindled.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "32:4": "Now Elihu had waited to speak to Job, because they were older than he.",
+    "32:5": "When Elihu saw that there was no answer in the mouth of these three men, his wrath was kindled."
+   },
+   "terminal_base_body": "Now Elihu had waited to speak to Job, because they were older than he. When Elihu saw that there was no answer in the mo",
+   "prefix_match": true
   },
   {
-   "book": "job",
-   "ch": 37,
-   "verse": 22,
+   "empties": [
+    "job 37:22"
+   ],
+   "terminal": "job 37:23",
    "file": "index_split_032.html",
-   "web_N": "Out of the north comes golden splendor. With God is awesome majesty.",
-   "web_N1": "We can’t reach the Almighty. He is exalted in power. In justice and great righteousness, he will not oppress.",
-   "base_next_full": "Out of the north comes golden splendor. With God is awesome majesty. We can’t reach the Almighty. He is exalted in power. In justice and great righteousness, he will not oppress.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "37:22": "Out of the north comes golden splendor. With God is awesome majesty.",
+    "37:23": "We can’t reach the Almighty. He is exalted in power. In justice and great righteousness, he will not oppress."
+   },
+   "terminal_base_body": "Out of the north comes golden splendor. With God is awesome majesty. We can’t reach the Almighty. He is exalted in power",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 10,
-   "verse": 12,
+   "empties": [
+    "psa 10:12"
+   ],
+   "terminal": "psa 10:13",
    "file": "index_split_032.html",
-   "web_N": "Arise, Yahweh! God, lift up your hand! Don’t forget the helpless.",
-   "web_N1": "Why does the wicked person condemn God, and say in his heart, “God won’t call me into account”?",
-   "base_next_full": "Arise, Yahweh! God, lift up your hand! Don’t forget the helpless. Why does the wicked person condemn God, and say in his heart, “God won’t call me into account”?",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "10:12": "Arise, Yahweh! God, lift up your hand! Don’t forget the helpless.",
+    "10:13": "Why does the wicked person condemn God, and say in his heart, “God won’t call me into account”?"
+   },
+   "terminal_base_body": "Arise, Yahweh! God, lift up your hand! Don’t forget the helpless. Why does the wicked person condemn God, and say in his",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 10,
-   "verse": 16,
+   "empties": [
+    "psa 10:16"
+   ],
+   "terminal": "psa 10:17",
    "file": "index_split_032.html",
-   "web_N": "Yahweh is King forever and ever! The nations will perish out of his land.",
-   "web_N1": "Yahweh, you have heard the desire of the humble. You will prepare their heart. You will cause your ear to hear,",
-   "base_next_full": "Yahweh is King forever and ever! The nations will perish out of his land. Yahweh, you have heard the desire of the humble. You will prepare their heart. You will cause your ear to hear,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "10:16": "Yahweh is King forever and ever! The nations will perish out of his land.",
+    "10:17": "Yahweh, you have heard the desire of the humble. You will prepare their heart. You will cause your ear to hear,"
+   },
+   "terminal_base_body": "Yahweh is King forever and ever! The nations will perish out of his land. Yahweh, you have heard the desire of the humbl",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 31,
-   "verse": 6,
+   "empties": [
+    "psa 31:6"
+   ],
+   "terminal": "psa 31:7",
    "file": "index_split_033.html",
-   "web_N": "I hate those who regard lying vanities, but I trust in Yahweh.",
-   "web_N1": "I will be glad and rejoice in your loving kindness, for you have seen my affliction. You have known my soul in adversities.",
-   "base_next_full": "I hate those who regard lying vanities, but I trust in Yahweh. I will be glad and rejoice in your loving kindness, for you have seen my affliction. You have known my soul in adversities.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "31:6": "I hate those who regard lying vanities, but I trust in Yahweh.",
+    "31:7": "I will be glad and rejoice in your loving kindness, for you have seen my affliction. You have known my soul in adversities."
+   },
+   "terminal_base_body": "I hate those who regard lying vanities, but I trust in Yahweh. I will be glad and rejoice in your loving kindness, for y",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 34,
-   "verse": 7,
+   "empties": [
+    "psa 34:7"
+   ],
+   "terminal": "psa 34:8",
    "file": "index_split_033.html",
-   "web_N": "Yahweh’s angel encamps around those who fear him, and delivers them.",
-   "web_N1": "Oh taste and see that Yahweh is good. Blessed is the man who takes refuge in him.",
-   "base_next_full": "Yahweh’s angel encamps around those who fear him, and delivers them. Oh taste and see that Yahweh is good. Blessed is the man who takes refuge in him.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "34:7": "Yahweh’s angel encamps around those who fear him, and delivers them.",
+    "34:8": "Oh taste and see that Yahweh is good. Blessed is the man who takes refuge in him."
+   },
+   "terminal_base_body": "Yahweh’s angel encamps around those who fear him, and delivers them. Oh taste and see that Yahweh is good. Blessed is th",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 37,
-   "verse": 26,
+   "empties": [
+    "psa 37:26"
+   ],
+   "terminal": "psa 37:27",
    "file": "index_split_033.html",
-   "web_N": "All day long he deals graciously, and lends. His offspring is blessed.",
-   "web_N1": "Depart from evil, and do good. Live securely forever.",
-   "base_next_full": "All day long he deals graciously, and lends. His offspring is blessed. Depart from evil, and do good. Live securely forever.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "37:26": "All day long he deals graciously, and lends. His offspring is blessed.",
+    "37:27": "Depart from evil, and do good. Live securely forever."
+   },
+   "terminal_base_body": "All day long he deals graciously, and lends. His offspring is blessed. Depart from evil, and do good. Live securely fore",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 51,
-   "verse": 9,
+   "empties": [
+    "psa 51:9"
+   ],
+   "terminal": "psa 51:10",
    "file": "index_split_033.html",
-   "web_N": "Hide your face from my sins, and blot out all of my iniquities.",
-   "web_N1": "Create in me a clean heart, O God. Renew a right spirit within me.",
-   "base_next_full": "Hide your face from my sins, and blot out all of my iniquities. Create in me a clean heart, O God. Renew a right spirit within me.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "51:9": "Hide your face from my sins, and blot out all of my iniquities.",
+    "51:10": "Create in me a clean heart, O God. Renew a right spirit within me."
+   },
+   "terminal_base_body": "Hide your face from my sins, and blot out all of my iniquities. Create in me a clean heart, O God. Renew a right spirit ",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 57,
-   "verse": 2,
+   "empties": [
+    "psa 57:2"
+   ],
+   "terminal": "psa 57:3",
    "file": "index_split_033.html",
-   "web_N": "I cry out to God Most High, to God who accomplishes my requests for me.",
-   "web_N1": "He will send from heaven, and save me, he rebukes the one who is pursuing me. Selah. God will send out his loving kindness and his truth.",
-   "base_next_full": "I cry out to God Most High, to God who accomplishes my requests for me. He will send from heaven, and save me, he rebukes the one who is pursuing me. Selah. God will send out his loving kindness and his truth.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "57:2": "I cry out to God Most High, to God who accomplishes my requests for me.",
+    "57:3": "He will send from heaven, and save me, he rebukes the one who is pursuing me. Selah. God will send out his loving kindness and his truth."
+   },
+   "terminal_base_body": "I cry out to God Most High, to God who accomplishes my requests for me. He will send from heaven, and save me, he rebuke",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 73,
-   "verse": 14,
+   "empties": [
+    "psa 73:14"
+   ],
+   "terminal": "psa 73:15",
    "file": "index_split_034.html",
-   "web_N": "For all day long I have been plagued, and punished every morning.",
-   "web_N1": "If I had said, “I will speak thus”, behold, I would have betrayed the generation of your children.",
-   "base_next_full": "For all day long I have been plagued, and punished every morning. If I had said, “I will speak thus”, behold, I would have betrayed the generation of your children.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "73:14": "For all day long I have been plagued, and punished every morning.",
+    "73:15": "If I had said, “I will speak thus”, behold, I would have betrayed the generation of your children."
+   },
+   "terminal_base_body": "For all day long I have been plagued, and punished every morning. If I had said, “I will speak thus”, behold, I would ha",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 73,
-   "verse": 17,
+   "empties": [
+    "psa 73:17"
+   ],
+   "terminal": "psa 73:18",
    "file": "index_split_034.html",
-   "web_N": "until I entered God’s sanctuary, and considered their latter end.",
-   "web_N1": "Surely you set them in slippery places. You throw them down to destruction.",
-   "base_next_full": "until I entered God’s sanctuary, and considered their latter end. Surely you set them in slippery places. You throw them down to destruction.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "73:17": "until I entered God’s sanctuary, and considered their latter end.",
+    "73:18": "Surely you set them in slippery places. You throw them down to destruction."
+   },
+   "terminal_base_body": "until I entered God’s sanctuary, and considered their latter end. Surely you set them in slippery places. You throw them",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 77,
-   "verse": 7,
+   "empties": [
+    "psa 77:7"
+   ],
+   "terminal": "psa 77:8",
    "file": "index_split_034.html",
-   "web_N": "“Will the Lord reject us forever? Will he be favorable no more?",
-   "web_N1": "Has his loving kindness vanished forever? Does his promise fail for generations?",
-   "base_next_full": "“Will the Lord reject us forever? Will he be favorable no more? Has his loving kindness vanished forever? Does his promise fail for generations?",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "77:7": "“Will the Lord reject us forever? Will he be favorable no more?",
+    "77:8": "Has his loving kindness vanished forever? Does his promise fail for generations?"
+   },
+   "terminal_base_body": "“Will the Lord reject us forever? Will he be favorable no more? Has his loving kindness vanished forever? Does his promi",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 78,
-   "verse": 11,
+   "empties": [
+    "psa 78:11"
+   ],
+   "terminal": "psa 78:12",
    "file": "index_split_034.html",
-   "web_N": "They forgot his doings, his wondrous deeds that he had shown them.",
-   "web_N1": "He did marvelous things in the sight of their fathers, in the land of Egypt, in the field of Zoan.",
-   "base_next_full": "They forgot his doings, his wondrous deeds that he had shown them. He did marvelous things in the sight of their fathers, in the land of Egypt, in the field of Zoan.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "78:11": "They forgot his doings, his wondrous deeds that he had shown them.",
+    "78:12": "He did marvelous things in the sight of their fathers, in the land of Egypt, in the field of Zoan."
+   },
+   "terminal_base_body": "They forgot his doings, his wondrous deeds that he had shown them. He did marvelous things in the sight of their fathers",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 94,
-   "verse": 5,
+   "empties": [
+    "psa 94:5"
+   ],
+   "terminal": "psa 94:6",
    "file": "index_split_034.html",
-   "web_N": "They break your people in pieces, Yahweh, and afflict your heritage.",
-   "web_N1": "They kill the widow and the alien, and murder the fatherless.",
-   "base_next_full": "They break your people in pieces, Yahweh, and afflict your heritage. They kill the widow and the alien, and murder the fatherless.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "94:5": "They break your people in pieces, Yahweh, and afflict your heritage.",
+    "94:6": "They kill the widow and the alien, and murder the fatherless."
+   },
+   "terminal_base_body": "They break your people in pieces, Yahweh, and afflict your heritage. They kill the widow and the alien, and murder the f",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 108,
-   "verse": 2,
+   "empties": [
+    "psa 108:2"
+   ],
+   "terminal": "psa 108:3",
    "file": "index_split_034.html",
-   "web_N": "Wake up, harp and lyre! I will wake up the dawn.",
-   "web_N1": "I will give thanks to you, Yahweh, among the nations. I will sing praises to you among the peoples.",
-   "base_next_full": "Wake up, harp and lyre! I will wake up the dawn. I will give thanks to you, Yahweh, among the nations. I will sing praises to you among the peoples.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "108:2": "Wake up, harp and lyre! I will wake up the dawn.",
+    "108:3": "I will give thanks to you, Yahweh, among the nations. I will sing praises to you among the peoples."
+   },
+   "terminal_base_body": "Wake up, harp and lyre! I will wake up the dawn. I will give thanks to you, Yahweh, among the nations. I will sing prais",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 118,
-   "verse": 10,
+   "empties": [
+    "psa 118:10"
+   ],
+   "terminal": "psa 118:11",
    "file": "index_split_034.html",
-   "web_N": "All the nations surrounded me, but in Yahweh’s name I cut them off.",
-   "web_N1": "They surrounded me, yes, they surrounded me. In Yahweh’s name I indeed cut them off.",
-   "base_next_full": "All the nations surrounded me, but in Yahweh’s name I cut them off. They surrounded me, yes, they surrounded me. In Yahweh’s name I indeed cut them off.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "118:10": "All the nations surrounded me, but in Yahweh’s name I cut them off.",
+    "118:11": "They surrounded me, yes, they surrounded me. In Yahweh’s name I indeed cut them off."
+   },
+   "terminal_base_body": "All the nations surrounded me, but in Yahweh’s name I cut them off. They surrounded me, yes, they surrounded me. In Yahw",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 118,
-   "verse": 17,
+   "empties": [
+    "psa 118:17"
+   ],
+   "terminal": "psa 118:18",
    "file": "index_split_034.html",
-   "web_N": "I will not die, but live, and declare Yah’s works.",
-   "web_N1": "Yah has punished me severely, but he has not given me over to death.",
-   "base_next_full": "I will not die, but live, and declare Yah’s works. Yah has punished me severely, but he has not given me over to death.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "118:17": "I will not die, but live, and declare Yah’s works.",
+    "118:18": "Yah has punished me severely, but he has not given me over to death."
+   },
+   "terminal_base_body": "I will not die, but live, and declare Yah’s works. Yah has punished me severely, but he has not given me over to death.",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 17,
+   "empties": [
+    "psa 119:17"
+   ],
+   "terminal": "psa 119:18",
    "file": "index_split_034.html",
-   "web_N": "Do good to your servant. I will live and I will obey your word.",
-   "web_N1": "Open my eyes, that I may see wondrous things out of your law.",
-   "base_next_full": "Do good to your servant. I will live and I will obey your word. Open my eyes, that I may see wondrous things out of your law.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:17": "Do good to your servant. I will live and I will obey your word.",
+    "119:18": "Open my eyes, that I may see wondrous things out of your law."
+   },
+   "terminal_base_body": "Do good to your servant. I will live and I will obey your word. Open my eyes, that I may see wondrous things out of your",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 25,
+   "empties": [
+    "psa 119:25"
+   ],
+   "terminal": "psa 119:26",
    "file": "index_split_034.html",
-   "web_N": "My soul is laid low in the dust. Revive me according to your word!",
-   "web_N1": "I declared my ways, and you answered me. Teach me your statutes.",
-   "base_next_full": "My soul is laid low in the dust. Revive me according to your word! I declared my ways, and you answered me. Teach me your statutes.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:25": "My soul is laid low in the dust. Revive me according to your word!",
+    "119:26": "I declared my ways, and you answered me. Teach me your statutes."
+   },
+   "terminal_base_body": "My soul is laid low in the dust. Revive me according to your word! I declared my ways, and you answered me. Teach me you",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 49,
+   "empties": [
+    "psa 119:49"
+   ],
+   "terminal": "psa 119:50",
    "file": "index_split_034.html",
-   "web_N": "Remember your word to your servant, because you gave me hope.",
-   "web_N1": "This is my comfort in my affliction, for your word has revived me.",
-   "base_next_full": "Remember your word to your servant, because you gave me hope. This is my comfort in my affliction, for your word has revived me.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:49": "Remember your word to your servant, because you gave me hope.",
+    "119:50": "This is my comfort in my affliction, for your word has revived me."
+   },
+   "terminal_base_body": "Remember your word to your servant, because you gave me hope. This is my comfort in my affliction, for your word has rev",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 57,
+   "empties": [
+    "psa 119:57"
+   ],
+   "terminal": "psa 119:58",
    "file": "index_split_034.html",
-   "web_N": "Yahweh is my portion. I promised to obey your words.",
-   "web_N1": "I sought your favor with my whole heart. Be merciful to me according to your word.",
-   "base_next_full": "Yahweh is my portion. I promised to obey your words. I sought your favor with my whole heart. Be merciful to me according to your word.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:57": "Yahweh is my portion. I promised to obey your words.",
+    "119:58": "I sought your favor with my whole heart. Be merciful to me according to your word."
+   },
+   "terminal_base_body": "Yahweh is my portion. I promised to obey your words. I sought your favor with my whole heart. Be merciful to me accordin",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 65,
+   "empties": [
+    "psa 119:65"
+   ],
+   "terminal": "psa 119:66",
    "file": "index_split_034.html",
-   "web_N": "You have treated your servant well, according to your word, Yahweh.",
-   "web_N1": "Teach me good judgment and knowledge, for I believe in your commandments.",
-   "base_next_full": "You have treated your servant well, according to your word, Yahweh. Teach me good judgment and knowledge, for I believe in your commandments.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:65": "You have treated your servant well, according to your word, Yahweh.",
+    "119:66": "Teach me good judgment and knowledge, for I believe in your commandments."
+   },
+   "terminal_base_body": "You have treated your servant well, according to your word, Yahweh. Teach me good judgment and knowledge, for I believe ",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 81,
+   "empties": [
+    "psa 119:81"
+   ],
+   "terminal": "psa 119:82",
    "file": "index_split_034.html",
-   "web_N": "My soul faints for your salvation. I hope in your word.",
-   "web_N1": "My eyes fail for your word. I say, “When will you comfort me?”",
-   "base_next_full": "My soul faints for your salvation. I hope in your word. My eyes fail for your word. I say, “When will you comfort me?”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:81": "My soul faints for your salvation. I hope in your word.",
+    "119:82": "My eyes fail for your word. I say, “When will you comfort me?”"
+   },
+   "terminal_base_body": "My soul faints for your salvation. I hope in your word. My eyes fail for your word. I say, “When will you comfort me?”",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 89,
+   "empties": [
+    "psa 119:89"
+   ],
+   "terminal": "psa 119:90",
    "file": "index_split_035.html",
-   "web_N": "Yahweh, your word is settled in heaven forever.",
-   "web_N1": "Your faithfulness is to all generations. You have established the earth, and it remains.",
-   "base_next_full": "Yahweh, your word is settled in heaven forever. Your faithfulness is to all generations. You have established the earth, and it remains.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:89": "Yahweh, your word is settled in heaven forever.",
+    "119:90": "Your faithfulness is to all generations. You have established the earth, and it remains."
+   },
+   "terminal_base_body": "Yahweh, your word is settled in heaven forever. Your faithfulness is to all generations. You have established the earth,",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 97,
+   "empties": [
+    "psa 119:97"
+   ],
+   "terminal": "psa 119:98",
    "file": "index_split_035.html",
-   "web_N": "How I love your law! It is my meditation all day.",
-   "web_N1": "Your commandments make me wiser than my enemies, for your commandments are always with me.",
-   "base_next_full": "How I love your law! It is my meditation all day. Your commandments make me wiser than my enemies, for your commandments are always with me.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:97": "How I love your law! It is my meditation all day.",
+    "119:98": "Your commandments make me wiser than my enemies, for your commandments are always with me."
+   },
+   "terminal_base_body": "How I love your law! It is my meditation all day. Your commandments make me wiser than my enemies, for your commandments",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 105,
+   "empties": [
+    "psa 119:105"
+   ],
+   "terminal": "psa 119:106",
    "file": "index_split_035.html",
-   "web_N": "Your word is a lamp to my feet, and a light for my path.",
-   "web_N1": "I have sworn, and have confirmed it, that I will obey your righteous ordinances.",
-   "base_next_full": "Your word is a lamp to my feet, and a light for my path. I have sworn, and have confirmed it, that I will obey your righteous ordinances.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:105": "Your word is a lamp to my feet, and a light for my path.",
+    "119:106": "I have sworn, and have confirmed it, that I will obey your righteous ordinances."
+   },
+   "terminal_base_body": "Your word is a lamp to my feet, and a light for my path. I have sworn, and have confirmed it, that I will obey your righ",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 113,
+   "empties": [
+    "psa 119:113"
+   ],
+   "terminal": "psa 119:114",
    "file": "index_split_035.html",
-   "web_N": "I hate double-minded men, but I love your law.",
-   "web_N1": "You are my hiding place and my shield. I hope in your word.",
-   "base_next_full": "I hate double-minded men, but I love your law. You are my hiding place and my shield. I hope in your word.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:113": "I hate double-minded men, but I love your law.",
+    "119:114": "You are my hiding place and my shield. I hope in your word."
+   },
+   "terminal_base_body": "I hate double-minded men, but I love your law. You are my hiding place and my shield. I hope in your word.",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 122,
+   "empties": [
+    "psa 119:122"
+   ],
+   "terminal": "psa 119:123",
    "file": "index_split_035.html",
-   "web_N": "Ensure your servant’s well-being. Don’t let the proud oppress me.",
-   "web_N1": "My eyes fail looking for your salvation, for your righteous word.",
-   "base_next_full": "Ensure your servant’s well-being. Don’t let the proud oppress me. My eyes fail looking for your salvation, for your righteous word.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:122": "Ensure your servant’s well-being. Don’t let the proud oppress me.",
+    "119:123": "My eyes fail looking for your salvation, for your righteous word."
+   },
+   "terminal_base_body": "Ensure your servant’s well-being. Don’t let the proud oppress me. My eyes fail looking for your salvation, for your righ",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 126,
+   "empties": [
+    "psa 119:126"
+   ],
+   "terminal": "psa 119:127",
    "file": "index_split_035.html",
-   "web_N": "It is time to act, Yahweh, for they break your law.",
-   "web_N1": "Therefore I love your commandments more than gold, yes, more than pure gold.",
-   "base_next_full": "It is time to act, Yahweh, for they break your law. Therefore I love your commandments more than gold, yes, more than pure gold.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:126": "It is time to act, Yahweh, for they break your law.",
+    "119:127": "Therefore I love your commandments more than gold, yes, more than pure gold."
+   },
+   "terminal_base_body": "It is time to act, Yahweh, for they break your law. Therefore I love your commandments more than gold, yes, more than pu",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 129,
+   "empties": [
+    "psa 119:129"
+   ],
+   "terminal": "psa 119:130",
    "file": "index_split_035.html",
-   "web_N": "Your testimonies are wonderful, therefore my soul keeps them.",
-   "web_N1": "The entrance of your words gives light. It gives understanding to the simple.",
-   "base_next_full": "Your testimonies are wonderful, therefore my soul keeps them. The entrance of your words gives light. It gives understanding to the simple.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:129": "Your testimonies are wonderful, therefore my soul keeps them.",
+    "119:130": "The entrance of your words gives light. It gives understanding to the simple."
+   },
+   "terminal_base_body": "Your testimonies are wonderful, therefore my soul keeps them. The entrance of your words gives light. It gives understan",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 137,
+   "empties": [
+    "psa 119:137"
+   ],
+   "terminal": "psa 119:138",
    "file": "index_split_035.html",
-   "web_N": "You are righteous, Yahweh. Your judgments are upright.",
-   "web_N1": "You have commanded your statutes in righteousness. They are fully trustworthy.",
-   "base_next_full": "You are righteous, Yahweh. Your judgments are upright. You have commanded your statutes in righteousness. They are fully trustworthy.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:137": "You are righteous, Yahweh. Your judgments are upright.",
+    "119:138": "You have commanded your statutes in righteousness. They are fully trustworthy."
+   },
+   "terminal_base_body": "You are righteous, Yahweh. Your judgments are upright. You have commanded your statutes in righteousness. They are fully",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 119,
-   "verse": 153,
+   "empties": [
+    "psa 119:153"
+   ],
+   "terminal": "psa 119:154",
    "file": "index_split_035.html",
-   "web_N": "Consider my affliction, and deliver me, for I don’t forget your law.",
-   "web_N1": "Plead my cause, and redeem me! Revive me according to your promise.",
-   "base_next_full": "Consider my affliction, and deliver me, for I don’t forget your law. Plead my cause, and redeem me! Revive me according to your promise.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "119:153": "Consider my affliction, and deliver me, for I don’t forget your law.",
+    "119:154": "Plead my cause, and redeem me! Revive me according to your promise."
+   },
+   "terminal_base_body": "Consider my affliction, and deliver me, for I don’t forget your law. Plead my cause, and redeem me! Revive me according ",
+   "prefix_match": true
   },
   {
-   "book": "psa",
-   "ch": 129,
-   "verse": 5,
+   "empties": [
+    "psa 129:5"
+   ],
+   "terminal": "psa 129:6",
    "file": "index_split_035.html",
-   "web_N": "Let them be disappointed and turned backward, all those who hate Zion.",
-   "web_N1": "Let them be as the grass on the housetops, which withers before it grows up,",
-   "base_next_full": "Let them be disappointed and turned backward, all those who hate Zion. Let them be as the grass on the housetops, which withers before it grows up,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "129:5": "Let them be disappointed and turned backward, all those who hate Zion.",
+    "129:6": "Let them be as the grass on the housetops, which withers before it grows up,"
+   },
+   "terminal_base_body": "Let them be disappointed and turned backward, all those who hate Zion. Let them be as the grass on the housetops, which ",
+   "prefix_match": true
   },
   {
-   "book": "pro",
-   "ch": 1,
-   "verse": 30,
+   "empties": [
+    "pro 1:30"
+   ],
+   "terminal": "pro 1:31",
    "file": "index_split_035.html",
-   "web_N": "They wanted none of my counsel. They despised all my reproof.",
-   "web_N1": "Therefore they will eat of the fruit of their own way, and be filled with their own schemes.",
-   "base_next_full": "They wanted none of my counsel. They despised all my reproof. Therefore they will eat of the fruit of their own way, and be filled with their own schemes.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "1:30": "They wanted none of my counsel. They despised all my reproof.",
+    "1:31": "Therefore they will eat of the fruit of their own way, and be filled with their own schemes."
+   },
+   "terminal_base_body": "They wanted none of my counsel. They despised all my reproof. Therefore they will eat of the fruit of their own way, and",
+   "prefix_match": true
   },
   {
-   "book": "pro",
-   "ch": 6,
-   "verse": 17,
+   "empties": [
+    "pro 6:17"
+   ],
+   "terminal": "pro 6:18",
    "file": "index_split_035.html",
-   "web_N": "arrogant eyes, a lying tongue, hands that shed innocent blood,",
-   "web_N1": "a heart that devises wicked schemes, feet that are swift in running to mischief,",
-   "base_next_full": "arrogant eyes, a lying tongue, hands that shed innocent blood, a heart that devises wicked schemes, feet that are swift in running to mischief,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "6:17": "arrogant eyes, a lying tongue, hands that shed innocent blood,",
+    "6:18": "a heart that devises wicked schemes, feet that are swift in running to mischief,"
+   },
+   "terminal_base_body": "arrogant eyes, a lying tongue, hands that shed innocent blood, a heart that devises wicked schemes, feet that are swift ",
+   "prefix_match": true
   },
   {
-   "book": "pro",
-   "ch": 6,
-   "verse": 21,
+   "empties": [
+    "pro 6:21"
+   ],
+   "terminal": "pro 6:22",
    "file": "index_split_035.html",
-   "web_N": "Bind them continually on your heart. Tie them around your neck.",
-   "web_N1": "When you walk, it will lead you. When you sleep, it will watch over you. When you awake, it will talk with you.",
-   "base_next_full": "Bind them continually on your heart. Tie them around your neck. When you walk, it will lead you. When you sleep, it will watch over you. When you awake, it will talk with you.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "6:21": "Bind them continually on your heart. Tie them around your neck.",
+    "6:22": "When you walk, it will lead you. When you sleep, it will watch over you. When you awake, it will talk with you."
+   },
+   "terminal_base_body": "Bind them continually on your heart. Tie them around your neck. When you walk, it will lead you. When you sleep, it will",
+   "prefix_match": true
   },
   {
-   "book": "pro",
-   "ch": 7,
-   "verse": 6,
+   "empties": [
+    "pro 7:6"
+   ],
+   "terminal": "pro 7:7",
    "file": "index_split_035.html",
-   "web_N": "For at the window of my house, I looked out through my lattice.",
-   "web_N1": "I saw among the simple ones. I discerned among the youths a young man void of understanding,",
-   "base_next_full": "For at the window of my house, I looked out through my lattice. I saw among the simple ones. I discerned among the youths a young man void of understanding,",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "7:6": "For at the window of my house, I looked out through my lattice.",
+    "7:7": "I saw among the simple ones. I discerned among the youths a young man void of understanding,"
+   },
+   "terminal_base_body": "For at the window of my house, I looked out through my lattice. I saw among the simple ones. I discerned among the youth",
+   "prefix_match": true
   },
   {
-   "book": "pro",
-   "ch": 14,
-   "verse": 30,
+   "empties": [
+    "pro 14:30"
+   ],
+   "terminal": "pro 14:31",
    "file": "index_split_036.html",
-   "web_N": "The life of the body is a heart at peace, but envy rots the bones.",
-   "web_N1": "He who oppresses the poor shows contempt for his Maker, but he who is kind to the needy honors him.",
-   "base_next_full": "The life of the body is a heart at peace, but envy rots the bones. He who oppresses the poor shows contempt for his Maker, but he who is kind to the needy honors him.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "14:30": "The life of the body is a heart at peace, but envy rots the bones.",
+    "14:31": "He who oppresses the poor shows contempt for his Maker, but he who is kind to the needy honors him."
+   },
+   "terminal_base_body": "The life of the body is a heart at peace, but envy rots the bones. He who oppresses the poor shows contempt for his Make",
+   "prefix_match": true
   },
   {
-   "book": "pro",
-   "ch": 15,
-   "verse": 31,
+   "empties": [
+    "pro 15:31"
+   ],
+   "terminal": "pro 15:32",
    "file": "index_split_036.html",
-   "web_N": "The ear that listens to reproof lives, and will be at home among the wise.",
-   "web_N1": "He who refuses correction despises his own soul, but he who listens to reproof gets understanding.",
-   "base_next_full": "The ear that listens to reproof lives, and will be at home among the wise. He who refuses correction despises his own soul, but he who listens to reproof gets understanding.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "15:31": "The ear that listens to reproof lives, and will be at home among the wise.",
+    "15:32": "He who refuses correction despises his own soul, but he who listens to reproof gets understanding."
+   },
+   "terminal_base_body": "The ear that listens to reproof lives, and will be at home among the wise. He who refuses correction despises his own so",
+   "prefix_match": true
   },
   {
-   "book": "pro",
-   "ch": 16,
-   "verse": 27,
+   "empties": [
+    "pro 16:27"
+   ],
+   "terminal": "pro 16:28",
    "file": "index_split_036.html",
-   "web_N": "A worthless man devises mischief. His speech is like a scorching fire.",
-   "web_N1": "A perverse man stirs up strife. A whisperer separates close friends.",
-   "base_next_full": "A worthless man devises mischief. His speech is like a scorching fire. A perverse man stirs up strife. A whisperer separates close friends.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "16:27": "A worthless man devises mischief. His speech is like a scorching fire.",
+    "16:28": "A perverse man stirs up strife. A whisperer separates close friends."
+   },
+   "terminal_base_body": "A worthless man devises mischief. His speech is like a scorching fire. A perverse man stirs up strife. A whisperer separ",
+   "prefix_match": true
   },
   {
-   "book": "pro",
-   "ch": 21,
-   "verse": 18,
+   "empties": [
+    "pro 21:18"
+   ],
+   "terminal": "pro 21:19",
    "file": "index_split_036.html",
-   "web_N": "The wicked is a ransom for the righteous, the treacherous for the upright.",
-   "web_N1": "It is better to dwell in a desert land, than with a contentious and fretful woman.",
-   "base_next_full": "The wicked is a ransom for the righteous, the treacherous for the upright. It is better to dwell in a desert land, than with a contentious and fretful woman.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "21:18": "The wicked is a ransom for the righteous, the treacherous for the upright.",
+    "21:19": "It is better to dwell in a desert land, than with a contentious and fretful woman."
+   },
+   "terminal_base_body": "The wicked is a ransom for the righteous, the treacherous for the upright. It is better to dwell in a desert land, than ",
+   "prefix_match": true
   },
   {
-   "book": "pro",
-   "ch": 27,
-   "verse": 19,
+   "empties": [
+    "pro 27:19"
+   ],
+   "terminal": "pro 27:20",
    "file": "index_split_036.html",
-   "web_N": "Like water reflects a face, so a man’s heart reflects the man.",
-   "web_N1": "Sheol and Abaddon are never satisfied; and a man’s eyes are never satisfied.",
-   "base_next_full": "Like water reflects a face, so a man’s heart reflects the man. Sheol and Abaddon are never satisfied; and a man’s eyes are never satisfied.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "27:19": "Like water reflects a face, so a man’s heart reflects the man.",
+    "27:20": "Sheol and Abaddon are never satisfied; and a man’s eyes are never satisfied."
+   },
+   "terminal_base_body": "Like water reflects a face, so a man’s heart reflects the man. Sheol and Abaddon are never satisfied; and a man’s eyes a",
+   "prefix_match": true
   },
   {
-   "book": "pro",
-   "ch": 29,
-   "verse": 12,
+   "empties": [
+    "pro 29:12"
+   ],
+   "terminal": "pro 29:13",
    "file": "index_split_036.html",
-   "web_N": "If a ruler listens to lies, all of his officials are wicked.",
-   "web_N1": "The poor man and the oppressor have this in common: Yahweh gives sight to the eyes of both.",
-   "base_next_full": "If a ruler listens to lies, all of his officials are wicked. The poor man and the oppressor have this in common: Yahweh gives sight to the eyes of both.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "29:12": "If a ruler listens to lies, all of his officials are wicked.",
+    "29:13": "The poor man and the oppressor have this in common: Yahweh gives sight to the eyes of both."
+   },
+   "terminal_base_body": "If a ruler listens to lies, all of his officials are wicked. The poor man and the oppressor have this in common: Yahweh ",
+   "prefix_match": true
   },
   {
-   "book": "pro",
-   "ch": 31,
-   "verse": 2,
+   "empties": [
+    "pro 31:2"
+   ],
+   "terminal": "pro 31:3",
    "file": "index_split_036.html",
-   "web_N": "“Oh, my son! Oh, son of my womb! Oh, son of my vows!",
-   "web_N1": "Don’t give your strength to women, nor your ways to that which destroys kings.",
-   "base_next_full": "“Oh, my son! Oh, son of my womb! Oh, son of my vows! Don’t give your strength to women, nor your ways to that which destroys kings.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "31:2": "“Oh, my son! Oh, son of my womb! Oh, son of my vows!",
+    "31:3": "Don’t give your strength to women, nor your ways to that which destroys kings."
+   },
+   "terminal_base_body": "“Oh, my son! Oh, son of my womb! Oh, son of my vows! Don’t give your strength to women, nor your ways to that which dest",
+   "prefix_match": true
   },
   {
-   "book": "ecc",
-   "ch": 5,
-   "verse": 5,
+   "empties": [
+    "ecc 5:5"
+   ],
+   "terminal": "ecc 5:6",
    "file": "index_split_037.html",
-   "web_N": "It is better that you should not vow, than that you should vow and not pay.",
-   "web_N1": "Don’t allow your mouth to lead you into sin. Don’t protest before the messenger that this was a mistake. Why should God be angry at your voice, and destroy the work of your hands?",
-   "base_next_full": "It is better that you should not vow, than that you should vow and not pay. Don’t allow your mouth to lead you into sin. Don’t protest before the messenger that this was a mistake. Why should God be angry at your voice, and destroy the work of your hands?",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "5:5": "It is better that you should not vow, than that you should vow and not pay.",
+    "5:6": "Don’t allow your mouth to lead you into sin. Don’t protest before the messenger that this was a mistake. Why should God be angry at your voice, and destroy the work of your hands?"
+   },
+   "terminal_base_body": "It is better that you should not vow, than that you should vow and not pay. Don’t allow your mouth to lead you into sin.",
+   "prefix_match": true
   },
   {
-   "book": "ecc",
-   "ch": 6,
-   "verse": 11,
+   "empties": [
+    "ecc 6:11"
+   ],
+   "terminal": "ecc 6:12",
    "file": "index_split_037.html",
-   "web_N": "For there are many words that create vanity. What does that profit man?",
-   "web_N1": "For who knows what is good for man in life, all the days of his vain life which he spends like a shadow? For who can tell a man what will be after him under the sun?",
-   "base_next_full": "For there are many words that create vanity. What does that profit man? For who knows what is good for man in life, all the days of his vain life which he spends like a shadow? For who can tell a man what will be after him under the sun?",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "6:11": "For there are many words that create vanity. What does that profit man?",
+    "6:12": "For who knows what is good for man in life, all the days of his vain life which he spends like a shadow? For who can tell a man what will be after him under the sun?"
+   },
+   "terminal_base_body": "For there are many words that create vanity. What does that profit man? For who knows what is good for man in life, all ",
+   "prefix_match": true
   },
   {
-   "book": "ecc",
-   "ch": 8,
-   "verse": 2,
+   "empties": [
+    "ecc 8:2"
+   ],
+   "terminal": "ecc 8:3",
    "file": "index_split_037.html",
-   "web_N": "I say, “Keep the king’s command!” because of the oath to God.",
-   "web_N1": "Don’t be hasty to go out of his presence. Don’t persist in an evil thing, for he does whatever pleases him,",
-   "base_next_full": "I say, “Keep the king’s command!” because of the oath to God. Don’t be hasty to go out of his presence. Don’t persist in an evil thing, for he does whatever pleases him,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "8:2": "I say, “Keep the king’s command!” because of the oath to God.",
+    "8:3": "Don’t be hasty to go out of his presence. Don’t persist in an evil thing, for he does whatever pleases him,"
+   },
+   "terminal_base_body": "I say, “Keep the king’s command!” because of the oath to God. Don’t be hasty to go out of his presence. Don’t persist in",
+   "prefix_match": true
   },
   {
-   "book": "sng",
-   "ch": 1,
-   "verse": 12,
+   "empties": [
+    "sng 1:12"
+   ],
+   "terminal": "sng 1:13",
    "file": "index_split_037.html",
-   "web_N": "While the king sat at his table, my perfume spread its fragrance.",
-   "web_N1": "My beloved is to me a sachet of myrrh, that lies between my breasts.",
-   "base_next_full": "While the king sat at his table, my perfume spread its fragrance. My beloved is to me a sachet of myrrh, that lies between my breasts.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "1:12": "While the king sat at his table, my perfume spread its fragrance.",
+    "1:13": "My beloved is to me a sachet of myrrh, that lies between my breasts."
+   },
+   "terminal_base_body": "While the king sat at his table, my perfume spread its fragrance. My beloved is to me a sachet of myrrh, that lies betwe",
+   "prefix_match": true
   },
   {
-   "book": "sng",
-   "ch": 2,
-   "verse": 6,
+   "empties": [
+    "sng 2:6"
+   ],
+   "terminal": "sng 2:7",
    "file": "index_split_037.html",
-   "web_N": "His left hand is under my head. His right hand embraces me.",
-   "web_N1": "I adjure you, daughters of Jerusalem, by the roes, or by the hinds of the field, that you not stir up, nor awaken love, until it so desires.",
-   "base_next_full": "His left hand is under my head. His right hand embraces me. I adjure you, daughters of Jerusalem, by the roes, or by the hinds of the field, that you not stir up, nor awaken love, until it so desires.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "2:6": "His left hand is under my head. His right hand embraces me.",
+    "2:7": "I adjure you, daughters of Jerusalem, by the roes, or by the hinds of the field, that you not stir up, nor awaken love, until it so desires."
+   },
+   "terminal_base_body": "His left hand is under my head. His right hand embraces me. I adjure you, daughters of Jerusalem, by the roes, or by the",
+   "prefix_match": true
   },
   {
-   "book": "sng",
-   "ch": 2,
-   "verse": 16,
+   "empties": [
+    "sng 2:16"
+   ],
+   "terminal": "sng 2:17",
    "file": "index_split_037.html",
-   "web_N": "My beloved is mine, and I am his. He browses among the lilies.",
-   "web_N1": "Until the day is cool, and the shadows flee away, turn, my beloved, and be like a roe or a young deer on the mountains of Bether.",
-   "base_next_full": "My beloved is mine, and I am his. He browses among the lilies. Until the day is cool, and the shadows flee away, turn, my beloved, and be like a roe or a young deer on the mountains of Bether.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "2:16": "My beloved is mine, and I am his. He browses among the lilies.",
+    "2:17": "Until the day is cool, and the shadows flee away, turn, my beloved, and be like a roe or a young deer on the mountains of Bether."
+   },
+   "terminal_base_body": "My beloved is mine, and I am his. He browses among the lilies. Until the day is cool, and the shadows flee away, turn, m",
+   "prefix_match": true
   },
   {
-   "book": "sng",
-   "ch": 5,
-   "verse": 10,
+   "empties": [
+    "sng 5:10"
+   ],
+   "terminal": "sng 5:11",
    "file": "index_split_037.html",
-   "web_N": "My beloved is white and ruddy. The best among ten thousand.",
-   "web_N1": "His head is like the purest gold. His hair is bushy, black as a raven.",
-   "base_next_full": "My beloved is white and ruddy. The best among ten thousand. His head is like the purest gold. His hair is bushy, black as a raven.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "5:10": "My beloved is white and ruddy. The best among ten thousand.",
+    "5:11": "His head is like the purest gold. His hair is bushy, black as a raven."
+   },
+   "terminal_base_body": "My beloved is white and ruddy. The best among ten thousand. His head is like the purest gold. His hair is bushy, black a",
+   "prefix_match": true
   },
   {
-   "book": "sng",
-   "ch": 7,
-   "verse": 10,
+   "empties": [
+    "sng 7:10"
+   ],
+   "terminal": "sng 7:11",
    "file": "index_split_037.html",
-   "web_N": "I am my beloved’s. His desire is toward me.",
-   "web_N1": "Come, my beloved! Let’s go out into the field. Let’s lodge in the villages.",
-   "base_next_full": "I am my beloved’s. His desire is toward me. Come, my beloved! Let’s go out into the field. Let’s lodge in the villages.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "7:10": "I am my beloved’s. His desire is toward me.",
+    "7:11": "Come, my beloved! Let’s go out into the field. Let’s lodge in the villages."
+   },
+   "terminal_base_body": "I am my beloved’s. His desire is toward me. Come, my beloved! Let’s go out into the field. Let’s lodge in the villages.",
+   "prefix_match": true
   },
   {
-   "book": "sir",
-   "ch": 6,
-   "verse": 13,
-   "file": "index_split_037.html",
-   "web_N": "Separate yourself from your enemies, and beware of your friends.",
-   "web_N1": "A faithful friend is a strong defense. He who has found him has found a treasure.",
-   "base_next_full": "Separate yourself from your enemies, and beware of your friends. A faithful friend is a strong defense. He who has found him has found a treasure.",
-   "has_pilcrow": false
-  },
-  {
-   "book": "sir",
-   "ch": 16,
-   "verse": 8,
-   "file": "index_split_037.html",
-   "web_N": "He didn’t spare Lot’s neighbors, whom he abhorred for their pride.",
-   "web_N1": "He didn’t pity the people of perdition who were taken away in their sins,",
-   "base_next_full": "He didn’t spare Lot’s neighbors, whom he abhorred for their pride. He didn’t pity the people of perdition who were taken away in their sins,",
-   "has_pilcrow": false
-  },
-  {
-   "book": "isa",
-   "ch": 3,
-   "verse": 22,
+   "empties": [
+    "isa 3:22"
+   ],
+   "terminal": "isa 3:23",
    "file": "index_split_039.html",
-   "web_N": "the fine robes, the capes, the cloaks, the purses,",
-   "web_N1": "the hand mirrors, the fine linen garments, the tiaras, and the shawls.",
-   "base_next_full": "the fine robes, the capes, the cloaks, the purses, the hand mirrors, the fine linen garments, the tiaras, and the shawls.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "3:22": "the fine robes, the capes, the cloaks, the purses,",
+    "3:23": "the hand mirrors, the fine linen garments, the tiaras, and the shawls."
+   },
+   "terminal_base_body": "the fine robes, the capes, the cloaks, the purses, the hand mirrors, the fine linen garments, the tiaras, and the shawls",
+   "prefix_match": true
   },
   {
-   "book": "isa",
-   "ch": 10,
-   "verse": 8,
+   "empties": [
+    "isa 10:8"
+   ],
+   "terminal": "isa 10:9",
    "file": "index_split_039.html",
-   "web_N": "For he says, “Aren’t all of my princes kings?",
-   "web_N1": "Isn’t Calno like Carchemish? Isn’t Hamath like Arpad? Isn’t Samaria like Damascus?”",
-   "base_next_full": "For he says, “Aren’t all of my princes kings? Isn’t Calno like Carchemish? Isn’t Hamath like Arpad? Isn’t Samaria like Damascus?”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "10:8": "For he says, “Aren’t all of my princes kings?",
+    "10:9": "Isn’t Calno like Carchemish? Isn’t Hamath like Arpad? Isn’t Samaria like Damascus?”"
+   },
+   "terminal_base_body": "For he says, “Aren’t all of my princes kings? Isn’t Calno like Carchemish? Isn’t Hamath like Arpad? Isn’t Samaria like D",
+   "prefix_match": true
   },
   {
-   "book": "isa",
-   "ch": 28,
-   "verse": 23,
+   "empties": [
+    "isa 28:23"
+   ],
+   "terminal": "isa 28:24",
    "file": "index_split_039.html",
-   "web_N": "Give ear, and hear my voice! Listen, and hear my speech!",
-   "web_N1": "Does he who plows to sow plow continually? Does he keep turning the soil and breaking the clods?",
-   "base_next_full": "Give ear, and hear my voice! Listen, and hear my speech! Does he who plows to sow plow continually? Does he keep turning the soil and breaking the clods?",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "28:23": "Give ear, and hear my voice! Listen, and hear my speech!",
+    "28:24": "Does he who plows to sow plow continually? Does he keep turning the soil and breaking the clods?"
+   },
+   "terminal_base_body": "Give ear, and hear my voice! Listen, and hear my speech! Does he who plows to sow plow continually? Does he keep turning",
+   "prefix_match": true
   },
   {
-   "book": "isa",
-   "ch": 41,
-   "verse": 6,
+   "empties": [
+    "isa 41:6"
+   ],
+   "terminal": "isa 41:7",
    "file": "index_split_040.html",
-   "web_N": "Everyone helps his neighbor. They say to their brothers, “Be strong!”",
-   "web_N1": "So the carpenter encourages the goldsmith. He who smooths with the hammer encourages him who strikes the anvil, saying of the soldering, “It is good;” and he fastens it with nails, that it might not totter.",
-   "base_next_full": "Everyone helps his neighbor. They say to their brothers, “Be strong!” So the carpenter encourages the goldsmith. He who smooths with the hammer encourages him who strikes the anvil, saying of the soldering, “It is good;” and he fastens it with nails, that it might not totter.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "41:6": "Everyone helps his neighbor. They say to their brothers, “Be strong!”",
+    "41:7": "So the carpenter encourages the goldsmith. He who smooths with the hammer encourages him who strikes the anvil, saying of the soldering, “It is good;” and he fastens it with nails, that it might not totter."
+   },
+   "terminal_base_body": "Everyone helps his neighbor. They say to their brothers, “Be strong!” So the carpenter encourages the goldsmith. He who ",
+   "prefix_match": true
   },
   {
-   "book": "jer",
-   "ch": 8,
-   "verse": 20,
+   "empties": [
+    "jer 8:20"
+   ],
+   "terminal": "jer 8:21",
    "file": "index_split_041.html",
-   "web_N": "“The harvest is past. The summer has ended, and we are not saved.”",
-   "web_N1": "For the hurt of the daughter of my people, I am hurt. I mourn. Dismay has taken hold of me.",
-   "base_next_full": "“The harvest is past. The summer has ended, and we are not saved.” For the hurt of the daughter of my people, I am hurt. I mourn. Dismay has taken hold of me.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "8:20": "“The harvest is past. The summer has ended, and we are not saved.”",
+    "8:21": "For the hurt of the daughter of my people, I am hurt. I mourn. Dismay has taken hold of me."
+   },
+   "terminal_base_body": "“The harvest is past. The summer has ended, and we are not saved.” For the hurt of the daughter of my people, I am hurt.",
+   "prefix_match": true
   },
   {
-   "book": "jer",
-   "ch": 25,
-   "verse": 23,
+   "empties": [
+    "jer 25:23"
+   ],
+   "terminal": "jer 25:24",
    "file": "index_split_042.html",
-   "web_N": "Dedan, Tema, Buz, and all who have the corners of their beard cut off;",
-   "web_N1": "and all the kings of Arabia, all the kings of the mixed people who dwell in the wilderness;",
-   "base_next_full": "Dedan, Tema, Buz, and all who have the corners of their beard cut off; and all the kings of Arabia, all the kings of the mixed people who dwell in the wilderness;",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "25:23": "Dedan, Tema, Buz, and all who have the corners of their beard cut off;",
+    "25:24": "and all the kings of Arabia, all the kings of the mixed people who dwell in the wilderness;"
+   },
+   "terminal_base_body": "Dedan, Tema, Buz, and all who have the corners of their beard cut off; and all the kings of Arabia, all the kings of the",
+   "prefix_match": true
   },
   {
-   "book": "jer",
-   "ch": 32,
-   "verse": 13,
+   "empties": [
+    "jer 32:13"
+   ],
+   "terminal": "jer 32:14",
    "file": "index_split_042.html",
-   "web_N": "“I commanded Baruch before them, saying,",
-   "web_N1": "Yahweh of Armies, the God of Israel, says: ‘Take these deeds, this deed of the purchase which is sealed, and this deed which is open, and put them in an earthen vessel, that they may last many days.’",
-   "base_next_full": "“I commanded Baruch before them, saying, Yahweh of Armies, the God of Israel, says: ‘Take these deeds, this deed of the purchase which is sealed, and this deed which is open, and put them in an earthen vessel, that they may last many days.’",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "32:13": "“I commanded Baruch before them, saying,",
+    "32:14": "Yahweh of Armies, the God of Israel, says: ‘Take these deeds, this deed of the purchase which is sealed, and this deed which is open, and put them in an earthen vessel, that they may last many days.’"
+   },
+   "terminal_base_body": "“I commanded Baruch before them, saying, Yahweh of Armies, the God of Israel, says: ‘Take these deeds, this deed of the ",
+   "prefix_match": true
   },
   {
-   "book": "jer",
-   "ch": 48,
-   "verse": 14,
+   "empties": [
+    "jer 48:14"
+   ],
+   "terminal": "jer 48:15",
    "file": "index_split_042.html",
-   "web_N": "“How do you say, ‘We are mighty men, and valiant men for the war’?",
-   "web_N1": "Moab is laid waste, and they have gone up into his cities, and his chosen young men have gone down to the slaughter,” says the King, whose name is Yahweh of Armies.",
-   "base_next_full": "“How do you say, ‘We are mighty men, and valiant men for the war’? Moab is laid waste, and they have gone up into his cities, and his chosen young men have gone down to the slaughter,” says the King, whose name is Yahweh of Armies.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "48:14": "“How do you say, ‘We are mighty men, and valiant men for the war’?",
+    "48:15": "Moab is laid waste, and they have gone up into his cities, and his chosen young men have gone down to the slaughter,” says the King, whose name is Yahweh of Armies."
+   },
+   "terminal_base_body": "“How do you say, ‘We are mighty men, and valiant men for the war’? Moab is laid waste, and they have gone up into his ci",
+   "prefix_match": true
   },
   {
-   "book": "lam",
-   "ch": 3,
-   "verse": 42,
+   "empties": [
+    "lam 3:42"
+   ],
+   "terminal": "lam 3:43",
    "file": "index_split_043.html",
-   "web_N": "“We have transgressed and have rebelled. You have not pardoned.",
-   "web_N1": "“You have covered us with anger and pursued us. You have killed. You have not pitied.",
-   "base_next_full": "“We have transgressed and have rebelled. You have not pardoned. “You have covered us with anger and pursued us. You have killed. You have not pitied.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "3:42": "“We have transgressed and have rebelled. You have not pardoned.",
+    "3:43": "“You have covered us with anger and pursued us. You have killed. You have not pitied."
+   },
+   "terminal_base_body": "“We have transgressed and have rebelled. You have not pardoned. “You have covered us with anger and pursued us. You have",
+   "prefix_match": true
   },
   {
-   "book": "dan",
-   "ch": 2,
-   "verse": 36,
+   "empties": [
+    "dan 2:36"
+   ],
+   "terminal": "dan 2:37",
    "file": "index_split_047.html",
-   "web_N": "“This is the dream; and we will tell its interpretation before the king.",
-   "web_N1": "You, O king, are king of kings, to whom the God of heaven has given the kingdom, the power, the strength, and the glory.",
-   "base_next_full": "“This is the dream; and we will tell its interpretation before the king. You, O king, are king of kings, to whom the God of heaven has given the kingdom, the power, the strength, and the glory.",
-   "has_pilcrow": true
+   "n_split": 2,
+   "web_per_verse": {
+    "2:36": "“This is the dream; and we will tell its interpretation before the king.",
+    "2:37": "You, O king, are king of kings, to whom the God of heaven has given the kingdom, the power, the strength, and the glory."
+   },
+   "terminal_base_body": "“This is the dream; and we will tell its interpretation before the king. You, O king, are king of kings, to whom the God",
+   "prefix_match": true
   },
   {
-   "book": "zec",
-   "ch": 1,
-   "verse": 2,
+   "empties": [
+    "zec 1:2"
+   ],
+   "terminal": "zec 1:3",
    "file": "index_split_051.html",
-   "web_N": "“Yahweh was very displeased with your fathers.",
-   "web_N1": "Therefore tell them, Yahweh of Armies says: ‘Return to me,’ says Yahweh of Armies, ‘and I will return to you,’ says Yahweh of Armies.",
-   "base_next_full": "“Yahweh was very displeased with your fathers. Therefore tell them, Yahweh of Armies says: ‘Return to me,’ says Yahweh of Armies, ‘and I will return to you,’ says Yahweh of Armies.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "1:2": "“Yahweh was very displeased with your fathers.",
+    "1:3": "Therefore tell them, Yahweh of Armies says: ‘Return to me,’ says Yahweh of Armies, ‘and I will return to you,’ says Yahweh of Armies."
+   },
+   "terminal_base_body": "“Yahweh was very displeased with your fathers. Therefore tell them, Yahweh of Armies says: ‘Return to me,’ says Yahweh o",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 3,
-   "verse": 6,
+   "empties": [
+    "mat 3:6"
+   ],
+   "terminal": "mat 3:7",
    "file": "index_split_051.html",
-   "web_N": "They were baptized by him in the Jordan, confessing their sins.",
-   "web_N1": "But when he saw many of the Pharisees and Sadducees coming for his baptism, he said to them, “You offspring of vipers, who warned you to flee from the wrath to come?",
-   "base_next_full": "They were baptized by him in the Jordan, confessing their sins. But when he saw many of the Pharisees and Sadducees coming for his baptism, he said to them, “You offspring of vipers, who warned you to flee from the wrath to come?",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "3:6": "They were baptized by him in the Jordan, confessing their sins.",
+    "3:7": "But when he saw many of the Pharisees and Sadducees coming for his baptism, he said to them, “You offspring of vipers, who warned you to flee from the wrath to come?"
+   },
+   "terminal_base_body": "They were baptized by him in the Jordan, confessing their sins. But when he saw many of the Pharisees and Sadducees comi",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 5,
-   "verse": 4,
+   "empties": [
+    "mat 5:4"
+   ],
+   "terminal": "mat 5:5",
    "file": "index_split_051.html",
-   "web_N": "Blessed are those who mourn, for they shall be comforted.",
-   "web_N1": "Blessed are the gentle, for they shall inherit the earth.",
-   "base_next_full": "Blessed are those who mourn, for they shall be comforted. Blessed are the gentle, for they shall inherit the earth.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "5:4": "Blessed are those who mourn, for they shall be comforted.",
+    "5:5": "Blessed are the gentle, for they shall inherit the earth."
+   },
+   "terminal_base_body": "Blessed are those who mourn, for they shall be comforted. Blessed are the gentle, for they shall inherit the earth.",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 7,
-   "verse": 10,
+   "empties": [
+    "mat 7:10"
+   ],
+   "terminal": "mat 7:11",
    "file": "index_split_051.html",
-   "web_N": "Or if he asks for a fish, who will give him a serpent?",
-   "web_N1": "If you then, being evil, know how to give good gifts to your children, how much more will your Father who is in heaven give good things to those who ask him!",
-   "base_next_full": "Or if he asks for a fish, who will give him a serpent? If you then, being evil, know how to give good gifts to your children, how much more will your Father who is in heaven give good things to those who ask him!",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "7:10": "Or if he asks for a fish, who will give him a serpent?",
+    "7:11": "If you then, being evil, know how to give good gifts to your children, how much more will your Father who is in heaven give good things to those who ask him!"
+   },
+   "terminal_base_body": "Or if he asks for a fish, who will give him a serpent? If you then, being evil, know how to give good gifts to your chil",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 9,
-   "verse": 19,
+   "empties": [
+    "mat 9:19"
+   ],
+   "terminal": "mat 9:20",
    "file": "index_split_051.html",
-   "web_N": "Jesus got up and followed him, as did his disciples.",
-   "web_N1": "Behold, a woman who had a discharge of blood for twelve years came behind him, and touched the fringe of his garment;",
-   "base_next_full": "Jesus got up and followed him, as did his disciples. Behold, a woman who had a discharge of blood for twelve years came behind him, and touched the fringe of his garment;",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "9:19": "Jesus got up and followed him, as did his disciples.",
+    "9:20": "Behold, a woman who had a discharge of blood for twelve years came behind him, and touched the fringe of his garment;"
+   },
+   "terminal_base_body": "Jesus got up and followed him, as did his disciples. Behold, a woman who had a discharge of blood for twelve years came ",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 9,
-   "verse": 31,
+   "empties": [
+    "mat 9:31"
+   ],
+   "terminal": "mat 9:32",
    "file": "index_split_051.html",
-   "web_N": "But they went out and spread abroad his fame in all that land.",
-   "web_N1": "As they went out, behold, a mute man who was demon possessed was brought to him.",
-   "base_next_full": "But they went out and spread abroad his fame in all that land. As they went out, behold, a mute man who was demon possessed was brought to him.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "9:31": "But they went out and spread abroad his fame in all that land.",
+    "9:32": "As they went out, behold, a mute man who was demon possessed was brought to him."
+   },
+   "terminal_base_body": "But they went out and spread abroad his fame in all that land. As they went out, behold, a mute man who was demon posses",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 14,
-   "verse": 4,
+   "empties": [
+    "mat 14:4"
+   ],
+   "terminal": "mat 14:5",
    "file": "index_split_051.html",
-   "web_N": "For John said to him, “It is not lawful for you to have her.”",
-   "web_N1": "When he would have put him to death, he feared the multitude, because they counted him as a prophet.",
-   "base_next_full": "For John said to him, “It is not lawful for you to have her.” When he would have put him to death, he feared the multitude, because they counted him as a prophet.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "14:4": "For John said to him, “It is not lawful for you to have her.”",
+    "14:5": "When he would have put him to death, he feared the multitude, because they counted him as a prophet."
+   },
+   "terminal_base_body": "For John said to him, “It is not lawful for you to have her.” When he would have put him to death, he feared the multitu",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 16,
-   "verse": 16,
+   "empties": [
+    "mat 16:16"
+   ],
+   "terminal": "mat 16:17",
    "file": "index_split_051.html",
-   "web_N": "Simon Peter answered, “You are the Christ, the Son of the living God.”",
-   "web_N1": "Jesus answered him, “Blessed are you, Simon Bar Jonah, for flesh and blood has not revealed this to you, but my Father who is in heaven.",
-   "base_next_full": "Simon Peter answered, “You are the Christ, the Son of the living God.” Jesus answered him, “Blessed are you, Simon Bar Jonah, for flesh and blood has not revealed this to you, but my Father who is in heaven.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "16:16": "Simon Peter answered, “You are the Christ, the Son of the living God.”",
+    "16:17": "Jesus answered him, “Blessed are you, Simon Bar Jonah, for flesh and blood has not revealed this to you, but my Father who is in heaven."
+   },
+   "terminal_base_body": "Simon Peter answered, “You are the Christ, the Son of the living God.” Jesus answered him, “Blessed are you, Simon Bar J",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 17,
-   "verse": 13,
+   "empties": [
+    "mat 17:13"
+   ],
+   "terminal": "mat 17:14",
    "file": "index_split_051.html",
-   "web_N": "Then the disciples understood that he spoke to them of John the Baptizer.",
-   "web_N1": "When they came to the multitude, a man came to him, kneeling down to him and saying,",
-   "base_next_full": "Then the disciples understood that he spoke to them of John the Baptizer. When they came to the multitude, a man came to him, kneeling down to him and saying,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "17:13": "Then the disciples understood that he spoke to them of John the Baptizer.",
+    "17:14": "When they came to the multitude, a man came to him, kneeling down to him and saying,"
+   },
+   "terminal_base_body": "Then the disciples understood that he spoke to them of John the Baptizer. When they came to the multitude, a man came to",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 22,
-   "verse": 20,
+   "empties": [
+    "mat 22:20"
+   ],
+   "terminal": "mat 22:21",
    "file": "index_split_052.html",
-   "web_N": "He asked them, “Whose is this image and inscription?”",
-   "web_N1": "They said to him, “Caesar’s.” Then he said to them, “Give therefore to Caesar the things that are Caesar’s, and to God the things that are God’s.”",
-   "base_next_full": "He asked them, “Whose is this image and inscription?” They said to him, “Caesar’s.” Then he said to them, “Give therefore to Caesar the things that are Caesar’s, and to God the things that are God’s.”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "22:20": "He asked them, “Whose is this image and inscription?”",
+    "22:21": "They said to him, “Caesar’s.” Then he said to them, “Give therefore to Caesar the things that are Caesar’s, and to God the things that are God’s.”"
+   },
+   "terminal_base_body": "He asked them, “Whose is this image and inscription?” They said to him, “Caesar’s.” Then he said to them, “Give therefor",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 22,
-   "verse": 36,
+   "empties": [
+    "mat 22:36"
+   ],
+   "terminal": "mat 22:37",
    "file": "index_split_052.html",
-   "web_N": "“Teacher, which is the greatest commandment in the law?”",
-   "web_N1": "Jesus said to him, “‘You shall love the Lord your God with all your heart, with all your soul, and with all your mind.’",
-   "base_next_full": "“Teacher, which is the greatest commandment in the law?” Jesus said to him, “‘You shall love the Lord your God with all your heart, with all your soul, and with all your mind.’",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "22:36": "“Teacher, which is the greatest commandment in the law?”",
+    "22:37": "Jesus said to him, “‘You shall love the Lord your God with all your heart, with all your soul, and with all your mind.’"
+   },
+   "terminal_base_body": "“Teacher, which is the greatest commandment in the law?” Jesus said to him, “‘You shall love the Lord your God with all ",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 23,
-   "verse": 24,
+   "empties": [
+    "mat 23:24"
+   ],
+   "terminal": "mat 23:25",
    "file": "index_split_052.html",
-   "web_N": "You blind guides, who strain out a gnat, and swallow a camel!",
-   "web_N1": "“Woe to you, scribes and Pharisees, hypocrites! For you clean the outside of the cup and of the platter, but within they are full of extortion and unrighteousness.",
-   "base_next_full": "You blind guides, who strain out a gnat, and swallow a camel! “Woe to you, scribes and Pharisees, hypocrites! For you clean the outside of the cup and of the platter, but within they are full of extortion and unrighteousness.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "23:24": "You blind guides, who strain out a gnat, and swallow a camel!",
+    "23:25": "“Woe to you, scribes and Pharisees, hypocrites! For you clean the outside of the cup and of the platter, but within they are full of extortion and unrighteousness."
+   },
+   "terminal_base_body": "You blind guides, who strain out a gnat, and swallow a camel! “Woe to you, scribes and Pharisees, hypocrites! For you cl",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 26,
-   "verse": 46,
+   "empties": [
+    "mat 26:46"
+   ],
+   "terminal": "mat 26:47",
    "file": "index_split_052.html",
-   "web_N": "Arise, let’s be going. Behold, he who betrays me is at hand.”",
-   "web_N1": "While he was still speaking, behold, Judas, one of the twelve, came, and with him a great multitude with swords and clubs, from the chief priests and elders of the people.",
-   "base_next_full": "Arise, let’s be going. Behold, he who betrays me is at hand.” While he was still speaking, behold, Judas, one of the twelve, came, and with him a great multitude with swords and clubs, from the chief priests and elders of the people.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "26:46": "Arise, let’s be going. Behold, he who betrays me is at hand.”",
+    "26:47": "While he was still speaking, behold, Judas, one of the twelve, came, and with him a great multitude with swords and clubs, from the chief priests and elders of the people."
+   },
+   "terminal_base_body": "Arise, let’s be going. Behold, he who betrays me is at hand.” While he was still speaking, behold, Judas, one of the twe",
+   "prefix_match": true
   },
   {
-   "book": "mat",
-   "ch": 26,
-   "verse": 54,
+   "empties": [
+    "mat 26:54"
+   ],
+   "terminal": "mat 26:55",
    "file": "index_split_052.html",
-   "web_N": "How then would the Scriptures be fulfilled that it must be so?”",
-   "web_N1": "In that hour Jesus said to the multitudes, “Have you come out as against a robber with swords and clubs to seize me? I sat daily in the temple teaching, and you didn’t arrest me.",
-   "base_next_full": "How then would the Scriptures be fulfilled that it must be so?” In that hour Jesus said to the multitudes, “Have you come out as against a robber with swords and clubs to seize me? I sat daily in the temple teaching, and you didn’t arrest me.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "26:54": "How then would the Scriptures be fulfilled that it must be so?”",
+    "26:55": "In that hour Jesus said to the multitudes, “Have you come out as against a robber with swords and clubs to seize me? I sat daily in the temple teaching, and you didn’t arrest me."
+   },
+   "terminal_base_body": "How then would the Scriptures be fulfilled that it must be so?” In that hour Jesus said to the multitudes, “Have you com",
+   "prefix_match": true
   },
   {
-   "book": "mrk",
-   "ch": 2,
-   "verse": 3,
+   "empties": [
+    "mrk 2:3"
+   ],
+   "terminal": "mrk 2:4",
    "file": "index_split_052.html",
-   "web_N": "Four people came, carrying a paralytic to him.",
-   "web_N1": "When they could not come near to him for the crowd, they removed the roof where he was. When they had broken it up, they let down the mat that the paralytic was lying on.",
-   "base_next_full": "Four people came, carrying a paralytic to him. When they could not come near to him for the crowd, they removed the roof where he was. When they had broken it up, they let down the mat that the paralytic was lying on.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "2:3": "Four people came, carrying a paralytic to him.",
+    "2:4": "When they could not come near to him for the crowd, they removed the roof where he was. When they had broken it up, they let down the mat that the paralytic was lying on."
+   },
+   "terminal_base_body": "Four people came, carrying a paralytic to him. When they could not come near to him for the crowd, they removed the roof",
+   "prefix_match": true
   },
   {
-   "book": "mrk",
-   "ch": 9,
-   "verse": 4,
+   "empties": [
+    "mrk 9:4"
+   ],
+   "terminal": "mrk 9:5",
    "file": "index_split_052.html",
-   "web_N": "Elijah and Moses appeared to them, and they were talking with Jesus.",
-   "web_N1": "Peter answered Jesus, “Rabbi, it is good for us to be here. Let’s make three tents: one for you, one for Moses, and one for Elijah.”",
-   "base_next_full": "Elijah and Moses appeared to them, and they were talking with Jesus. Peter answered Jesus, “Rabbi, it is good for us to be here. Let’s make three tents: one for you, one for Moses, and one for Elijah.”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "9:4": "Elijah and Moses appeared to them, and they were talking with Jesus.",
+    "9:5": "Peter answered Jesus, “Rabbi, it is good for us to be here. Let’s make three tents: one for you, one for Moses, and one for Elijah.”"
+   },
+   "terminal_base_body": "Elijah and Moses appeared to them, and they were talking with Jesus. Peter answered Jesus, “Rabbi, it is good for us to ",
+   "prefix_match": true
   },
   {
-   "book": "mrk",
-   "ch": 14,
-   "verse": 39,
+   "empties": [
+    "mrk 14:39"
+   ],
+   "terminal": "mrk 14:40",
    "file": "index_split_052.html",
-   "web_N": "Again he went away and prayed, saying the same words.",
-   "web_N1": "Again he returned and found them sleeping, for their eyes were very heavy; and they didn’t know what to answer him.",
-   "base_next_full": "Again he went away and prayed, saying the same words. Again he returned and found them sleeping, for their eyes were very heavy; and they didn’t know what to answer him.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "14:39": "Again he went away and prayed, saying the same words.",
+    "14:40": "Again he returned and found them sleeping, for their eyes were very heavy; and they didn’t know what to answer him."
+   },
+   "terminal_base_body": "Again he went away and prayed, saying the same words. Again he returned and found them sleeping, for their eyes were ver",
+   "prefix_match": true
   },
   {
-   "book": "luk",
-   "ch": 1,
-   "verse": 71,
+   "empties": [
+    "luk 1:71"
+   ],
+   "terminal": "luk 1:72",
    "file": "index_split_053.html",
-   "web_N": "salvation from our enemies and from the hand of all who hate us;",
-   "web_N1": "to show mercy toward our fathers, to remember his holy covenant,",
-   "base_next_full": "salvation from our enemies and from the hand of all who hate us; to show mercy toward our fathers, to remember his holy covenant,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "1:71": "salvation from our enemies and from the hand of all who hate us;",
+    "1:72": "to show mercy toward our fathers, to remember his holy covenant,"
+   },
+   "terminal_base_body": "salvation from our enemies and from the hand of all who hate us; to show mercy toward our fathers, to remember his holy ",
+   "prefix_match": true
   },
   {
-   "book": "luk",
-   "ch": 9,
-   "verse": 40,
+   "empties": [
+    "luk 9:40"
+   ],
+   "terminal": "luk 9:41",
    "file": "index_split_053.html",
-   "web_N": "I begged your disciples to cast it out, and they couldn’t.”",
-   "web_N1": "Jesus answered, “Faithless and perverse generation, how long shall I be with you and bear with you? Bring your son here.”",
-   "base_next_full": "I begged your disciples to cast it out, and they couldn’t.” Jesus answered, “Faithless and perverse generation, how long shall I be with you and bear with you? Bring your son here.”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "9:40": "I begged your disciples to cast it out, and they couldn’t.”",
+    "9:41": "Jesus answered, “Faithless and perverse generation, how long shall I be with you and bear with you? Bring your son here.”"
+   },
+   "terminal_base_body": "I begged your disciples to cast it out, and they couldn’t.” Jesus answered, “Faithless and perverse generation, how long",
+   "prefix_match": true
   },
   {
-   "book": "luk",
-   "ch": 18,
-   "verse": 36,
+   "empties": [
+    "luk 18:36"
+   ],
+   "terminal": "luk 18:37",
    "file": "index_split_054.html",
-   "web_N": "Hearing a multitude going by, he asked what this meant.",
-   "web_N1": "They told him that Jesus of Nazareth was passing by.",
-   "base_next_full": "Hearing a multitude going by, he asked what this meant. They told him that Jesus of Nazareth was passing by.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "18:36": "Hearing a multitude going by, he asked what this meant.",
+    "18:37": "They told him that Jesus of Nazareth was passing by."
+   },
+   "terminal_base_body": "Hearing a multitude going by, he asked what this meant. They told him that Jesus of Nazareth was passing by.",
+   "prefix_match": true
   },
   {
-   "book": "luk",
-   "ch": 22,
-   "verse": 62,
+   "empties": [
+    "luk 22:62"
+   ],
+   "terminal": "luk 22:63",
    "file": "index_split_054.html",
-   "web_N": "He went out, and wept bitterly.",
-   "web_N1": "The men who held Jesus mocked him and beat him.",
-   "base_next_full": "He went out, and wept bitterly. The men who held Jesus mocked him and beat him.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "22:62": "He went out, and wept bitterly.",
+    "22:63": "The men who held Jesus mocked him and beat him."
+   },
+   "terminal_base_body": "He went out, and wept bitterly. The men who held Jesus mocked him and beat him.",
+   "prefix_match": true
   },
   {
-   "book": "luk",
-   "ch": 23,
-   "verse": 54,
+   "empties": [
+    "luk 23:54"
+   ],
+   "terminal": "luk 23:55",
    "file": "index_split_054.html",
-   "web_N": "It was the day of the Preparation, and the Sabbath was drawing near.",
-   "web_N1": "The women who had come with him out of Galilee followed after, and saw the tomb and how his body was laid.",
-   "base_next_full": "It was the day of the Preparation, and the Sabbath was drawing near. The women who had come with him out of Galilee followed after, and saw the tomb and how his body was laid.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "23:54": "It was the day of the Preparation, and the Sabbath was drawing near.",
+    "23:55": "The women who had come with him out of Galilee followed after, and saw the tomb and how his body was laid."
+   },
+   "terminal_base_body": "It was the day of the Preparation, and the Sabbath was drawing near. The women who had come with him out of Galilee foll",
+   "prefix_match": true
   },
   {
-   "book": "luk",
-   "ch": 24,
-   "verse": 43,
+   "empties": [
+    "luk 24:43"
+   ],
+   "terminal": "luk 24:44",
    "file": "index_split_054.html",
-   "web_N": "He took them, and ate in front of them.",
-   "web_N1": "He said to them, “This is what I told you while I was still with you, that all things which are written in the law of Moses, the prophets, and the psalms concerning me must be fulfilled.”",
-   "base_next_full": "He took them, and ate in front of them. He said to them, “This is what I told you while I was still with you, that all things which are written in the law of Moses, the prophets, and the psalms concerning me must be fulfilled.”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "24:43": "He took them, and ate in front of them.",
+    "24:44": "He said to them, “This is what I told you while I was still with you, that all things which are written in the law of Moses, the prophets, and the psalms concerning me must be fulfilled.”"
+   },
+   "terminal_base_body": "He took them, and ate in front of them. He said to them, “This is what I told you while I was still with you, that all t",
+   "prefix_match": true
   },
   {
-   "book": "jhn",
-   "ch": 4,
-   "verse": 16,
+   "empties": [
+    "jhn 4:16"
+   ],
+   "terminal": "jhn 4:17",
    "file": "index_split_054.html",
-   "web_N": "Jesus said to her, “Go, call your husband, and come here.”",
-   "web_N1": "The woman answered, “I have no husband.” Jesus said to her, “You said well, ‘I have no husband,’",
-   "base_next_full": "Jesus said to her, “Go, call your husband, and come here.” The woman answered, “I have no husband.” Jesus said to her, “You said well, ‘I have no husband,’",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "4:16": "Jesus said to her, “Go, call your husband, and come here.”",
+    "4:17": "The woman answered, “I have no husband.” Jesus said to her, “You said well, ‘I have no husband,’"
+   },
+   "terminal_base_body": "Jesus said to her, “Go, call your husband, and come here.” The woman answered, “I have no husband.” Jesus said to her, “",
+   "prefix_match": true
   },
   {
-   "book": "jhn",
-   "ch": 6,
-   "verse": 18,
+   "empties": [
+    "jhn 6:18"
+   ],
+   "terminal": "jhn 6:19",
    "file": "index_split_054.html",
-   "web_N": "The sea was tossed by a great wind blowing.",
-   "web_N1": "When therefore they had rowed about twenty-five or thirty stadia, they saw Jesus walking on the sea and drawing near to the boat; and they were afraid.",
-   "base_next_full": "The sea was tossed by a great wind blowing. When therefore they had rowed about twenty-five or thirty stadia, they saw Jesus walking on the sea and drawing near to the boat; and they were afraid.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "6:18": "The sea was tossed by a great wind blowing.",
+    "6:19": "When therefore they had rowed about twenty-five or thirty stadia, they saw Jesus walking on the sea and drawing near to the boat; and they were afraid."
+   },
+   "terminal_base_body": "The sea was tossed by a great wind blowing. When therefore they had rowed about twenty-five or thirty stadia, they saw J",
+   "prefix_match": true
   },
   {
-   "book": "jhn",
-   "ch": 8,
-   "verse": 43,
+   "empties": [
+    "jhn 8:43"
+   ],
+   "terminal": "jhn 8:44",
    "file": "index_split_054.html",
-   "web_N": "Why don’t you understand my speech? Because you can’t hear my word.",
-   "web_N1": "You are of your father the devil, and you want to do the desires of your father. He was a murderer from the beginning, and doesn’t stand in the truth, because there is no truth in him. When he speaks a lie, he speaks on his own; for he is a liar, and the father of lies.",
-   "base_next_full": "Why don’t you understand my speech? Because you can’t hear my word. You are of your father the devil, and you want to do the desires of your father. He was a murderer from the beginning, and doesn’t stand in the truth, because there is no truth in him. When he speaks a lie, he speaks on his own; for he is a liar, and the father of lies.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "8:43": "Why don’t you understand my speech? Because you can’t hear my word.",
+    "8:44": "You are of your father the devil, and you want to do the desires of your father. He was a murderer from the beginning, and doesn’t stand in the truth, because there is no truth in him. When he speaks a lie, he speaks on his own; for he is a liar, and the father of lies."
+   },
+   "terminal_base_body": "Why don’t you understand my speech? Because you can’t hear my word. You are of your father the devil, and you want to do",
+   "prefix_match": true
   },
   {
-   "book": "act",
-   "ch": 13,
-   "verse": 30,
+   "empties": [
+    "act 13:30"
+   ],
+   "terminal": "act 13:31",
    "file": "index_split_055.html",
-   "web_N": "But God raised him from the dead,",
-   "web_N1": "and he was seen for many days by those who came up with him from Galilee to Jerusalem, who are his witnesses to the people.",
-   "base_next_full": "But God raised him from the dead, and he was seen for many days by those who came up with him from Galilee to Jerusalem, who are his witnesses to the people.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "13:30": "But God raised him from the dead,",
+    "13:31": "and he was seen for many days by those who came up with him from Galilee to Jerusalem, who are his witnesses to the people."
+   },
+   "terminal_base_body": "But God raised him from the dead, and he was seen for many days by those who came up with him from Galilee to Jerusalem,",
+   "prefix_match": true
   },
   {
-   "book": "act",
-   "ch": 17,
-   "verse": 33,
+   "empties": [
+    "act 17:33"
+   ],
+   "terminal": "act 17:34",
    "file": "index_split_055.html",
-   "web_N": "Thus Paul went out from among them.",
-   "web_N1": "But certain men joined with him and believed, including Dionysius the Areopagite, and a woman named Damaris, and others with them.",
-   "base_next_full": "Thus Paul went out from among them. But certain men joined with him and believed, including Dionysius the Areopagite, and a woman named Damaris, and others with them.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "17:33": "Thus Paul went out from among them.",
+    "17:34": "But certain men joined with him and believed, including Dionysius the Areopagite, and a woman named Damaris, and others with them."
+   },
+   "terminal_base_body": "Thus Paul went out from among them. But certain men joined with him and believed, including Dionysius the Areopagite, an",
+   "prefix_match": true
   },
   {
-   "book": "act",
-   "ch": 18,
-   "verse": 20,
+   "empties": [
+    "act 18:20"
+   ],
+   "terminal": "act 18:21",
    "file": "index_split_055.html",
-   "web_N": "When they asked him to stay with them a longer time, he declined;",
-   "web_N1": "but taking his leave of them, he said, “I must by all means keep this coming feast in Jerusalem, but I will return again to you if God wills.” Then he set sail from Ephesus.",
-   "base_next_full": "When they asked him to stay with them a longer time, he declined; but taking his leave of them, he said, “I must by all means keep this coming feast in Jerusalem, but I will return again to you if God wills.” Then he set sail from Ephesus.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "18:20": "When they asked him to stay with them a longer time, he declined;",
+    "18:21": "but taking his leave of them, he said, “I must by all means keep this coming feast in Jerusalem, but I will return again to you if God wills.” Then he set sail from Ephesus."
+   },
+   "terminal_base_body": "When they asked him to stay with them a longer time, he declined; but taking his leave of them, he said, “I must by all ",
+   "prefix_match": true
   },
   {
-   "book": "act",
-   "ch": 19,
-   "verse": 5,
+   "empties": [
+    "act 19:5"
+   ],
+   "terminal": "act 19:6",
    "file": "index_split_055.html",
-   "web_N": "When they heard this, they were baptized in the name of the Lord Jesus.",
-   "web_N1": "When Paul had laid his hands on them, the Holy Spirit came on them and they spoke with other languages and prophesied.",
-   "base_next_full": "When they heard this, they were baptized in the name of the Lord Jesus. When Paul had laid his hands on them, the Holy Spirit came on them and they spoke with other languages and prophesied.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "19:5": "When they heard this, they were baptized in the name of the Lord Jesus.",
+    "19:6": "When Paul had laid his hands on them, the Holy Spirit came on them and they spoke with other languages and prophesied."
+   },
+   "terminal_base_body": "When they heard this, they were baptized in the name of the Lord Jesus. When Paul had laid his hands on them, the Holy S",
+   "prefix_match": true
   },
   {
-   "book": "act",
-   "ch": 21,
-   "verse": 17,
+   "empties": [
+    "act 21:17"
+   ],
+   "terminal": "act 21:18",
    "file": "index_split_055.html",
-   "web_N": "When we had come to Jerusalem, the brothers received us gladly.",
-   "web_N1": "The day following, Paul went in with us to James; and all the elders were present.",
-   "base_next_full": "When we had come to Jerusalem, the brothers received us gladly. The day following, Paul went in with us to James; and all the elders were present.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "21:17": "When we had come to Jerusalem, the brothers received us gladly.",
+    "21:18": "The day following, Paul went in with us to James; and all the elders were present."
+   },
+   "terminal_base_body": "When we had come to Jerusalem, the brothers received us gladly. The day following, Paul went in with us to James; and al",
+   "prefix_match": true
   },
   {
-   "book": "act",
-   "ch": 23,
-   "verse": 4,
+   "empties": [
+    "act 23:4"
+   ],
+   "terminal": "act 23:5",
    "file": "index_split_055.html",
-   "web_N": "Those who stood by said, “Do you malign God’s high priest?”",
-   "web_N1": "Paul said, “I didn’t know, brothers, that he was high priest. For it is written, ‘You shall not speak evil of a ruler of your people.’”",
-   "base_next_full": "Those who stood by said, “Do you malign God’s high priest?” Paul said, “I didn’t know, brothers, that he was high priest. For it is written, ‘You shall not speak evil of a ruler of your people.’”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "23:4": "Those who stood by said, “Do you malign God’s high priest?”",
+    "23:5": "Paul said, “I didn’t know, brothers, that he was high priest. For it is written, ‘You shall not speak evil of a ruler of your people.’”"
+   },
+   "terminal_base_body": "Those who stood by said, “Do you malign God’s high priest?” Paul said, “I didn’t know, brothers, that he was high priest",
+   "prefix_match": true
   },
   {
-   "book": "rom",
-   "ch": 3,
-   "verse": 14,
+   "empties": [
+    "rom 3:14"
+   ],
+   "terminal": "rom 3:15",
    "file": "index_split_056.html",
-   "web_N": "“Their mouth is full of cursing and bitterness.”",
-   "web_N1": "“Their feet are swift to shed blood.",
-   "base_next_full": "“Their mouth is full of cursing and bitterness.” “Their feet are swift to shed blood.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "3:14": "“Their mouth is full of cursing and bitterness.”",
+    "3:15": "“Their feet are swift to shed blood."
+   },
+   "terminal_base_body": "“Their mouth is full of cursing and bitterness.” “Their feet are swift to shed blood.",
+   "prefix_match": true
   },
   {
-   "book": "rom",
-   "ch": 7,
-   "verse": 17,
+   "empties": [
+    "rom 7:17"
+   ],
+   "terminal": "rom 7:18",
    "file": "index_split_056.html",
-   "web_N": "So now it is no more I that do it, but sin which dwells in me.",
-   "web_N1": "For I know that in me, that is, in my flesh, dwells no good thing. For desire is present with me, but I don’t find it doing that which is good.",
-   "base_next_full": "So now it is no more I that do it, but sin which dwells in me. For I know that in me, that is, in my flesh, dwells no good thing. For desire is present with me, but I don’t find it doing that which is good.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "7:17": "So now it is no more I that do it, but sin which dwells in me.",
+    "7:18": "For I know that in me, that is, in my flesh, dwells no good thing. For desire is present with me, but I don’t find it doing that which is good."
+   },
+   "terminal_base_body": "So now it is no more I that do it, but sin which dwells in me. For I know that in me, that is, in my flesh, dwells no go",
+   "prefix_match": true
   },
   {
-   "book": "2co",
-   "ch": 4,
-   "verse": 12,
+   "empties": [
+    "2co 4:12"
+   ],
+   "terminal": "2co 4:13",
    "file": "index_split_057.html",
-   "web_N": "So then death works in us, but life in you.",
-   "web_N1": "But having the same spirit of faith, according to that which is written, “I believed, and therefore I spoke.” We also believe, and therefore we also speak,",
-   "base_next_full": "So then death works in us, but life in you. But having the same spirit of faith, according to that which is written, “I believed, and therefore I spoke.” We also believe, and therefore we also speak,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "4:12": "So then death works in us, but life in you.",
+    "4:13": "But having the same spirit of faith, according to that which is written, “I believed, and therefore I spoke.” We also believe, and therefore we also speak,"
+   },
+   "terminal_base_body": "So then death works in us, but life in you. But having the same spirit of faith, according to that which is written, “I ",
+   "prefix_match": true
   },
   {
-   "book": "2co",
-   "ch": 6,
-   "verse": 5,
+   "empties": [
+    "2co 6:5"
+   ],
+   "terminal": "2co 6:6",
    "file": "index_split_057.html",
-   "web_N": "in beatings, in imprisonments, in riots, in labors, in watchings, in fastings,",
-   "web_N1": "in pureness, in knowledge, in perseverance, in kindness, in the Holy Spirit, in sincere love,",
-   "base_next_full": "in beatings, in imprisonments, in riots, in labors, in watchings, in fastings, in pureness, in knowledge, in perseverance, in kindness, in the Holy Spirit, in sincere love,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "6:5": "in beatings, in imprisonments, in riots, in labors, in watchings, in fastings,",
+    "6:6": "in pureness, in knowledge, in perseverance, in kindness, in the Holy Spirit, in sincere love,"
+   },
+   "terminal_base_body": "in beatings, in imprisonments, in riots, in labors, in watchings, in fastings, in pureness, in knowledge, in perseveranc",
+   "prefix_match": true
   },
   {
-   "book": "eph",
-   "ch": 4,
-   "verse": 21,
+   "empties": [
+    "eph 4:21"
+   ],
+   "terminal": "eph 4:22",
    "file": "index_split_058.html",
-   "web_N": "if indeed you heard him and were taught in him, even as truth is in Jesus:",
-   "web_N1": "that you put away, as concerning your former way of life, the old man that grows corrupt after the lusts of deceit,",
-   "base_next_full": "if indeed you heard him and were taught in him, even as truth is in Jesus: that you put away, as concerning your former way of life, the old man that grows corrupt after the lusts of deceit,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "4:21": "if indeed you heard him and were taught in him, even as truth is in Jesus:",
+    "4:22": "that you put away, as concerning your former way of life, the old man that grows corrupt after the lusts of deceit,"
+   },
+   "terminal_base_body": "if indeed you heard him and were taught in him, even as truth is in Jesus: that you put away, as concerning your former ",
+   "prefix_match": true
   },
   {
-   "book": "phi",
-   "ch": 2,
-   "verse": 24,
+   "empties": [
+    "phi 2:24"
+   ],
+   "terminal": "phi 2:25",
    "file": "index_split_058.html",
-   "web_N": "But I trust in the Lord that I myself also will come shortly.",
-   "web_N1": "But I thought it necessary to send to you Epaphroditus, my brother, fellow worker, fellow soldier, and your apostle and servant of my need,",
-   "base_next_full": "But I trust in the Lord that I myself also will come shortly. But I thought it necessary to send to you Epaphroditus, my brother, fellow worker, fellow soldier, and your apostle and servant of my need,",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "2:24": "But I trust in the Lord that I myself also will come shortly.",
+    "2:25": "But I thought it necessary to send to you Epaphroditus, my brother, fellow worker, fellow soldier, and your apostle and servant of my need,"
+   },
+   "terminal_base_body": "But I trust in the Lord that I myself also will come shortly. But I thought it necessary to send to you Epaphroditus, my",
+   "prefix_match": true
   },
   {
-   "book": "col",
-   "ch": 4,
-   "verse": 14,
+   "empties": [
+    "col 4:14"
+   ],
+   "terminal": "col 4:15",
    "file": "index_split_058.html",
-   "web_N": "Luke the beloved physician and Demas greet you.",
-   "web_N1": "Greet the brothers who are in Laodicea, with Nymphas and the assembly that is in his house.",
-   "base_next_full": "Luke the beloved physician and Demas greet you. Greet the brothers who are in Laodicea, with Nymphas and the assembly that is in his house.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "4:14": "Luke the beloved physician and Demas greet you.",
+    "4:15": "Greet the brothers who are in Laodicea, with Nymphas and the assembly that is in his house."
+   },
+   "terminal_base_body": "Luke the beloved physician and Demas greet you. Greet the brothers who are in Laodicea, with Nymphas and the assembly th",
+   "prefix_match": true
   },
   {
-   "book": "1th",
-   "ch": 2,
-   "verse": 3,
+   "empties": [
+    "1th 2:3"
+   ],
+   "terminal": "1th 2:4",
    "file": "index_split_058.html",
-   "web_N": "For our exhortation is not of error, nor of uncleanness, nor in deception.",
-   "web_N1": "But even as we have been approved by God to be entrusted with the Good News, so we speak—not as pleasing men, but God, who tests our hearts.",
-   "base_next_full": "For our exhortation is not of error, nor of uncleanness, nor in deception. But even as we have been approved by God to be entrusted with the Good News, so we speak—not as pleasing men, but God, who tests our hearts.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "2:3": "For our exhortation is not of error, nor of uncleanness, nor in deception.",
+    "2:4": "But even as we have been approved by God to be entrusted with the Good News, so we speak—not as pleasing men, but God, who tests our hearts."
+   },
+   "terminal_base_body": "For our exhortation is not of error, nor of uncleanness, nor in deception. But even as we have been approved by God to b",
+   "prefix_match": true
   },
   {
-   "book": "2ti",
-   "ch": 2,
-   "verse": 3,
+   "empties": [
+    "1th 5:19",
+    "1th 5:20"
+   ],
+   "terminal": "1th 5:21",
+   "file": "index_split_058.html",
+   "n_split": 3,
+   "web_per_verse": {
+    "5:19": "Don’t quench the Spirit.",
+    "5:20": "Don’t despise prophecies.",
+    "5:21": "Test all things, and hold firmly that which is good."
+   },
+   "terminal_base_body": "Don’t quench the Spirit. Don’t despise prophecies. Test all things, and hold firmly that which is good.",
+   "prefix_match": true
+  },
+  {
+   "empties": [
+    "2ti 2:3"
+   ],
+   "terminal": "2ti 2:4",
    "file": "index_split_059.html",
-   "web_N": "You therefore must endure hardship as a good soldier of Christ Jesus.",
-   "web_N1": "No soldier on duty entangles himself in the affairs of life, that he may please him who enrolled him as a soldier.",
-   "base_next_full": "You therefore must endure hardship as a good soldier of Christ Jesus. No soldier on duty entangles himself in the affairs of life, that he may please him who enrolled him as a soldier.",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "2:3": "You therefore must endure hardship as a good soldier of Christ Jesus.",
+    "2:4": "No soldier on duty entangles himself in the affairs of life, that he may please him who enrolled him as a soldier."
+   },
+   "terminal_base_body": "You therefore must endure hardship as a good soldier of Christ Jesus. No soldier on duty entangles himself in the affair",
+   "prefix_match": true
   },
   {
-   "book": "heb",
-   "ch": 7,
-   "verse": 10,
+   "empties": [
+    "heb 7:10"
+   ],
+   "terminal": "heb 7:11",
    "file": "index_split_059.html",
-   "web_N": "for he was yet in the body of his father when Melchizedek met him.",
-   "web_N1": "Now if perfection was through the Levitical priesthood (for under it the people have received the law), what further need was there for another priest to arise after the order of Melchizedek, and not be called after the order of Aaron?",
-   "base_next_full": "for he was yet in the body of his father when Melchizedek met him. Now if perfection was through the Levitical priesthood (for under it the people have received the law), what further need was there for another priest to arise after the order of Melchizedek, and not be called after the order of Aaron?",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "7:10": "for he was yet in the body of his father when Melchizedek met him.",
+    "7:11": "Now if perfection was through the Levitical priesthood (for under it the people have received the law), what further need was there for another priest to arise after the order of Melchizedek, and not be called after the order of Aaron?"
+   },
+   "terminal_base_body": "for he was yet in the body of his father when Melchizedek met him. Now if perfection was through the Levitical priesthoo",
+   "prefix_match": true
   },
   {
-   "book": "heb",
-   "ch": 10,
-   "verse": 37,
+   "empties": [
+    "heb 10:37"
+   ],
+   "terminal": "heb 10:38",
    "file": "index_split_059.html",
-   "web_N": "“In a very little while, he who comes will come and will not wait.",
-   "web_N1": "But the righteous one will live by faith. If he shrinks back, my soul has no pleasure in him.”",
-   "base_next_full": "“In a very little while, he who comes will come and will not wait. But the righteous one will live by faith. If he shrinks back, my soul has no pleasure in him.”",
-   "has_pilcrow": false
+   "n_split": 2,
+   "web_per_verse": {
+    "10:37": "“In a very little while, he who comes will come and will not wait.",
+    "10:38": "But the righteous one will live by faith. If he shrinks back, my soul has no pleasure in him.”"
+   },
+   "terminal_base_body": "“In a very little while, he who comes will come and will not wait. But the righteous one will live by faith. If he shrin",
+   "prefix_match": true
   }
  ],
- "needs_triage": [
+ "deutero_defer": [
   {
-   "book": "jos",
-   "ch": 15,
-   "verse": 29,
-   "file": "index_split_009.html",
-   "web_N": "Baalah, Iim, Ezem,",
-   "web_N1": "Eltolad, Chesil, Hormah,",
-   "base_next_full": "",
-   "has_pilcrow": false
+   "coord": "2es 4:43",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "jos",
-   "ch": 15,
-   "verse": 30,
-   "file": "index_split_009.html",
-   "web_N": "Eltolad, Chesil, Hormah,",
-   "web_N1": "Ziklag, Madmannah, Sansannah,",
-   "base_next_full": "Baalah, Iim, Ezem, Eltolad, Chesil, Hormah, Ziklag, Madmannah, Sansannah,",
-   "has_pilcrow": false
+   "coord": "2es 7:27",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "neh",
-   "ch": 10,
-   "verse": 19,
-   "file": "index_split_025.html",
-   "web_N": "Hariph, Anathoth, Nobai,",
-   "web_N1": "Magpiash, Meshullam, Hezir,",
-   "base_next_full": "",
-   "has_pilcrow": false
+   "coord": "2es 15:45",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "neh",
-   "ch": 10,
-   "verse": 20,
-   "file": "index_split_025.html",
-   "web_N": "Magpiash, Meshullam, Hezir,",
-   "web_N1": "Meshezabel, Zadok, Jaddua,",
-   "base_next_full": "Hariph, Anathoth, Nobai, Magpiash, Meshullam, Hezir, Meshezabel, Zadok, Jaddua,",
-   "has_pilcrow": false
+   "coord": "2es 16:27",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 1,
-   "verse": 5,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "To whom has the root of wisdom been revealed? Who has known her shrewd counsels?",
-   "base_next_full": "To whom has the root of wisdom been revealed? Who has known her shrewd counsels?",
-   "has_pilcrow": false
+   "coord": "tob 5:19",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 1,
-   "verse": 7,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "There is one wise, greatly to be feared, sitting upon his throne: the Lord.",
-   "base_next_full": "There is one wise, greatly to be feared, sitting upon his throne: the Lord.",
-   "has_pilcrow": false
+   "coord": "tob 11:7",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 1,
-   "verse": 21,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "Unjust wrath can never be justified, for his wrath tips the scale to his downfall.",
-   "base_next_full": "Unjust wrath can never be justified, for his wrath tips the scale to his downfall.",
-   "has_pilcrow": false
+   "coord": "jdt 5:6",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 3,
-   "verse": 19,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "For the power of the Lord is great, and he is glorified by those who are lowly.",
-   "base_next_full": "For the power of the Lord is great, and he is glorified by those who are lowly.",
-   "has_pilcrow": false
+   "coord": "jdt 7:9",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 10,
-   "verse": 21,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "The rich man, the honorable, and the poor all glory in the fear of the Lord.",
-   "base_next_full": "The rich man, the honorable, and the poor all glory in the fear of the Lord.",
-   "has_pilcrow": false
+   "coord": "sir 1:5",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 11,
-   "verse": 15,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "",
-   "base_next_full": "",
-   "has_pilcrow": false
+   "coord": "sir 1:7",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 13,
-   "verse": 14,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "Every living creature loves its own kind, and every man loves his neighbor.",
-   "base_next_full": "Every living creature loves its own kind, and every man loves his neighbor.",
-   "has_pilcrow": false
+   "coord": "sir 1:21",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 16,
-   "verse": 15,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "",
-   "base_next_full": "",
-   "has_pilcrow": false
+   "coord": "sir 3:19",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 17,
-   "verse": 5,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "He gave them counsel, tongue, eyes, ears, and heart to have understanding.",
-   "base_next_full": "He gave them counsel, tongue, eyes, ears, and heart to have understanding.",
-   "has_pilcrow": false
+   "coord": "sir 6:13",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 17,
-   "verse": 9,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "And they will praise his holy name, that they may declare the majesty of his works.",
-   "base_next_full": "And they will praise his holy name, that they may declare the majesty of his works.",
-   "has_pilcrow": false
+   "coord": "sir 10:21",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 17,
-   "verse": 16,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "For every nation he appointed a ruler, but Israel is the Lord’s portion.",
-   "base_next_full": "For every nation he appointed a ruler, but Israel is the Lord’s portion.",
-   "has_pilcrow": false
+   "coord": "sir 11:15",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 17,
-   "verse": 18,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "All their works are as clear as the sun before him. His eyes are continually upon their ways.",
-   "base_next_full": "All their works are as clear as the sun before him. His eyes are continually upon their ways.",
-   "has_pilcrow": false
+   "coord": "sir 11:16",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 17,
-   "verse": 21,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "With him the alms of a man is as a signet. He will keep a man’s kindness as the pupil of the eye.",
-   "base_next_full": "With him the alms of a man is as a signet. He will keep a man’s kindness as the pupil of the eye.",
-   "has_pilcrow": false
+   "coord": "sir 13:14",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 18,
-   "verse": 3,
-   "file": "index_split_037.html",
-   "web_N": "",
-   "web_N1": "He has given power to declare his works to no one. Who could trace out his mighty deeds?",
-   "base_next_full": "He has given power to declare his works to no one. Who could trace out his mighty deeds?",
-   "has_pilcrow": false
+   "coord": "sir 16:8",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 19,
-   "verse": 18,
-   "file": "index_split_038.html",
-   "web_N": "",
-   "web_N1": "",
-   "base_next_full": "",
-   "has_pilcrow": false
+   "coord": "sir 16:15",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 19,
-   "verse": 21,
-   "file": "index_split_038.html",
-   "web_N": "",
-   "web_N1": "The knowledge of wickedness is not wisdom. The prudence of sinners is not counsel.",
-   "base_next_full": "The knowledge of wickedness is not wisdom. The prudence of sinners is not counsel.",
-   "has_pilcrow": false
+   "coord": "sir 16:16",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 20,
-   "verse": 3,
-   "file": "index_split_038.html",
-   "web_N": "",
-   "web_N1": "As is the lust of a eunuch to deflower a virgin, so is he who executes judgments with violence.",
-   "base_next_full": "As is the lust of a eunuch to deflower a virgin, so is he who executes judgments with violence.",
-   "has_pilcrow": false
+   "coord": "sir 17:5",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 20,
-   "verse": 32,
-   "file": "index_split_038.html",
-   "web_N": "",
-   "web_N1": "",
-   "base_next_full": "",
-   "has_pilcrow": false
+   "coord": "sir 17:9",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 22,
-   "verse": 9,
-   "file": "index_split_038.html",
-   "web_N": "",
-   "web_N1": "",
-   "base_next_full": "",
-   "has_pilcrow": false
+   "coord": "sir 17:16",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 23,
-   "verse": 28,
-   "file": "index_split_038.html",
-   "web_N": "",
-   "web_N1": "",
-   "base_next_full": "",
-   "has_pilcrow": false
+   "coord": "sir 17:18",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 24,
-   "verse": 18,
-   "file": "index_split_038.html",
-   "web_N": "",
-   "web_N1": "“Come to me, all you who desire me, and be filled with my fruits.",
-   "base_next_full": "“Come to me, all you who desire me, and be filled with my fruits.",
-   "has_pilcrow": false
+   "coord": "sir 17:21",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 24,
-   "verse": 24,
-   "file": "index_split_038.html",
-   "web_N": "",
-   "web_N1": "It is he who makes wisdom abundant, as Pishon, and as Tigris in the days of first fruits.",
-   "base_next_full": "It is he who makes wisdom abundant, as Pishon, and as Tigris in the days of first fruits.",
-   "has_pilcrow": false
+   "coord": "sir 18:3",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 25,
-   "verse": 12,
-   "file": "index_split_038.html",
-   "web_N": "",
-   "web_N1": "Any wound but a wound of the heart! Any wickedness but the wickedness of a woman!",
-   "base_next_full": "Any wound but a wound of the heart! Any wickedness but the wickedness of a woman!",
-   "has_pilcrow": false
+   "coord": "sir 19:18",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "sir",
-   "ch": 26,
-   "verse": 19,
-   "file": "index_split_038.html",
-   "web_N": "",
-   "web_N1": "",
-   "base_next_full": "",
-   "has_pilcrow": false
+   "coord": "sir 19:19",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "luk",
-   "ch": 17,
-   "verse": 36,
-   "file": "index_split_054.html",
-   "web_N": "",
-   "web_N1": "They, answering, asked him, “Where, Lord?” He said to them, “Where the body is, there the vultures will also be gathered together.”",
-   "base_next_full": "They, answering, asked him, “Where, Lord?” He said to them, “Where the body is, there the vultures will also be gathered together.”",
-   "has_pilcrow": false
+   "coord": "sir 19:21",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "act",
-   "ch": 8,
-   "verse": 37,
-   "file": "index_split_055.html",
-   "web_N": "",
-   "web_N1": "He commanded the chariot to stand still, and they both went down into the water, both Philip and the eunuch, and he baptized him.",
-   "base_next_full": "He commanded the chariot to stand still, and they both went down into the water, both Philip and the eunuch, and he baptized him.",
-   "has_pilcrow": false
+   "coord": "sir 20:3",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "act",
-   "ch": 15,
-   "verse": 34,
-   "file": "index_split_055.html",
-   "web_N": "",
-   "web_N1": "But Paul and Barnabas stayed in Antioch, teaching and preaching the word of the Lord, with many others also.",
-   "base_next_full": "But Paul and Barnabas stayed in Antioch, teaching and preaching the word of the Lord, with many others also.",
-   "has_pilcrow": false
+   "coord": "sir 20:32",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "act",
-   "ch": 24,
-   "verse": 7,
-   "file": "index_split_055.html",
-   "web_N": "",
-   "web_N1": "By examining him yourself you may ascertain all these things of which we accuse him.”",
-   "base_next_full": "By examining him yourself you may ascertain all these things of which we accuse him.”",
-   "has_pilcrow": false
+   "coord": "sir 22:9",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "1th",
-   "ch": 5,
-   "verse": 19,
-   "file": "index_split_058.html",
-   "web_N": "Don’t quench the Spirit.",
-   "web_N1": "Don’t despise prophecies.",
-   "base_next_full": "",
-   "has_pilcrow": false
+   "coord": "sir 22:10",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
   },
   {
-   "book": "1th",
-   "ch": 5,
-   "verse": 20,
-   "file": "index_split_058.html",
-   "web_N": "Don’t despise prophecies.",
-   "web_N1": "Test all things, and hold firmly that which is good.",
-   "base_next_full": "Don’t quench the Spirit. Don’t despise prophecies. Test all things, and hold firmly that which is good.",
-   "has_pilcrow": false
+   "coord": "sir 23:28",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
+  },
+  {
+   "coord": "sir 24:18",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
+  },
+  {
+   "coord": "sir 24:24",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
+  },
+  {
+   "coord": "sir 25:12",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
+  },
+  {
+   "coord": "sir 26:19",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
+  },
+  {
+   "coord": "sir 26:27",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
+  },
+  {
+   "coord": "lje 1:25",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
+  },
+  {
+   "coord": "lje 1:52",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
+  },
+  {
+   "coord": "lje 1:66",
+   "reason": "deuterocanon — WEB numbering differs; resolve vs the Greek/deuterocanon source"
+  },
+  {
+   "coord": "dan 12:36",
+   "reason": "Ethiopian Daniel-additions arrangement (ch12 to v49); deuterocanon source, not WEB"
   }
- ]
+ ],
+ "legit_omission": [
+  {
+   "coord": "luk 17:36",
+   "reason": "WEB textual-critical omission — leave empty (KJV popup = correct fallback)"
+  },
+  {
+   "coord": "act 8:37",
+   "reason": "WEB textual-critical omission — leave empty (KJV popup = correct fallback)"
+  },
+  {
+   "coord": "act 15:34",
+   "reason": "WEB textual-critical omission — leave empty (KJV popup = correct fallback)"
+  },
+  {
+   "coord": "act 24:7",
+   "reason": "WEB textual-critical omission — leave empty (KJV popup = correct fallback)"
+  }
+ ],
+ "anomaly": [],
+ "summary": {
+  "resplit_groups": 155,
+  "empty_verses_in_resplit": 158,
+  "deutero_defer": 43,
+  "legit_omission": 4,
+  "anomaly": 0
+ }
 }
