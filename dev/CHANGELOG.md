@@ -22,6 +22,15 @@ under RAM pressure (≥1 site remains; the 8GB iMac + 16GB WIN both affected) �
 profile + reduce peak. **WS3 Kobo run-on popups:** Mac research done, WIN implementation fully mapped (eink-gated
 `·`+`<br>` separators) — implement fresh + device A/B.
 
+**Fresh session (laundry-list dispatch to Mac).** Bootstrapped (triad → `dev/IN_FLIGHT.md` → the Kobo deep-audit
+program doc); HEAD `df3361c1`, both remotes synced, tree clean. Dispatched a prioritized Mac laundry list at the top
+of `dev/LANE_HANDOFF.md`: (P1) tracemalloc-profile the flagship eink build OOM → `dev/audit/flagship-eink-oom-profile.md`
+(unblocks the WS1+WS2 re-stage); (P2) harden the 162-verse re-split ratification package → `ws1-resplit-ratification-check.md`
+(de-risk the user gate); (P3) resolve the 1en 90:20–41 anchor gap vs Charles; (P4) re-install the Mac SessionStart
+lane-ping + ACK; (P5) rules/memory parity sync; (P6) standing cross-OS verifies (WS3 popups · the 162 re-split · the
+flagship re-stage · M2 tablet) when WIN pushes. All Mac items are file-disjoint (`dev/audit/`) and parity-clean
+(build + kepubify + epubcheck + Workflow + Opus — no `feature-dev:*`).
+
 **WS1 auditor re-architected.** The first `dev/audit_verse_formatting.py` cut measured the WRONG
 thing (its "472 mid-verse breaks" were 1 Clement strategy-B chapters + psalm superscriptions +
 Song rubrics + apocrypha headings; it MISSED the real narrative breaks). Rewrote it: a mid-verse
