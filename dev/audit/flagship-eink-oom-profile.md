@@ -8,21 +8,40 @@
 
 ## TL;DR — THE remaining OOM driver (verified by code, one-line fix)
 
-**`stats["_study_backmatter_entries"]` — the ~73 MB Kobo study-glossary entries list — is built up,
-consumed once, and then NEVER released.** It rides inside `stats` (which `build_one` returns) straight
-through `inject_back_matter`, the reading-plans/nav passes, **all of `apply_file_split`**, and the
-**entire `build_epub` zip**. Because the source list outlives them, your two streaming fixes don't touch
-the peak: at the moment `apply_file_split` runs, the orphaned 73 MB list co-resides with the splitter's
-own 2–3× re-materialization of the same glossary (#2) → the worst co-residency moment in the build.
+> **★ EMPIRICAL (flagship `ethiopian-tewahedo --target-reader eink`, completed under tracemalloc on the
+> 8 GB Mac, 2026-06-25): peak RSS 2937 MB · tracemalloc-tracked peak 3591 MB.** The empirical run
+> **corrects the "73 MB" docstring figure** — the flagship study-glossary is **~480–490 MB** (the corpus
+> grew to ~91 k notes / ~30 k glossary entries) — and shows the **dominant** peak is not the never-freed
+> list alone but **`split_study_glossary_document` / `apply_file_split` holding ~5 SIMULTANEOUS full
+> copies of that ~480 MB glossary** (read_text + 3 slice stages + pieces ≈ 2.4 GB), with the never-`del`'d
+> ~489 MB entries list co-residing on top. See "Empirical results" below for the per-line table.
 
-**Cheapest high-impact fix (frees ~73 MB before file-split + zip):**
-```python
-# scripts/build_edition.py — right AFTER line 8082 (after inject_eink_study_backmatter has consumed it
-# and both bm_stats fields are extracted), BEFORE inject_back_matter at :8083:
-del stats["_study_backmatter_entries"]
-```
-eink-specific (only populated when target=eink AND `reader_eink_study_layout == "backmatter"`); the
-returned `stats` keeps the integer `study_backmatter_entries` count, just not the 73 MB payload list.
+Two co-dominant problems, both centred on the same ~480 MB study glossary:
+
+**(A) The split pipeline copies the ~480 MB glossary ~5× at once.** `split_study_glossary_document`
+(`build_edition.py:5071`) does `read_text` → `_split_head_body_tail` → `_study_index_section_parts` →
+`_study_glossary_chunk_atoms` → `pieces.append(head+body+tail)` — each a **full-size copy**, all alive at
+the same instant inside `apply_file_split`'s `plan` dict. Empirically ≈ 2.4 GB. **This is the biggest single
+cost** (the static pass under-weighted it because the docstring said 73 MB).
+
+**(B) `stats["_study_backmatter_entries"]` (~489 MB) is built, consumed once, and NEVER released** — it
+rides in `stats` (which `build_one` returns) through `inject_back_matter`, the nav passes, **all of
+`apply_file_split`**, and the zip, so it co-resides with (A) at the peak.
+
+**Fixes, by leverage:**
+1. **Stream the glossary split (biggest win, ~2 GB).** Refactor `split_study_glossary_document` +
+   `apply_file_split` to chunk the glossary incrementally and write each piece to disk as produced,
+   releasing each slice — never hold `read_text` + all slice stages + all pieces simultaneously.
+2. **`del stats["_study_backmatter_entries"]` (cheap, ~489 MB, one line).**
+   ```python
+   # scripts/build_edition.py — right AFTER line 8082 (after inject_eink_study_backmatter consumed it
+   # and both bm_stats fields are extracted), BEFORE inject_back_matter at :8083:
+   del stats["_study_backmatter_entries"]
+   ```
+   eink-specific; the returned `stats` keeps the integer count, just not the payload list.
+
+Together these take the ~2.9 GB peak to well under 1 GB. (1) is the structural fix; (2) is the cheap
+immediate relief. Also fix the stale `split_study_glossary_document` docstring (`:5075`, "73 MB" → ~480 MB).
 
 ## Build architecture — where to look (and where NOT to)
 
@@ -34,7 +53,12 @@ remaining site class (the profiler runs `build_one` in-process for exactly this 
 
 ## Ranked remaining memory-peak sites (file:line verified)
 
-### #1 — THE driver: the 73 MB glossary entries list is never freed → co-resides with #2
+> **Note on the "73 MB" figures below:** those were the static pass's read of the stale
+> `split_study_glossary_document` docstring. The **empirical run measured the flagship glossary at
+> ~480–490 MB** — so multiply every "73 MB" here by ~6.6×, and see the empirically-re-ranked order in the
+> TL;DR + "Empirical results". The *sites* are all correct; only the magnitudes were under-stated.
+
+### #1 — the glossary entries list is never freed → co-resides with the split (#2)
 - Built incrementally in `apply_badge_markers`: init `scripts/build_edition.py:4032`
   (`"study_backmatter_entries": []`), appended per verse at `:4274`
   (`stats["study_backmatter_entries"].append((…, code, unit_aside))` — each `unit_aside` is the full
@@ -78,26 +102,39 @@ remaining site class (the profiler runs `build_one` in-process for exactly this 
 - NOTE: `sorted(entries, …)` at `scripts/matter_pages.py:1109` is **not** a second 73 MB copy — `sorted()`
   returns a new list of references to the same tuples/strings (~a few MB of pointers). Don't over-weight it.
 
-## Recommended implementation order (WIN)
-1. **#1 `del`** (one line, ~73 MB freed before file-split/zip) — do this first; likely resolves the OOM alone.
-2. **#2 stream `apply_file_split`** per-file (removes the 2–3× glossary re-materialization).
-3. **#4 `del pre_badge_texts` / `del repair_texts`** (trivial, cuts the steady baseline on every target).
-4. **#3** free `file_texts` rows + shard the entries to disk (deeper; do if #1+#2 don't fully clear it).
+## Recommended implementation order (WIN) — empirically re-ranked
+1. **Stream `split_study_glossary_document` + `apply_file_split`** (the ~5× ~480 MB copy = ~2.4 GB, the
+   biggest single cost; chunk + write-per-piece, release each slice). **This is the structural fix.**
+2. **`del stats["_study_backmatter_entries"]` after `:8082`** (one line, frees ~489 MB before file-split/zip).
+3. **`del pre_badge_texts` / `del repair_texts`** (`:8019` / `:8059`; ~131 + 16 MB, trivial).
+4. Free `file_texts` rows in `apply_badge_markers` (`:4415`) + shard glossary entries to disk (deeper).
+Also correct the stale `split_study_glossary_document` docstring (`:5075`: "73 MB" → ~480 MB).
 All are determinism-neutral (free/stream the same bytes) → re-verify with the byte-stability gate; eink
-output unchanged; 9-KJV untouched (#1/#2/#3 glossary half are eink-only; #4 is a free-after-use no-op).
+output unchanged; 9-KJV untouched (the glossary path is eink-only; the `del`s are free-after-use no-ops).
 
-## Empirical status — tracemalloc run PENDING (blocked on this box's RAM)
-The empirical tracemalloc/RSS profile was **not run this session**: this 8 GB box is saturated — an
-**orphaned runaway** (`PID 33524`, `.venv/bin/python -`, parent=launchd, 4.5 h at ~99 % CPU, holding
-~3.1 GB) leaves only ~250–500 MB free, so launching a multi-GB eink build would thrash/freeze the
-machine. The static analysis above is conclusive (verified file:lines + a confirmed missing `del`), so
-#1 is actionable now without it. To capture the empirical peak (top allocators at peak + peak RSS +
-crash point) once RAM is freed — kill `33524`, then:
-```
-.venv/bin/python dev/audit/eink_oom_profile.py ethiopian-tewahedo --target-reader eink
-# if 8 GB still OOMs, the smaller fallback localizes the same per-write peak:
-.venv/bin/python dev/audit/eink_oom_profile.py catholic-study --target-reader eink
-```
-The profiler keeps the tracemalloc snapshot from the highest point seen and, on `MemoryError`, dumps the
-crash-point snapshot — so it produces a usable ranking whether the build completes or OOMs. I'll fold the
-real numbers into this file when the box has headroom; the #1 fix doesn't wait on it.
+## Empirical results — flagship eink, COMPLETED under tracemalloc (2026-06-25, 8 GB Mac)
+Ran `dev/audit/eink_oom_profile.py ethiopian-tewahedo --target-reader eink` (force=True) after clearing
+the box. **Build completed in 2702 s** (45 min — tracemalloc roughly halves throughput; a normal build is
+much faster). **Peak RSS (ru_maxrss) = 2937 MB · tracemalloc-tracked peak = 3591 MB.** That ~2.9 GB peak
+is why it OOMs "under RAM pressure" (build cache + a parallel `--all` build + other apps tip a 16 GB box,
+and an uncleared 8 GB box has no room at all).
+
+**Top allocators by file:line at peak** (the ~480 MB glossary, copied many times):
+
+| MB | blocks | site | what |
+|---:|---:|---|---|
+| 538 | 14 | `pathlib:788` (`f.read()`) | file reads (the glossary `read_text` + body reads) |
+| 489 | 30,148 | `build_edition.py:4271` | **the never-`del`'d entries list** — glossary-entry `<div>` HTML strings |
+| 488 | 4 | `build_edition.py:4720` | `_split_head_body_tail` slice of the glossary |
+| 488 | 2 | `build_edition.py:5043` | `_study_index_section_parts` slice |
+| 482 | 29,674 | `build_edition.py:5065` | `_study_glossary_chunk_atoms` chunk copies |
+| 480 | 1,373 | `build_edition.py:5120` | `split_study_glossary_document` `pieces.append(head+body+tail)` |
+| 149 | 501 | `build_edition.py:5010` | `split_html_document` pieces (scripture body) |
+| 148 | 61 | `build_edition.py:2639` | `add_eink_vnote_preview_breaks` regex `.sub` (full-copy) |
+| 135 | 47 | `<frozen codecs>` | utf-8 decode of the reads |
+| 131 | — | `build_edition.py:7983` | `pre_badge_texts` whole-body dict (never freed) |
+
+The five ~480–490 MB rows (`5469`/`4720`/`5043`/`5065`/`5120`) are the SAME glossary held simultaneously
+across the split stages ⇒ ≈ 2.4 GB; plus the 489 MB orphaned entries list (`4271`) co-resident ⇒ the
+~2.9 GB peak. Confirms (A)+(B) above and the empirical re-rank. The profiler is reusable for the post-fix
+re-measure (`dev/audit/eink_oom_profile.py`; falls back to `catholic-study --target-reader eink`).
