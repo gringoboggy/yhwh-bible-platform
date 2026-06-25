@@ -58,6 +58,19 @@ pre-free build = **453/453 identical, zero drift**. ~636 MB of the ~2.9 GB peak 
 (stream `split_study_glossary_document` + `apply_file_split`, which hold ~5 simultaneous copies of the ~480 MB
 glossary) is the next WIN arc.
 
+**Flagship-eink OOM — #1 glossary-split streaming + 2 glossary-read skips (Mac's P1 profile).** Streamed the study-
+glossary split: `split_study_glossary_document` → a generator `_iter_study_glossary_pieces` (frees `body`/`inner` as
+each next slice is taken, frees `text` once the fallbacks pass, yields pieces), and `apply_file_split` now writes each
+piece to disk + keeps only NAMES (`plan_names`), scanning ids + nav from disk one piece at a time — so the ~480 MB
+glossary is held ~1× not ~5× (was the ~2.4 GB driver). Plus two skips of the pre-split giant glossary:
+`_merge_scripture_base_files`'s remap loop and `retarget_demoted_toc_anchors`'s `toc-book` scan (the glossary
+references scripture only by fragment and never carries `toc-book` — structurally confirmed: `toc-book` lives only in
+the scripture/ToC file, study-glossary=False — so both skips are guaranteed no-ops). **Byte-identical: catholic-study
+eink rebuilt (streaming, then +merge-skip) → 453/453 entries unchanged vs the pre-refactor build; `test_file_split`
+54/54.** Flagship-eink monitored peak **2937 MB → ~885 MB**. ⚠ The flagship *full* build still hits ONE more memory
+site (a separate `✗`/MemoryError at ~1.4 GB, post-retarget) → under investigation; the WS1+WS2+WS3 flagship re-stage
+waits on it. catholic-study + the canon-filtered editions build clean.
+
 **WS1 auditor re-architected.** The first `dev/audit_verse_formatting.py` cut measured the WRONG
 thing (its "472 mid-verse breaks" were 1 Clement strategy-B chapters + psalm superscriptions +
 Song rubrics + apocrypha headings; it MISSED the real narrative breaks). Rewrote it: a mid-verse

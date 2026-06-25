@@ -33,9 +33,14 @@
 > (~131 MB) + `del repair_texts` (~16 MB) + `stats.pop("_study_backmatter_entries", None)` (~489 MB, the biggest) +
 > docstring fix (73 MB → ~480 MB). All determinism-neutral (free-after-use; grep-verified no downstream read).
 > **Byte-identical PROOF: catholic-study eink rebuilt → 453/453 entries identical vs the pre-free build, zero drift.**
-> ~636 MB of the ~2.9 GB peak freed. **NEXT (the real ~2 GB structural fix): stream `split_study_glossary_document` +
-> `apply_file_split`** (they hold ~5 simultaneous copies of the ~480 MB glossary; Mac's profile #1) → then the flagship
-> WS1+WS2+WS3 eink re-stage for the device eyeball.
+> ~636 MB of the ~2.9 GB peak freed. **▶▶▶ #1 STREAMING DONE (2026-06-25, WIN):** `split_study_glossary_document` →
+> generator `_iter_study_glossary_pieces` + `apply_file_split` writes pieces to disk / keeps only `plan_names` (id +
+> nav scans re-read from disk) → the ~480 MB glossary is held ~1× not ~5×; + 2 glossary-read skips
+> (`_merge_scripture_base_files` remap loop, `retarget_demoted_toc_anchors` toc-book scan — structurally no-ops, the
+> glossary has no scripture-filenames / no `toc-book`). **Byte-identical (catholic-study eink 453/453; `test_file_split`
+> 54/54). Flagship-eink monitored peak 2937 → ~885 MB.** ⚠ **Flagship FULL build still OOMs at ONE more site**
+> (~1.4 GB post-retarget, `✗`/MemoryError, not yet diagnosed) — the WS1+WS2+WS3 flagship re-stage waits on it.
+> catholic-study + the canon-filtered editions build clean.
 > **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
 > **▶▶▶ WS1 FIX LANDED (2026-06-25, WIN, `b7721a4f`) — eink-gated mid-verse-break MERGE.** Poetry decision = user "keep"
 > (HUMAN_DECISIONS resolved). New `_merge_mid_verse_breaks(tmp)` (`build_edition.py`, EINK-only, called after

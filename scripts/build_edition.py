@@ -48,6 +48,7 @@ import subprocess
 import sys
 import tempfile
 import time
+from collections.abc import Iterator
 from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
@@ -5098,29 +5099,41 @@ def _study_glossary_chunk_atoms(inner: str, target: int) -> list[str]:
     return atoms
 
 
-def split_study_glossary_document(text: str, stem: str, target: int) -> list[tuple[str, str]]:
-    """Split the Kobo Study Notes glossary into ~``target``-byte pieces (K-R9b).
+def _iter_study_glossary_pieces(text: str, stem: str, target: int) -> Iterator[tuple[str, str]]:
+    """Stream the Kobo Study Notes glossary into ~``target``-byte pieces (K-R9b),
+    yielding each piece so the caller can write + release it.
 
     Unlike ``split_html_document``, this file IS the pooled study asides — stripping
     them would leave almost nothing and the ~480 MB monolith (the flagship study
-    glossary; the corpus grew to ~91k notes) would survive unsplit.
-    Cuts at ``h2.study-book-head`` boundaries and, when one book exceeds ``target``,
-    between ``div.study-glossary-entry`` elements. The h1 + lead paragraph travel
-    with piece 0 only."""
+    glossary; the corpus grew to ~91k notes) would survive unsplit. Cuts at
+    ``h2.study-book-head`` boundaries and, when one book exceeds ``target``, between
+    ``div.study-glossary-entry`` elements. The h1 + lead paragraph travel with piece 0.
+
+    OOM (Mac's dev/audit/flagship-eink-oom-profile.md #1): the list form held ``text`` +
+    ``body`` + ``inner`` + ``atoms`` + every ``piece`` at once (~5× ~480 MB ≈ 2.4 GB).
+    Here ``body``/``inner`` are freed the instant the next slice is taken, ``text`` is
+    freed once every text-using fallback has passed, and pieces are yielded (not pooled),
+    so the peak is ~one ~480 MB copy. Byte-identical: same cut points, same piece bytes."""
     if len(text) <= target:
-        return [(f"{stem}.html", text)]
+        yield (f"{stem}.html", text)
+        return
     parts = _split_head_body_tail(text)
     if parts is None:
-        return [(f"{stem}.html", text)]
+        yield (f"{stem}.html", text)
+        return
     head, body, tail = parts
     sec_parts = _study_index_section_parts(body)
     if sec_parts is None:
-        return [(f"{stem}.html", text)]
+        yield (f"{stem}.html", text)
+        return
     body_prefix, sec_open, inner, body_suffix = sec_parts
+    del body  # inner + the small wrappers are independent copies → free the ~480 MB body
 
     atoms = _study_glossary_chunk_atoms(inner, target)
     if not atoms:
-        return [(f"{stem}.html", text)]
+        yield (f"{stem}.html", text)
+        return
+    del inner  # atoms are copies of inner's substrings → free the ~480 MB inner slice
 
     _book_head_start = re.compile(r"^\s*<h2 class=\"study-book-head\"")
 
@@ -5142,14 +5155,20 @@ def split_study_glossary_document(text: str, stem: str, target: int) -> list[tup
     if cur:
         groups.append(cur)
     if len(groups) <= 1:
-        return [(f"{stem}.html", text)]
+        yield (f"{stem}.html", text)
+        return
+    del text  # every text-using fallback has passed; pieces build from head/atoms/wrappers
 
-    pieces: list[tuple[str, str]] = []
     for k, group in enumerate(groups):
         piece_inner = "".join(group)
         piece_body = body_prefix + sec_open + piece_inner + "</section>" + body_suffix
-        pieces.append((f"{stem}_{k:02d}.html", head + piece_body + tail))
-    return pieces
+        yield (f"{stem}_{k:02d}.html", head + piece_body + tail)
+
+
+def split_study_glossary_document(text: str, stem: str, target: int) -> list[tuple[str, str]]:
+    """List form of :func:`_iter_study_glossary_pieces` (the tested API). The build's
+    file-split path streams via the iterator directly to bound peak memory."""
+    return list(_iter_study_glossary_pieces(text, stem, target))
 
 
 _STUDY_BOOK_HEAD_ID_RE = re.compile(r'<h2 class="study-book-head" id="([^"]+)"[^>]*>([^<]+)</h2>')
@@ -5173,13 +5192,17 @@ def _renumber_ncx_play_order(ncx_text: str) -> str:
 
 
 def _study_glossary_book_toc_rows(
-    plan: dict[str, list[tuple[str, str]]],
+    tmp: Path,
+    names: list[str],
     books_by_code: dict,
 ) -> list[tuple[str, str, str, str]]:
-    """Per-book Study Notes ToC rows: (piece_file, anchor_id, label, book_code)."""
+    """Per-book Study Notes ToC rows: (piece_file, anchor_id, label, book_code).
+
+    Reads each on-disk glossary piece (post-split) to find its ``study-book-head`` ids;
+    the link-rewrite never touches those ids, so this matches the pre-stream behaviour."""
     rows: list[tuple[str, str, str, str]] = []
-    study_orig = f"{EINK_STUDY_BACKMATTER_STEM}.html"
-    for pname, ptext in plan.get(study_orig, []):
+    for pname in names:
+        ptext = (tmp / pname).read_text(encoding="utf-8")
         for hid, _title in _STUDY_BOOK_HEAD_ID_RE.findall(ptext):
             code = hid.removeprefix("study-")
             label = _book_toc_title(books_by_code, code)
@@ -5187,16 +5210,17 @@ def _study_glossary_book_toc_rows(
     return rows
 
 
-def _patch_study_glossary_nav(tmp: Path, plan: dict[str, list[tuple[str, str]]], filemap: dict[str, str]) -> None:
+def _patch_study_glossary_nav(tmp: Path, plan_names: dict[str, list[str]], filemap: dict[str, str]) -> None:
     """Expand Study Notes into a nested per-book ToC in nav.xhtml + toc.ncx after glossary split."""
     from scripts.core import config as _config
 
     books_by_code = _config.books_by_code()
     study_orig = f"{EINK_STUDY_BACKMATTER_STEM}.html"
-    if study_orig not in plan or len(plan[study_orig]) <= 1:
+    names = plan_names.get(study_orig, [])
+    if len(names) <= 1:
         return
-    first_piece = plan[study_orig][0][0]
-    book_rows = _study_glossary_book_toc_rows(plan, books_by_code)
+    first_piece = names[0]
+    book_rows = _study_glossary_book_toc_rows(tmp, names, books_by_code)
     if not book_rows:
         return
     old_href = study_orig
@@ -5340,6 +5364,13 @@ def _merge_scripture_base_files(tmp: Path) -> int:
     # avoids re-reading + multi-replacing the giant merged superset string — the OOM site).
     for fp in sorted(tmp.iterdir()):
         if fp == keep:
+            continue
+        if fp.stem == EINK_STUDY_BACKMATTER_STEM:
+            # The study glossary (~480 MB on the flagship) references scripture ONLY by
+            # fragment (#v-… / #vnotes-…, rewritten cross-file later in apply_file_split) —
+            # never by a merged-away `index_split_*.html` filename — so this remap is a
+            # guaranteed no-op on it. Reading + multi-replacing its ~480 MB is pure waste
+            # and the flagship-eink OOM site (mirror the `keep`-skip above; byte-identical).
             continue
         if fp.suffix not in (".html", ".xhtml", ".ncx"):
             continue
@@ -5494,41 +5525,57 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
     if not src_files:
         return stats
 
-    # 1. Plan pieces per source file (in sorted, deterministic order).
-    plan: dict[str, list[tuple[str, str]]] = {}
+    # 1. Produce pieces per source file and STREAM each to disk as it is generated —
+    # the file-split OOM fix (Mac's flagship-eink-oom-profile.md #1): never hold every
+    # file's pieces in one `plan` dict, and let the glossary iterator free its ~480 MB
+    # body/inner/text slices as it goes. `plan_names` keeps only piece NAMES; the id
+    # scan + opener pop + nav passes re-read the (small) pieces they need from disk.
+    keep_inline = resolve_target_reader(edition) == "eink" and resolve_reader_eink_study_layout(edition) in (
+        "inline",
+        "popup",
+    )
+    plan_names: dict[str, list[str]] = {}
     for p in src_files:
-        text = p.read_text(encoding="utf-8")
+        names: list[str] = []
         if p.stem == EINK_STUDY_BACKMATTER_STEM:
             # The study-glossary backmatter is NAVIGATED (badge → jump), not read
             # linearly, so it never grows with a RAISED scripture cap: cap it at the
             # default (page-break fix 2026-06-24) while still honoring an explicitly
             # LOWER target. Byte-identical for every real edition (all targets ≥ default
             # → min == default); only a sub-default override (e.g. tests) splits finer.
-            plan[p.name] = split_study_glossary_document(text, p.stem, min(target, FILE_SPLIT_TARGET_DEFAULT))
+            gtarget = min(target, FILE_SPLIT_TARGET_DEFAULT)
+            for pname, ptext in _iter_study_glossary_pieces(p.read_text(encoding="utf-8"), p.stem, gtarget):
+                (tmp / pname).write_text(ptext, encoding="utf-8")
+                names.append(pname)
         else:
-            plan[p.name] = split_html_document(
-                text,
-                p.stem,
-                scripture_target,
-                keep_inline_verse_notes=(
-                    resolve_target_reader(edition) == "eink"
-                    and resolve_reader_eink_study_layout(edition) in ("inline", "popup")
-                ),
+            pieces = split_html_document(
+                p.read_text(encoding="utf-8"), p.stem, scripture_target, keep_inline_verse_notes=keep_inline
             )
+            for pname, ptext in pieces:
+                (tmp / pname).write_text(ptext, encoding="utf-8")
+                names.append(pname)
+            del pieces
+        # A genuinely split file leaves its original on disk under the old name → drop it
+        # (an unsplit file's single piece keeps the original name and just overwrote it).
+        if not (len(names) == 1 and names[0] == p.name):
+            (tmp / p.name).unlink()
+        plan_names[p.name] = names
 
     # 1b. Cross-FILE opener pop (K-R2-4 file-seam class): the calibre base cuts
     # some files right AFTER a chapter opener (Gen 27 / 1Ch 3 / Ps 73 / Isa 33 /
     # Jer 25) — the anchor+heading strand at the donor file's last page while the
     # chapter's verses start the next file. Move the trailing opener into the
-    # NEXT file's first piece. Runs BEFORE the idmap is built, so every link to
-    # the moved ids follows automatically. Skipped when the next file opens with
-    # a book-title page (an opener never precedes a new book). Also skipped entirely
-    # after a per-book merge: the base-file seams this fixes no longer exist (scripture
-    # is one file), and the intra-file trailing-opener pop in split_html_document covers it.
-    ordered = [] if merged_count else sorted(plan.keys())
+    # NEXT file's first piece. Operates on the just-written boundary pieces (re-read
+    # from disk; only the two boundary pieces, never the whole set). Runs BEFORE the
+    # idmap scan, so every link to the moved ids follows automatically. Skipped when
+    # the next file opens with a book-title page (an opener never precedes a new book),
+    # and entirely after a per-book merge: the base-file seams this fixes no longer exist
+    # (scripture is one file), and the intra-file pop in split_html_document covers it.
+    ordered = [] if merged_count else sorted(plan_names.keys())
     popped: set[str] = set()
     for a, b in zip(ordered, ordered[1:], strict=False):
-        last_name, last_text = plan[a][-1]
+        last_name = plan_names[a][-1]
+        last_text = (tmp / last_name).read_text(encoding="utf-8")
         ns = last_text.find('<aside class="notes-section"')
         boundary = ns if ns != -1 else last_text.rfind("</body>")
         if boundary <= 0:
@@ -5540,32 +5587,36 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
         opener = m.group(0)
         if 'class="vn-link' in opener or len(opener) > 900:
             continue  # carries verse content — not a bare opener
-        first_name, first_text = plan[b][0]
+        first_name = plan_names[b][0]
+        first_text = (tmp / first_name).read_text(encoding="utf-8")
         bm = re.search(r"<body\b[^>]*>", first_text)
         if not bm:
             continue
         if 'class="book-title-page"' in first_text[bm.end() : bm.end() + 400]:
             continue
-        plan[a][-1] = (last_name, seg[: m.start()] + last_text[boundary:])
-        plan[b][0] = (
-            first_name,
+        (tmp / last_name).write_text(seg[: m.start()] + last_text[boundary:], encoding="utf-8")
+        (tmp / first_name).write_text(
             first_text[: bm.end()] + "\n" + opener.strip() + first_text[bm.end() :],
+            encoding="utf-8",
         )
         popped.update((a, b))
 
-    # 2. Global maps: id → final piece file; original file → its first piece.
+    # 2. Global maps: id → final piece file; original file → its first piece. Scan the
+    # on-disk pieces ONE at a time (post-pop content) so the full set never co-resides.
     idmap: dict[str, str] = {}
     filemap: dict[str, str] = {}
     split_origs: set[str] = set()
-    for orig, pieces in plan.items():
-        filemap[orig] = pieces[0][0]
-        if not (len(pieces) == 1 and pieces[0][0] == orig):
+    for orig, pnames in plan_names.items():
+        filemap[orig] = pnames[0]
+        if not (len(pnames) == 1 and pnames[0] == orig):
             split_origs.add(orig)
-        for pname, ptext in pieces:
+        for pname in pnames:
+            ptext = (tmp / pname).read_text(encoding="utf-8")
             # \s prefix (C12/C15): \b also matched data-*-id= attributes,
             # planting phantom idmap keys that could hijack bare hrefs.
             for m in re.finditer(r'\sid="([^"]+)"', ptext):
                 idmap[m.group(1)] = pname
+            del ptext
 
     if not split_origs and not popped:
         return stats  # nothing exceeded the target and no cross-file pop fired
@@ -5599,12 +5650,7 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
         text = bare_re.sub(_bare, text)
         return text, n[0]
 
-    # 3. Materialise pieces: delete split originals, write each piece's RAW text.
-    for orig, pieces in plan.items():
-        if orig in split_origs:
-            (tmp / orig).unlink()
-        for pname, ptext in pieces:
-            (tmp / pname).write_text(ptext, encoding="utf-8")
+    # 3. Pieces are already on disk (streamed in step 1; split originals removed there).
 
     # 4. Rewrite links in every content file (pieces + nav.xhtml + toc.ncx + matter
     #    pages). content.opf is handled by the manifest/spine regen below.
@@ -5632,7 +5678,7 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
                 continue
             old_id = idm.group(1)
             new_items, new_refs = [], []
-            for j, (pname, _t) in enumerate(plan[orig]):
+            for j, pname in enumerate(plan_names[orig]):
                 pid = f"{old_id}_{j:02d}"
                 new_items.append(f'<item id="{pid}" href="{pname}" media-type="application/xhtml+xml"/>')
                 new_refs.append(f'<itemref idref="{pid}"/>')
@@ -5641,11 +5687,11 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
         opf_path.write_text(opf_text, encoding="utf-8")
 
     if EINK_STUDY_BACKMATTER_STEM + ".html" in split_origs:
-        _patch_study_glossary_nav(tmp, plan, filemap)
+        _patch_study_glossary_nav(tmp, plan_names, filemap)
 
     # 6. Stats.
     stats["files_split"] = len(split_origs)
-    stats["pieces_created"] = sum(len(plan[o]) for o in split_origs)
+    stats["pieces_created"] = sum(len(plan_names[o]) for o in split_origs)
     largest = 0
     for fp in list_split_html_files(tmp):
         largest = max(largest, fp.stat().st_size)
@@ -6218,7 +6264,14 @@ def retarget_demoted_toc_anchors(tmp: Path, canon_books: set[str] | None) -> dic
         return stats
 
     surfaces = [tmp / "nav.xhtml", tmp / "toc.ncx"]
-    surfaces += [p for p in list_split_html_files(tmp) if 'class="toc-book"' in p.read_text(encoding="utf-8")]
+    # Skip the eink study glossary (~480 MB on the flagship): it carries study-book-head
+    # rows, never `toc-book`, so reading it here is a guaranteed non-match — and loading
+    # its ~480 MB (the flagship-eink OOM site, pre-split) is pure waste. Byte-identical.
+    surfaces += [
+        p
+        for p in list_split_html_files(tmp)
+        if p.stem != EINK_STUDY_BACKMATTER_STEM and 'class="toc-book"' in p.read_text(encoding="utf-8")
+    ]
     for fp in surfaces:
         if not fp.is_file():
             continue
