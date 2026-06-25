@@ -5102,7 +5102,8 @@ def split_study_glossary_document(text: str, stem: str, target: int) -> list[tup
     """Split the Kobo Study Notes glossary into ~``target``-byte pieces (K-R9b).
 
     Unlike ``split_html_document``, this file IS the pooled study asides — stripping
-    them would leave almost nothing and the 73 MB monolith would survive unsplit.
+    them would leave almost nothing and the ~480 MB monolith (the flagship study
+    glossary; the corpus grew to ~91k notes) would survive unsplit.
     Cuts at ``h2.study-book-head`` boundaries and, when one book exceeds ``target``,
     between ``div.study-glossary-entry`` elements. The h1 + lead paragraph travel
     with piece 0 only."""
@@ -8047,6 +8048,10 @@ def build_one(
         # write back once for pre-badge
         for name, txt in pre_badge_texts.items():
             (tmp / name).write_text(txt, encoding="utf-8")
+        # OOM (P1 #3, Mac's dev/audit/flagship-eink-oom-profile.md): release the whole-body
+        # HTML dict now (~131 MB) — its writes are flushed above and it is unused hereafter,
+        # so it must not linger through badge merge + file-split + zip. Determinism-neutral.
+        del pre_badge_texts
 
         # §4.1 marker_style=badge (Phase 5) — collapse each verse's per-note
         # markers into ONE count badge + merge its asides into ONE per-verse
@@ -8087,6 +8092,9 @@ def build_one(
         # single write-back for any changed repair texts
         for name, txt in repair_texts.items():
             (tmp / name).write_text(txt, encoding="utf-8")
+        # OOM (P1 #3): release the second whole-body HTML dict (~16 MB) — flushed above,
+        # unused hereafter; keeps it from co-residing through file-split + zip.
+        del repair_texts
 
         # Inject per-edition copyright/credits page. σ.6.2 — its printed
         # annotation/category counts come from edition_stats.resolved_note_counts
@@ -8110,6 +8118,13 @@ def build_one(
             bm_stats = inject_eink_study_backmatter(tmp, edition, stats["_study_backmatter_entries"])
             stats["study_backmatter_entries"] = bm_stats.get("entries_written", 0)
             stats["study_backmatter_file"] = bm_stats.get("output_file", "")
+        # OOM (P1 #2, the single highest-leverage free, ~489 MB): the transient eink
+        # study-glossary entries list has now been consumed by inject_eink_study_backmatter
+        # above (or this edition never used it). Drop the payload before file-split + zip so
+        # it stops co-residing with the glossary split; the int count survives in
+        # stats["study_backmatter_entries"]. Read nowhere outside this function (grep-verified)
+        # → determinism-neutral, eink-only payload.
+        stats.pop("_study_backmatter_entries", None)
         inject_back_matter(tmp, edition, canon_books)
 
         # ψ.19.1 — inject the per-edition reading-plans page (no-op

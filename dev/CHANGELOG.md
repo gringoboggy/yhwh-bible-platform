@@ -46,6 +46,18 @@ eink → kobo-vn-br 22,897 · visible-middot cat-heads 10,717 · 0 stale hidden 
 epubcheck 0/0/0/0; non-eink build → 0 kobo-vn-br, hidden separators retained. Mac cross-OS byte-diff + the device A/B
 (`·` renders in Cardo) are the remaining gates (`dev/LANE_HANDOFF.md`). Spec: `dev/audit/kobo-popup-formatting-research.md`.
 
+**Flagship-eink build OOM — tier-1 frees (Mac's P1 profile #2/#3).** Mac's empirical tracemalloc profile
+(`dev/audit/flagship-eink-oom-profile.md`: flagship eink peak RSS 2937 MB) found the remaining drivers. Landed the
+three cheap, high-leverage, determinism-neutral frees: `del pre_badge_texts` (~131 MB) after its write-back,
+`del repair_texts` (~16 MB) after its write-back, and `stats.pop("_study_backmatter_entries", None)` (~489 MB — the
+single biggest, the never-released eink study-glossary entries list) right after `inject_eink_study_backmatter`
+consumes it and before file-split + zip (the int count survives in `stats["study_backmatter_entries"]`; the key is
+read nowhere outside `build_one`, grep-verified). Corrected the stale `split_study_glossary_document` docstring
+(73 MB → ~480 MB). **Byte-identical proof:** catholic-study eink rebuilt with the frees → entry-by-entry diff vs the
+pre-free build = **453/453 identical, zero drift**. ~636 MB of the ~2.9 GB peak freed; the structural ~2 GB fix
+(stream `split_study_glossary_document` + `apply_file_split`, which hold ~5 simultaneous copies of the ~480 MB
+glossary) is the next WIN arc.
+
 **WS1 auditor re-architected.** The first `dev/audit_verse_formatting.py` cut measured the WRONG
 thing (its "472 mid-verse breaks" were 1 Clement strategy-B chapters + psalm superscriptions +
 Song rubrics + apocrypha headings; it MISSED the real narrative breaks). Rewrote it: a mid-verse

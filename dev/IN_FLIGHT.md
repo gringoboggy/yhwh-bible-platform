@@ -29,6 +29,13 @@
 > 12,994 leaves; epubcheck 0/0/0/0.** **Non-eink build: 0 kobo-vn-br, hidden `.vn-sep` separators retained** (eink-gated
 > by construction → 9-KJV byte-stable). ⏳ **Mac cross-OS byte-diff + the device A/B** (user gate: `·` renders in Cardo,
 > worst-case unit POPs not crashes) — handed off (`dev/LANE_HANDOFF.md` P6 + the WS3-implemented section).
+> **▶▶▶ Flagship-eink build OOM — tier-1 frees DONE (2026-06-25, WIN), per Mac's P1 profile.** `del pre_badge_texts`
+> (~131 MB) + `del repair_texts` (~16 MB) + `stats.pop("_study_backmatter_entries", None)` (~489 MB, the biggest) +
+> docstring fix (73 MB → ~480 MB). All determinism-neutral (free-after-use; grep-verified no downstream read).
+> **Byte-identical PROOF: catholic-study eink rebuilt → 453/453 entries identical vs the pre-free build, zero drift.**
+> ~636 MB of the ~2.9 GB peak freed. **NEXT (the real ~2 GB structural fix): stream `split_study_glossary_document` +
+> `apply_file_split`** (they hold ~5 simultaneous copies of the ~480 MB glossary; Mac's profile #1) → then the flagship
+> WS1+WS2+WS3 eink re-stage for the device eyeball.
 > **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
 > **▶▶▶ WS1 FIX LANDED (2026-06-25, WIN, `b7721a4f`) — eink-gated mid-verse-break MERGE.** Poetry decision = user "keep"
 > (HUMAN_DECISIONS resolved). New `_merge_mid_verse_breaks(tmp)` (`build_edition.py`, EINK-only, called after
