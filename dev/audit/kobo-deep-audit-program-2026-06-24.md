@@ -160,7 +160,11 @@ flagship eink + kepubify + epubcheck 0/0/0/0 + auditor green + Kobo device eyeba
       survive kepubify**. 9-KJV/tablet/default base untouched (eink-gated, no re-baseline). TDD 24 pins +
       file-split 54. **epubcheck 0/0/0/0 ✓ · Mac cross-OS PASS ✓ (`39799498`, incl. byte-stability eink-gate).**
       ⏳ device eyeball (HUMAN_DECISIONS).
-- [ ] WS1 mixed-translation: normalize the 18 ¶-verses + co-located KJV brackets to WEB (NO scripture guessing)
+- [ ] WS1 mixed-translation: normalize KJV-contaminated verses → WEB (NO guessing). **SCOPED →
+      `dev/audit/ws1-mixed-translation-worklist.md`:** 67 candidates (18 ¶ + 49 non-apocrypha [bracket]);
+      WEB source CACHED (`content/translations/sources/web/eng-web_vpl.txt`). ⚠ per-verse VERIFY (base vs WEB —
+      the [bracket] signal can false-positive) ; **act 24:7 + luk 17:36 are WEB-OMITTED (textual-critical, KJV-only —
+      decide keep/footnote/omit).** Impl = a verify→replace workflow + base eink-gate/re-baseline + build-verify.
 - [x] **WS2 note-cascade de-dup DONE** (`8115876f`). Class 1 — drop leaf `note-sym` in grouped
       `_emit_cascade_sections`; Class 2 — strip `xref-citation`/`text-witness` body lead-ins
       (`_strip_redundant_body_boilerplate`, exact-kind, s1_dedup-gated). 6 TDD pins + 96 cascade green.
