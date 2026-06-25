@@ -5,6 +5,18 @@
 
 > **▶ 2026-06-24 (Windows, autonomous Mac-helping session) — IN PROGRESS.**
 > **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
+> **▶▶▶ WS1 FIX LANDED (2026-06-25, WIN, `b7721a4f`) — eink-gated mid-verse-break MERGE.** Poetry decision = user "keep"
+> (HUMAN_DECISIONS resolved). New `_merge_mid_verse_breaks(tmp)` (`build_edition.py`, EINK-only, called after
+> `_merge_scripture_base_files` in `apply_file_split`): re-joins a narrative verse's tail-prose that the calibre base split
+> across a `<p class="verse-p">` boundary into the verse's own paragraph (between-verse paragraphing preserved; ids relocate,
+> all #frags resolve). NARRATIVE/prose canon only — `_MIDVERSE_BREAK_KEEP_BOOKS` keeps poetry/wisdom/poetic-prophet + irregular
+> apocrypha verse-per-line. Auditor mirrors it (new `POETRY_BOOKS` → WARN; `poetry_break` bucket). **9-KJV/tablet/default base
+> UNTOUCHED (eink-gated → no re-baseline)**, same pattern as the page-break + font fixes. TDD: 23 pins (`test_mid_verse_merge` 8
+> + `test_audit_verse_formatting` 15) + `test_file_split` 54 green. **Real-data (base copy): 26/27 within-file narrative breaks
+> merged; poetry(35)/irregular(12) untouched; lone residual = `est 10:2`→`10:3` at the Esther/Additions boundary.** ⏳ Flagship
+> `ethiopian-tewahedo --target-reader eink` rebuild RUNNING (background) → verify auditor narrative-ERROR→0 + epubcheck 0/0/0/0 +
+> kepubify + stage for the user's Kobo eyeball; then resolve the est residual + WS1 mixed-translation (18 ¶ + co-located brackets).
+> **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
 > **▶▶ WS1 AUDITOR RE-ARCHITECTED + scope CORRECTED (this session, WIN).** The first auditor cut measured the WRONG
 > thing (472 = 1 Clement strategy-B chapters + psalm superscriptions + Song rubrics + apocrypha headings; it MISSED the
 > real gen/exo narrative breaks). Rewrote `dev/audit_verse_formatting.py` (TDD **14/14**): break = ALPHABETIC PROSE before a

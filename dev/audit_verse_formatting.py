@@ -172,14 +172,20 @@ def _scan_into(html: str, rep: Report, gate_all: bool = False) -> Report:
             if mk and has_vanchor:
                 # Real mid-verse break: prose tail of `current`, then the next verse marker.
                 owner = current  # the verse whose tail spilled = the previous paragraph's last anchor
-                f = Finding("mid_verse_break", _fmt(owner), lead.strip()[:60])
-                book = owner[0] if owner is not None else None
-                if not gate_all and book in IRREGULAR_BOOKS:
-                    rep.irregular_break.append(f)
-                elif not gate_all and book in POETRY_BOOKS:
-                    rep.poetry_break.append(f)
+                if owner is None:
+                    # No preceding verse to continue → this is a section heading / book intro
+                    # sharing a paragraph with the first following verse (e.g. Jubilees'
+                    # editorial headings), not a mid-verse break.
+                    rep.superscription.append(Finding("superscription", _fmt(owner), lead.strip()[:60]))
                 else:
-                    rep.mid_verse_break.append(f)
+                    f = Finding("mid_verse_break", _fmt(owner), lead.strip()[:60])
+                    book = owner[0]
+                    if not gate_all and book in IRREGULAR_BOOKS:
+                        rep.irregular_break.append(f)
+                    elif not gate_all and book in POETRY_BOOKS:
+                        rep.poetry_break.append(f)
+                    else:
+                        rep.mid_verse_break.append(f)
             elif mk:  # has_vn but no v- anchor → strategy-B chapter split mid-verse
                 rep.strategy_b_continuation.append(Finding("strategy_b_continuation", _fmt(current), lead.strip()[:60]))
             else:  # prose-only paragraph, no verse marker → psalm title / Song rubric / section heading

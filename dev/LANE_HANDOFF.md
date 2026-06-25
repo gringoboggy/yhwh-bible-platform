@@ -22,6 +22,29 @@ mac-prior (2026-06-24, superseded above): **Round-13 Mac half COMPLETE + data-va
 
 ---
 
+## ▶ WIN → Mac: WS1 mid-verse-break FIX landed — cross-OS verify + byte-stability check (2026-06-25, windows)
+
+**The WS1 mid-verse-break fix is in (`b7721a4f` + an auditor owner-None follow-up).** New eink-gated
+`_merge_mid_verse_breaks(tmp)` in `scripts/build_edition.py` (called inside `apply_file_split`, right after
+`_merge_scripture_base_files`, EINK only): re-joins a narrative verse's tail-prose that the calibre base split
+across a `<p class="verse-p">` boundary into the verse's own paragraph (between-verse paragraphing preserved; ids
+relocate so every `#frag` still resolves). NARRATIVE/prose canon only — `_MIDVERSE_BREAK_KEEP_BOOKS` (poetry /
+wisdom / poetic-prophet + irregular apocrypha) keeps verse-per-line (user "keep" 2026-06-25). The auditor mirrors it
+(`POETRY_BOOKS` → WARN; owner-None heading → superscription/INFO).
+
+**WIN proof:** built `ethiopian-tewahedo --target-reader eink` → `dev/audit_verse_formatting.py` **narrative ERROR
+breaks 62 → 0** (poetry 35 / irregular 11 / strategy-B 37 / 143 brackets / 18 ¶ all WARN/INFO as designed);
+kepubified → staged → **0 breaks survive kepubify**. epubcheck 0/0/0/0 (the wrapper's 60 s default times out on this
+box's Java 1.8 + 30 MB — re-run with `timeout=600`). TDD: 24 auditor/merge pins + `test_file_split` 54 green.
+
+**▶ Your verify (file-disjoint — verify-only on `scripts/`/`tests/`; your outputs in `dev/audit/`):**
+1. `PYTHONUTF8=1 .venv/bin/python -m pytest tests/test_mid_verse_merge.py tests/test_audit_verse_formatting.py -q` → expect **8 + 16 = 24**.
+2. Build `ethiopian-tewahedo --target-reader eink` on macOS → `python dev/audit_verse_formatting.py <epub>` → expect **0 narrative ERROR breaks** (same WARN/INFO classes) + epubcheck 0/0/0/0. Reproduces WIN's 62 → 0.
+3. **Byte-stability (the key check):** the fix is eink-gated, so a NON-eink build must be byte-unchanged. Build a non-eink edition (e.g. `catholic-study` default, no `--target-reader`) before/after this commit (or confirm the only new call sits inside `if resolve_target_reader(edition) == "eink"`) → confirm 9-KJV/tablet/default output is identical. Report any drift.
+
+Device gate (`dev/HUMAN_DECISIONS.md`): the user re-loads the staged kepub and eyeballs gen 17:23/19:1/30:1/48:1 + Gen→Exodus. WS2 (your findings → I implement `_emit_cascade_sections`) + WS3 (your research → I implement) are next.
+---
+
 ## ▶ WIN → Mac: WS1 auditor RE-ARCHITECTED — cross-OS verify (2026-06-24, windows)
 
 **Heads-up before you run WS1 verify: the first `dev/audit_verse_formatting.py` cut measured the WRONG thing**

@@ -107,6 +107,15 @@ class TestMidVerseLineBreak:
         assert [f.verse for f in rep.poetry_break] == ["psa 18:1"]
         assert rep.failed is False
 
+    def test_orphan_heading_with_no_preceding_verse_is_not_error(self):
+        # A section heading sharing a paragraph with the first following verse (no prior
+        # verse to continue) → superscription, never the ERROR gate (Jubilees headings).
+        html = _vp("Moses receives the tables of the law and instruction on past history.", _vn("jub", 1, 1), " text.")
+        rep = avf.scan_html(html, "jub")
+        assert rep.mid_verse_break == [] and rep.irregular_break == []
+        assert len(rep.superscription) == 1
+        assert rep.failed is False
+
 
 class TestStrategyBNotFlagged:
     def test_plain_vn_chapter_is_not_a_break(self):
