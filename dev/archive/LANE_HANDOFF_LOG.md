@@ -4,6 +4,19 @@ Older turn sections moved out of the live `dev/LANE_HANDOFF.md` (originally the 
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 1 sections, 2026-06-24..2026-06-24 (rotate_truth_records.py) -->
+
+## ▶ WIN → Mac: page-break Parts 1 & 2 BOTH DONE — cross-OS verify the full fix (2026-06-24, windows)
+
+**The page-break defect is fixed on eink — both parts landed + verified.** Part-2 (`2c3a7899`) is the per-book base-file merge: `_merge_scripture_base_files` concatenates the scripture base files (eink target only; glossary excluded) so a book the calibre base split across files becomes contiguous, then `apply_file_split` shards the combined stream at `FILE_SPLIT_CEILING` (8 MB, device-validated). **Real-data proof on WIN: `catholic-study --target-reader eink` went 111 mid-chapter + 163 chapter-boundary breaks → 0 + 0** (only 71 intended book-title breaks; scripture pieces 238 → 72). `dev/audit_spine_breaks.py` **RESULT: PASS**; **epubcheck 0/0/0/0** on the merged build. The lone `psa 119` base artifact from Part-1 is gone. `test_file_split` 54/54 (+5 merge pins incl. eink-merge determinism — the byte-stability guard since there's no golden hash).
+
+**▶ Your task (SUPERSEDES the Part-1-only ask below; file-disjoint — `dev/` audit + macOS builds; do NOT touch `scripts/build_edition.py`):**
+1. **Pull**, then `PYTHONUTF8=1 .venv/bin/python -m pytest tests/test_file_split.py -q -m "not slow"` → expect **54/54**.
+2. **Cross-OS verify the full fix + re-baseline `dev/audit/spine-breaks-all-editions.md`:** rebuild the 4 study editions + 2 standalones `--target-reader eink --force` on macOS, run `dev/audit_spine_breaks.py` + epubcheck on each. Expect **mid-chapter == 0 AND chapter-boundary == 0** (only intended book-title breaks) on every study edition + epubcheck 0/0/0/0. Record the post-fix matrix (mark it "post-Parts-1+2"). **Flag any edition NOT at 0+0** (e.g. a book genuinely > 8 MB that chapter-splits — report which book + its size so we can tune `FILE_SPLIT_CEILING`). Standalones use a different (chapter-per-page) build path → note their numbers but they're a separate follow-up.
+3. The eink merge is determinism-only byte-stable (no golden hash) — your macOS run is the OS-independence proof.
+
+**Next after your verify:** the eink Hebrew/Arabic font fix (your `kobo-font-override-research.md`, eink/non-KJV-gated + the user's device "Cardo" vs "Publisher Default" A/B), device-QA E/F, and the round-13 merge remainder (char-vs-byte · 1en 71/90 needs PD Charles · the 5 Mac mediums I remediate / you verify).
+
 <!-- archived: 31 sections, 2026-06-21..2026-06-24 (rotate_truth_records.py) -->
 
 ## ▶ WIN → Mac: Part-1 pushed — cross-OS verify + re-baseline the spine-break audit (2026-06-24, windows)

@@ -1,9 +1,18 @@
 # In-flight work — current task tracker
 
 <!-- TRACKER-STATE: active -->
-<!-- task: Mac-helping arc — standalone build-bugs DONE; page-break per-book merge + round-13 joint merge (2026-06-24) -->
+<!-- task: Kobo deep-audit program — scripture line-breaks + study-note redundancy + popup formatting (2026-06-24, autonomous, Mac-assisted) -->
 
 > **▶ 2026-06-24 (Windows, autonomous Mac-helping session) — IN PROGRESS.**
+> **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
+> Device eyeball of the newest flagship eink kepub (built fresh from HEAD, loaded to G:): **✅ NO PAGE BREAKS Genesis→Revelation**
+> — the page-break defect is RESOLVED on-device. New findings → 3 workstreams + discrete fixes, planned + run + fixed
+> autonomously with Mac, neither lane stops till done. **WS1** scripture-body formatting — ROOT-CAUSED: mid-verse line breaks =
+> a verse split across multiple `<p class="verse-p">` blocks (gen 19:1 etc.); "weird symbol" = the pilcrow `¶` on KJV-text verses
+> (gen 46:13, 49:14) MIXED into WEB/modern text → a mixed-translation defect; badge-trail spaces → `dev/audit_verse_formatting.py`
+> + fix + deliberate re-baseline. **WS2** study-note redundancy/contradiction → cascade rework. **WS3** Kobo run-on popup
+> formatting research (Mac) → fix. **Discrete:** Prayer of Azariah ToC title reverted to the long form (→ `[+]` truncation) —
+> re-shorten + pin. Lane split + loop-until-done protocol in the program doc; Mac's slice in `LANE_HANDOFF.md`. **Earlier today:**
 > **✅ Slice 1 DONE (committed):** the 2 WIN-surface standalone build-bugs Mac flagged in
 > `dev/audit/spine-breaks-all-editions.md` — (1) `build_one` summary-print `KeyError:'enabled_kinds'`
 > that crashed the CLI *after* a successful standalone build (new `_print_edition_build_summary` +
