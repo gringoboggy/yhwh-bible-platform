@@ -5257,11 +5257,31 @@ def _merge_scripture_base_files(tmp: Path) -> int:
         if pp is None:
             return 0
         bodies.append(pp[1])
-    keep.write_text(head + "\n".join(bodies) + tail, encoding="utf-8")
-    for p in merged_away:
-        p.unlink()
 
     remap = {p.name: keep.name for p in merged_away}
+
+    # Write the merged file STREAMED + already-remapped (cross-book hrefs to merged-away
+    # files become self-refs to the kept name). Per-segment remap keeps allocations small:
+    # a single multi-`.replace()` over the whole ~100 MB superset string OOMs a RAM-pressured
+    # box (the kept file would otherwise be re-read + multi-replaced + rewritten in the remap
+    # loop below). Output is byte-identical to `head + "\n".join(bodies) + tail` then a
+    # whole-file remap — a filename never spans a body/"\n" boundary, so per-segment
+    # replacement == whole-file replacement.
+    def _remap_names(s: str) -> str:
+        for old, new_name in remap.items():
+            s = s.replace(old, new_name)
+        return s
+
+    with keep.open("w", encoding="utf-8") as fh:  # atomic-waived: streamed build-temp merge (tmp/, discarded on fail)
+        fh.write(_remap_names(head))
+        for i, b in enumerate(bodies):
+            if i:
+                fh.write("\n")
+            fh.write(_remap_names(b))
+        fh.write(_remap_names(tail))
+    bodies.clear()  # release the superset bodies before the per-file remap pass
+    for p in merged_away:
+        p.unlink()
 
     # content.opf — drop each merged-away <item> + its <itemref> (the kept file's item,
     # same name, stays in its spine position so order is preserved).
@@ -5283,9 +5303,13 @@ def _merge_scripture_base_files(tmp: Path) -> int:
                 )
         opf_path.write_text(opf_text, encoding="utf-8")
 
-    # Rewrite the merged-away filenames → the kept name in every content file (nav/ncx/
+    # Rewrite the merged-away filenames → the kept name in every OTHER content file (nav/ncx/
     # pieces/matter); #frag targets are unchanged so they still resolve in the combined file.
+    # The kept file is already remapped during the streamed write above (skipping it here
+    # avoids re-reading + multi-replacing the giant merged superset string — the OOM site).
     for fp in sorted(tmp.iterdir()):
+        if fp == keep:
+            continue
         if fp.suffix not in (".html", ".xhtml", ".ncx"):
             continue
         txt = fp.read_text(encoding="utf-8")
