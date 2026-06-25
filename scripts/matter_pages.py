@@ -1041,48 +1041,61 @@ def _write_topical_page(tmp, mode, canon_books, book_order, *, naves, torrey) ->
 EINK_STUDY_BACKMATTER_FILE = "index_split_900.html"
 
 
-def render_eink_study_backmatter_page(edition: dict, entries: list[tuple]) -> str:
-    """Render the Kobo Study Notes glossary (K-R9).
+def write_eink_study_backmatter_page(out_path: "Path", edition: dict, entries: list[tuple]) -> None:
+    """Stream the Kobo Study Notes glossary (K-R9) to ``out_path``.
 
-    ``entries`` is ``[(sort_key, book_code, aside_html), …]`` already sorted.
-    Grouped by book with an ``h2`` per canon book that has notes in this edition."""
+    ``entries`` is ``[(sort_key, book_code, aside_html), …]`` already sorted; grouped by
+    book with an ``h2`` per canon book that has notes in this edition. Written STREAMED
+    (head → each body part → tail) instead of building one giant ``"\\n".join(...)`` + a
+    wrapping f-string + ``write_text`` — those several whole-page copies OOM the 87-book
+    eink-superset glossary on a RAM-pressured box. Byte-identical to the prior render: the
+    same parts, in the same order, joined by ``"\\n"`` inside the same XHTML wrapper."""
     from scripts.core import config as _config
 
     books_by_code = _config.books_by_code()
-    edition_title = html.escape(edition.get("title_full", edition.get("title", "Study Bible")))
-    body_parts = [
-        '<section class="study-notes-index" epub:type="backmatter">',
-        "<h1>Study Notes</h1>",
-        '<p class="study-notes-lead">Coloured badges after each verse open study notes '
-        "by category. The chip shows a category mark; when there is more than one note "
-        "in that category, a number follows it (for example, H2 means two historical "
-        "notes). Tap a badge to jump here. Tap a verse tag such as 1:1 at the end of a "
-        "section to return to scripture. Tap a verse number in the text for translation "
-        "popups.</p>",
-    ]
-    current_code: str | None = None
-    for _sort_key, code, aside_html in entries:
-        if code != current_code:
-            current_code = code
-            rec = books_by_code.get(code) or {}
-            book_title = html.escape((rec.get("toc_title") or rec.get("title") or code.upper()))
-            body_parts.append(f'<h2 class="study-book-head" id="study-{code}">{book_title}</h2>')
-        body_parts.append(aside_html)
-    body_parts.append("</section>")
-    body = "\n".join(body_parts)
-    return f"""<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
-<head>
-  <title>Study Notes</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-</head>
-<body epub:type="backmatter">
-{body}
-</body>
-</html>
-"""
+    with out_path.open(  # atomic-waived: streamed build-temp glossary (tmp/, discarded on fail)
+        "w", encoding="utf-8"
+    ) as fh:
+        fh.write(
+            '<?xml version="1.0" encoding="utf-8"?>\n'
+            "<!DOCTYPE html>\n"
+            '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">\n'
+            "<head>\n"
+            "  <title>Study Notes</title>\n"
+            '  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>\n'
+            '  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>\n'
+            "</head>\n"
+            '<body epub:type="backmatter">\n'
+        )
+        _n = 0
+
+        def _w(part: str) -> None:
+            nonlocal _n
+            if _n:
+                fh.write("\n")  # join body parts by "\n" (matches the prior "\n".join output)
+            fh.write(part)
+            _n += 1
+
+        _w('<section class="study-notes-index" epub:type="backmatter">')
+        _w("<h1>Study Notes</h1>")
+        _w(
+            '<p class="study-notes-lead">Coloured badges after each verse open study notes '
+            "by category. The chip shows a category mark; when there is more than one note "
+            "in that category, a number follows it (for example, H2 means two historical "
+            "notes). Tap a badge to jump here. Tap a verse tag such as 1:1 at the end of a "
+            "section to return to scripture. Tap a verse number in the text for translation "
+            "popups.</p>"
+        )
+        current_code: str | None = None
+        for _sort_key, code, aside_html in entries:
+            if code != current_code:
+                current_code = code
+                rec = books_by_code.get(code) or {}
+                book_title = html.escape((rec.get("toc_title") or rec.get("title") or code.upper()))
+                _w(f'<h2 class="study-book-head" id="study-{code}">{book_title}</h2>')
+            _w(aside_html)
+        _w("</section>")
+        fh.write("\n</body>\n</html>\n")
 
 
 def inject_eink_study_backmatter(tmp: Path, edition: dict, entries: list[tuple[tuple, str, str]]) -> dict:
@@ -1096,7 +1109,7 @@ def inject_eink_study_backmatter(tmp: Path, edition: dict, entries: list[tuple[t
     ordered = sorted(entries, key=lambda row: row[0])
     out_name = EINK_STUDY_BACKMATTER_FILE
     out_path = tmp / out_name
-    out_path.write_text(render_eink_study_backmatter_page(edition, ordered), encoding="utf-8")
+    write_eink_study_backmatter_page(out_path, edition, ordered)
 
     opf_path = tmp / "content.opf"
     if opf_path.is_file():
