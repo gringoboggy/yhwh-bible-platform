@@ -2389,6 +2389,11 @@ _EINK_READER_CSS = (
     ".vnote-kobo-sep { text-align: center; margin: 0.4em 0 0.1em; letter-spacing: 0.3em;\n"
     "  font-size: 0.82em; color: rgba(71, 85, 105, 0.7); }\n"
     "br.kobo-vnote-br { line-height: 1.6; }\n"
+    # WS3: study/cascade popup separators are a visible · dot-rule + this kobo-safe
+    # break (the translation family's br.kobo-vnote-br twin) — keeps note rows from
+    # abutting in the CSS-blind Kobo Footnote overlay. eink-only; non-eink keeps the
+    # hidden U+2028 .vn-sep spans + .vn-sep{display:none}, so page bytes are unchanged.
+    "br.kobo-vn-br { line-height: 1.6; }\n"
     ".vnote-vulgate { font-style: italic; border-top: 1px dotted rgba(100, 116, 139, 0.25);\n"
     "  padding-top: 0.15em; margin-top: 0.15em; color: #1e293b; }\n"
     # RTL is set by the inline dir="rtl" on each <p class="vnote-arabic"> (the CSS
@@ -2600,6 +2605,20 @@ def _badge_extract_note_kind(marker_html: str) -> str:
 _VN_SEP_ITEM = '<span class="vn-sep">\u2028• </span>'
 _VN_SEP_CAT = '<span class="vn-sep">\u2028¶ </span>'
 _VN_SEP_BYLINE = '<span class="vn-sep">\u2028◦ </span>'
+# WS3 (Kobo run-on popup fix, 2026-06-25): eink-only, Nickel-survivable separators
+# for the study/cascade verse-notes family. Kobo's tag-stripped Footnote overlay DROPS
+# the hidden U+2028 .vn-sep spans above (K-R14) and the family was never wired into the
+# translation-family <br>+dot-rule pass, so its category heads / source bylines / note
+# rows ran together on-device. These give it the same device-proven chrome the vnote
+# family already ships: a visible middot (U+00B7 — the ONLY on-device-proven glyph; the
+# bullet near-crashed, the pilcrow/white-bullet are untested) with NBSP padding (matching
+# _KOBO_VNOTE_GAP) plus a kobo-safe <br class="kobo-vn-br">. Chosen only when eink=True
+# (default False -> non-eink / 9-KJV byte-identical). The cat head is already a block <p>
+# so it leads with just the middot; item + byline lead with the break so they start a new
+# line in the CSS-blind overlay. Spec: dev/audit/kobo-popup-formatting-research.md.
+_VN_SEP_ITEM_EINK = '<br class="kobo-vn-br" /> · '
+_VN_SEP_CAT_EINK = "· "
+_VN_SEP_BYLINE_EINK = '<br class="kobo-vn-br" /> · '
 _VN_SEP_HIDE_CSS = (
     "\n/* K-R3-2 + K-R4-1: text-baked popup separators — visible only to the\n"
     "   CSS-blind Kobo eInk Footnote preview; hidden everywhere CSS applies.\n"
@@ -2809,7 +2828,7 @@ def apply_vnote_preview_separators(
     return touched
 
 
-def _badge_aside_inner_to_row(inner: str, kind: str) -> str:
+def _badge_aside_inner_to_row(inner: str, kind: str, *, eink: bool = False) -> str:
     """Turn one per-note aside's inner content into one merged ``.vn-item`` row.
 
     Drops the per-note back-link (↩) but KEEPS everything else: the note-sym
@@ -2822,7 +2841,8 @@ def _badge_aside_inner_to_row(inner: str, kind: str) -> str:
     unwrap would splice their tags and break well-formedness (epubcheck RSC-016).
     """
     body = _NOTE_BACK_RE.sub("", inner, count=1).strip()
-    return f'<div class="vn-item note-{kind}">{_VN_SEP_ITEM}{body}</div>'
+    sep = _VN_SEP_ITEM_EINK if eink else _VN_SEP_ITEM
+    return f'<div class="vn-item note-{kind}">{sep}{body}</div>'
 
 
 # device-QA 2026-06-23: the per-note category symbol-link is baked from categories.yaml
@@ -3550,7 +3570,7 @@ def _split_flow_text(text: str, target: int) -> list[str]:
     return chunks
 
 
-def _chunk_vn_item_row(row_html: str, target: int) -> list[str]:
+def _chunk_vn_item_row(row_html: str, target: int, *, eink: bool = False) -> list[str]:
     """Design (b): chunk ONE oversized .vn-item row into several rows, each
     ~target stripped chars. Part 1 keeps the row's full prefix (separator,
     tradition label, note-sym, note-label); continuation parts carry a
@@ -3584,6 +3604,7 @@ def _chunk_vn_item_row(row_html: str, target: int) -> list[str]:
     # (the S2 conservation counter + every consumer regex) still matches.
     cont_div = open_div[:-2] + ' vn-cont">'
     cont_open = re.sub(r'\s+id="[^"]*"', "", w_open)
+    sep = _VN_SEP_ITEM_EINK if eink else _VN_SEP_ITEM
     parts: list[str] = []
     last = len(chunks) - 1
     for i, chunk in enumerate(chunks):
@@ -3592,13 +3613,13 @@ def _chunk_vn_item_row(row_html: str, target: int) -> list[str]:
         if i == 0:
             parts.append(f"{open_div}{pre}{w_open}{chunk}{trail}{w_close}{close_div}")
         elif i == last:
-            parts.append(f"{cont_div}{_VN_SEP_ITEM}{cont_open}{lead}{chunk}{w_close}{post}{close_div}")
+            parts.append(f"{cont_div}{sep}{cont_open}{lead}{chunk}{w_close}{post}{close_div}")
         else:
-            parts.append(f"{cont_div}{_VN_SEP_ITEM}{cont_open}{lead}{chunk}{trail}{w_close}{close_div}")
+            parts.append(f"{cont_div}{sep}{cont_open}{lead}{chunk}{trail}{w_close}{close_div}")
     return parts
 
 
-def _chunk_row_to_budgets(row_html: str, cap: int, byte_cap: int) -> list[str]:
+def _chunk_row_to_budgets(row_html: str, cap: int, byte_cap: int, *, eink: bool = False) -> list[str]:
     """``_chunk_vn_item_row`` driven by BOTH budgets. A row over the char
     chunk target chunks as before; a row over the BYTE chunk target (markup-
     dense bodies the char measure under-weighs) derives an equivalent char
@@ -3616,7 +3637,7 @@ def _chunk_row_to_budgets(row_html: str, cap: int, byte_cap: int) -> list[str]:
         target = min(target, int(byte_target / density))
     parts = [row_html]
     for _ in range(8):
-        parts = _chunk_vn_item_row(row_html, max(200, target))
+        parts = _chunk_vn_item_row(row_html, max(200, target), eink=eink)
         ok = all(
             (not char_target or _stripped_len(p) <= char_target + 64)
             and (not byte_target or _estimate_kepub_aside_bytes(p) <= byte_target)
@@ -3628,7 +3649,9 @@ def _chunk_row_to_budgets(row_html: str, cap: int, byte_cap: int) -> list[str]:
     return parts  # best effort — the pack loop still bounds units; gate 4n is the floor
 
 
-def _split_popup_units(rows: list[dict], cap: int, emit_inner, byte_cap: int = 0) -> list[list[dict]]:
+def _split_popup_units(
+    rows: list[dict], cap: int, emit_inner, byte_cap: int = 0, *, eink: bool = False
+) -> list[list[dict]]:
     """Partition a verse's merged-popup rows (each ``{"cat", "row", ...}``)
     into units whose EMITTED inner HTML fits BOTH budgets: stripped chars
     <= cap minus the header allowance (the popup-viewport calibration) AND
@@ -3656,7 +3679,7 @@ def _split_popup_units(rows: list[dict], cap: int, emit_inner, byte_cap: int = 0
         return [rows]
     expanded: list[dict] = []
     for r in rows:
-        expanded.extend({**r, "row": part} for part in _chunk_row_to_budgets(r["row"], cap, byte_cap))
+        expanded.extend({**r, "row": part} for part in _chunk_row_to_budgets(r["row"], cap, byte_cap, eink=eink))
     groups: list[list[dict]] = []
     for r in expanded:
         if groups and groups[-1][0]["cat"] == r["cat"]:
@@ -3724,9 +3747,11 @@ def _study_verse_return_link(code: str, ch: int, v: int) -> str:
     return f'<a href="#{target_id}" class="note-back study-return">{html.escape(label, quote=False)}</a>'
 
 
-def _study_glossary_category_body(cat_rows: list[dict], cat: str, cat_meta: dict, *, s2_group: bool) -> str:
+def _study_glossary_category_body(
+    cat_rows: list[dict], cat: str, cat_meta: dict, *, s2_group: bool, eink: bool = False
+) -> str:
     if s2_group:
-        return _emit_cascade_sections(cat_rows, cat_meta)
+        return _emit_cascade_sections(cat_rows, cat_meta, eink=eink)
     return (
         f'    <section class="vn-group note-cat-{cat}">\n'
         + "".join(f"      {r['row']}\n" for r in cat_rows)
@@ -3745,8 +3770,9 @@ def _study_glossary_footnote(
     sid: str,
     verse_back: str,
     s2_group: bool,
+    eink: bool = False,
 ) -> str:
-    body = _study_glossary_category_body(cat_rows, cat, cat_meta, s2_group=s2_group)
+    body = _study_glossary_category_body(cat_rows, cat, cat_meta, s2_group=s2_group, eink=eink)
     footnote = (
         f'  <aside epub:type="footnote" class="study-glossary-cat verse-notes" id="{sid}">\n'
         + body
@@ -3757,7 +3783,7 @@ def _study_glossary_footnote(
 
 
 def _emit_backmatter_glossary_inner(
-    rows: list[dict], cat_meta: dict, code: str, ch: int, v: int, *, s2_group: bool
+    rows: list[dict], cat_meta: dict, code: str, ch: int, v: int, *, s2_group: bool, eink: bool = False
 ) -> tuple[str, dict[str, str]]:
     """Glossary inner HTML with padded footnote asides per category (K-R13).
 
@@ -3773,7 +3799,7 @@ def _emit_backmatter_glossary_inner(
         cat_rows = [r for r in rows if r["cat"] == cat_id]
         expanded_rows: list[dict] = []
         for r in cat_rows:
-            for part in _chunk_row_to_budgets(r["row"], _GLOSSARY_CAT_ROW_CAP, 0):
+            for part in _chunk_row_to_budgets(r["row"], _GLOSSARY_CAT_ROW_CAP, 0, eink=eink):
                 expanded_rows.append({**r, "row": part})
 
         def _footnote_len(rows_subset: list[dict], *, _cat: str = cat_id) -> int:
@@ -3788,6 +3814,7 @@ def _emit_backmatter_glossary_inner(
                     sid=f"vnotes-{code}-{ch}-{v}-{_cat}",
                     verse_back=verse_back,
                     s2_group=s2_group,
+                    eink=eink,
                 )
             )
 
@@ -3831,6 +3858,7 @@ def _emit_backmatter_glossary_inner(
                     sid=sid,
                     verse_back=verse_back,
                     s2_group=s2_group,
+                    eink=eink,
                 )
             )
         category_targets[cat] = badge_target
@@ -3851,7 +3879,7 @@ def _format_category_badge_text(glyph: str, note_count: int) -> str:
 _NOTE_SYM_LINK_RE = re.compile(r'\s*<a class="note-sym"[^>]*>.*?</a>', re.DOTALL)
 
 
-def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
+def _emit_cascade_sections(rows: list[dict], cat_meta: dict, *, eink: bool = False) -> str:
     """Emit the verse→category→source→note cascade inner HTML (spec §2) from the
     already category-rank-ordered ``rows``. Each row is a dict with keys
     ``cat, source_key, source_display, suppress_byline, row``; ``cat_meta`` maps a
@@ -3866,6 +3894,8 @@ def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
         by_source = cats.setdefault(r["cat"], {})
         by_source.setdefault(r["source_key"], []).append(r)
 
+    cat_sep = _VN_SEP_CAT_EINK if eink else _VN_SEP_CAT
+    byline_sep = _VN_SEP_BYLINE_EINK if eink else _VN_SEP_BYLINE
     out: list[str] = []
     for cat, by_source in cats.items():
         glyph, label = cat_meta.get(cat, ("", cat))
@@ -3874,7 +3904,7 @@ def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
         # apostrophe (Strong's / Nave's) stays readable and matches the baked corpus
         # style (which carries literal ', not &#x27;).
         out.append(
-            f'    <p class="vn-cat-head">{_VN_SEP_CAT}<span class="vn-cat-sym" aria-hidden="true">{glyph}</span>'
+            f'    <p class="vn-cat-head">{cat_sep}<span class="vn-cat-sym" aria-hidden="true">{glyph}</span>'
             f" {html.escape(label, quote=False)}</p>\n"
         )
         for src_rows in by_source.values():
@@ -3885,9 +3915,7 @@ def _emit_cascade_sections(rows: list[dict], cat_meta: dict) -> str:
             # hide a co-bucketed non-self-attributing row's source byline.
             suppress = bool(src_rows) and all(rr.get("suppress_byline") for rr in src_rows)
             if display and not suppress:
-                out.append(
-                    f'      <p class="vn-source-byline">{_VN_SEP_BYLINE}{html.escape(display, quote=False)}</p>\n'
-                )
+                out.append(f'      <p class="vn-source-byline">{byline_sep}{html.escape(display, quote=False)}</p>\n')
             for rr in src_rows:
                 # WS2 Class 1: drop the per-note leaf note-sym (the vn-cat-head conveys the
                 # category glyph once). The .vn-item leaf itself survives (the §4 conservation
@@ -4140,7 +4168,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                             ok = False
                             break
                         aside_spans.append((am.start(), am.end()))
-                        row = _badge_aside_inner_to_row(am.group(1), kind)
+                        row = _badge_aside_inner_to_row(am.group(1), kind, eink=eink_target)
                         if eink_target:
                             row = _eink_safe_note_sym(row)
                         norm = " ".join(row.split())
@@ -4229,9 +4257,9 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                     # consumed inside this verse's iteration today, but the
                     # binding keeps the assertion label correct even if a later
                     # refactor defers the call.
-                    def _unit_inner(unit_rows: list[dict], code=code, ch=ch, v=v) -> str:
+                    def _unit_inner(unit_rows: list[dict], code=code, ch=ch, v=v, eink=eink_target) -> str:
                         if s2_group:
-                            inner = _emit_cascade_sections(unit_rows, cat_meta)
+                            inner = _emit_cascade_sections(unit_rows, cat_meta, eink=eink)
                             # §4 completeness guard (S2-GUARD-1/2/3): the spec's set-based
                             # DISTINCT_OUT==DISTINCT_IN guard is downgraded to this leaf
                             # count, which is SOUND by construction — _emit_cascade_sections
@@ -4263,7 +4291,7 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         # slice-swallow if a bare vnotes-* id prefixes a sibling.
                         entry_id = f"study-entry-{code}-{ch}-{v}"
                         glossary_inner, cat_targets = _emit_backmatter_glossary_inner(
-                            norm_rows, cat_meta, code, ch, v, s2_group=s2_group
+                            norm_rows, cat_meta, code, ch, v, s2_group=s2_group, eink=eink_target
                         )
                         # K-R13: per-category targets are padded footnote asides so
                         # noteref → footnote uses Kobo's large-footnote navigate path.
@@ -4303,7 +4331,9 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         # K-R6-2 serialized-byte budget. One unit = the historical
                         # single-aside path (text-identically; the id gains -s1).
                         try:
-                            units = _split_popup_units(norm_rows, split_cap, _unit_inner, byte_cap=split_byte_cap)
+                            units = _split_popup_units(
+                                norm_rows, split_cap, _unit_inner, byte_cap=split_byte_cap, eink=eink_target
+                            )
                         except ValueError as e:
                             raise AssertionError(f"{code} {ch}:{v}: {e}") from None
                         k_units = len(units)

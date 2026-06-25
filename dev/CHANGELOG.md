@@ -31,6 +31,21 @@ lane-ping + ACK; (P5) rules/memory parity sync; (P6) standing cross-OS verifies 
 flagship re-stage · M2 tablet) when WIN pushes. All Mac items are file-disjoint (`dev/audit/`) and parity-clean
 (build + kepubify + epubcheck + Workflow + Opus — no `feature-dev:*`).
 
+**WS3 Kobo run-on popups — IMPLEMENTED (eink-gated, build-verified).** The study/cascade `verse-notes` popups
+separated their category heads / source bylines / note rows ONLY with hidden U+2028 `.vn-sep` spans, which Kobo's
+tag-stripped native Footnote overlay drops — so they ran together on-device (Mac's `kobo-popup-formatting-research.md`).
+Gave the family the translation family's device-proven chrome: a visible `·` (U+00B7 — the only on-device-proven glyph)
+plus a kobo-safe `<br class="kobo-vn-br">`, **EINK-ONLY**. Added `_VN_SEP_{ITEM,CAT,BYLINE}_EINK` + a `br.kobo-vn-br`
+rule in `_EINK_READER_CSS`, and threaded a keyword-only `eink=False` through `_emit_cascade_sections`,
+`_badge_aside_inner_to_row`, `_chunk_vn_item_row`, the budget-pack chain (`_chunk_row_to_budgets`/`_split_popup_units`),
+and the backmatter-glossary chain (`_study_glossary_category_body`/`_study_glossary_footnote`/
+`_emit_backmatter_glossary_inner`) + 4 main-loop call sites — default `False` so non-eink/9-KJV output is byte-identical
+by construction. TDD: 9 pins (`tests/test_ws3_popup_separators.py`, incl. default-path byte-stability) + 224 caller
+tests green (popup_split/marker_style/note_rehaul/ws2_cascade/marker_badge_style/kobo_device_qa). Built catholic-study
+eink → kobo-vn-br 22,897 · visible-middot cat-heads 10,717 · 0 stale hidden cat-heads · 12,994 leaves conserved ·
+epubcheck 0/0/0/0; non-eink build → 0 kobo-vn-br, hidden separators retained. Mac cross-OS byte-diff + the device A/B
+(`·` renders in Cardo) are the remaining gates (`dev/LANE_HANDOFF.md`). Spec: `dev/audit/kobo-popup-formatting-research.md`.
+
 **WS1 auditor re-architected.** The first `dev/audit_verse_formatting.py` cut measured the WRONG
 thing (its "472 mid-verse breaks" were 1 Clement strategy-B chapters + psalm superscriptions +
 Song rubrics + apocrypha headings; it MISSED the real narrative breaks). Rewrote it: a mid-verse

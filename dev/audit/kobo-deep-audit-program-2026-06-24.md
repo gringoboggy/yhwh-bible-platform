@@ -175,7 +175,15 @@ flagship eink + kepubify + epubcheck 0/0/0/0 + auditor green + Kobo device eyeba
       (`_strip_redundant_body_boilerplate`, exact-kind, s1_dedup-gated). 6 TDD pins + 96 cascade green.
       Deliberate grouped re-baseline. ✅ build-verify catholic-study eink: leaf note-sym 0 · xref/text-witness
       lead-ins 0 · 12,994 leaves intact · epubcheck 0/0/0/0. ⏳ Mac cross-OS byte-diff.
-- [ ] WS3 Kobo popup run-on fix — **Mac research DONE** (`dev/audit/kobo-popup-formatting-research.md`): the study/
+- [x] **WS3 Kobo popup run-on fix — IMPLEMENTED + BUILD-VERIFIED (2026-06-25, WIN).** Eink constants
+      `_VN_SEP_{ITEM,CAT,BYLINE}_EINK` (visible `·` U+00B7 + `<br class="kobo-vn-br">`) + the `br.kobo-vn-br` CSS rule;
+      a kw-only `eink=False` threaded through `_emit_cascade_sections` / `_badge_aside_inner_to_row` /
+      `_chunk_vn_item_row` + the budget-pack chain (`_chunk_row_to_budgets` / `_split_popup_units`) + the
+      backmatter-glossary chain + 4 main-loop call sites. **9 TDD pins** (`test_ws3_popup_separators`, incl. default-path
+      byte-stability) + **224 caller tests green**. **catholic-study eink: kobo-vn-br 22,897 · visible-middot cat-heads
+      10,717 · 0 stale hidden cat-heads · 12,994 leaves; epubcheck 0/0/0/0.** **Non-eink: 0 kobo-vn-br, hidden
+      separators retained** (eink-gated → 9-KJV byte-stable). ⏳ Mac cross-OS byte-diff + device A/B (`LANE_HANDOFF.md` P6).
+      — Original research (Mac, DONE, `dev/audit/kobo-popup-formatting-research.md`): the study/
       cascade `verse-notes` popups use hidden U+2028 `.vn-sep` separators that Kobo's native footnote overlay DROPS;
       give them the K-R14 treatment the translation family already has — **visible `·` (U+00B7, the ONLY device-proven
       glyph — NOT `•`, which near-crashed) + `<br class="kobo-vn-br"/>`, eink-gated.** Swap `_VN_SEP_ITEM/CAT/BYLINE`

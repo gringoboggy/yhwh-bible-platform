@@ -14,6 +14,21 @@
 > 96 cascade green. Deliberate grouped re-baseline (s1_dedup editions). ⏳ epubcheck (running) · ⏳ Mac cross-OS byte-diff (handed off).
 > **NEXT (WIN):** WS1 mixed-translation (18 ¶ + co-located KJV brackets → WEB; source CACHED `content/translations/sources/web/eng-web_vpl.txt`)
 > → then WS3 popup (Mac research). **Discrete Prayer-of-Azariah ToC ✅ (`83391827`).**
+> **▶▶▶ WS3 Kobo run-on popup fix ✅ LANDED+BUILD-VERIFIED (2026-06-25, WIN).** Per Mac's
+> `dev/audit/kobo-popup-formatting-research.md`: the study/cascade `verse-notes` popups separated category heads /
+> source bylines / note rows ONLY with hidden U+2028 `.vn-sep` spans, which Kobo's tag-stripped Footnote overlay
+> DROPS → the run-on. Gave the family the translation-family's device-proven chrome — visible `·` (U+00B7) +
+> `<br class="kobo-vn-br">`, **EINK-ONLY**. New eink constants `_VN_SEP_{ITEM,CAT,BYLINE}_EINK` + a `br.kobo-vn-br`
+> rule in `_EINK_READER_CSS`; threaded a kw-only `eink=False` through `_emit_cascade_sections` /
+> `_badge_aside_inner_to_row` / `_chunk_vn_item_row` + the budget-pack chain (`_chunk_row_to_budgets` /
+> `_split_popup_units`) + the backmatter-glossary chain (`_study_glossary_category_body` / `_study_glossary_footnote` /
+> `_emit_backmatter_glossary_inner`) + 4 main-loop call sites (`eink=eink_target`). **TDD 9 pins**
+> (`tests/test_ws3_popup_separators.py`, incl. default-path byte-stability) + **224 caller tests green**
+> (popup_split / marker_style / note_rehaul / ws2_cascade / marker_badge_style / kobo_device_qa). **Built catholic-study
+> eink: kobo-vn-br 22,897 · visible-middot cat-heads 10,717 · bylines-with-break 9,903 · 0 stale hidden cat-heads ·
+> 12,994 leaves; epubcheck 0/0/0/0.** **Non-eink build: 0 kobo-vn-br, hidden `.vn-sep` separators retained** (eink-gated
+> by construction → 9-KJV byte-stable). ⏳ **Mac cross-OS byte-diff + the device A/B** (user gate: `·` renders in Cardo,
+> worst-case unit POPs not crashes) — handed off (`dev/LANE_HANDOFF.md` P6 + the WS3-implemented section).
 > **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
 > **▶▶▶ WS1 FIX LANDED (2026-06-25, WIN, `b7721a4f`) — eink-gated mid-verse-break MERGE.** Poetry decision = user "keep"
 > (HUMAN_DECISIONS resolved). New `_merge_mid_verse_breaks(tmp)` (`build_edition.py`, EINK-only, called after
