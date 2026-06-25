@@ -5,6 +5,17 @@
 
 > **▶ 2026-06-24 (Windows, autonomous Mac-helping session) — IN PROGRESS.**
 > **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
+> **▶▶ WS1 AUDITOR RE-ARCHITECTED + scope CORRECTED (this session, WIN).** The first auditor cut measured the WRONG
+> thing (472 = 1 Clement strategy-B chapters + psalm superscriptions + Song rubrics + apocrypha headings; it MISSED the
+> real gen/exo narrative breaks). Rewrote `dev/audit_verse_formatting.py` (TDD **14/14**): break = ALPHABETIC PROSE before a
+> paragraph's first verse marker; ¶/bracket attributed to the nearest preceding marker; irregular-apocrypha/strategy-B/
+> superscription classified out of the ERROR gate. Verified the BUILD preserves paragraph structure (base gen19 == kepub
+> gen19 == 2 paras) ⇒ **fix target = base HTML `epub_working/`**. **TRUE scope (built flagship kepub):** **62 regular-canon
+> mid-verse breaks** (psa 13·gen 4·job 4·sng 4·num 3·1ch 3·pro 3·isa 3·jer 3·… ; all 4 user cases present) + **18 ¶**
+> (gen 46:13/49:14 + lev/exo/num/jer/dan…) ; mixed-translation = the ¶-co-located bracket set (man/1en brackets are
+> legit Charles editorial brackets → WARN). **Discrete Prayer-of-Azariah ToC = verified DONE** (`83391827`, pinned, wired
+> unconditionally; `test_nav_toc_short_titles` 7/7). **NEXT (WIN):** WS1 fix (62 breaks; decide poetry psa/sng) at the base
+> + deliberate re-baseline + device-verify → then mixed-translation normalize. Mac: cross-OS verify the corrected auditor.
 > Device eyeball of the newest flagship eink kepub (built fresh from HEAD, loaded to G:): **✅ NO PAGE BREAKS Genesis→Revelation**
 > — the page-break defect is RESOLVED on-device. New findings → 3 workstreams + discrete fixes, planned + run + fixed
 > autonomously with Mac, neither lane stops till done. **WS1** scripture-body formatting — ROOT-CAUSED: mid-verse line breaks =

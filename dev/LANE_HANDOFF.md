@@ -10,6 +10,30 @@ mac: **✅ Part 2b standalone merge cross-OS VERIFIED + 1en 71/90 fix-spec DONE 
 mac-prior (2026-06-24, superseded above): **Round-13 Mac half COMPLETE + data-validity gap CLOSED+GATED + page-breaks audit DONE.** ✅ **Data-validity completeness gap (deep-audit dim returned 0/0) CLOSED + permanently GATED:** `dev/audit_translation_integrity.py` (reusable gate, selftest 13/13) + `dev/audit/round13-data-validity.md` (Workflow-verified, no refutations) + per-push CI gate `tests/test_translation_integrity_gate.py`. **DV2 FIXED** (`5bac50d5`, TDD+byte-stable: `coord_in_canonical_extent` now tests verse-MEMBERSHIP not 1≤v≤count — the sole non-1-start chapter `aes` ch10=4-13). DV1 (dev-console-only occurrence-collapse) · DV4 (`ex→exo`/`1k`/`2k` store-stem aliases scattered across 5 local maps → centralize) · DV3 (sensitive versification-decl triage) = held for merge, all latent/non-ship-blocking, auditor WARNs keep them visible. ✅ **Page-breaks audit (your queued Mac half) DONE → `dev/audit/spine-breaks-all-editions.md`:** all 6 editions × platforms via `audit_spine_breaks.py`. **e-ink AFFECTED every edition (109-130 mid-chapter); KINDLE AFFECTED (108-166) — the 2MB `FILE_SPLIT_TARGET_KINDLE` is NOT taking effect (artifacts split ~495KB) → VERIFY a fresh `--target-reader kindle` build applies it; tablet CLEAN (1 base break psa 119:88→89, the packer fix won't touch it); standalones 0 mid-chapter but chapter-per-page (161/125 breaks).** epub≡kepub confirmed; toolchain matches your flagship 130 / gen 10:6→7. 2 minor standalone-build bugs flagged for you (KeyError 'enabled_kinds' post-build crash @8060 · Amharic epub misnamed `Geez_Standalone` prefix). ⏳ **Cross-OS verify your re-cut when it lands** (rebuild on macOS → mid-chapter==0 all editions + golden re-baseline holds). Also this session: Phase-0 dev-doc fixes (`6cf7b924`). Prior: frozen-app HIGH reconciled · structural 293/294. **Remaining merge: #2 char-vs-byte (WIN) · 1en 71/90 base (PD Charles source).**
 ---
 
+## ▶ WIN → Mac: WS1 auditor RE-ARCHITECTED — cross-OS verify (2026-06-24, windows)
+
+**Heads-up before you run WS1 verify: the first `dev/audit_verse_formatting.py` cut measured the WRONG thing**
+(472 "breaks" = 1 Clement strategy-B chapters + psalm superscriptions + Song speaker rubrics + apocrypha section
+headings; it MISSED the real gen/exo narrative breaks). I rewrote it. **Correct signal = alphabetic PROSE before a
+paragraph's first verse marker** (the prose is the previous verse's tail; the `</p><p>` boundary fell inside the
+verse). ¶/bracket now attributed to the nearest preceding marker. Irregular-apocrypha (1en/jub/sir/man/…) +
+strategy-B + superscriptions are classified OUT of the ERROR gate (`--all` to include them). TDD **14/14**
+(`tests/test_audit_verse_formatting.py`). I verified the **build PRESERVES paragraph structure** (base gen19 ==
+kepub gen19 == 2 paragraphs) ⇒ the fix target is the **base HTML `epub_working/`**, not the build.
+
+**True scope (built flagship eink kepub — base agrees):** **62 regular-canon mid-verse breaks (ERROR)** ·
+**18 ¶ (ERROR)** (incl. the user's gen 46:13 + 49:14) · 11 irregular + 37 strategy-B + 143 brackets (WARN; man/1en
+brackets are legit Charles editorial brackets) · 160 superscriptions/rubrics (INFO).
+
+**▶ Your cross-OS verify (file-disjoint — the auditor lives in `dev/`, verify-only):** pull, then
+`PYTHONUTF8=1 .venv/bin/python -m pytest tests/test_audit_verse_formatting.py -q` → expect **14/14**; and run
+`python dev/audit_verse_formatting.py <a macOS-built eink epub>` → expect the SAME classes (≈62 ERROR breaks · 18 ¶).
+Confirm OS-independence. WIN now implements the WS1 base fix (62 breaks + the ¶-co-located mixed-translation set) +
+deliberate re-baseline; you'll cross-OS verify the re-cut + structural pass when it lands. Your WS3 popup research +
+WS2 note-redundancy audit continue unchanged.
+
+---
+
 ## ▶ WIN → Mac: Kobo deep-audit program — your WS3 research + WS2 audit (2026-06-24, windows)
 
 **The device eyeball of the newest flagship eink kepub is in — and it's a WIN: NO PAGE BREAKS, Genesis → Revelation.** The weeks-long page-break defect is RESOLVED on-device (Parts 1+2+2b + your cross-OS verifies). Thank you. The user then surfaced a fresh set of formatting/content defects and directed: **plan → run → fix autonomously, you helping every step, neither lane stops till the fixing is done.** Full program + root causes: **`dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).** Lane split is file-disjoint — **WIN owns** `scripts/` + `content/` + `epub_working/` + `build_edition.py` + the device; **you own** `dev/audit/` research/findings + cross-OS verify. Do NOT touch `scripts/`/`content/`/`epub_working/` (WIN is mutating them for WS1).

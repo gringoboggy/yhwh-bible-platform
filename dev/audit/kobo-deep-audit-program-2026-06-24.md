@@ -103,34 +103,58 @@ built fresh from HEAD, verified, and loaded to the Kobo. The user's eyeball:
   finding · WS3 popups structured + device-verified · discrete fixes pinned · a clean device eyeball.
 - User-only calls (e.g. the badge-trail keep/tighten decision, any device A/B) → `dev/HUMAN_DECISIONS.md`.
 
-## WS1 — first auditor run (flagship eink, 2026-06-24)
+## WS1 — first auditor run (flagship eink, 2026-06-24) — SUPERSEDED, see re-architecture below
 
-`dev/audit_verse_formatting.py` (built TDD, 8/8 unit pins) run on the fresh flagship eink epub:
-- **472 mid-verse line breaks** (verse-p paragraphs with no `v-` anchor = a paragraph break that
-  landed mid-verse). **18 stray pilcrows ¶** + **109 mixed-translation `[bracket]` verses** —
-  across gen/exo/lev/num/mat, so the WEB/KJV mix is WIDESPREAD, not just gen 46/49. **30,104
-  badge-trail spans.**
-- **Key structural fact (measured):** the doc has **36,329 `v-` verse anchors in only 2,088
-  `<p class="verse-p">` paragraphs** → verses flow WITHIN a paragraph (good); a paragraph holds
-  many verses. So the mid-verse breaks = the 472 *continuation* paragraphs (a source paragraph
-  break that fell inside a verse). The 41,811 ¶ in the whole doc are mostly in the study-note
-  backmatter (KJV cross-ref markers); only 18 are in scripture-body verse text.
-- **Auditor refinement queued (counts are right; labels need polish):** (a) report "verses
-  scanned" as the 36,329 anchors, not the 1,616 anchored paragraphs; (b) attribute ¶/bracket to
-  the nearest PRECEDING `v-` anchor within the paragraph (today it attributes to the paragraph's
-  first verse, so gen 46:13 reads as gen 46:1); (c) attribute apocrypha continuation paragraphs
-  (they showed "unknown" — 1 Clement etc. use a different anchor scheme).
-- **Fix approach (WS1 fix phase):** mid-verse breaks → merge each continuation `<p class="verse-p">`
-  into its preceding verse paragraph at the emitter/base (so a verse never spans a `<p>` boundary);
-  mixed translation → normalize the KJV-text verses to the edition's English base (NO scripture
-  guessing — use the real source), stripping ¶ + `[supplied]` markers. Byte-stability: base-HTML
-  change → deliberate re-baseline, prove only intended bytes moved.
+First cut reported **472 breaks / 18 ¶ / 109 brackets** keyed on "verse-p paragraph with no
+`v-` anchor". Investigation (2026-06-24, WIN) proved that heuristic measured the **WRONG thing**:
+the 472 were 1 Clement strategy-B chapters (plain `<span class="vn">`, no anchor) + psalm
+superscriptions + Song speaker rubrics + apocrypha section headings — none of which are mid-verse
+breaks — while it **MISSED the real gen/exo narrative breaks** (whose continuation paragraph still
+carries the *next* verse's anchor). ¶/bracket were mis-attributed to the paragraph's first verse
+(gen 46:13 read as gen 46:1).
+
+## WS1 — auditor RE-ARCHITECTED + true scope (2026-06-24, WIN)
+
+`dev/audit_verse_formatting.py` rewritten (TDD, **14/14 pins**, `tests/test_audit_verse_formatting.py`).
+Correct signal: a **mid-verse break = ALPHABETIC PROSE before a paragraph's first verse marker**
+(that prose is the previous verse's tail; the `</p><p>` boundary fell inside the verse). Note-marker
+digits / single-glyph badges before the marker are NOT prose, so chapter-starts don't false-flag.
+¶/bracket attributed to the nearest PRECEDING verse marker. Verified the build PRESERVES paragraph
+structure (base gen19 = kepub gen19 = 2 paragraphs), so **the defect lives in — and is fixed at —
+the base HTML `epub_working/`**, not the build.
+
+**True scope on the built flagship eink kepub (and base HTML, which agree):**
+- **62 regular-canon mid-verse breaks (ERROR)** — the real device defect. By book: psa 13 · gen 4 ·
+  job 4 · sng 4 · num 3 · 1ch 3 · pro 3 · isa 3 · jer 3 · mat 2 · jhn 2 · 2ch 2 · + 1 each
+  (nah, mrk, act, rom, 1co, 1th, jdg, 2ki, tob, est, ecc, lam, bar, eze, oba) + 1 unknown. The four
+  user-reported cases (gen 17:23, 19:1, 30:1, 48:1) are all present. **(psa/sng = poetry — decide in
+  the fix phase whether their line-splits are a defect or intentional verse-per-line.)**
+- **18 stray pilcrows ¶ (ERROR)** — now correctly located: gen 46:13 + 49:14 (the user's two), plus
+  lev 3:12 · exo 28:31/40:28 · num 3:14/19:11 · gen 8:15 · jer ×2 · 2ch · ecc · pro · isa · dan · sng ×3.
+- **11 irregular-apocrypha breaks (WARN)** (1en 8 · sir 3) + **37 strategy-B chapter splits (WARN)** =
+  known-residual / different-layout, not the regular-canon gate.
+- **143 mixed-translation `[bracket]` occurrences (WARN)** — but man (32) + 1en (31) are the **Charles
+  translation's legitimate editorial brackets**, NOT KJV-isms. The real KJV-text-in-WEB-base class =
+  the brackets co-located with the 18 pilcrows (gen/exo/num/lev/jer/dan/pro/isa/ecc/2ch/mat). That
+  co-located ¶+bracket set IS the mixed-translation defect (WS1 task #4).
+- **160 superscriptions / rubrics / headings (INFO)** — psalm titles, Song speaker rubrics, section
+  headings: correctly NOT counted as breaks. 36,329 deep-linked verses + 3,870 plain-vn.
+
+**Fix approach (WS1 fix phase, base HTML — byte-stability-critical, all editions, deliberate re-baseline):**
+mid-verse breaks → move a verse's spilled tail-prose into its own verse paragraph so no verse spans a
+`<p>` boundary (preserves between-verse paragraphing); mixed translation → normalize the KJV-text verses
+to the WEB base from the real source (NO scripture guessing), stripping ¶ + `[supplied]`. No KJV golden
+gate exists → manual regen + `git diff` across editions to prove only intended bytes moved; rebuild
+flagship eink + kepubify + epubcheck 0/0/0/0 + auditor green + Kobo device eyeball.
 
 ## Status
-- [x] WS1 auditor built (TDD, 8/8) · first run on flagship · root-cause + scope confirmed (472 breaks · 18 ¶ · 109 mixed-translation)
-- [ ] WS1 auditor refinement (anchor-accurate attribution + verse count + apocrypha)
-- [ ] Discrete: Prayer of Azariah ToC title re-shortened + pinned
-- [ ] WS1 fix (multi-`<p>` verses + mixed-translation) + re-baseline + device-verify
-- [ ] WS2 note-redundancy audit + cascade rework + device-verify
-- [ ] WS3 Kobo popup formatting research + fix + device A/B
+- [x] WS1 auditor built · first run (472/18/109) — SUPERSEDED (measured the wrong thing)
+- [x] **WS1 auditor RE-ARCHITECTED** (correct prose-before-marker detection, accurate attribution,
+      irregular/strategy-B/superscription classification; TDD 14/14) · true scope = 62 breaks · 18 ¶ ·
+      mixed-translation = the ¶-co-located bracket set · fix target = base HTML
+- [x] Discrete: Prayer of Azariah ToC title re-shortened + pinned (`83391827`; verified done + wired)
+- [ ] WS1 fix (62 mid-verse breaks; decide poetry handling) + re-baseline + device-verify
+- [ ] WS1 mixed-translation: normalize the 18 ¶-verses + co-located KJV brackets to WEB + re-baseline
+- [ ] WS2 note-redundancy audit + cascade rework + device-verify (Mac auditing)
+- [ ] WS3 Kobo popup formatting research + fix + device A/B (Mac researching)
 - [ ] Final device eyeball clean → program closed
