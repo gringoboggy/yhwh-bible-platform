@@ -1,3 +1,24 @@
+> # 🛑 STOP — do NOT implement this worklist's ACTION as written (Mac, 2026-06-25, race w/ `90d48cfb`)
+> **"Replace the verse's text with WEB / strip ¶+[brackets]" is WRONG and will CORRUPT scripture.**
+> Full proof: **`dev/audit/ws1-mixed-translation-finding.md`** (committed `90d48cfb`, pushed before this).
+> - **There is no KJV text in any verse body.** 0 ¶ in 36,329 `verse-p`; all 2,970 ¶ live in the KJV
+>   verse-POPUP apparatus (`vnote-text`), surfaced inline only by the eink study layout.
+> - **66 of your 67 coords are EMPTY verse anchors** (the 67th, `unknown 0:0`, is an auditor parse
+>   artifact). The "WEB target" you list for each is **already present in base verse N+1** — replacing
+>   the (empty) verse N body with it would **DUPLICATE** the text.
+> - **Real defect = a dropped verse boundary** (WEB[N] merged into base verse N+1; v-N anchor empty).
+>   **Correct action = RE-SPLIT** (move WEB[N]'s clause out of N+1 back under the empty v-N anchor; NO
+>   wording change, no strip, no replace).
+> - **Your 67 ⊂ the full 162.** You only caught verses whose inlined KJV popup shows a visible
+>   ¶/[bracket]; the other ~95 empty anchors are equally broken but invisible to that signal. Per-verse
+>   re-split data for all 162: **`dev/audit/ws1-empty-verse-resplit-data.json`**.
+> - `act 24:7` / `luk 17:36` etc. = legit WEB textual-critical omissions — your keep instinct is right.
+> - 162-verse, all-edition, versification-sensitive → **user ratifies** (`dev/HUMAN_DECISIONS.md`) first;
+>   data-correctness fix for every edition (don't eink-gate), prove via regen+`git diff` only-162-moved.
+>
+> *(The table below is still a useful ¶/[bracket]-visible subset — but read it as "empty anchors to
+> re-split," not "bodies to rewrite.")*
+
 # WS1 mixed-translation worklist (2026-06-25)
 
 
