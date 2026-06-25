@@ -88,3 +88,75 @@ a separate completeness item, not part of the v46→v13 bracket-merge.
 | B | same file (asides) | merge `vnote-1en-71-46` text into `vnote-1en-71-13` (insert `xlvi. 3`); delete the `vnote-1en-71-46` aside |
 | — | result | 1 Enoch 71 = 17 contiguous verses; v13 bracket whole; no v46 |
 | ch90 | — | clear of this bug; flag the 90:20–41 anchor gap separately |
+
+---
+
+## P3 — 90:20–41 anchor-gap verdict + a SEPARATE 90:13–18 finding (Mac, 2026-06-25)
+
+> WIN's P4 ask (laundry-list P3): "resolve the 90:20–41 anchor gap vs the PD Charles source —
+> real missing-verse/anchor defect, or a faithful Charles-versification artifact?" Spec-only;
+> no `content/` edits; no scripture guessing. **Evidence is OUR base** (`epub_working/index_split_022.html`,
+> the file that actually holds 1En 90 — *not* `021`), cross-read against the Charles structure in
+> `dev/audit/1en-charles-source-71-90.md`.
+
+### Base reality for 1En 90 (anchors in document order)
+
+`[1,2,3,4,5,6,7,8,9,10,11,12, 13, 16, 14, 17, 15, 18, 19, 42]` — i.e. **two** oddities:
+**(I)** a 13→18 region whose anchors are interleaved `13,16,14,17,15`, and **(II)** a jump `19 → 42`
+(vv20–41 carry no `vn-link` anchor).
+
+### Verdict on (II) the 90:20–41 gap — FAITHFUL ARTIFACT, *not* a defect — NO fix required
+
+The **text of vv20–41 is fully present**, inline in the `v-1en-90-19` paragraph, with each verse number
+printed as **plain text** ("20 And I saw till a throne was erected…", "21 And the Lord called…", …,
+"41 …"). A scan of that paragraph finds **all 22 inline markers 20,21,…,41** present and in order, plus
+Charles's verbatim section headings embedded mid-paragraph: **"XC. 20-27. Judgement of the Fallen Angels,
+the Shepherds, and the Apostates"** and **"XC. 28-38. The New Jerusalem, the Conversion of the surviving
+Gentiles, the Resurrection…"**. v42 is anchored; the next anchor is `v-1en-91-1`.
+
+So no scripture is missing — the base folded the long Animal-Apocalypse climax (Charles vv20–42) into one
+anchored paragraph and kept the verse numbers as inline text. This is why the structural auditor's 293/294
+did **not** FAIL it (text complete + monotonic). **Conclusion:** an *anchor-granularity* gap, not a
+content/missing-verse defect. **Recommended action: NONE required.** Optional, purely-additive nicety
+(low value): promote the inline "20".."41" numbers to `vn-link` anchors so those verses gain popups /
+deep-links — but that is cosmetic granularity, touches no wording, and is **not** part of the round-13
+1En fix. Do **not** treat 90:20–41 as a blocker.
+
+### SEPARATE finding on (I) the 90:13–18 region — a REAL text-corruption defect (hand to WIN)
+
+While confirming (II) I found a genuine defect in **1En 90:13–18**. Charles prints these verses as a
+**doublet in two parallel columns** (his *g* / *q* recensions of the same vision). Our base ingested the
+two columns **zippered word-by-word across the rows instead of read down each column**, producing
+unreadable salad. Raw base (apparatus-stripped), verbatim:
+
+> `13 And I saw till the †shepherds and† 16 All the eagles and vultures and eagles and those vultures and kites came, ravens and kites were gathered and †they cried to the ravens† that they together, and there came with should break the horn of that ram, and them all the sheep of the field, they battled and fought with it, and it yea, they all came together, and battled with them and cried that its help helped each other to break that might come. horn of the ram. 14 And I saw till that man, who wrote 17 And I saw that man, who wrote down the names of the the book according to the shepherds [and] carried up into the command of the Lord, till he presence of the Lord of the sheep [came opened that book concerning the and helped it and showed it everything: destruction which those twelve he had come down for the help of that last shepherds had wrought, and ram]. showed that they had destroyed much more than their predecessors, before the Lord of the sheep. 15 And I saw till the Lord of the sheep 18 And I saw till a great sword came unto them in wrath, and all who was given to the sheep, and the saw Him fled, and they all fell †into His sheep proceeded against all the shadow† from before His face. beasts of the field to slay them, and all the beasts and the birds of the heaven fled before their face.`
+
+De-interleaving the columns recovers two coherent streams (illustrative — **VERIFY against Charles, do not
+treat as authoritative**):
+- **Left column → vv13,14,15:** "13 And I saw till the †shepherds and† eagles and those vultures and kites
+  came, and there came with them all the sheep of the field, yea, they all came together, and helped each
+  other to break that horn of the ram. 14 And I saw till that man, who wrote the book according to the
+  command of the Lord, till he opened that book concerning the destruction which those twelve shepherds had
+  wrought, and showed that they had destroyed much more than their predecessors, before the Lord of the
+  sheep. 15 And I saw till the Lord of the sheep came unto them in wrath, and all who saw Him fled, and they
+  all fell †into His shadow† from before His face."
+- **Right column → vv16,17,18:** "16 All the eagles and vultures and ravens and kites were gathered
+  together, and there came with them all the sheep of the field … and cried that its horn should break the
+  horn of that ram, and they battled and fought with it, and it cried that its help might come. 17 And I saw
+  that man, who wrote down the names of the shepherds [and] carried up into the presence of the Lord of the
+  sheep [came and helped it and showed it everything: he had come down for the help of that last ram]. 18
+  And I saw till a great sword was given to the sheep, and the sheep proceeded against all the beasts of the
+  field to slay them, and all the beasts and the birds of the heaven fled before their face."
+
+That the salad de-zips cleanly into two sensible streams is itself the proof of the mechanism (column
+zipper), not random corruption.
+
+**Severity:** MEDIUM — corrupted scripture *prose* in 1En 90:13–18 (vs. the 71:46 issue, which was only a
+spurious anchor). **1En is Ethiopian-only** (`content/canons.yaml`) → **no 9-KJV byte-stability impact**.
+**WIN store-edit prescription (no guessing — re-source first):** (1) re-fetch the full Charles ch90 vv13–18
+verbatim (same Wikisource/sacred-texts source as the 71 fix; the existing `1en-charles-source-71-90.md` only
+*summarized* ch90); (2) replace the zippered `v-1en-90-13…18` prose in `epub_working/index_split_022.html`
+with the de-interleaved per-verse text (one coherent stream per verse), restoring anchor order to
+`13,14,15,16,17,18`; (3) post-edit gates as in the 71 fix — `test_nested_anchors` + `check_nested_anchors
+--fix`, structural auditor (90 order now ascending), rebuild Ethiopian-canon editions + epubcheck 0/0/0/0.
+This is a **distinct, higher-priority** 1En ch90 item; the 20–41 anchor gap above needs nothing.
