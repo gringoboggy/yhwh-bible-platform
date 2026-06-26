@@ -9,7 +9,7 @@ survivors to green with TDD + verification. Source: `round14-mac-survivors.json`
 | 1 | MED | `eink_glyphs.py` missing from `_PIPELINE_SCRIPTS` → stale cached eink/kepub EPUB | `core/build_cache.py` | ✅ DONE — added to tuple; `TestCacheCoverageGuard` green (was RED) |
 | 2 | LOW | `prospect.main()` None `out_path` → AttributeError crash on all-deduped chapter | `scripts/prospect.py` | ✅ DONE — None-guard + regression test (`test_prospect_write_queue` 3/3) |
 | 3 | LOW | canonical-extent guard is a silent no-op for the 8 Tewahedo-distinctive books | `core/canonical_verse_counts.py` | ✅ DONE (Mac) — new `core/distinctive_verse_counts.py` leaf (6 dicts, AST-byte-identical) + per-chapter ceiling in `coord_in_canonical_extent`/`html_chapter_count` + `check_distinctive_extent` lint; test 13/13 (834 on-disk coords still valid, 0 over-extent). Ceiling lower-bound `0<=verse` (preserves `1en 91:0`/`94:0` chapter-intro notes); corrected a stale test that pinned the old no-op |
-| 4 | LOW | S1 note-dedup drops dict source attribution when `note_group_by_category` off | `build_edition.py:4213` | ⏳ TODO |
+| 4 | LOW | S1 note-dedup drops dict source attribution when `note_group_by_category` off | `build_edition.py:4213` | ✅ DONE (WIN, `ac3e1fa3`) — `_strip_redundant_note_label`/`_strip_redundant_body_boilerplate` gated on `cascade = s2_group or eink_backmatter`; S1-on/S2-off keeps the source line |
 | 5 | HIGH | no real-build golden gate covers tablet/kindle byte-stable cells (= G1) | `tests/test_kjv_golden_hash_gate.py` + `tests/golden/kjv_golden_hashes.json` | ✅ DONE (WIN built gate+golden `f0ffc499`, 9 cells POST-re-split+POST-A1) · **✅ Mac CROSS-OS VERIFIED**: `test_kjv_golden_hash_gate` PASSED on macOS (9/9 cells match Windows' golden, 41 min) ⇒ KJV byte-stable set is byte-identical Win↔Mac after the A1 LF chokepoint (Linux via A4 CI). A1 confirmed a Mac no-op (Mac already emits LF). |
 | 6 | HIGH | eink mid-verse merge corrupts est 10:2 on the shipped flagship (displacement-blind) | `build_edition.py:5650` (WIN) + `audit_verse_formatting.py` (Mac) | ✅ DONE — WIN `_merge_mid_verse_breaks` WEB-source discriminator `_mv_displacement_would_corrupt` (`ac3e1fa3`); Mac `audit_verse_formatting.py` MIRROR `_is_displaced_anchor` (est 10:2 → `displaced_anchor` WARN, not ERROR; routed after poetry/irregular KEEP to match the build) — **17/17 auditor tests** incl. gen-19:1 genuine break still flagged + psa-18 poetry kept. ⏳ optional: catholic-study eink build-verify (cross-OS) |
 
@@ -38,3 +38,12 @@ Reverted my premature exclusive/mac → PARALLEL, file-disjoint:
 - **2026-06-26 PARALLEL CORRECTION** — discovered WIN live (rebooted) mid-push; reverted exclusive/mac → parallel,
   file-disjoint per the table above. Mac next: #3 (canonical-extent, no build_edition collision) then cross-OS verify
   WIN's A1 (no-op on Mac → Mac bytes unchanged) + the G1 golden when it lands.
+- **2026-06-26 ★ ALL 8 SURVIVORS GREEN — both lanes.** Mac: #1·#2·#3·#6-mirror (`db049b75`) + **G1 golden CROSS-OS
+  VERIFIED** (9/9 cells match WIN's POST golden on macOS, 41 min). WIN (`3e129837` "WIN remediation COMPLETE"):
+  #4·#5/G1·#6-build + the 5 gates G1–G5 wired into a per-build gate + A1 LF-chokepoint + A4 ubuntu CI. The 5 refuted
+  stay refuted. **Cross-OS determinism (A15) proven Win+Mac (Linux via A4 CI).**
+- **2026-06-26 ✅ CLOSING BYTE-STABILITY PROOF** — **G1 gate RE-RUN at the final HEAD (`db049b75`, post-#4/#6/G2–G5)
+  PASSED on macOS** (9/9 byte-stable cells, 41 min): #4's S1-attribution change did NOT disturb the byte-stable set
+  (those 3 editions have `note_group_by_category` ON → `cascade=True` → unchanged) — the golden holds across the FINAL
+  state. Remaining = WIN's full slow-suite green on its SSD (Mac HDD is too slow for the full suite; Mac ran the
+  authoritative byte-stability + cross-OS proofs + every Mac-survivor's targeted tests). **Remediation DONE.**
