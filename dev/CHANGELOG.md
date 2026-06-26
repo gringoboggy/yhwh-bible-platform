@@ -4,6 +4,24 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-26 (close) — Round-14 ✅ COMPLETE (both lanes) + ROUND-15 PREPARED (9 completeness gaps scoped) (Windows; autonomous)
+
+Round-14 build-pipeline deep-audit is fully complete: all 8 deep-audit survivors green (WIN #4/#5/#6, Mac
+#1/#2/#3) + the WIN-surfaced G5 over-cap fixed + all 5 gates (G1/A4/G3/G4/G5) built & wired + A1 cross-OS
+byte-identity Mac-verified 9/9 + the `zip_repro`→`_PIPELINE_SCRIPTS` cache-coverage follow-up. HEAD `48807147`.
+
+**Prepared round-15 for a fresh session** (`dev/audit/round-15-completeness-audit-program-2026-06-26.md`): the 9
+completeness-critic gaps round-14 flagged as next-round seeds were each independently re-scoped against current
+code by a 9-agent scoping Workflow (one per gap — verify files, sharpen the deterministic check/gate +
+propagation + lane). The program carries, per dimension: the defect class, the gate to build, the lane, and the
+concrete defects the scoping already spotted. **Scoping surfaced 3 actionable defects** (left for the approved
+round-15 run): (D3) Douay/Clementine-Vulgate **Psalm 2:13 + 4:10 silently dropped** (missing scripture in the
+parallel popups) → `_VULGATE_PSALM_FIXES`; (D4) the round-14 #4 `_cascade = s2_group or eink_backmatter` is
+over-permissive (backmatter glossary doesn't re-surface the source when S2 off) → `_cascade = s2_group`,
+byte-safe for shipped editions; (D2/D5/D8/D9) gate blindspots + stale pointers. SESSION_STATE + IN_FLIGHT point a
+fresh `bootstrap, pull, continue` at the program with the round-14-process gate: pull → plan-mode review →
+USER approval → configure `deep-audit.js` (ROUND=15) → execute two-lane → loop-until-green.
+
 ## 2026-06-26 (post-reboot, cont.) — Round-14 remediation: #6 est 10:2 (HIGH) + #4 S1 attribution + G5 over-cap (Windows; autonomous, two-lane)
 
 Autonomous round-14 remediation (user: "fix everything the audit surfaced, with Mac helping"). Three

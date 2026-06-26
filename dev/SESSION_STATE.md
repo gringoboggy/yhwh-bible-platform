@@ -1,6 +1,27 @@
 # Session state — current snapshot
 
-> **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`. **Grok-revert cleanup DONE + pushed** (2026-06-21; memory `project_grok_cleanup`). **Mac's Opt# byte-verify DONE** — Opt#3 (`33b79387`) changed build output → **REVERTED** (it dropped tablet badges); Opt#2/#4/#5 byte-neutral → kept. **★ Rules+accuracy consolidation EXECUTED (2026-06-21, Phases A–E,G,H — 9 commits; lint 35/0, all gates green).** The radar/contradiction fixes, count+redundancy+bloat consolidations, hook lane-v2 parity, **RULES §2.6 work-phase loop + `dev/HUMAN_DECISIONS.md`**, and 8 website accuracy fixes all landed (folding the 47-confirmed rules audit + 9-confirmed website audit). **Phase F DONE + LIVE-VERIFIED** (Mac, 2026-06-22): www.yhwhyaway.com live at **91,555** + re-rendered social card; og cache-bust `?v=20260622`; GitHub v0.1.0 release body corrected; `yhwh-website` `3ab8f70..fb4cfcc`. **Remaining = the v1.0.0 device-QA gate** (queued in `dev/HUMAN_DECISIONS.md`). See `dev/IN_FLIGHT.md`.
+> **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`.
+>
+> **★ 2026-06-26 — ROUND-14 BUILD-PIPELINE DEEP-AUDIT: ✅ COMPLETE (both lanes) · ROUND-15 PREPARED (awaiting plan-mode review + user approval).**
+> **Round-14 DONE — all 8 deep-audit survivors GREEN + the WIN-surfaced G5 over-cap fixed + all 5 gates built, 9-KJV byte-stable both OSes.**
+> Survivors: WIN **#4** S1-attribution (cascade-gate `s2_group or eink_backmatter`) · **#5** G1 · **#6 (HIGH)** est 10:2 scripture corruption
+> (`_mv_displacement_would_corrupt` WEB-base discriminator); Mac **#1** eink_glyphs-cache · **#2** prospect None · **#3** canonical-extent.
+> **G5 over-cap** finding (27 eink glossary pieces) root-caused (post-split `rewrite_links` bare-href inflation, NOT the splitter) → per-atom
+> `_atom_rewrite_headroom` reservation → 0 over-cap. **A1 cross-OS LF chokepoint** (`zip_repro.ocf_member_bytes` at `build_epub:161` +
+> `kindle_post:121`) → **Mac cross-OS VERIFIED 9/9 KJV cells byte-identical Win↔Mac**; **A4** ubuntu CI. **5 gates (committed+pushed):**
+> G1 KJV golden-hash (`tests/golden/kjv_golden_hashes.json`, 9 cells from POST) · A4 CI · G3 idmap (`dev/audit_idmap_frags.py`) · G4 badge
+> (`dev/audit_badge_conservation.py` + byte-neutral sidecar `badge_verses_skipped`) · G5 glossary (`dev/audit_glossary_contract.py`);
+> **G3/G4/G5 wired** into a slow per-build gate (`tests/test_round14_build_gates.py`). 9-KJV byte-stability PROVEN post-fix (G1 golden re-run =
+> "9 cells match"); all build-path fixes eink-gated/dormant. Program: `dev/audit/build-pipeline-deep-audit-program-2026-06-25.md`. HEAD `48807147`.
+> **★ ROUND-15 PREPARED — `dev/audit/round-15-completeness-audit-program-2026-06-26.md` (READ FIRST).** A planned deep-audit of the **9
+> completeness-critic gaps** round-14 flagged as explicit next-round seeds (areas the round-14 audit did NOT cover): D1 distribution/release
+> pipeline · D2 xref subsystem · D3 `versification.py` fold-tables · D4 /customize flag cross-product · D5 glossary-streaming FLAGSHIP verify ·
+> D6 `corpus_index`↔matrix book-count · D7 migration definitions re-run safety · D8 nav/opf canonical order (+ the 1en misordering) · D9 kepub
+> bare `-sN` rev-id (guard #19). **PROCESS (matches round-14): pull → `EnterPlanMode` → review the program → `ExitPlanMode` for USER approval →
+> configure `deep-audit.js` (ROUND=15 + dimensions + round-14 settled→deferred-by-design) → execute two-lane, adversarially verify,
+> loop-until-green. Do NOT begin auditing until the user approves.** Box quiescent; both remotes synced.
+>
+> **★ 2026-06-21 (history) — Grok-revert cleanup DONE + pushed** (2026-06-21; memory `project_grok_cleanup`). **Mac's Opt# byte-verify DONE** — Opt#3 (`33b79387`) changed build output → **REVERTED** (it dropped tablet badges); Opt#2/#4/#5 byte-neutral → kept. **★ Rules+accuracy consolidation EXECUTED (2026-06-21, Phases A–E,G,H — 9 commits; lint 35/0, all gates green).** The radar/contradiction fixes, count+redundancy+bloat consolidations, hook lane-v2 parity, **RULES §2.6 work-phase loop + `dev/HUMAN_DECISIONS.md`**, and 8 website accuracy fixes all landed (folding the 47-confirmed rules audit + 9-confirmed website audit). **Phase F DONE + LIVE-VERIFIED** (Mac, 2026-06-22): www.yhwhyaway.com live at **91,555** + re-rendered social card; og cache-bust `?v=20260622`; GitHub v0.1.0 release body corrected; `yhwh-website` `3ab8f70..fb4cfcc`. **Remaining = the v1.0.0 device-QA gate** (queued in `dev/HUMAN_DECISIONS.md`). See `dev/IN_FLIGHT.md`.
 >
 > **★ 2026-06-25 — Kobo deep-audit: WS1+WS2+WS3 all DONE + Mac-verified; OOM tier-1 + #1 done; 1 flagship-OOM site + ¶
 > re-split remain.** Program tracker `dev/audit/kobo-deep-audit-program-2026-06-24.md`; live tasks in `dev/IN_FLIGHT.md`.

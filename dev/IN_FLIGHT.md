@@ -1,7 +1,22 @@
 # In-flight work — current task tracker
 
 <!-- TRACKER-STATE: active -->
-<!-- task: Round-14 remediation (user-directed 2026-06-26, two-lane PARALLEL) — ✅ COMPLETE BOTH LANES. ALL 8 survivors GREEN (WIN #4/#5/#6 · Mac #1/#2/#3) + 5 gates built+wired (G1/G2/G3/G4/G5) + A1 LF-chokepoint + A4 ubuntu CI + 9-KJV byte-stable BOTH OSes (G1 gate PASSES on macOS, re-verified at final HEAD). Mac #6 audit_verse_formatting mirror DONE (db049b75). Remaining: WIN full slow-suite on its SSD (Mac HDD too slow). -->
+<!-- task: ROUND-14 ✅ COMPLETE (both lanes; optional final WIN full slow-suite not yet run — Mac HDD too slow, WIN SSD can) · ROUND-15 PREPARED, awaiting fresh-session plan-mode review + USER approval before execution. See dev/audit/round-15-completeness-audit-program-2026-06-26.md -->
+
+> **★ 2026-06-26 — ROUND-14 ✅ COMPLETE (both lanes) · ROUND-15 PREPARED (awaiting plan-mode review + USER approval).**
+> **Round-14:** all 8 deep-audit survivors GREEN (WIN #4 S1-attr/#5 G1/#6 (HIGH) est-10:2 · Mac #1/#2/#3) + WIN **G5 over-cap** fixed
+> (`_atom_rewrite_headroom`) + **A1 cross-OS LF chokepoint** (Mac-verified 9/9 byte-identical Win↔Mac) + **A4** ubuntu CI + **all 5 gates**
+> (G1 golden · A4 · G3 idmap · G4 badge · G5 glossary) committed+pushed, G3/G4/G5 wired into a slow per-build gate
+> (`tests/test_round14_build_gates.py`); 9-KJV byte-stable PROVEN (golden re-run 9/9). #6 audit-mirror done (Mac, `db049b75`).
+> A1 cache-coverage follow-up (`zip_repro`→`_PIPELINE_SCRIPTS`, `48807147`). HEAD `48807147`; both remotes synced; box quiescent.
+> **★ ROUND-15 = `dev/audit/round-15-completeness-audit-program-2026-06-26.md` (READ FIRST).** Planned deep-audit of the **9 completeness-critic
+> gaps** round-14 flagged as next-round seeds: D1 dist/release pipeline · D2 xref subsystem · D3 `versification.py` fold-tables · D4 /customize
+> flag cross-product · D5 glossary-streaming FLAGSHIP verify · D6 `corpus_index`↔matrix book-count · D7 migration definitions · D8 nav/opf
+> canonical order (+1en) · D9 kepub bare `-sN` rev-id (guard #19). **Each was independently re-scoped vs current code (a scoping Workflow);
+> any concrete defects it spotted are listed per-dimension in the program doc.** **PROCESS (matches round-14): pull → `EnterPlanMode` → review
+> the program → `ExitPlanMode` for USER approval → configure `deep-audit.js` (ROUND=15 + dimensions + round-14 settled→deferred-by-design) →
+> execute two-lane (WIN build-path + gates / Mac read-only dims), adversarially verify, loop-until-green. Do NOT begin auditing until approved.**
+>
 
 > **▶ 2026-06-26 (Mac, autonomous, PARALLEL — both lanes live) — ROUND-14 REMEDIATION IN PROGRESS.** User: "work
 > autonomous until you and windows are fully done." ⚠ CORRECTED: WIN was NOT quiescent — it rebooted (cleared the AppXSvc
