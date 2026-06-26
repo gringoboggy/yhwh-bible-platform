@@ -335,6 +335,17 @@ def main() -> None:
         if stats["verses"] == 0:
             print(f"  {YELLOW}–{RESET} ch {ch}: no verses found")
             continue
+        if stats["out_path"] is None:
+            # round-14 audit: verses>0 but every candidate deduped against existing notes →
+            # write_queue() wrote nothing and returned None (queue already complete). This is a
+            # documented exit-0 path; guard the None so .relative_to() can't AttributeError-crash
+            # the whole --all-chapters run.
+            print(
+                f"  {DIM}–{RESET} ch {ch:>3}: nothing new "
+                f"({stats['verses']} verses, {stats['deduped']} deduped — queue already complete)"
+            )
+            total_deduped += stats["deduped"]
+            continue
         rel = stats["out_path"].relative_to(REPO_ROOT)
         print(
             f"  {GREEN}✓{RESET} ch {ch:>3}: "

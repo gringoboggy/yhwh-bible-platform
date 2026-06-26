@@ -1,7 +1,15 @@
 # In-flight work — current task tracker
 
 <!-- TRACKER-STATE: active -->
-<!-- task: Round-14 build-pipeline deep-audit (user-approved 2026-06-26) — two-lane; WIN OOM/gates/build-path, Mac dims+baseline -->
+<!-- task: Round-14 remediation (user-directed 2026-06-26) — Mac autonomous/EXCLUSIVE lane: drive all 8 deep-audit survivors to green -->
+
+> **▶ 2026-06-26 (Mac, autonomous, EXCLUSIVE lane) — ROUND-14 REMEDIATION IN PROGRESS.** User: "work autonomous until
+> you and windows are fully done fixing everything the audit surfaced." WIN box quiescent → Mac sole worker
+> (`LANE_HANDOFF` exclusive/mac). **Items 1+2 of the WIN→Mac worklist DONE** (A5 fold `fc85512f`; **WS1 158-verse
+> re-split all-edition BUILD byte-proof = PASS** `e923dfad`). **Phase-1 deep-audit DONE** (`wf_61e196d1-2f2`): 8 survivors
+> / 5 refuted (2H·2M·4L) → `round14-mac-survivors.json` + `round14-mac-plan.md`. **Remediation (tracker
+> `dev/audit/round14-remediation.md`):** ✅ #1 eink_glyphs cache-coverage · ✅ #2 prospect None-guard · ⏳ #3
+> canonical-extent · ⏳ #4 S1 attribution · ⏳ #5 G1 golden gate · ⏳ #6 est-10:2 eink merge corruption. Marathon core off-limits.
 
 > **★ 2026-06-26 (WIN, POST-REBOOT RESUME) — A2 CONFIRMED on the freshly-rebooted box · A1 WIRED + P1 green · post-A1 rebuild RUNNING.**
 > Bootstrap+pull+continue. Reboot cleared the AppXSvc leak: **CommitFree restored to ~58 GB of 65** (was ~590 MB). Pulled

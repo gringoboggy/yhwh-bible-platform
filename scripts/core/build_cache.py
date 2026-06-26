@@ -139,6 +139,11 @@ _PIPELINE_SCRIPTS = (
     #                     (build_edition.py module-level import).
     "core/book_codes.py",
     "core/vnote_separators.py",
+    # round-14 audit (2026-06-26) — eink_glyphs.EINK_CATEGORY_BADGE_GLYPHS is baked
+    # into the eink legend / category chips / study-glossary / note-sym substitutes
+    # (reached via build_edition.py + matter_pages.py); no data hash covers the glyph
+    # table, so editing it used to serve a STALE cached eink/kepub EPUB.
+    "core/eink_glyphs.py",
 )
 
 

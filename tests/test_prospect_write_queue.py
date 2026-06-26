@@ -74,3 +74,30 @@ def test_prospect_write_queue_delegates_to_append_candidates(monkeypatch):
     prospect.write_queue("gen", 1, [object()])
     assert called["args"][1] == "gen"
     assert called["args"][2] == 1
+
+
+def test_prospect_main_handles_none_out_path_without_crashing(monkeypatch, capsys):
+    """round-14 audit regression: a chapter with verses>0 but every candidate deduped →
+    prospect_chapter returns out_path=None; main() must NOT AttributeError on the
+    `stats["out_path"].relative_to(...)` line — it prints a 'queue already complete' line
+    and continues (exit 0)."""
+    import sys
+
+    from scripts import prospect
+    from scripts.core import config, sources
+
+    monkeypatch.setattr(sources, "strongs_hebrew", lambda: {})
+    monkeypatch.setattr(sources, "tsk", lambda: {})
+    monkeypatch.setattr(config, "get_book", lambda b: {"code": b})
+    monkeypatch.setattr(config, "kinds_by_code", lambda: {})
+    monkeypatch.setattr(
+        prospect,
+        "prospect_chapter",
+        lambda *a, **k: {"verses": 7, "candidates": 0, "deduped": 7, "out_path": None},
+    )
+    monkeypatch.setattr(sys, "argv", ["prospect", "gen", "1"])
+
+    with pytest.raises(SystemExit) as exc:
+        prospect.main()
+    assert exc.value.code == 0
+    assert "queue already complete" in capsys.readouterr().out

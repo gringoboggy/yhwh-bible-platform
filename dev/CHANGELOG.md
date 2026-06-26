@@ -4,6 +4,15 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-26 — Round-14 remediation (Mac; autonomous, exclusive lane): WS1 byte-proof PASS + deep-audit 8 survivors + fixes landing
+
+User directive: drive ALL round-14 audit findings to green; WIN box quiescent → Mac sole worker (`LANE_HANDOFF` exclusive/mac).
+
+- **A5 cross-OS amendment folded** into the program doc (`fc85512f`): new dimension A15 (cross-OS determinism + feasibility) + LF-chokepoint / cross-OS golden / ubuntu-CI.
+- **WS1 158-verse re-split all-edition BUILD byte-proof = PASS** (`e923dfad`; `dev/audit/round14-ws1-byteproof.md` + reusable `round14_ws1_byteproof.py`): all 9 KJV byte-stable cells built PRE(`5039cda0`) vs POST(`6b690361`) — the built-EPUB delta is confined + explicable (WEB relocation + KJV empty-anchor-fill removal across the 38 re-split files' descendants + correct `rewrite_links` href retargets in TOC/xref indices), 0 members added/dropped, 0 dead links (~12.3k/cell), rc 0/0. ⇒ G1's golden baselines from POST.
+- **Phase-1 deep-audit** (`deep-audit.js LANE=mac ROUND=14`, `wf_61e196d1-2f2`, 38 agents, opus + adversarial panels): 13 deduped → **8 verified survivors / 5 refuted** (2H·2M·4L) → `round14-mac-survivors.json` + `round14-mac-plan.md`. 2 HIGHs: `_merge_mid_verse_breaks` corrupts est 10:2 on the shipped eink flagship (displacement-blind) + no real-build golden gate covers tablet/kindle (= G1).
+- **Fixes landing (TDD, tracker `dev/audit/round14-remediation.md`):** #1 `core/eink_glyphs.py` added to `_PIPELINE_SCRIPTS` (`TestCacheCoverageGuard` RED→green); #2 `prospect.main()` None-`out_path` guard on the all-deduped path (+ regression test). #3–#6 in progress.
+
 ## 2026-06-26 — Round-14 build-pipeline deep-audit kickoff: OOM fixes + WS1 re-split + cross-OS plan (Windows; autonomous, two-lane)
 
 Mac's round-14 build-pipeline deep-audit plan was **USER-APPROVED** (`dev/audit/build-pipeline-deep-audit-program-2026-06-25.md`).
