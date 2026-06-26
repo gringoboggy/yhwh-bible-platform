@@ -1026,6 +1026,99 @@ class TestSplitStudyGlossary:
         assert last_piece.find('id="study-b5"') < 600
 
 
+class TestStreamGlossaryFromFile:
+    """The flagship study-notes glossary (~480 MB) OOMs when read whole as a str: the
+    UTF-8 decode builds an ~880 MB UCS-2 str (Hebrew/Greek/Geʽez) plus a ~480 MB transient
+    buffer ≈ 1.4 GB, which the 16 GB box can't satisfy mid-decode. The build splits it
+    streaming-from-file — reading the raw BYTES (no decode blow-up) and decoding only the
+    small wrappers + ONE book span at a time — which MUST be byte-identical to the str
+    splitter (split_study_glossary_document)."""
+
+    # Non-ASCII on purpose: Hebrew (U+05xx) + Greek (U+03xx) + Geʽez (U+12xx) + the hidden
+    # U+2028 vn-sep + visible middot/pilcrow. These force byte-length ≠ codepoint-length and
+    # would surface any \s/\b byte-vs-str divergence in the boundary scans.
+    _ASIDE = (
+        '<div class="study-glossary-entry" id="vnotes-gen-1-1">'
+        '<aside epub:type="footnote" class="study-glossary-cat verse-notes" id="vnotes-gen-1-1-comm">'
+        "<p>note אבג Αβγ አለመ mid · ¶</p>"
+        "</aside></div>\n"
+    )
+
+    def _glossary(self, n_books: int = 6, asides_per_book: int = 40) -> str:
+        books = "".join(
+            f'<h2 class="study-book-head" id="study-b{i}">Book {i} שלום</h2>' + self._ASIDE * asides_per_book
+            for i in range(n_books)
+        )
+        return f"""<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Study Notes</title></head>
+<body epub:type="backmatter">
+<section class="study-notes-index" epub:type="backmatter">
+<h1>Study Notes</h1><p class="study-notes-lead">lead</p>
+{books}
+</section>
+</body></html>"""
+
+    def test_from_file_byte_identical_to_str_splitter(self, tmp_path, monkeypatch):
+        import scripts.build_edition as be
+
+        text = self._glossary()
+        stem = be.EINK_STUDY_BACKMATTER_STEM
+        target = 8_000
+        expected = be.split_study_glossary_document(text, stem, target)
+        assert len(expected) > 1, "sample must fan into multiple pieces to exercise streaming"
+        # Force the per-book streaming branch even on this small sample.
+        monkeypatch.setattr(be, "_GLOSSARY_STREAM_BYTE_THRESHOLD", 10)
+        fp = tmp_path / f"{stem}.html"
+        fp.write_text(text, encoding="utf-8")
+        actual = list(be._iter_study_glossary_pieces_from_file(fp, stem, target))
+        # Names AND content must match exactly, and the bytes must round-trip identically.
+        assert [n for n, _ in actual] == [n for n, _ in expected]
+        for (an, at), (en, et) in zip(actual, expected, strict=True):
+            assert an == en
+            assert at == et
+            assert at.encode("utf-8") == et.encode("utf-8")
+
+    def test_streaming_matches_str_across_targets_and_shapes(self, tmp_path, monkeypatch):
+        import scripts.build_edition as be
+
+        stem = be.EINK_STUDY_BACKMATTER_STEM
+        monkeypatch.setattr(be, "_GLOSSARY_STREAM_BYTE_THRESHOLD", 10)
+        for n_books, apb, target in [(1, 80, 8_000), (3, 5, 8_000), (8, 60, 4_000), (4, 1, 50_000)]:
+            text = self._glossary(n_books, apb)
+            fp = tmp_path / f"{stem}.html"
+            fp.write_text(text, encoding="utf-8")
+            expected = be.split_study_glossary_document(text, stem, target)
+            actual = list(be._iter_study_glossary_pieces_from_file(fp, stem, target))
+            assert actual == expected, (n_books, apb, target)
+
+    def test_below_threshold_delegates_to_str_path(self, tmp_path):
+        import scripts.build_edition as be
+
+        text = self._glossary()
+        stem = be.EINK_STUDY_BACKMATTER_STEM
+        fp = tmp_path / f"{stem}.html"
+        fp.write_text(text, encoding="utf-8")
+        # Default threshold is large → small file decodes whole + delegates → identical.
+        actual = list(be._iter_study_glossary_pieces_from_file(fp, stem, 8_000))
+        assert actual == be.split_study_glossary_document(text, stem, 8_000)
+
+    def test_unsplit_small_glossary_keeps_single_piece_name(self, tmp_path, monkeypatch):
+        import scripts.build_edition as be
+
+        stem = be.EINK_STUDY_BACKMATTER_STEM
+        text = (
+            '<html><body epub:type="backmatter">'
+            '<section class="study-notes-index"><h1>Study Notes</h1></section></body></html>'
+        )
+        fp = tmp_path / f"{stem}.html"
+        fp.write_text(text, encoding="utf-8")
+        # Even with the streaming threshold tripped, a doc that fits in one piece keeps the
+        # bare ``{stem}.html`` name (the str splitter's single-piece contract).
+        monkeypatch.setattr(be, "_GLOSSARY_STREAM_BYTE_THRESHOLD", 1)
+        actual = list(be._iter_study_glossary_pieces_from_file(fp, stem, 8_000))
+        assert actual == [(f"{stem}.html", text)]
+
+
 class TestStudyGlossaryTocPatch:
     """After glossary split, Study Notes expands into per-book entries in nav.xhtml
     AND toc.ncx (Phase 3 LOW — mirror the nav patch on the legacy NCX surface)."""

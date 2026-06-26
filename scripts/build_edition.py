@@ -5099,6 +5099,34 @@ def _study_glossary_chunk_atoms(inner: str, target: int) -> list[str]:
     return atoms
 
 
+# K-R10: a book head always starts a new glossary piece — never pack two canon books into
+# one piece (fragment jumps like #study-paz must land at the book head, not mid-Daniel
+# residue). Anchored `^\s*` so it only fires on an atom that BEGINS with the book head.
+_BOOK_HEAD_START_RE = re.compile(r"^\s*<h2 class=\"study-book-head\"")
+
+
+def _group_glossary_atoms(atoms: list[str], target: int) -> list[list[str]]:
+    """Pack glossary atoms into ~``target``-(codepoint)-byte groups, flushing at every book
+    head so no piece spans two canon books. Shared by the in-memory str splitter and the
+    streaming-from-file splitter so both cut at identical points (byte-stability)."""
+    groups: list[list[str]] = []
+    cur: list[str] = []
+    cur_w = 0
+    for atom in atoms:
+        if _BOOK_HEAD_START_RE.match(atom) and cur:
+            groups.append(cur)
+            cur, cur_w = [], 0
+        w = len(atom)
+        if cur and cur_w + w > target:
+            groups.append(cur)
+            cur, cur_w = [], 0
+        cur.append(atom)
+        cur_w += w
+    if cur:
+        groups.append(cur)
+    return groups
+
+
 def _iter_study_glossary_pieces(text: str, stem: str, target: int) -> Iterator[tuple[str, str]]:
     """Stream the Kobo Study Notes glossary into ~``target``-byte pieces (K-R9b),
     yielding each piece so the caller can write + release it.
@@ -5135,25 +5163,7 @@ def _iter_study_glossary_pieces(text: str, stem: str, target: int) -> Iterator[t
         return
     del inner  # atoms are copies of inner's substrings → free the ~480 MB inner slice
 
-    _book_head_start = re.compile(r"^\s*<h2 class=\"study-book-head\"")
-
-    groups: list[list[str]] = []
-    cur: list[str] = []
-    cur_w = 0
-    for atom in atoms:
-        # K-R10: never pack two canon books into one glossary piece — fragment jumps
-        # like #study-paz must land at the book head, not mid-Daniel residue.
-        if _book_head_start.match(atom) and cur:
-            groups.append(cur)
-            cur, cur_w = [], 0
-        w = len(atom)
-        if cur and cur_w + w > target:
-            groups.append(cur)
-            cur, cur_w = [], 0
-        cur.append(atom)
-        cur_w += w
-    if cur:
-        groups.append(cur)
+    groups = _group_glossary_atoms(atoms, target)
     if len(groups) <= 1:
         yield (f"{stem}.html", text)
         return
@@ -5169,6 +5179,157 @@ def split_study_glossary_document(text: str, stem: str, target: int) -> list[tup
     """List form of :func:`_iter_study_glossary_pieces` (the tested API). The build's
     file-split path streams via the iterator directly to bound peak memory."""
     return list(_iter_study_glossary_pieces(text, stem, target))
+
+
+# Flagship glossary streaming (OOM fix, 2026-06-25). The ~480 MB study-notes monolith read
+# WHOLE as a str decodes to an ~880 MB UCS-2 string (Hebrew/Greek/Geʽez force the 2-byte
+# representation) plus a ~480 MB transient byte buffer ≈ 1.4 GB — which MemoryErrors the
+# 16 GB box mid-``read_text`` (Mac's flagship-eink-oom-profile.md; the last monolith read in
+# the eink pipeline). A file at or under this many BYTES is decoded whole and handed to the
+# byte-proven str splitter — exercising every fast-path + fallback exactly. Only a genuinely
+# huge monolith takes the per-book streaming path. Far above any real non-flagship glossary
+# (catholic-study ≈ half the flagship) and far above the ~400 KB piece target → a file over
+# the threshold always fans into many pieces, so the single-piece naming never diverges.
+_GLOSSARY_STREAM_BYTE_THRESHOLD = 64_000_000
+
+# Byte twins of the boundary patterns — all pure ASCII literals (or ``[^>]``/``\b`` that only
+# ever resolve at ASCII delimiters in real glossary markup), so a byte scan lands at exactly
+# the same offsets a str scan would: the streamed pieces are byte-identical to the str path.
+_BODY_OPEN_RE_B = re.compile(rb"<body\b[^>]*>")
+_STUDY_INDEX_OPEN_RE_B = re.compile(rb'<section class="study-notes-index"[^>]*>')
+_SECTION_TOKEN_RE_B = re.compile(rb"</?section\b")
+_STUDY_BOOK_HEAD_RE_B = re.compile(rb'<h2 class="study-book-head"')
+
+
+class _GlossaryStructureError(Exception):
+    """The streaming splitter could not find the expected glossary structure (no body /
+    no study-notes-index section / no book heads) — the caller falls back to the
+    whole-document str splitter, which handles the irregular shapes."""
+
+
+def _decode_nl(b: bytes) -> str:
+    """Decode a UTF-8 span exactly as ``read_text`` would: universal-newline normalization
+    (``\\r\\n``/``\\r`` → ``\\n``). The byte path reads raw bytes (to dodge the ~880 MB decode
+    blow-up), so it must reproduce this — else a CRLF-on-disk file (every ``write_text`` file
+    on Windows) keeps its ``\\r\\n``, which the piece ``write_text`` would re-double to
+    ``\\r\\r\\n``. Per-span normalization equals whole-document normalization because no
+    split boundary ever bisects a ``\\r\\n`` (they sit at ``<``/``>`` tag delimiters)."""
+    return b.decode("utf-8").replace("\r\n", "\n").replace("\r", "\n")
+
+
+def _stream_glossary_pieces_from_bytes(raw: bytes, stem: str, target: int) -> Iterator[tuple[str, str]]:
+    """Byte-identical streaming split of the huge flagship glossary monolith.
+
+    Structure is read from the raw UTF-8 BYTES (no ~880 MB str), decoding only the small
+    head/section/tail wrappers and ONE book span at a time. Pieces never span a book head
+    (``_group_glossary_atoms`` flushes at each), so each book is chunked + grouped
+    independently with the SAME str helpers the in-memory splitter uses
+    (``_study_glossary_chunk_atoms`` + ``_group_glossary_atoms`` → codepoint-length cuts) and
+    the intro (before book 1) is its own piece. Yields the identical ``(name, str)`` tuples
+    :func:`_iter_study_glossary_pieces` would for the same content. Raises
+    :class:`_GlossaryStructureError` on any structural surprise so the caller can fall back.
+
+    Peak memory ≈ ``raw`` (~480 MB, one allocation, no decode) + one book's str (~tens of MB)
+    — versus ~1.4 GB for the whole-document ``read_text``."""
+    # Whole doc fits in one piece — mirror the str splitter's ``len(text) <= target``
+    # short-circuit. Byte length ≤ target ⇒ codepoint length ≤ target (codepoints ≤ bytes),
+    # so this is exact for the realistic case. Never fires in production (the dispatcher only
+    # streams files far larger than target); keeps the helper exact for any caller.
+    if len(raw) <= target:
+        yield (f"{stem}.html", _decode_nl(raw))
+        return
+    bm = _BODY_OPEN_RE_B.search(raw)
+    if not bm:
+        raise _GlossaryStructureError
+    body_start = bm.end()
+    body_close = raw.rfind(b"</body>")
+    if body_close == -1 or body_close < body_start:
+        raise _GlossaryStructureError
+    om = _STUDY_INDEX_OPEN_RE_B.search(raw, body_start, body_close)
+    if not om:
+        raise _GlossaryStructureError
+    inner_start = om.end()
+
+    # Depth-aware close of the OUTER study-notes-index section (each entry nests a
+    # ``section.vn-group``). Scan tokens in range via pos/endpos — never slice the 480 MB.
+    depth = 1
+    close_start = -1
+    for m in _SECTION_TOKEN_RE_B.finditer(raw, inner_start, body_close):
+        if m.group(0) == b"</section":
+            depth -= 1
+            if depth == 0:
+                close_start = m.start()
+                break
+        else:
+            depth += 1
+    if close_start == -1:
+        raise _GlossaryStructureError
+    close_end = raw.find(b">", close_start)
+    if close_end == -1:
+        raise _GlossaryStructureError
+    close_end += 1
+
+    # Small wrappers, decoded once (mirror _split_head_body_tail + _study_index_section_parts:
+    # the close is reconstructed as the literal "</section>", body_suffix starts past it).
+    head = _decode_nl(raw[:body_start])
+    body_prefix = _decode_nl(raw[body_start : om.start()])
+    sec_open = _decode_nl(raw[om.start() : inner_start])
+    body_suffix = _decode_nl(raw[close_end:body_close])
+    tail = _decode_nl(raw[body_close:])
+
+    book_starts = [m.start() for m in _STUDY_BOOK_HEAD_RE_B.finditer(raw, inner_start, close_start)]
+    if not book_starts:
+        # No book heads → the str path's aside-only atom branch applies; fall back.
+        raise _GlossaryStructureError
+
+    def _piece_text(group: list[str]) -> str:
+        # Mirror the str splitter's piece body exactly (the close is the literal
+        # "</section>"); for a lone group this reconstructs the original document.
+        return head + body_prefix + sec_open + "".join(group) + "</section>" + body_suffix + tail
+
+    def _groups() -> Iterator[list[str]]:
+        # Intro (before book 1) is its own piece; each book is chunked + grouped on its own
+        # (a book head always flushes the current group → pieces never span two books).
+        intro = _decode_nl(raw[inner_start : book_starts[0]])
+        if intro.strip():
+            yield from _group_glossary_atoms([intro], target)
+        for i, bstart in enumerate(book_starts):
+            bend = book_starts[i + 1] if i + 1 < len(book_starts) else close_start
+            atoms = _study_glossary_chunk_atoms(_decode_nl(raw[bstart:bend]), target)
+            if atoms:
+                yield from _group_glossary_atoms(atoms, target)
+
+    # Hold one piece so a lone group collapses to the bare ``{stem}.html`` name (the str
+    # splitter's single-piece contract); two or more number as ``{stem}_{k:02d}.html``.
+    pending: str | None = None
+    k = 0
+    for group in _groups():
+        if pending is not None:
+            yield (f"{stem}_{k:02d}.html", pending)
+            k += 1
+        pending = _piece_text(group)
+    if pending is not None:
+        yield (f"{stem}.html" if k == 0 else f"{stem}_{k:02d}.html", pending)
+
+
+def _iter_study_glossary_pieces_from_file(path: Path, stem: str, target: int) -> Iterator[tuple[str, str]]:
+    """Stream the on-disk study-glossary file into ~``target``-byte pieces WITHOUT ever
+    materializing the ~480 MB monolith as one str (the flagship-eink OOM, 2026-06-25).
+
+    Reads the file as BYTES (one ~480 MB allocation, no UCS-2 decode blow-up). A file at or
+    under :data:`_GLOSSARY_STREAM_BYTE_THRESHOLD` is decoded whole and handed to the
+    byte-proven :func:`_iter_study_glossary_pieces` (covering every fast-path + fallback);
+    a larger monolith streams per book (:func:`_stream_glossary_pieces_from_bytes`), holding
+    only the raw bytes + one book's str. Byte-identical to
+    :func:`split_study_glossary_document` for the same content."""
+    raw = path.read_bytes()
+    if len(raw) <= _GLOSSARY_STREAM_BYTE_THRESHOLD:
+        yield from _iter_study_glossary_pieces(_decode_nl(raw), stem, target)
+        return
+    try:
+        yield from _stream_glossary_pieces_from_bytes(raw, stem, target)
+    except _GlossaryStructureError:
+        yield from _iter_study_glossary_pieces(_decode_nl(raw), stem, target)
 
 
 _STUDY_BOOK_HEAD_ID_RE = re.compile(r'<h2 class="study-book-head" id="([^"]+)"[^>]*>([^<]+)</h2>')
@@ -5544,7 +5705,10 @@ def apply_file_split(tmp: Path, edition: dict) -> dict:
             # LOWER target. Byte-identical for every real edition (all targets ≥ default
             # → min == default); only a sub-default override (e.g. tests) splits finer.
             gtarget = min(target, FILE_SPLIT_TARGET_DEFAULT)
-            for pname, ptext in _iter_study_glossary_pieces(p.read_text(encoding="utf-8"), p.stem, gtarget):
+            # Stream from the FILE (not p.read_text()): the ~480 MB flagship monolith decoded
+            # whole is an ~880 MB str + a ~480 MB transient ≈ 1.4 GB → MemoryError. The
+            # from-file splitter reads bytes + decodes one book at a time (byte-identical).
+            for pname, ptext in _iter_study_glossary_pieces_from_file(p, p.stem, gtarget):
                 (tmp / pname).write_text(ptext, encoding="utf-8")
                 names.append(pname)
         else:
@@ -8121,7 +8285,12 @@ def build_one(
             stats["badge_notes_collapsed"] = badge_stats["notes_collapsed"]
             stats["badge_verses_skipped"] = badge_stats["badges_skipped"]
             stats["reader_eink_study_layout"] = badge_stats.get("reader_eink_study_layout", "popup")
-            stats["_study_backmatter_entries"] = badge_stats.get("study_backmatter_entries", [])
+            # OOM (P1 #2): MOVE the ~489 MB entries list out of badge_stats (pop, not get) so
+            # exactly ONE reference exists — otherwise the stats.pop() below frees nothing
+            # because badge_stats (a live local through file-split + zip) still holds it, and
+            # the list co-resides ~489 MB through all of apply_file_split (Mac's post-fix
+            # profile still showed it live). badge_stats is unused after this block.
+            stats["_study_backmatter_entries"] = badge_stats.pop("study_backmatter_entries", [])
 
         # Round-9 Opt #2: single in-memory load for the post-badge repair passes
         # (eink breaks, empty prose, vnote sep, tablet strip). Mutate dict in place,
