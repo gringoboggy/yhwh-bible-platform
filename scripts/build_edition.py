@@ -7607,6 +7607,10 @@ def _write_stats_sidecar(
     Sidecar writes are best-effort; failures (read-only disk, etc.)
     return None and don't propagate. The EPUB itself is always the
     primary artifact.
+
+    The sidecar is an EXTERNAL ``.json`` file, never inside the EPUB,
+    so adding a key here changes NO EPUB byte (the 9-KJV golden is
+    untouched).
     """
     try:
         from scripts.core import notes_io
@@ -7623,6 +7627,13 @@ def _write_stats_sidecar(
         # Matrix M1: the resolved reader target, so artifact-level tooling
         # (gates, the CI catalog manifest) reads the format from the sidecar.
         "target_reader": stats.get("target_reader"),
+        # Round-14 gate G4 (badge-conservation / propagation P2): the build's
+        # orphan-marker bail counter — every verse whose badge was skipped
+        # because its aside was missing (apply_badge_markers leaves the raw
+        # markers in place). Surfaced here so audit_badge_conservation.py can
+        # assert == 0 without a rebuild. Absent on cache-hit / standalone /
+        # marker_style=numbers builds → default 0.
+        "badge_verses_skipped": int(stats.get("badge_verses_skipped", 0) or 0),
     }
     sidecar = output_path.with_suffix(output_path.suffix + ".stats.json")
     try:
