@@ -32,10 +32,11 @@ const AGENTS_BY_LANE = {
 const _AG = AGENTS_BY_LANE[LANE === 'mac' ? 'mac' : 'win']
 const REPO = args?.repo ?? (REPO_BY_LANE[LANE] ?? REPO_BY_LANE.win)  // ABSOLUTE — cwd-independent
 const DEPTH = args?.depth ?? 'deep'               // 'deep' = multi-finder + scaled skeptic panels
-// round 13 = the FINAL grand audit after ALL round-10/11/12 remediation landed (user directive
-// 2026-06-23: "run the full auditor together again, top to bottom, down to verse + word, 10h fine").
-const ROUND = args?.round ?? 13            // args don't reliably propagate — bump in-file
-const NOW = args?.now ?? '2026-06-23'             // Date.now() is unavailable in scripts; stamp via args
+// round 14 = the build-pipeline deep audit (the new eink page-break / glossary-streaming / WS1-3 /
+// font re-arch + the resulting epubs; user directive 2026-06-25; program
+// dev/audit/build-pipeline-deep-audit-program-2026-06-25.md). TARGET A (machinery) + propagation lens.
+const ROUND = args?.round ?? 14            // args don't reliably propagate — bump in-file (round-14 build-pipeline audit)
+const NOW = args?.now ?? '2026-06-25'             // Date.now() is unavailable in scripts; stamp via args
 // SCOPE (user directive 2026-06-10, memory reference_deep_audit_tool): 'product' (default) = project
 // code/product dims only; 'all' = the round-7 one-time everything-sweep (also runs claude-setup /
 // lane-system / github-gitlab / stack-review / decommission). args don't reliably propagate — set in-file.
@@ -77,8 +78,21 @@ const DEFERRED_BY_DESIGN = args?.deferred ?? [
   // items it surfaced must not be re-litigated):
   'Catalog/doc count drift: the per-edition shipped numbers in REPO_MAP/MATRIX_MAP/SESSION_PLAYBOOK/build_edition comments lag the +72 restored comm/word notes (corpus now 91,712 in the superset). RECONCILIATION IS IN FLIGHT after the Mac rebuild (dev/IN_FLIGHT.md task 2 — the full count cascade: page/meta/og/social-card/repo-descriptions/EPUB-metadata/trackers). Fix is dev/ prose + metadata only (no engine change); do NOT re-flag as a new finding.',
   'K-R6-2 (rev-split id family): bare -sN ids + prefix swallows in rev sections were observed on the v0.1.0 epub AND kepub (792 bare rev ids + 36k+ prefixes on the .kepub) — rev sections not emitting proper -sN family ids post all transforms. A real defect class; triage artifact-age vs gate vs real regression before re-flagging, and do not re-derive the counts.',
+  // ---- ROUND-14 settled / deferred-by-design (program dev/audit/build-pipeline-deep-audit-program-2026-06-25.md) ----
+  'ROUND-14: WS1 mid-verse merge, the 158-verse re-split (USER-RATIFIED, commit 6b690361), WS2 cascade de-dup, WS3 popup separators, the eink font !important fix, and the page-break re-arch (Parts 1/2/2b) are SHIPPED + settled — audit for regression/bleed ONLY, never re-litigate the design or re-derive the original findings.',
+  'ROUND-14: the remaining flagship-eink build OOM is WIN\'s ACTIVE fix (A2 single-pass _apply_splices already landed for apply_badge_markers:4444; the glossary byte-streaming deeper fix landed). This audit VERIFIES build feasibility + frees, it does NOT re-diagnose the OOM site.',
+  'ROUND-14: the vnote translation-popup U+2028 separator sibling (~119k asides, guard #7) is a QUEUED follow-up, not a new finding — confirm in/out of scope, do not re-derive it.',
+  'ROUND-14: the 1en 71/90 + 90:13-18 content defects and the char-vs-byte all-edition kepub re-cut are separately deferred (documented in dev/audit/).',
+  'ROUND-14: poetry/wisdom mid-verse breaks are KEPT by user decision (_MIDVERSE_BREAK_KEEP_BOOKS / auditor POETRY_BOOKS WARN); flagging a kept poetry break as a bug is wrong.',
+  'ROUND-14: do NOT defer "there is no KJV golden-hash gate" — gate G1 (test_kjv_golden_hash_gate.py + tests/golden/kjv_golden_hashes.json) is the round\'s HEADLINE deliverable that CLOSES it; surface any byte-stability/eink-gating leak it would catch as a real finding.',
 ]
-const PRIOR_SURVIVOR_TITLES = args?.priorSurvivors ?? []  // optional: titles already fixed in a prior round, to avoid re-reporting verbatim
+const PRIOR_SURVIVOR_TITLES = args?.priorSurvivors ?? [  // round-13 fixes — confirm-not-regress (program priorSurvivors)
+  'conftest _PROTECTED_DIRS guard',
+  'zip ZipInfo.create_system=0 in all EPUB writers',
+  'inject.escape_attr on the 4 title-attr sites',
+  'frozen-app content_root() sys.frozen guard',
+  'orphaned api/exports + api/preflight dir removal',
+]
 
 // ----------------------------------------------------------------------------
 // Schemas (validated at the tool layer; the agent retries on mismatch)
@@ -335,6 +349,41 @@ Also check the build code for emitters added later that would silently miss the 
     prompt: `DIMENSION: PLATFORM RESEARCH — Google Play Books (M5 / provisional everywhere). READ-ONLY research. Authoritative: ${REPO}/dev/EREADERS.md §Play + staged artifact YHWH-ethiopian-tewahedo-v0.1.0-everywhere-navy.epub on v0.1.0 release. Tasks: (1) Play Books personal-upload EPUB requirements (version, size, encryption). (2) Popup footnote behavior Android vs iOS Play app. (3) Font embedding + RTL scripts. (4) Stuck details ToC — accept or flat-ToC fork? (5) Does everywhere suffice or need target_reader: play? Output findings + brief notes/2026-06-18-platform-play.md + device QA checklist refinements.`,
     angles: ['Emphasize official Play upload constraints + popup/font support reports.', 'Emphasize everywhere vs play profile decision tree.'],
   },
+  // ---- ROUND-14 BUILD-PIPELINE DIMS (2026-06-26; program dev/audit/build-pipeline-deep-audit-program-2026-06-25.md).
+  //      TARGET A (the build machinery) + the propagation lens (program logic fault -> silent epub defect).
+  //      All read-only source analysis (model-bound -> Mac lane; truly parallelize with the local byte-proof builds). ----
+  {
+    key: 'pagebreak-rearch', kind: 'find', finders: 2,
+    prompt: `DIMENSION (round-14 build-pipeline, program A4/A7/B3): the EINK PAGE-BREAK RE-ARCHITECTURE. Read ${REPO}/scripts/build_edition.py: _merge_scripture_base_files (per-book base-file merge; None->return 0 abort; per-segment .replace remap), _merge_mid_verse_breaks (lead-prose AND marker AND anchor heuristic; book-boundary tracking; _MIDVERSE_BREAK_KEEP_BOOKS), and the 8 MB per-book sharding in apply_file_split. Hunt: (a) a merge that aborts-to-noop and SILENTLY ships a half-merged spine (program A4/P5); (b) a mid-verse merge mis-detecting a real verse boundary -> reordered/duplicated verse text (A7/P7); (c) a per-segment .replace that rewrites the WRONG occurrence; (d) any eink-only gating that LEAKS into the 9-KJV byte-stable base (prove the call sites are strictly inside the =="eink" branch). Cite file:line + the exact failing input class. Settled: do NOT re-litigate the page-break design (shipped) — hunt regressions/leaks only.`,
+    angles: ['Emphasize the merge abort-to-noop + wrong-occurrence .replace remap (silent half-merge).', 'Emphasize the mid-verse heuristic mis-detect (verse text reorder/dup) + an eink-gating leak into the KJV base.'],
+  },
+  {
+    key: 'file-split', kind: 'find', finders: 2,
+    prompt: `DIMENSION (round-14, program A2/A3/A12/B6): apply_file_split ORDER-OF-OPERATIONS + cross-file link integrity. Trace the full sequence (merge -> midverse -> split -> opener-pop -> idmap -> rewrite_links -> OPF -> nav) in ${REPO}/scripts/build_edition.py. Hunt: (a) rewrite_links bare/full-href FALLBACK on an idmap MISS -> a dead/wrong cross-file link only visible on a real e-reader (A3/P4); (b) a cut that is not well-formed (stack-aware reopen/close) or a piece orphaned from the spine; (c) re-reads of each piece ~5x (redundant disk passes, A12) -> confirm they read CONSISTENT bytes, not divergent reads; (d) every badge->footnote target + noteref still resolves to the piece holding the id; ids unique across pieces. Cite file:line + the miss class.`,
+    angles: ['Emphasize the idmap-miss href fallback -> dead/wrong link (silent, e-reader-only).', 'Emphasize cut well-formedness, spine completeness, and cross-piece id uniqueness.'],
+  },
+  {
+    key: 'eink-gating-leak', kind: 'find', finders: 2,
+    prompt: `DIMENSION (round-14, program A1/B10/P1 — the HEADLINE byte-stability risk): EINK-GATING LEAKS into the 9-KJV byte-stable set ({catholic-study, evangelical-reformed, eastern-orthodox} x {everywhere, tablet, kindle}). The eink page-break merge, mid-verse merge, WS3 popup separators (kobo-vn-br / visible middot), and the eink font !important rules are ALL supposed to be strictly eink-gated. In ${REPO}/scripts/build_edition.py enumerate EVERY \`== "eink"\` / eink-target branch + every kw-only \`eink=\` threaded through the cascade/badge/chunk/budget-pack/backmatter chains; for EACH, prove the non-eink path is untouched (no shared-mutable, no default flip, no fall-through that runs the eink mutation when eink=False). A single leak silently re-baselines the KJV editions with NO automated gate today (G1 closes it) -> any UNPROVABLE isolation is itself a finding. Cite the branch file:line + whether it is provably isolated.`,
+    angles: ['Emphasize default-value / shared-mutable / fall-through leaks where an eink mutation runs at eink=False.', 'Emphasize kw-only eink= thread COMPLETENESS across the full cascade/backmatter chain (one un-threaded call site = a leak).'],
+  },
+  {
+    key: 'glossary-streaming', kind: 'find', finders: 2,
+    prompt: `DIMENSION (round-14, program A5/A6/A12/P3): the STREAMING STUDY-GLOSSARY SPLIT + the OOM frees. Read ${REPO}/scripts/build_edition.py: _iter_study_glossary_pieces_from_file / _stream_glossary_pieces_from_bytes / _group_glossary_atoms / split_study_glossary_document, apply_file_split's glossary handling, and the frees (del pre_badge_texts / del repair_texts / badge_stats.pop("study_backmatter_entries") + glossary del body/inner/text). Hunt: (a) any of the ~5 UNSPLIT fall-through paths that ship a glossary piece OVER the Kobo navigate cap or packing two book-heads (A5/P3); (b) a free-after-use where something IS read after the del/pop (prove the byte vs str split paths cut at IDENTICAL points; prove .pop frees the ONLY ref — the .get-vs-.pop bug that left 489 MB resident is the precedent); (c) the from-file byte path vs the str reference producing DIFFERENT bytes (the catholic 453/453 proof must hold). Cite file:line + the divergent/leak case.`,
+    angles: ['Emphasize the unsplit fall-throughs (an over-cap or two-book-head glossary piece).', 'Emphasize free-after-use correctness + byte-path == str-path identical cut points.'],
+  },
+  {
+    key: 'cascade-dedup', kind: 'find', finders: 1,
+    prompt: `DIMENSION (round-14, program B7/A10/P2): the WS2 NOTE-CASCADE DE-DUPLICATION + badge merge. Read ${REPO}/scripts/build_edition.py: _emit_cascade_sections, _strip_redundant_body_boilerplate, apply_badge_markers (badge collapse + aside merge), and the kobo-study-nav-pad recompute. Hunt: (a) a de-dup that removes a DISTINCT note (not a true byte-identical duplicate) -> data loss; (b) badge count != pre-collapse marker count, or a reordered/dropped note (P2 — badges_skipped must be 0); (c) the body-boilerplate strip regex over-greedy (eats real body); (d) any unescaped note-text interpolation in the merged aside (stored-XSS). Cite file:line + the lost/dropped/over-stripped note class.`,
+  },
+  {
+    key: 'popup-separators', kind: 'find', finders: 1,
+    prompt: `DIMENSION (round-14, program B5/A1): the WS3 EINK POPUP SEPARATORS contract. Read ${REPO}/scripts/build_edition.py: the eink _VN_SEP_{ITEM,CAT,BYLINE}_EINK constants + the br.kobo-vn-br rule + the eink= thread through _emit_cascade_sections / _badge_aside_inner_to_row / _chunk_vn_item_row / the budget-pack + backmatter-glossary chains. Hunt: (a) an emitter that bakes hidden-only U+2028 .vn-sep separators (run-on in Kobo's tag-stripped footnote overlay) that the eink swap MISSED — fix-the-class: the known sibling is the vnote translation-popup family carrying ~119k U+2028 (confirm in/out of scope, do NOT re-derive it); (b) the eink separators LEAKING into non-eink output (must be 0). Cite the emitter file:line.`,
+  },
+  {
+    key: 'resplit-integrity', kind: 'find', finders: 1,
+    prompt: `DIMENSION (round-14, program A7/B2/B4): the 158-verse VERSIFICATION RE-SPLIT (USER-RATIFIED, applied to epub_working/ at commit 6b690361). SETTLED — do NOT re-litigate the decision; audit only for INTEGRITY + REGRESSION at the SOURCE level. Read ${REPO}/dev/audit/ws1_resplit_apply.py + the resplit data json + a sample of the 38 touched ${REPO}/epub_working/index_split_*.html files. Verify: (a) each re-split moved ONLY a verse boundary (char-multiset invariant per file; prose==web post-check) with NO wording change; (b) no nested <a>, no broken #frag, no duplicate id introduced; (c) the empty-anchor count actually dropped and no NEW empty anchor appeared. Report any file where the relocation added/removed/altered a character or broke an anchor. (The all-edition BUILD byte-proof is a separate Mac deterministic task; this dim is the source-level integrity check.)`,
+  },
 ]
 
 // SPLIT-RUN across the two machines (2026-06-05 — see docs/superpowers/plans/2026-06-05-split-audit-plan.md).
@@ -373,8 +422,19 @@ const LANE_DIMS = {
 }
 // SCOPE filter (product default) -> optional LANE filter -> args.dimensions overrides everything.
 const _scoped = SCOPE === 'all' ? DEFAULT_DIMENSIONS : DEFAULT_DIMENSIONS.filter((d) => !EVERYTHING_SWEEP_DIMS.has(d.key))
+// ROUND-14 build-pipeline audit (2026-06-26): a FOCUSED set — the perennial product/code dims + the
+// new build-machinery dims; drops the website/dist/platform/lane/meta dims (program doc "Drop
+// out-of-scope dims"). ROUND-gated so the perennial LANE_DIMS stay intact for other rounds; both lanes
+// run the same set this round (Mac = semantic fan-out, WIN = fixes). LANE still selects REPO + agent
+// types (so the Mac box must run LANE='mac'). NOTE: 'tests-run' is deliberately OMITTED — it is the one
+// LOCAL-pytest dim, and round-14 runs the engine CONCURRENTLY with the local byte-proof builds (Mac
+// box); pytest is run separately/after the builds (never-pytest-beside-a-build). All round-14 dims here
+// are read-only source analysis = model-bound, so they truly parallelize with the local builds.
+const ROUND14_DIMS = new Set(['correctness', 'security', 'byte-stability', 'cross-module',
+  'data-validity', 'pagebreak-rearch', 'file-split', 'eink-gating-leak', 'glossary-streaming',
+  'cascade-dedup', 'popup-separators', 'resplit-integrity'])
 const _laneSet = LANE === 'all' ? null : new Set(LANE_DIMS[LANE] || [])
-const DIMENSIONS = args?.dimensions ?? (_laneSet ? _scoped.filter((d) => _laneSet.has(d.key)) : _scoped)
+const DIMENSIONS = args?.dimensions ?? (ROUND === 14 ? _scoped.filter((d) => ROUND14_DIMS.has(d.key)) : (_laneSet ? _scoped.filter((d) => _laneSet.has(d.key)) : _scoped))
 
 // ----------------------------------------------------------------------------
 // Helpers
