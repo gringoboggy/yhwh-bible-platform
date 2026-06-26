@@ -144,6 +144,11 @@ _PIPELINE_SCRIPTS = (
     # (reached via build_edition.py + matter_pages.py); no data hash covers the glyph
     # table, so editing it used to serve a STALE cached eink/kepub EPUB.
     "core/eink_glyphs.py",
+    # round-14 A1 (2026-06-26) — zip_repro.ocf_member_bytes is the OCF write chokepoint
+    # build_epub.py now calls to LF-normalize text members (cross-OS byte-identity).
+    # It SHAPES the packaged EPUB bytes, so a change to it must invalidate the cache;
+    # the AST coverage guard reaches it via build_epub.py's module-level import.
+    "core/zip_repro.py",
 )
 
 
