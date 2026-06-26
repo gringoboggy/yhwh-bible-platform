@@ -82,6 +82,25 @@ class TestMidVerseLineBreak:
         assert [f.verse for f in rep.mid_verse_break] == ["gen 19:1"]
         assert rep.failed is True
 
+    def test_displaced_anchor_est_10_2_is_warn_not_error(self):
+        # round-14 #6 (mirror of build_edition._mv_displacement_would_corrupt): est 10:2's
+        # paragraph OPENS with its OWN WEB text "Aren't all the acts…" before the v-est-10-2
+        # marker — a DISPLACED anchor, not the prior verse's tail. The build correctly skips
+        # merging it, so the auditor must reclassify it as WARN, NOT a regular-canon ERROR.
+        html = (
+            _vp(_vn("est", 10, 1), " King Ahasuerus laid a tribute on the land and on the islands of the sea.")
+            + "\n"
+            + _vp(
+                "Aren’t ",
+                _vn("est", 10, 2),
+                " all the acts of his power and of his might, and the full account of the greatness of Mordecai,",
+            )
+        )
+        rep = avf.scan_html(html, "est")
+        assert rep.mid_verse_break == []  # NOT a regular-canon ERROR
+        assert [f.verse for f in rep.displaced_anchor] == ["est 10:2"]
+        assert rep.failed is False
+
     def test_irregular_book_break_is_warn_not_error(self):
         # 1 Enoch is an irregular-layout apocryphon → break routes to the WARN bucket.
         html = _vp(_vn("1en", 27, 1), " text of verse one.") + _vp(

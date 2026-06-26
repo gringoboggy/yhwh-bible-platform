@@ -49,10 +49,12 @@ Edition / canon / platform-agnostic: it reads the verse anchors the build emits.
 from __future__ import annotations
 
 import argparse
+import functools
 import re
 import sys
 import zipfile
 from dataclasses import dataclass, field
+from pathlib import Path
 
 # A scripture verse paragraph (build_edition emits `<p class="verse-p">` / `verse-p-flush`).
 _VERSE_P_RE = re.compile(r'<p\b[^>]*class="[^"]*\bverse-p\b[^"]*"[^>]*>(.*?)</p>', re.DOTALL)
@@ -116,6 +118,9 @@ class Report:
     verses: int = 0  # deep-linked scripture verses (v- anchors)
     strategy_b_verses: int = 0  # plain-vn verses (1cl etc.)
     mid_verse_break: list[Finding] = field(default_factory=list)  # ERROR, narrative/prose books
+    displaced_anchor: list[Finding] = field(
+        default_factory=list
+    )  # WARN — R14 #6: current verse's own opening, not a break
     irregular_break: list[Finding] = field(default_factory=list)  # WARN, irregular books
     poetry_break: list[Finding] = field(default_factory=list)  # WARN, poetry/wisdom/prophet (kept)
     strategy_b_continuation: list[Finding] = field(default_factory=list)  # WARN
@@ -139,6 +144,55 @@ def _fmt(owner: tuple[str, int, int] | None) -> str:
 
 def _text(inner: str) -> str:
     return _TAG_RE.sub("", inner)
+
+
+# Round-14 #6: displacement discriminator — MIRROR of scripts.build_edition._mv_displacement_would_corrupt
+# + _load_web_vpl (kept self-contained so this lightweight auditor doesn't import the build pipeline).
+_WORD_TOKEN_RE = re.compile(r"[a-z]+")
+_WEB_VPL_LINE_RE = re.compile(r"^(\S+)\s+(\d+):(\d+)\s+(.*)$")
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+
+
+@functools.lru_cache(maxsize=1)
+def _load_web_vpl() -> dict[tuple[str, int, int], str]:
+    """WEB verse-per-line source -> {(BOOK_UPPER, ch, verse): text}; {} if absent (→ discriminator no-ops)."""
+    src = _REPO_ROOT / "content" / "translations" / "sources" / "web" / "eng-web_vpl.txt"
+    if not src.exists():
+        return {}
+    out: dict[tuple[str, int, int], str] = {}
+    for line in src.read_text(encoding="utf-8").splitlines():
+        m = _WEB_VPL_LINE_RE.match(line)
+        if m:
+            book, ch, verse, txt = m.groups()
+            out[(book.upper(), int(ch), int(verse))] = txt
+    return out
+
+
+def _is_displaced_anchor(lead: str, prior: tuple[str, int, int] | None, current: tuple[str, int, int] | None) -> bool:
+    """True when ``lead`` (the prose opening a paragraph before its first verse marker) is the
+    CURRENT verse's OWN WEB opening — a displaced verse anchor, NOT the prior verse's split-off
+    tail — so it is NOT a real mid-verse break (the build correctly skips merging it; e.g. est 10:2
+    "Aren't all the acts…"). Mirrors build_edition._mv_displacement_would_corrupt: SKIP when ``lead``
+    is a word-PREFIX of the current verse's WEB text AND NOT a word-SUFFIX of the prior verse's.
+    CONSERVATIVE — only fires when both coords + both WEB texts resolve and ``lead`` is non-empty."""
+    if prior is None or current is None:
+        return False
+    lead_words = _WORD_TOKEN_RE.findall(lead.lower())
+    if not lead_words:
+        return False
+    web = _load_web_vpl()
+    if not web:
+        return False
+    cur_text = web.get((current[0].upper(), current[1], current[2]))
+    prev_text = web.get((prior[0].upper(), prior[1], prior[2]))
+    if cur_text is None or prev_text is None:
+        return False
+    cur_words = _WORD_TOKEN_RE.findall(cur_text.lower())
+    prev_words = _WORD_TOKEN_RE.findall(prev_text.lower())
+    n = len(lead_words)
+    is_prefix_of_cur = cur_words[:n] == lead_words
+    is_suffix_of_prev = n <= len(prev_words) and prev_words[-n:] == lead_words
+    return is_prefix_of_cur and not is_suffix_of_prev
 
 
 def _owner_at(pos: int, anchors: list[tuple[int, tuple[str, int, int]]], current: tuple[str, int, int] | None):
@@ -184,6 +238,15 @@ def _scan_into(html: str, rep: Report, gate_all: bool = False) -> Report:
                         rep.irregular_break.append(f)
                     elif not gate_all and book in POETRY_BOOKS:
                         rep.poetry_break.append(f)
+                    elif _is_displaced_anchor(lead, owner, anchors[0][1] if anchors else None):
+                        # Round-14 #6 — mirror of build_edition._mv_displacement_would_corrupt. In the
+                        # NARRATIVE/ERROR-bound canon, `lead` is the CURRENT verse's own WEB opening (a
+                        # displaced anchor) the build correctly does NOT merge → WARN, not an ERROR (the
+                        # est 10:2 "Aren't…" false positive). Mirrors the build's KEEP_BOOKS-then-
+                        # discriminator order: poetry/irregular route to their WARN buckets above first
+                        # (never merged), so the discriminator only diverts what would be a narrative ERROR.
+                        cur_ident = anchors[0][1] if anchors else None
+                        rep.displaced_anchor.append(Finding("displaced_anchor", _fmt(cur_ident), lead.strip()[:60]))
                     else:
                         rep.mid_verse_break.append(f)
             elif mk:  # has_vn but no v- anchor → strategy-B chapter split mid-verse
@@ -225,6 +288,7 @@ def _print(rep: Report, sample: int) -> bool:
     print(f"  ERROR stray pilcrows ¶ in verse text           : {len(rep.pilcrow)}")
     print(f"  WARN  mid-verse breaks in poetry (kept)         : {len(rep.poetry_break)}")
     print(f"  WARN  mid-verse breaks in irregular apocrypha   : {len(rep.irregular_break)}")
+    print(f"  WARN  displaced anchors (own-verse opening, R14#6): {len(rep.displaced_anchor)}")
     print(f"  WARN  strategy-B chapter splits                 : {len(rep.strategy_b_continuation)}")
     print(f"  WARN  mixed-translation [bracket] verses        : {len(rep.kjv_bracket)}")
     print(f"  INFO  superscriptions / rubrics / headings      : {len(rep.superscription)}")
