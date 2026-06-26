@@ -3,6 +3,26 @@
 <!-- TRACKER-STATE: active -->
 <!-- task: Round-14 build-pipeline deep-audit (user-approved 2026-06-26) — two-lane; WIN OOM/gates/build-path, Mac dims+baseline -->
 
+> **★ 2026-06-26 (WIN, env root-cause) — THE "FLAGSHIP-EINK OOM SITE" IS LARGELY ENVIRONMENTAL: an AppXSvc COMMIT LEAK.**
+> Resuming the WIN pickup, the `catholic-study --target-reader eink` build OOM'd at 402s (swallowed `✗` = empty `{e}` =
+> MemoryError, `build_edition.py:8633`). Root cause was NOT a new code site: **`svchost` hosting `AppXSvc` (AppX
+> Deployment Service) had leaked ~52.8 GB of COMMIT** (private bytes; WS only 725 MB), leaving **CommitFree ~590 MB of a
+> 64 GB limit** while PhysFree was a healthy 6.5 GB. On this box COMMIT (RAM + page file) is the binding constraint, so
+> builds MemoryError regardless of free physical RAM — **this is almost certainly the same "OOM @443 MB RSS" the prior
+> sessions chased as a code defect.** The leaked host (PID 6408, hosts ONLY AppXSvc) could not be killed from a
+> non-elevated OR an elevated PowerShell (`Stop-Process`/`taskkill` → Access denied: SeDebugPrivilege not enabled on a
+> SYSTEM-owned protected svchost) → **user rebooting to clear it.** Audit implication: re-confirm A2 + the flagship-eink
+> build on a freshly-rebooted box with CommitFree headroom BEFORE attributing any remaining OOM to a code site;
+> consider a build-pre-flight commit-headroom check (propagation-lens P-env). **Three WIP items already on disk
+> (uncommitted, survive reboot — do NOT recreate):** (1) `scripts/core/zip_repro.py` — the A1 `ocf_member_bytes`
+> CRLF→LF helper is ADDED but **INERT/unwired** (nothing calls it yet → byte-safe, no behavior change); (2)
+> `tests/test_kjv_golden_hash_gate.py` (G1); (3) `.github/workflows/kjv-golden.yml` (A4). **RESUME after reboot:**
+> build catholic-study eink (confirm A2 unblocks 4444 + capture pre-A1 artifact) → wire A1 (`build_epub.py:161` +
+> `kindle_post.py:121` through `ocf_member_bytes`) + P1 helper unit test + P2 member-wise before/after → rebuild post-A1
+> → `G1 --regen` golden (commit golden + A4 CI together) → A6 G2–G5. NOTE: do the pre-A1 build BEFORE wiring A1.
+> Commit the WIP cleanly once commit is freed (the pre-commit mypy timed out under the memory starvation, not a real
+> failure). HEAD `788f4b53` synced at this note.
+>
 > **▶ 2026-06-26 (Windows, autonomous, two-lane) — ROUND-14 BUILD-PIPELINE DEEP-AUDIT, plan USER-APPROVED.**
 > Program doc: `dev/audit/build-pipeline-deep-audit-program-2026-06-25.md`.
 > **WRAP 2026-06-26 (fresh-session prep):** cross-OS final-build AMENDMENT USER-APPROVED (A1 LF chokepoint

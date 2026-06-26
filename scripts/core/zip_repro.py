@@ -25,6 +25,33 @@ import zipfile
 # the same value build_epub.py / kindle_post.py / swap_epub_cover.py pin inline.
 ZIP_EPOCH = (1980, 1, 1, 0, 0, 0)
 
+# OCF members whose line endings must be normalized so the packaged EPUB is
+# byte-identical regardless of the BUILD host OS (round-14 A1). The build's
+# text I/O / a CRLF git checkout can leave ``\r\n`` in these text members on
+# Windows, while macOS/Linux emit ``\n`` — diverging the bytes (and the
+# SHA256SUMS / the KJV golden) cross-machine. Binaries (fonts, images) and the
+# ``mimetype`` entry have no extension match and are never touched.
+_OCF_TEXT_EXTENSIONS = (".html", ".xhtml", ".xml", ".opf", ".ncx", ".css", ".svg")
+
+
+def ocf_member_bytes(name: str, data: bytes) -> bytes:
+    """Normalize one OCF member's bytes for OS-independent EPUB output.
+
+    For text members (matched by extension), collapse ``\\r\\n`` → ``\\n`` so a
+    Windows build is byte-identical to a macOS/Linux build. Binary members and
+    the ``mimetype`` entry are returned unchanged. The replace is a no-op on
+    POSIX-produced LF bytes, so macOS/Linux output does NOT change — only the
+    Windows bytes converge onto the POSIX baseline (a one-time, deliberate
+    Windows CRLF→LF re-baseline). Only the exact ``\\r\\n`` pair is collapsed; a
+    lone ``\\r`` inside content is left intact.
+
+    Call at every OCF write chokepoint:
+    ``zf.writestr(zi, ocf_member_bytes(arcname, raw), compresslevel=9)``.
+    """
+    if name.lower().endswith(_OCF_TEXT_EXTENSIONS):
+        return data.replace(b"\r\n", b"\n")
+    return data
+
 
 def reproducible_zipinfo(name: str, *, stored: bool = False) -> zipfile.ZipInfo:
     """A ``ZipInfo`` with pinned ``date_time`` + perms for byte-reproducible
