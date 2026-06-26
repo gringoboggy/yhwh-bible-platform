@@ -51,7 +51,11 @@ surgically reverted the process-layer damage (see `dev/CHANGELOG.md` 2026-06-21 
 `project_grok_cleanup`) and the Mac lane removed its **local footprint**: the `~/.grok` CLI +
 OAuth, the `~/.zshrc` PATH block, `~/.config/kilo/`, the repo-local `.grok/` MCP config, and the
 tracked `.vscode/extensions.json` Kilo/Grok recommendations. **Claude is the sole coding agent.**
-Do **not** reinstall Grok / Kilo Code.
+Do **not** reinstall Grok / Kilo Code, recommend them via `.vscode/extensions.json`, or keep them
+up to date on bootstrap. **Windows box (2026-06-26):** the `kilocode.kilo-code` VS Code extension —
+still installed on the WIN box after the Mac-lane cleanup — was uninstalled + its process killed at
+the user's direction; no `.vscode/extensions.json` exists, and the toolchain-update audit no longer
+scopes Grok/Kilo.
 
 ### §kepubify (the parity gap that prompted this doc)
 

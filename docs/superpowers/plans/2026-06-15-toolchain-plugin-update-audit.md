@@ -1,18 +1,16 @@
 # Toolchain + IDE plugin update audit (next fresh session)
 
-**Status:** ACTIVE 2026-06-15 — next fresh-session first task for Grok (Windows lane); run before Kobo round-9 ingest or M3 catalog.
+**Status:** ACTIVE 2026-06-15 — Windows-lane (Claude) toolchain audit; run before Kobo round-9 ingest or M3 catalog. (Grok + Kilo decommissioned 2026-06-21 / Kilo VS Code ext uninstalled 2026-06-26 — no longer in scope; see `dev/TOOLCHAIN.md` §Grok.)
 
-**Owner:** Grok (Windows lane) — run **before** resuming Kobo round-9 device QA ingest or M3 work.  
+**Owner:** Claude (Windows lane) — run **before** resuming Kobo round-9 device QA ingest or M3 work.  
 **Goal:** Confirm every editor, agent harness, plugin, skill, and CLI extension is current; document drift; apply safe updates only.
 
 ## Scope
 
 | Area | Paths / sources |
 |---|---|
-| **Cursor / VS Code** | User settings, extensions list, `.vscode/` if present |
-| **Grok CLI** | `~/.grok/skills/`, bundled skills, `grok` version |
+| **Cursor / VS Code** | User settings, extensions list, `.vscode/` if present (do NOT re-add Grok/Kilo extensions or a recommending `extensions.json` — decommissioned) |
 | **Claude Code** | `~/.claude/plugins/`, project `.claude/`, `CLAUDE.md`, hooks, MCP |
-| **Kilo** | Kilo-specific config if installed (check user profile) |
 | **Project harness** | `YHWH v2.4/.githooks`, `dev/TOOLCHAIN.md`, `scripts/lint_rules.py` plugin refs |
 | **Python toolchain** | `.venv`, `requirements*.txt`, ruff, epubcheck, kepubify |
 | **Node CI** | `.github/workflows/`, `website/package.json` |
@@ -25,7 +23,7 @@
    - `py -3 --version`; `kepubify --version`; `java -version` (epubcheck)
    - `gh --version`; `git --version`
    - Read `dev/TOOLCHAIN.md` and diff against live `where`/`Get-Command` output
-2. **Claude / Grok skills** — list installed marketplace plugins; note versions in frontmatter; flag duplicates (e.g. superpowers vs project-local copies)
+2. **Claude skills** — list installed marketplace plugins; note versions in frontmatter; flag duplicates (e.g. superpowers vs project-local copies)
 3. **Check for updates** — extension marketplace, `pip list --outdated` (venv only), `npm outdated` in website/, GitHub Action runner bumps
 4. **Risk classify** — GREEN = patch/doc only; YELLOW = extension minor; RED = major Python/Node/kepubify (needs regression: `pytest tests/test_file_split.py`, one `build_kobo_marker_ab` smoke)
 5. **Apply GREEN/YELLOW** — one category per commit; re-run `lint_rules.py` + targeted tests after each
