@@ -1,7 +1,7 @@
 # In-flight work — current task tracker
 
 <!-- TRACKER-STATE: active -->
-<!-- task: Round-14 remediation (user-directed 2026-06-26) — Mac autonomous/EXCLUSIVE lane: drive all 8 deep-audit survivors to green -->
+<!-- task: Round-14 remediation (user-directed 2026-06-26, two-lane PARALLEL) — ALL 8 survivors GREEN (WIN #4/#5/#6 · Mac #1/#2/#3) + G5 over-cap fixed + all 5 gates built (G1/A4/G3/G4/G5) + 9-KJV byte-stable both OSes. WIN done; only Mac follow-up = #6 audit_verse_formatting mirror. -->
 
 > **▶ 2026-06-26 (Mac, autonomous, PARALLEL — both lanes live) — ROUND-14 REMEDIATION IN PROGRESS.** User: "work
 > autonomous until you and windows are fully done." ⚠ CORRECTED: WIN was NOT quiescent — it rebooted (cleared the AppXSvc
