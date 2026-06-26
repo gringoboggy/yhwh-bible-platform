@@ -1,7 +1,7 @@
 # In-flight work — current task tracker
 
 <!-- TRACKER-STATE: active -->
-<!-- task: Round-14 remediation (user-directed 2026-06-26, two-lane PARALLEL) — ALL 8 survivors GREEN (WIN #4/#5/#6 · Mac #1/#2/#3) + G5 over-cap fixed + all 5 gates built (G1/A4/G3/G4/G5) + 9-KJV byte-stable both OSes. WIN done; only Mac follow-up = #6 audit_verse_formatting mirror. -->
+<!-- task: Round-14 remediation (user-directed 2026-06-26, two-lane PARALLEL) — ✅ COMPLETE BOTH LANES. ALL 8 survivors GREEN (WIN #4/#5/#6 · Mac #1/#2/#3) + 5 gates built+wired (G1/G2/G3/G4/G5) + A1 LF-chokepoint + A4 ubuntu CI + 9-KJV byte-stable BOTH OSes (G1 gate PASSES on macOS, re-verified at final HEAD). Mac #6 audit_verse_formatting mirror DONE (db049b75). Remaining: WIN full slow-suite on its SSD (Mac HDD too slow). -->
 
 > **▶ 2026-06-26 (Mac, autonomous, PARALLEL — both lanes live) — ROUND-14 REMEDIATION IN PROGRESS.** User: "work
 > autonomous until you and windows are fully done." ⚠ CORRECTED: WIN was NOT quiescent — it rebooted (cleared the AppXSvc
