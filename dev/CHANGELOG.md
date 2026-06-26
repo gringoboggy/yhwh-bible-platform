@@ -71,6 +71,13 @@ eink rebuilt (streaming, then +merge-skip) → 453/453 entries unchanged vs the 
 site (a separate `✗`/MemoryError at ~1.4 GB, post-retarget) → under investigation; the WS1+WS2+WS3 flagship re-stage
 waits on it. catholic-study + the canon-filtered editions build clean.
 
+**Session wrap (2026-06-25).** WS3 + OOM tier-1 Mac-cross-OS verified (PASS, no regressions; catholic-study eink peak
+RSS 1182 MB). OOM #1 glossary-streaming landed (byte-identical, flagship monitored peak 2937 → ~885 MB). The flagship
+*full* build still OOMs at one more post-`retarget_demoted_toc_anchors` site (~1.4 GB, undiagnosed) → the WS1+WS2+WS3
+re-stage is next session's pickup. Mac flagged a guard-#7 sibling (119k U+2028 in `vnote` translation-popup asides) —
+queued. Truth records (SESSION_STATE / IN_FLIGHT / LANE_HANDOFF) refreshed + the next-session handoff written; tree
+clean, both remotes + E:/F: synced, machine quiescent.
+
 **WS1 auditor re-architected.** The first `dev/audit_verse_formatting.py` cut measured the WRONG
 thing (its "472 mid-verse breaks" were 1 Clement strategy-B chapters + psalm superscriptions +
 Song rubrics + apocrypha headings; it MISSED the real narrative breaks). Rewrote it: a mid-verse
