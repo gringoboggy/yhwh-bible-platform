@@ -54,8 +54,10 @@ eastern-orthodox) + 2 standalone (standalone-geez, standalone-amharic, via `buil
 `pack_book_chapters`).
 
 - **9-KJV byte-stable set** = {catholic-study, evangelical-reformed, eastern-orthodox} × {everywhere,
-  tablet, kindle} = **9 cells that MUST ship byte-identical** when no scripture/base change occurs.
-  eink + standalones are deliberately re-baselineable.
+  tablet, kindle} = **9 cells that MUST ship byte-identical** when no scripture/base change occurs —
+  **and, per the 2026-06-26 cross-OS amendment (dimension A15), byte-identical across Windows / Linux /
+  macOS too** (CRLF-vs-LF in the zip/text path makes them OS-divergent today; the A1 LF chokepoint
+  closes it). eink + standalones are deliberately re-baselineable.
 - **No golden-hash gate exists** — byte-stability is proven today only by manual regen + `git diff`.
   Closing this = the round's headline deliverable (gate G1).
 - **Integrity invariant:** matrix == build == config through one resolver (`config.enabled_kind_codes`),
@@ -94,6 +96,7 @@ Each tagged **E**rror / **R**edundancy / **C**ontradiction.
 | **A12** redundant disk passes | R | `apply_file_split` re-reads each piece ~5×; two whole-corpus dict loads; superseded `split_study_glossary_document` | deep-audit.js `opt-build` |
 | **A13** determinism / ordering / parallel | E (prop) | idmap dict-order, `iterdir` ordering, `ThreadPoolExecutor` shared output_dir | byte-stability gate + deep-audit.js `byte-stability` |
 | **A14** docstring↔code contradictions | C | stale "73 MB"/"480 MB" figures, "grep-verified" claims, drifted line refs in deep-audit.js | deep-audit.js `docs` |
+| **A15** cross-OS build determinism + feasibility ★2026-06-26 amendment | E·C (prop) | the `write_text`/`read_bytes`+zip path emits **CRLF on Windows, LF on Mac/Linux** → the same byte-stable edition is **NOT byte-identical across OSes** today; build feasibility diverges (`apply_badge_markers:4444` OOMs on 16 GB Windows, completes on 8 GB Mac via compression) | **NEW** A1 LF chokepoint (`zip_repro.ocf_member_bytes`) + G1 cross-OS golden + A4 ubuntu CI; feasibility = C1–C10 must complete on BOTH Win + Mac |
 
 ### TARGET B — the PRODUCT (built artifacts)
 
@@ -149,6 +152,38 @@ read-only to surface drift.
 `test_cache_key_inputs.py` (A9) · `test_midverse_keepset_parity.py` (A8) · `audit_eink_fonts.py` (B9) ·
 `audit_kepub_conversion.py` (B12) · `audit_artifact_inventory.py` (B13). Doctrine: prefer a commit-time
 `lint_rules` check over a pytest-only guard for invariants that recur every ingest.
+
+## Approved cross-OS amendment (2026-06-26 — USER-APPROVED, plan mode)
+
+WIN vetted this program in plan mode for Windows/Linux/macOS final-build coverage and the user approved
+a cross-OS amendment that folds in here (A5 of the amendment = this section). Gap found: the program
+was strong on within-OS correctness but (a) never defined "cross-OS verify", (b) had **no Linux at
+all**, and (c) **nothing proved the final EPUBs are byte-identical across OSes**. Two concrete defects:
+a **CRLF-vs-LF leak** (the build's `write_text`/`read_bytes` + zip step emit CRLF on Windows, LF on
+Mac/Linux → the same "byte-stable" KJV edition is NOT byte-identical across OSes today) and
+**build-feasibility divergence** (`apply_badge_markers:4444` MemoryErrors on 16 GB Windows but completes
+on the 8 GB Mac via compression, so a Mac-only Phase-0 would miss Windows-only build failures).
+
+- **A1 — LF chokepoint.** `ocf_member_bytes(name, data)` in `scripts/core/zip_repro.py`, wired at
+  `build_epub.py:161` + `kindle_post.py:_ocf_rezip:121` (text-extension allowlist
+  `.html/.xhtml/.xml/.opf/.ncx/.css/.svg`, `data.replace(b"\r\n", b"\n")` only; binaries/`mimetype`
+  untouched) → OS-independent EPUB bytes. A deliberate one-time **Windows** CRLF→LF re-baseline;
+  **Mac/Linux bytes do NOT change** (the replace is a POSIX no-op) → no Mac re-baseline. **WIN-owned.**
+- **A2 — DONE (`7e9738fa`).** `apply_badge_markers:4444` per-splice rebuild → single-pass
+  `_apply_splices` (`"".join`, raises on overlap); fix-the-class +2 in `apply_eink_verse_line_breaks`.
+  Byte-identical (guard `test_badge_splice_apply` 12/12 + 251 regression). Removes the Windows-only build
+  OOM that blocked C1 feasibility.
+- **A3/G1 — cross-OS golden.** `tests/test_kjv_golden_hash_gate.py` + ONE
+  `tests/golden/kjv_golden_hashes.json` (reuse the existing `_content_digest`); after A1 the SAME golden
+  passes on Windows, macOS AND Linux — that is the cross-OS proof. **WIN builds + commits; Mac verifies.**
+- **A4 — ubuntu CI.** A new `kjv-golden.yml` GitHub-Actions-ubuntu workflow builds the 9 byte-stable
+  cells on Linux + checks the golden = the automated **Linux-sided** final-build proof (no cloud VM).
+  **WIN-owned.**
+- **A15 (this program's new dimension).** Cross-OS final-build determinism (9 cells byte-identical
+  Win/Linux/Mac via G1) + build feasibility (C1–C10 build to completion on **both** Windows and Mac,
+  not Mac-only). Added to the TARGET-A dimension table above.
+- **A6 — G2–G5 unchanged** from this program. Sequencing: A2 (done) → A1 → `G1 --regen` on Windows →
+  A3/A4.
 
 ## Coverage strategy (product builds)
 
