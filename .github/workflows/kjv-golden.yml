@@ -1,0 +1,59 @@
+name: KJV golden-hash gate
+
+# Round-14 A4 — the Linux-sided cross-OS byte-identity proof.
+#
+# The 9-KJV byte-stable cells ({catholic-study, evangelical-reformed,
+# eastern-orthodox} × {everywhere, tablet, kindle}) must ship byte-identical
+# regardless of the BUILD host OS. After round-14 A1 (the ocf_member_bytes
+# CRLF->LF chokepoint) the content-digests are OS-independent, so the SAME
+# golden (tests/golden/kjv_golden_hashes.json, stamped on Windows) must also
+# pass when the cells are built here on ubuntu. A green run = Linux == the
+# committed golden == the Windows/macOS bytes (the cross-OS proof, alongside the
+# Mac lane's local macOS verify).
+#
+# Real edition builds (~2 min each × 9) -> this is a dedicated workflow, not part
+# of the fast per-push `Tests` job. Triggered only when the build path or the
+# golden itself changes (plus manual dispatch).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - 'content/**'
+      - 'epub_working/**'
+      - 'tests/golden/kjv_golden_hashes.json'
+      - 'tests/test_kjv_golden_hash_gate.py'
+      - 'tests/test_byte_stability_gate.py'
+      - '.github/workflows/kjv-golden.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kjv-golden-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kjv-golden:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      PYTHONUTF8: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Build the 9 byte-stable KJV cells on Linux + check the golden
+        run: python -m pytest tests/test_kjv_golden_hash_gate.py -q

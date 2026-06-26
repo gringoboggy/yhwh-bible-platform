@@ -13,6 +13,42 @@ User directive: drive ALL round-14 audit findings to green; WIN box quiescent �
 - **Phase-1 deep-audit** (`deep-audit.js LANE=mac ROUND=14`, `wf_61e196d1-2f2`, 38 agents, opus + adversarial panels): 13 deduped → **8 verified survivors / 5 refuted** (2H·2M·4L) → `round14-mac-survivors.json` + `round14-mac-plan.md`. 2 HIGHs: `_merge_mid_verse_breaks` corrupts est 10:2 on the shipped eink flagship (displacement-blind) + no real-build golden gate covers tablet/kindle (= G1).
 - **Fixes landing (TDD, tracker `dev/audit/round14-remediation.md`):** #1 `core/eink_glyphs.py` added to `_PIPELINE_SCRIPTS` (`TestCacheCoverageGuard` RED→green); #2 `prospect.main()` None-`out_path` guard on the all-deduped path (+ regression test). #3–#6 in progress.
 
+## 2026-06-26 (post-reboot resume) — Round-14 A1 cross-OS LF chokepoint + G1 golden gate + G3 idmap gate (Windows; autonomous, two-lane)
+
+Bootstrap + pull + autonomous round-14 continuation. The reboot cleared the AppXSvc commit-leak (CommitFree
+~590 MB → ~58 GB of 65); pulled + rebased 3 Mac commits (A5 fold · engine ROUND=14 · WS1 158-verse re-split
+all-edition byte-proof PASS → 9 KJV cells get a ratified NEW baseline → G1 golden stamped from POST).
+
+- **A2 empirically CONFIRMED** — `catholic-study --target-reader eink` builds exit 0 with NO MemoryError at
+  `apply_badge_markers:4444` (the single-pass `_apply_splices` fix `7e9738fa` + restored commit headroom) →
+  C1 build-feasibility unblocked on Windows.
+- **A1 — `ocf_member_bytes` LF chokepoint WIRED** (`17d39197`): the inert helper is now called at both OCF write
+  sites — `build_epub.py:161` (`ocf_member_bytes(arcname, path.read_bytes())`; REPO_ROOT put on `sys.path` before
+  the `scripts.core` import so it resolves in the standalone-subprocess AND in-process/frozen build paths) and
+  `kindle_post.py:121` (the Send-to-Kindle re-zip). Folded the pre-existing unused `defaultdict` F401. **Proofs:**
+  P1 unit (`tests/test_zip_repro.py::TestOcfMemberBytes`, 6 pins, 9/9 — text→LF, binaries/mimetype unchanged, LF
+  no-op, lone `\r` kept); P2 member-wise before/after (`dev/audit/round14_a1_byteproof.py`) catholic-study eink
+  pre-vs-post = 453 members → 84 byte-identical binaries + 369 CRLF→LF text members (.html×358/.xhtml×8/.css/.ncx/
+  .opf), OPF volatiles normalized out → **A1 = CRLF→LF ONLY, zero other change**; post-A1 build exit 0 + epubcheck
+  0/0/0/0. A deliberate one-time Windows re-baseline; macOS/Linux LF bytes do NOT change.
+- **G1 — KJV golden-hash gate STAMPED** (`tests/golden/kjv_golden_hashes.json`, 9 distinct cells = {catholic-study,
+  evangelical-reformed, eastern-orthodox} × {everywhere, tablet, kindle}, built POST-re-split + POST-A1).
+  `tests/test_kjv_golden_hash_gate.py` (slow) now asserts every byte-stable cell == golden — closes the "no
+  automated KJV golden gate" gap (the round's headline deliverable). **A4** ubuntu CI `.github/workflows/kjv-golden.yml`
+  builds the 9 cells on Linux + checks the SAME golden = the cross-OS LF byte-identity proof (with the Mac's macOS
+  rebuild). After A1 the same golden must pass Win + Mac + Linux.
+- **G3 — idmap / cross-file-link gate** (`dev/audit_idmap_frags.py` + test, 7 pins): post-file-split, every
+  `href#frag` resolves against the NAMED piece's ids (not the global union — the wrong-piece miss
+  `audit_book_structure` lets through), noteref/badge + back-link targets resolve cross-piece, ids unique across
+  pieces, 0 orphan spine pieces, nav/ncx targets resolve. **PASS on the real catholic-study eink epub** — 366 pieces,
+  57,032 frag + 44,664 noteref + 151 ncx links resolve, 100,813 unique ids, 0 dup/orphan/dead. The split idmap is
+  sound; the gate guards against future regression.
+
+Next (autonomous, this session): G5 glossary-contract (in flight) · G4 badge-conservation (byte-neutral sidecar
+instrument + orphan scan) · G2 eink-leak diff · wire G3/G4/G5 into ALL_CHECKS · `deep-audit.js LANE=win ROUND=14`
+compute dims · merge WIN+Mac findings → `round14-remediation.md` → fix to green. Mac: cross-OS verify the golden
+on macOS + its read-only dims.
+
 ## 2026-06-26 — Round-14 build-pipeline deep-audit kickoff: OOM fixes + WS1 re-split + cross-OS plan (Windows; autonomous, two-lane)
 
 Mac's round-14 build-pipeline deep-audit plan was **USER-APPROVED** (`dev/audit/build-pipeline-deep-audit-program-2026-06-25.md`).

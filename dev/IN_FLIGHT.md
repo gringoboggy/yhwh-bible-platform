@@ -28,9 +28,15 @@
 > post == `ocf_member_bytes(name, pre)` member-wise). **✅ A1 PROVEN end-to-end:** post-A1 catholic-eink rebuild = exit 0
 > `✓ 24.03 MB` (the subprocess import path works) · **P2 PASS** (453 members: 84 byte-identical binaries + **369 CRLF→LF
 > text members** [.html×358/.xhtml×8/.css/.ncx/.opf]; 574,104 `\r` removed; OPF volatiles normalized out → A1 = CRLF→LF
-> ONLY) · **epubcheck 0/0/0/0** on the LF-normalized epub. **NOW:** committing+pushing the A1 slice (crash-safe before the
-> long build) → `G1 --regen` golden (cross-check vs the Mac POST baselines; commit golden + A4 CI together) → A6 G2–G5.
-> ⚠ pre-existing debt noted (separate hygiene pass): kindle_post UP034@477 + C901@540; 5 old git stashes incl. "temp for
+> ONLY) · **epubcheck 0/0/0/0** on the LF-normalized epub. **A1 slice PUSHED `17d39197`** (both remotes). **✅ G1 GOLDEN
+> STAMPED** (`tests/golden/kjv_golden_hashes.json`, 9 distinct cells, POST-re-split+POST-A1) + **A4** ubuntu CI + **✅ G3
+> idmap-frags gate** (`dev/audit_idmap_frags.py`+test, 7 pins; **PASS on real catholic-study eink** — 366 pieces,
+> 57k frag+45k noteref+151 ncx resolve, 100,813 unique ids, 0 dup/orphan/dead) — committing now. **AUTONOMOUS round-14
+> (user: monitors on, fix everything, Mac helping):** G5 glossary-contract (agent in flight) · G4 badge-conservation
+> (byte-neutral sidecar instrument + orphan scan, mine) · G2 eink-leak diff · wire G3/G4/G5 → ALL_CHECKS ·
+> `deep-audit.js LANE=win ROUND=14` compute dims · merge WIN+Mac → `round14-remediation.md` → fix to GREEN, loop until
+> done. **▶ Mac:** cross-OS verify the golden on macOS (build 9 cells → match) + its read-only dims + WS1 byte-proof (done).
+> ⚠ pre-existing debt (separate hygiene pass): kindle_post UP034@477 + C901@540; 5 old git stashes incl. "temp for
 > incoming pull".
 >
 > **★ 2026-06-26 (WIN, env root-cause) — THE "FLAGSHIP-EINK OOM SITE" IS LARGELY ENVIRONMENTAL: an AppXSvc COMMIT LEAK.**
