@@ -3,6 +3,27 @@
 <!-- TRACKER-STATE: active -->
 <!-- task: Round-14 build-pipeline deep-audit (user-approved 2026-06-26) — two-lane; WIN OOM/gates/build-path, Mac dims+baseline -->
 
+> **★ 2026-06-26 (WIN, POST-REBOOT RESUME) — A2 CONFIRMED on the freshly-rebooted box · A1 WIRED + P1 green · post-A1 rebuild RUNNING.**
+> Bootstrap+pull+continue. Reboot cleared the AppXSvc leak: **CommitFree restored to ~58 GB of 65** (was ~590 MB). Pulled
+> 3 Mac commits (rebased clean): A5 cross-OS amendment folded into the program doc · deep-audit engine configured ROUND=14 ·
+> **WS1 158-verse re-split all-edition BUILD byte-proof = PASS** (`round14-ws1-byteproof.md`; 9 KJV cells get a ratified
+> NEW baseline → **G1 golden MUST be stamped from POST**). Committed the WIP snapshot (`dc9b676c`→rebased): the INERT
+> `zip_repro.ocf_member_bytes` A1 helper + the G1 gate test (skips until golden) + the post-reboot IN_FLIGHT note (A4 CI
+> held untracked to land with the golden). **✅ A2 CONFIRMED:** built `catholic-study --target-reader eink` (pre-A1) →
+> `✓ 24.04 MB`, **exit 0, no swallowed `✗`/MemoryError at `apply_badge_markers:4444`** — the single-pass `_apply_splices`
+> fix + commit headroom resolves the WIN-box build-killer → **C1 build-feasibility unblocked on Windows**. Pre-A1 artifact
+> captured (`YHWH-builds\catholic-eink-PRE-A1.epub`, SHA256 `C12EA12D…`). **✅ A1 WIRED** at `build_epub.py:161`
+> (`ocf_member_bytes(arcname, …)` + REPO_ROOT-on-path import, dual-context verified: standalone subprocess + package/frozen)
+> + `kindle_post.py:121` (`ocf_member_bytes(name, …)`; folded the pre-existing unused-`defaultdict` F401). **✅ P1 green**
+> (`TestOcfMemberBytes` 6 pins in `test_zip_repro.py`, 9/9). **P2** verifier ready (`dev/audit/round14_a1_byteproof.py`:
+> post == `ocf_member_bytes(name, pre)` member-wise). **✅ A1 PROVEN end-to-end:** post-A1 catholic-eink rebuild = exit 0
+> `✓ 24.03 MB` (the subprocess import path works) · **P2 PASS** (453 members: 84 byte-identical binaries + **369 CRLF→LF
+> text members** [.html×358/.xhtml×8/.css/.ncx/.opf]; 574,104 `\r` removed; OPF volatiles normalized out → A1 = CRLF→LF
+> ONLY) · **epubcheck 0/0/0/0** on the LF-normalized epub. **NOW:** committing+pushing the A1 slice (crash-safe before the
+> long build) → `G1 --regen` golden (cross-check vs the Mac POST baselines; commit golden + A4 CI together) → A6 G2–G5.
+> ⚠ pre-existing debt noted (separate hygiene pass): kindle_post UP034@477 + C901@540; 5 old git stashes incl. "temp for
+> incoming pull".
+>
 > **★ 2026-06-26 (WIN, env root-cause) — THE "FLAGSHIP-EINK OOM SITE" IS LARGELY ENVIRONMENTAL: an AppXSvc COMMIT LEAK.**
 > Resuming the WIN pickup, the `catholic-study --target-reader eink` build OOM'd at 402s (swallowed `✗` = empty `{e}` =
 > MemoryError, `build_edition.py:8633`). Root cause was NOT a new code site: **`svchost` hosting `AppXSvc` (AppX

@@ -43,8 +43,9 @@ from __future__ import annotations
 import html
 import re
 import zipfile
-from collections import defaultdict
 from pathlib import Path
+
+from scripts.core.zip_repro import ocf_member_bytes  # round-14 A1: OS-independent OCF bytes
 
 # Mirrors scripts.build_edition.apply_kindle_strip_hidden (same regexes) so the
 # productized recipe strips precisely what the in-pipeline pass — and gate-5 —
@@ -118,7 +119,8 @@ def _ocf_rezip(dst_epub: Path, data: dict[str, bytes], order: list[str]) -> None
             zi.external_attr = 0o644 << 16
             zi.compress_type = zipfile.ZIP_DEFLATED
             zi.create_system = 0  # round-13 #6: pin FAT (see mimetype above)
-            zout.writestr(zi, data[name], compresslevel=9)
+            # round-14 A1: LF-normalize text members so the re-zip is OS-independent.
+            zout.writestr(zi, ocf_member_bytes(name, data[name]), compresslevel=9)
 
 
 def strip_body_backgrounds(css: str) -> tuple[str, int]:

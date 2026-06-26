@@ -29,6 +29,14 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 EPUB_DIR = REPO_ROOT / "epub_working"
 DEFAULT_OUT = REPO_ROOT / "Ethiopian_Bible.epub"
 
+# Round-14 A1: normalize text-member line endings at the OCF write chokepoint so
+# a Windows build is byte-identical to a macOS/Linux build. build_epub.py runs
+# both standalone (sys.path[0] == scripts/) and as a build_one subprocess, so —
+# like build_edition.py — put REPO_ROOT on the path before the scripts.core import.
+sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.core.zip_repro import ocf_member_bytes  # noqa: E402
+
 # Filenames / patterns excluded from the package.
 EXCLUDE_NAMES = {".DS_Store", "Thumbs.db"}
 # "onix": build_onix.py writes commercial ONIX sales metadata to  term-ref-ok
@@ -158,7 +166,8 @@ def build(epub_dir: Path, out_path: Path, *, bump: bool) -> None:
             zi.compress_type = zipfile.ZIP_DEFLATED
             zi.external_attr = 0o644 << 16
             zi.create_system = 0  # round-13 #6: pin FAT (see mimetype above)
-            zf.writestr(zi, path.read_bytes(), compresslevel=9)
+            # round-14 A1: LF-normalize text members so the bytes are OS-independent.
+            zf.writestr(zi, ocf_member_bytes(arcname, path.read_bytes()), compresslevel=9)
 
     out_size = out_path.stat().st_size
     info(f"\nBuilt: {out_path}  ({out_size / 1024 / 1024:.2f} MB)")

@@ -56,3 +56,57 @@ class TestPressKitZipReproducible:
             assert "manifest.json" in zf.namelist()
             for zi in zf.infolist():
                 assert zi.date_time == (1980, 1, 1, 0, 0, 0), f"{zi.filename} not epoch-pinned"
+
+
+class TestOcfMemberBytes:
+    """Round-14 A1 — the ``ocf_member_bytes`` CRLF->LF chokepoint that makes a
+    packaged EPUB byte-identical regardless of the BUILD host OS. Text members
+    are normalized to LF; binary members and the extensionless ``mimetype``
+    entry are returned byte-for-byte unchanged; the replace is a no-op on bytes
+    that are already LF, so macOS/Linux output does NOT change — only a Windows
+    CRLF build converges onto the POSIX baseline."""
+
+    def test_text_members_crlf_collapsed(self):
+        from scripts.core.zip_repro import ocf_member_bytes
+
+        # one member per normalized extension (.html .xhtml .xml .opf .ncx .css .svg)
+        for name in (
+            "OEBPS/index.html",
+            "OEBPS/ch1.xhtml",
+            "META-INF/container.xml",
+            "content.opf",
+            "toc.ncx",
+            "OEBPS/style.css",
+            "OEBPS/cover.svg",
+        ):
+            assert ocf_member_bytes(name, b"a\r\nb\r\nc") == b"a\nb\nc", name
+
+    def test_extension_match_is_case_insensitive(self):
+        from scripts.core.zip_repro import ocf_member_bytes
+
+        assert ocf_member_bytes("OEBPS/CH1.XHTML", b"x\r\ny") == b"x\ny"
+
+    def test_binary_members_untouched(self):
+        from scripts.core.zip_repro import ocf_member_bytes
+
+        raw = b"\x89PNG\r\n\x1a\n\x00\r\n"  # a CRLF pair inside true binary bytes
+        for name in ("OEBPS/fonts/Cardo.ttf", "OEBPS/img/cover.jpg", "OEBPS/img/p.png"):
+            assert ocf_member_bytes(name, raw) == raw, name
+
+    def test_mimetype_untouched(self):
+        from scripts.core.zip_repro import ocf_member_bytes
+
+        # no extension -> never matched (and it must stay byte-exact + STORED).
+        assert ocf_member_bytes("mimetype", b"application/epub+zip") == b"application/epub+zip"
+
+    def test_lf_only_is_a_noop(self):
+        from scripts.core.zip_repro import ocf_member_bytes
+
+        lf = b"<p>a</p>\n<p>b</p>\n"
+        assert ocf_member_bytes("OEBPS/x.xhtml", lf) == lf
+
+    def test_lone_cr_preserved(self):
+        from scripts.core.zip_repro import ocf_member_bytes
+
+        # only the exact \r\n pair collapses; a lone \r inside content survives.
+        assert ocf_member_bytes("OEBPS/x.xhtml", b"a\rb\r\nc") == b"a\rb\nc"
