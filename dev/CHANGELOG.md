@@ -4,6 +4,38 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-26 — Round-14 build-pipeline deep-audit kickoff: OOM fixes + WS1 re-split + cross-OS plan (Windows; autonomous, two-lane)
+
+Mac's round-14 build-pipeline deep-audit plan was **USER-APPROVED** (`dev/audit/build-pipeline-deep-audit-program-2026-06-25.md`).
+
+- **OOM #1 deeper fix COMMITTED** (`5039cda0`): byte-stream the study-glossary split FROM FILE
+  (`_iter_study_glossary_pieces_from_file` + `_stream_glossary_pieces_from_bytes` — the ~480 MB glossary held ~1×
+  as bytes, not ~3× as str slices, per Mac's post-`d6c3d270` diagnosis) + `badge_stats.pop` real free. Byte-identical,
+  `test_file_split` 58/58 (4 new `TestStreamGlossaryFromFile` pins; non-ASCII Hebrew/Greek/Geʽez).
+- **★ NEW OOM site traced + FIXED (A2):** the catholic/flagship eink build's swallowed `✗` on the 16 GB box was a
+  `MemoryError` at `apply_badge_markers:4444` (`text=text[:start]+repl+text[end:]` per-splice rebuild, O(n·k),
+  dies @443 MB RSS = Windows **commit**-pressure, BEFORE the glossary split). New `_apply_splices` single-pass
+  `"".join` (raises on overlap); replaced ALL THREE instances (fix-the-class: + 2 siblings in
+  `apply_eink_verse_line_breaks`). Byte-identical: guard `test_badge_splice_apply` 12/12 + 251 regression green
+  (`test_file_split`/`note_rehaul`/`marker_style`/`popup_split`/`marker_badge_style`). Empirical full-build
+  confirmation deferred to next WIN session.
+- **WS1 158-verse re-split APPLIED + COMMITTED** (`6b690361`, user-RATIFIED): `dev/audit/ws1_resplit_apply.py --apply`
+  (155 groups / 38 files, 0 flagged); 38/38 pure-relocation proof vs HEAD + `check_nested_anchors` 0 nested +
+  `test_nested_anchors` 10/10. Mac to run the all-edition rebuild byte-proof.
+- **Kilo Code fully removed** (`e9abf4c5`, user-directed): process killed + `kilocode.kilo-code` VS Code extension
+  uninstalled + out of the rules to install/recommend/update on bootstrap (TOOLCHAIN §Grok + the toolchain-update
+  plan + memory). Claude is the sole coding agent.
+- **Round-14 cross-OS final-build AMENDMENT (user-approved, plan-mode):** review found Mac's program lacked
+  Windows/Linux/macOS byte-identity coverage (no Linux at all; a CRLF-vs-LF leak makes Windows ≠ macOS builds
+  differ today; `apply_badge_markers:4444` is a Windows-only build failure). Plan: **A1** `ocf_member_bytes` LF
+  chokepoint (`scripts/core/zip_repro.py` → `build_epub.py:161` + `kindle_post.py:121`, text-extension allowlist) →
+  OS-independent EPUB bytes; **A3/G1** KJV golden-hash gate (one platform-independent golden, verified on
+  Win+Mac+Linux); **A4** ubuntu CI workflow; **A5** cross-OS build-feasibility dimension. User decisions:
+  GitHub-Actions-ubuntu for the Linux side + true byte-identity (fix the newlines, one-time Windows CRLF→LF re-baseline).
+
+**Next (WIN, next session):** build catholic-study eink to confirm A2 unblocks the build (the 4444 site) + capture
+the pre-A1 artifact → A1 LF chokepoint + byte-safety proofs → G1 golden regen → A4 CI workflow → A6 G2–G5 gates.
+
 ## 2026-06-25 — Kobo deep-audit WS1 (mid-verse breaks) + WS2 (note redundancy) (Windows; autonomous, Mac-verified)
 
 Continued the user-triggered Kobo deep-audit program (`dev/audit/kobo-deep-audit-program-2026-06-24.md`).

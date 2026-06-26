@@ -4,12 +4,21 @@
 <!-- task: Round-14 build-pipeline deep-audit (user-approved 2026-06-26) — two-lane; WIN OOM/gates/build-path, Mac dims+baseline -->
 
 > **▶ 2026-06-26 (Windows, autonomous, two-lane) — ROUND-14 BUILD-PIPELINE DEEP-AUDIT, plan USER-APPROVED.**
-> Program doc: `dev/audit/build-pipeline-deep-audit-program-2026-06-25.md`. Mac running Phase 0 baseline ∥ Phase 1
+> Program doc: `dev/audit/build-pipeline-deep-audit-program-2026-06-25.md`.
+> **WRAP 2026-06-26 (fresh-session prep):** cross-OS final-build AMENDMENT USER-APPROVED (A1 LF chokepoint
+> `zip_repro.ocf_member_bytes` into `build_epub:161` + `kindle_post:121` = OS-independent EPUB bytes · A3/G1 one
+> platform-independent KJV golden verified Win+Mac+Linux · A4 ubuntu CI · A5 build-feasibility dim; user: ubuntu-CI
+> for Linux + true byte-identity via the newline fix). **A2 DONE.** Sequencing A2(done)->A1->G1 regen->A3/A4.
+> **NEXT-SESSION WIN pickup:** build `catholic-study --target-reader eink --force` (confirm A2 unblocks the 4444
+> site + capture the pre-A1 artifact) -> A1 + byte-safety P1/P2 -> `G1 --regen` golden -> A4 CI -> A6 G2-G5. **Mac:**
+> fold A5 into the program doc + cross-OS verify + the all-edition rebuild byte-proof of the WS1 re-split; continue
+> Phase 0 (C2-C10) and Phase 1 `deep-audit.js LANE=mac`. See LANE_HANDOFF (WIN->Mac, this turn).
+> Mac running Phase 0 baseline ∥ Phase 1
 > `deep-audit.js LANE=mac ROUND=14`; WIN owns the OOM site + 5 gates (G1 KJV golden-hash ★ · G3 idmap-frags ·
 > G4 badge-conservation · G5 glossary-contract) + build-path fixes. **This WIN session (3 commits, pushed):**
 > (1) **OOM #1 deeper fix COMMITTED `aed89170`** — `_iter_study_glossary_pieces_from_file` + `_stream_glossary_pieces_from_bytes`
 > (glossary held ~1× as bytes) + `_group_glossary_atoms` shared + `apply_file_split` streams pieces + `badge_stats.pop`;
-> **byte-identical `test_file_split` 58/58** (4 new `TestStreamGlossaryFromFile` pins). (2) **★NEW OOM site traced =
+> **byte-identical `test_file_split` 58/58** (4 new `TestStreamGlossaryFromFile` pins). (2) **★A2 OOM site FIXED (single-pass _apply_splices, guard 12/12 + 251 regression green, byte-identical) =
 > `apply_badge_markers:4444`** (`text=text[:start]+repl+text[end:]` per-splice rebuild; MemoryError @443 MB RSS = Windows
 > commit-pressure, BEFORE the glossary split) — the real WIN-box build-killer; fix = single-pass `"".join`; **first round-14
 > build-path item; blocks the full flagship-eink build + C1 on Windows.** (3) **WS1 158-verse re-split APPLIED+COMMITTED
