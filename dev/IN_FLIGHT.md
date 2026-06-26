@@ -1,8 +1,24 @@
 # In-flight work — current task tracker
 
 <!-- TRACKER-STATE: active -->
-<!-- task: Kobo deep-audit program — scripture line-breaks + study-note redundancy + popup formatting (2026-06-24, autonomous, Mac-assisted) -->
+<!-- task: Round-14 build-pipeline deep-audit (user-approved 2026-06-26) — two-lane; WIN OOM/gates/build-path, Mac dims+baseline -->
 
+> **▶ 2026-06-26 (Windows, autonomous, two-lane) — ROUND-14 BUILD-PIPELINE DEEP-AUDIT, plan USER-APPROVED.**
+> Program doc: `dev/audit/build-pipeline-deep-audit-program-2026-06-25.md`. Mac running Phase 0 baseline ∥ Phase 1
+> `deep-audit.js LANE=mac ROUND=14`; WIN owns the OOM site + 5 gates (G1 KJV golden-hash ★ · G3 idmap-frags ·
+> G4 badge-conservation · G5 glossary-contract) + build-path fixes. **This WIN session (3 commits, pushed):**
+> (1) **OOM #1 deeper fix COMMITTED `aed89170`** — `_iter_study_glossary_pieces_from_file` + `_stream_glossary_pieces_from_bytes`
+> (glossary held ~1× as bytes) + `_group_glossary_atoms` shared + `apply_file_split` streams pieces + `badge_stats.pop`;
+> **byte-identical `test_file_split` 58/58** (4 new `TestStreamGlossaryFromFile` pins). (2) **★NEW OOM site traced =
+> `apply_badge_markers:4444`** (`text=text[:start]+repl+text[end:]` per-splice rebuild; MemoryError @443 MB RSS = Windows
+> commit-pressure, BEFORE the glossary split) — the real WIN-box build-killer; fix = single-pass `"".join`; **first round-14
+> build-path item; blocks the full flagship-eink build + C1 on Windows.** (3) **WS1 158-verse re-split APPLIED+COMMITTED
+> `aacb6dd6`** — 155 groups/38 files, 0 flagged; **38/38 pure-relocation proof vs HEAD** + `check_nested_anchors` 0 +
+> `test_nested_anchors` 10/10; Mac to run the all-edition rebuild byte-proof. (4) **Kilo removed `733c55c6`.**
+> **NEXT (WIN):** plan-mode review of Mac's audit program (Win/Linux/Mac final-build coverage) + plan the two-lane monitored
+> run → fix `apply_badge_markers:4444` → build G1–G5. **★ Older Kobo-deep-audit history (WS1/WS2/WS3, OOM, page-breaks)
+> below is DONE/superseded — round-14 verifies, doesn't re-litigate.**
+>
 > **▶ 2026-06-24 (Windows, autonomous Mac-helping session) — IN PROGRESS.**
 > **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
 > **▶▶▶ WS1 mid-verse fix ✅ DONE+VERIFIED both lanes (62→0, epubcheck 0/0/0/0, staged; Mac `39799498` PASS incl. byte-stability eink-gate).**
