@@ -4,6 +4,38 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-26 (post-reboot, cont.) — Round-14 remediation: #6 est 10:2 (HIGH) + #4 S1 attribution + G5 over-cap (Windows; autonomous, two-lane)
+
+Autonomous round-14 remediation (user: "fix everything the audit surfaced, with Mac helping"). Three
+`build_edition.py` fixes, all eink-gated / dormant-in-shipped → **the 9-KJV byte-stable set is unchanged: the G1
+golden gate re-run post-fix = "9 byte-stable cells match the golden."**
+
+- **#6 (HIGH) est 10:2 scripture corruption FIXED** — `_merge_mid_verse_breaks` was displacement-blind and relocated
+  est 10:2's own opening "Aren't all the acts…" into est 10:1 on the shipped eink flagship. New
+  `_mv_displacement_would_corrupt` discriminator using the canonical WEB base text
+  (`content/translations/sources/web/eng-web_vpl.txt`, `@lru_cache` loader, frozen-safe path): SKIP the merge when the
+  block's lead is a PREFIX of the current verse's WEB text AND NOT a SUFFIX of the prior verse's (conservative — falls
+  back to the existing merge unless both coords + both WEB texts resolve). Built catholic-study eink → est 10:1 ends
+  "…islands of the sea." (no "Aren't"), est 10:2 starts "Aren't…". `test_mid_verse_merge` 10 (2 new pins: est 10:2
+  not-merged + gen 48:2 still-merged) + `test_file_split` 58. eink-only → 9-KJV byte-identical. (Mac mirrors the guard
+  in `dev/audit_verse_formatting.py`.)
+- **#4 S1 attribution drop FIXED** — `note_attribution_dedup` (S1) silently dropped dict source attribution when
+  `note_group_by_category` (S2) was off (a /customize-reachable, independent-checkbox combo). The dict-* leaf-label
+  strip + all four body-boiler strips are now gated on `cascade = s2_group or eink_backmatter` (the exact condition,
+  build_edition.py:4039, under which the cascade head/byline actually re-surfaces the removed source); triggers
+  (a) kind-default + (b) self-attribution stay unconditional. 5 TDD pins (dict source survives under S1-on/S2-off).
+  Dormant in the 4 shipped study editions (all S1+S2 on) → byte-identical.
+- **G5 over-cap FIXED** — the new G5 gate (`dev/audit_glossary_contract.py`, `ad0eb405`) surfaced 27 eink study-glossary
+  pieces over the 400,000-cp Kobo navigate cap. Root cause (read-only diagnosis, adversarially checked): the splitter
+  correctly buckets atoms ≤ cap (str == from-file, both clean), but `apply_file_split`'s downstream `rewrite_links`
+  then inflates every bare `href="#frag"` → `index_split_NNN_MM.html#frag` (+≤24 cp) AFTER the split. Fix: reserve the
+  worst-case per-atom rewrite growth (`_atom_rewrite_headroom`) in `_group_glossary_atoms` + `_study_glossary_chunk_atoms`.
+  G5 on the post-fix build = 0 over-cap (216 pieces, max inner 399,149, 8,889 atoms == distinct ids). eink-only;
+  str==from-file preserved.
+
+Next (autonomous): G4 badge-conservation gate (byte-neutral sidecar instrument + orphan scan) · wire G3/G4/G5 into
+ALL_CHECKS. G2 eink-leak ≈ subsumed by the G1 golden gate. Mac: #3 canonical-extent + cross-OS verify A1 + golden.
+
 ## 2026-06-26 — Round-14 remediation (Mac; autonomous, exclusive lane): WS1 byte-proof PASS + deep-audit 8 survivors + fixes landing
 
 User directive: drive ALL round-14 audit findings to green; WIN box quiescent → Mac sole worker (`LANE_HANDOFF` exclusive/mac).

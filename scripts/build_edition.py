@@ -2948,12 +2948,19 @@ def _strip_note_label_span(row_html: str) -> tuple[str, bool]:
     return new_html, n > 0
 
 
-def _strip_redundant_note_label(row_html: str, kind: str, kind_defaults: dict) -> tuple[str, bool]:
+def _strip_redundant_note_label(
+    row_html: str, kind: str, kind_defaults: dict, *, cascade: bool = True
+) -> tuple[str, bool]:
     """S1: drop a leaf row's note-label span when it is redundant — (a) its rendered
     text merely repeats the kind's default label, or (b) the body self-attributes
     (comm-ethiopian inner byline). Operates on the RENDERED row + the marker's kind,
     NOT the live note tuple, so it stays correct even where the baked base has drifted
-    from the current notes. Returns ``(new_row, changed)``."""
+    from the current notes. Returns ``(new_row, changed)``.
+
+    Round-14 #4: the dict-* leaf strip (trigger c) is gated on ``cascade`` — the
+    S2/eink-backmatter category byline that re-surfaces the source — so S1-on/S2-off
+    does NOT silently drop dict source attribution. Triggers (a)+(b) are safe under
+    S1 alone and stay unconditional."""
     m = _NOTE_LABEL_SPAN_RE.search(row_html)
     if not m:
         return row_html, False
@@ -2971,7 +2978,7 @@ def _strip_redundant_note_label(row_html: str, kind: str, kind_defaults: dict) -
     # boiler "<strong>Dictionary (Easton's).</strong>". Strip leaf label for all dict-*
     # kinds (S2 byline carries the source attribution; body boilerplate stays in
     # source or is acceptable). Lossless when label stripped (info in byline).
-    if kind.startswith("dict-"):
+    if cascade and kind.startswith("dict-"):
         return _strip_note_label_span(row_html)
     return row_html, False
 
@@ -2994,9 +3001,15 @@ _XREF_BODY_BOILER_RE = re.compile(r"<strong>Cross-references\.</strong>\s*")
 _TEXT_WITNESS_BODY_BOILER_RE = re.compile(r"<strong>Manuscript witness\.</strong>\s*")
 
 
-def _strip_redundant_body_boilerplate(row_html: str, kind: str) -> tuple[str, bool]:
+def _strip_redundant_body_boilerplate(row_html: str, kind: str, *, cascade: bool = True) -> tuple[str, bool]:
     """Drop the leading dict-*/topic-/xref-citation/text-witness body boiler that restates
-    the cascade's category head + byline; keep the real headword / xref links / MS prose."""
+    the cascade's category head + byline; keep the real headword / xref links / MS prose.
+
+    Round-14 #4: gated on ``cascade`` — the boiler is only redundant when the S2/eink
+    category head actually re-states it; under S1-on/S2-off it is the note's only source
+    line, so leave it."""
+    if not cascade:
+        return row_html, False
     if kind.startswith("dict-"):
         new, n = _DICT_BODY_BOILER_RE.subn("", row_html, count=1)
         return new, n > 0
@@ -4211,10 +4224,12 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         # dedup decision so the dedup keys stay byte-identical to the
                         # flag-off build. Operates on the rendered row (base-consistent).
                         if s1_dedup:
-                            row, _changed = _strip_redundant_note_label(row, kind, kind_defaults)
+                            # round-14 #4: only strip the source/category boiler the cascade re-surfaces
+                            _cascade = s2_group or eink_backmatter
+                            row, _changed = _strip_redundant_note_label(row, kind, kind_defaults, cascade=_cascade)
                             if _changed:
                                 stats["s1_labels_suppressed"] += 1
-                            row, _b_changed = _strip_redundant_body_boilerplate(row, kind)
+                            row, _b_changed = _strip_redundant_body_boilerplate(row, kind, cascade=_cascade)
                             if _b_changed:
                                 stats["s1_body_boiler_stripped"] = stats.get("s1_body_boiler_stripped", 0) + 1
                         rank = _POPUP_CATEGORY_RANK.get(cat, _POPUP_CATEGORY_FALLBACK_RANK)
@@ -5106,7 +5121,7 @@ def _study_glossary_chunk_atoms(inner: str, target: int) -> list[str]:
     for i, pos in enumerate(book_heads):
         end = book_heads[i + 1] if i + 1 < len(book_heads) else len(inner)
         chunk = inner[pos:end]
-        if len(chunk) <= target:
+        if len(chunk) + _atom_rewrite_headroom(chunk) <= target:  # round-14 G5: reserve rewrite growth
             atoms.append(chunk)
             continue
         cuts = sorted({0, *{m.start() for m in _STUDY_GLOSSARY_ASIDE_RE.finditer(chunk)}, len(chunk)})
@@ -5122,6 +5137,25 @@ def _study_glossary_chunk_atoms(inner: str, target: int) -> list[str]:
 # residue). Anchored `^\s*` so it only fires on an atom that BEGINS with the book head.
 _BOOK_HEAD_START_RE = re.compile(r"^\s*<h2 class=\"study-book-head\"")
 
+# Round-14 G5: the study-glossary split budgets PRE-rewrite codepoints, but
+# apply_file_split's downstream rewrite_links later expands every bare
+# ``href="#frag"`` into ``href="index_split_NNN_MM.html#frag"`` (+<=24 cp) and
+# every full-origin ``index_split_NNN.html`` into ``..._MM.html`` (+<=4 cp) —
+# inflating a packed piece past the 400,000-cp navigate cap (27 over-cap pieces
+# were observed on the catholic-study eink build). Reserve the worst-case
+# per-link growth at pack time so the POST-rewrite inner stays <= target. These
+# helpers run SOLELY on the EINK_STUDY_BACKMATTER_STEM glossary (no caller emits
+# index_split_900 for the 9-KJV non-eink cells), and the reserve is applied
+# identically to the str + from-file splitters, so str==from-file holds and the
+# byte-stable set is untouched.
+_GLOSSARY_LINK_REWRITE_GROWTH = 32
+_REWRITABLE_LINK_RE = re.compile(r'href="#|(?:href|src)="index_split_\d+\.html')
+
+
+def _atom_rewrite_headroom(s: str) -> int:
+    """Worst-case codepoints ``rewrite_links`` will add to ``s`` (one per rewritable link)."""
+    return len(_REWRITABLE_LINK_RE.findall(s)) * _GLOSSARY_LINK_REWRITE_GROWTH
+
 
 def _group_glossary_atoms(atoms: list[str], target: int) -> list[list[str]]:
     """Pack glossary atoms into ~``target``-(codepoint)-byte groups, flushing at every book
@@ -5134,7 +5168,7 @@ def _group_glossary_atoms(atoms: list[str], target: int) -> list[list[str]]:
         if _BOOK_HEAD_START_RE.match(atom) and cur:
             groups.append(cur)
             cur, cur_w = [], 0
-        w = len(atom)
+        w = len(atom) + _atom_rewrite_headroom(atom)  # round-14 G5: reserve link-rewrite growth
         if cur and cur_w + w > target:
             groups.append(cur)
             cur, cur_w = [], 0
@@ -5609,8 +5643,73 @@ _MIDVERSE_BREAK_KEEP_BOOKS = frozenset(
 _MV_VERSE_P_BLOCK_RE = re.compile(r'(<p\b[^>]*\bclass="[^"]*\bverse-p\b[^"]*"[^>]*>)(.*?)(</p>)', re.DOTALL)
 _MV_FIRST_MARKER_RE = re.compile(r'<a\b[^>]*\bid="v-[a-z0-9]+-\d+-\d+"|<span class="vn">')
 _MV_VANCHOR_BOOK_RE = re.compile(r'\bid="v-([a-z0-9]+)-\d+-\d+"')
+_MV_VANCHOR_FULL_RE = re.compile(r'\bid="v-([a-z0-9]+)-(\d+)-(\d+)"')
 _MV_PROSE_WORD_RE = re.compile(r"[A-Za-z]{2,}")
 _MV_TAGS_RE = re.compile(r"<[^>]+>")
+_MV_WORD_TOKEN_RE = re.compile(r"[a-z]+")
+_MV_WEB_VPL_LINE_RE = re.compile(r"^(\S+)\s+(\d+):(\d+)\s+(.*)$")
+
+
+@lru_cache(maxsize=1)
+def _load_web_vpl() -> dict[tuple[str, int, int], str]:
+    """Load the WEB verse-per-line source into ``{(BOOK_UPPER, ch, verse): text}`` for the
+    round-14 #6 mid-verse-merge displacement discriminator. Resolves the source frozen-safely
+    (active content root first, then ``REPO_ROOT/content`` fallback); returns ``{}`` if neither
+    exists so the discriminator no-ops → the existing merge behavior is preserved (graceful)."""
+    candidates: list[Path] = []
+    try:
+        from scripts.core import paths as _paths
+
+        candidates.append(_paths.content_root() / "translations" / "sources" / "web" / "eng-web_vpl.txt")
+    except Exception:
+        pass
+    candidates.append(REPO_ROOT / "content" / "translations" / "sources" / "web" / "eng-web_vpl.txt")
+    src = next((p for p in candidates if p.exists()), None)
+    if src is None:
+        return {}
+    out: dict[tuple[str, int, int], str] = {}
+    for line in src.read_text(encoding="utf-8").splitlines():
+        m = _MV_WEB_VPL_LINE_RE.match(line)
+        if m:
+            book, ch, verse, txt = m.groups()
+            out[(book.upper(), int(ch), int(verse))] = txt
+    return out
+
+
+def _mv_displacement_would_corrupt(inner: str, prior_inner: str, lead: str) -> bool:
+    """Round-14 #6 discriminator. Return True when relocating ``lead`` (the prose that opens
+    block ``i`` before its first verse marker) onto the END of the prior block would CORRUPT
+    scripture — i.e. ``lead`` is the *current* verse's OWN opening, not the prior verse's
+    split-off tail. Decision (Mac-prescribed): SKIP the merge when ``lead`` is a PREFIX of the
+    current verse's WEB text AND NOT a SUFFIX of the prior verse's WEB text. This skips
+    est 10:2's own "Aren't all the acts…" while still merging genuine tails like 1co 9:2 /
+    gen 48:2 (whose lead is a suffix of the prior verse, not a prefix of the current).
+
+    CONSERVATIVE: only fire when both verse coords resolve, both WEB texts are found, and
+    ``lead`` is non-empty; on any missing piece return False → fall back to the existing merge
+    (never introduce a new skip on uncertainty)."""
+    lead_words = _MV_WORD_TOKEN_RE.findall(lead.lower())
+    if not lead_words:
+        return False
+    cur_m = _MV_VANCHOR_FULL_RE.search(inner)
+    prior_anchors = _MV_VANCHOR_FULL_RE.findall(prior_inner)
+    if cur_m is None or not prior_anchors:
+        return False
+    web = _load_web_vpl()
+    if not web:
+        return False
+    cb, cch, cv = cur_m.group(1), cur_m.group(2), cur_m.group(3)
+    pb, pch, pv = prior_anchors[-1]
+    cur_text = web.get((cb.upper(), int(cch), int(cv)))
+    prev_text = web.get((pb.upper(), int(pch), int(pv)))
+    if cur_text is None or prev_text is None:
+        return False
+    cur_words = _MV_WORD_TOKEN_RE.findall(cur_text.lower())
+    prev_words = _MV_WORD_TOKEN_RE.findall(prev_text.lower())
+    n = len(lead_words)
+    is_prefix_of_cur = cur_words[:n] == lead_words
+    is_suffix_of_prev = n <= len(prev_words) and prev_words[-n:] == lead_words
+    return is_prefix_of_cur and not is_suffix_of_prev
 
 
 def _merge_mid_verse_breaks(tmp: Path) -> int:
@@ -5650,7 +5749,17 @@ def _merge_mid_verse_breaks(tmp: Path) -> int:
             is_break = bool(_MV_PROSE_WORD_RE.search(lead)) and mk is not None and has_anchor
             adjacent = prev_idx is not None and text[blocks[prev_idx].end() : m.start()].strip() == ""
             owner_fixable = current_book is not None and current_book not in _MIDVERSE_BREAK_KEEP_BOOKS
-            if is_break and adjacent and owner_fixable:
+            # Round-14 #6: a verse-p block may OPEN with its own first words (est 10:2's
+            # "Aren't all the acts…") rather than the prior verse's split-off tail — relocating
+            # that lead onto the prior block would CORRUPT scripture. Skip the merge when the WEB
+            # discriminator proves the lead is the current verse's own opening (prefix of current,
+            # not a suffix of prior); conservative — uncertainty falls back to the existing merge.
+            if (
+                is_break
+                and adjacent
+                and owner_fixable
+                and not _mv_displacement_would_corrupt(inner, inners[prev_idx], lead)
+            ):
                 prefix = inner[: mk.start()]
                 tail = inners[prev_idx]
                 glue = "" if (tail[-1:].isspace() or prefix[:1].isspace()) else " "

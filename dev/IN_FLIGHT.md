@@ -31,13 +31,21 @@
 > ONLY) · **epubcheck 0/0/0/0** on the LF-normalized epub. **A1 slice PUSHED `17d39197`** (both remotes). **✅ G1 GOLDEN
 > STAMPED** (`tests/golden/kjv_golden_hashes.json`, 9 distinct cells, POST-re-split+POST-A1) + **A4** ubuntu CI + **✅ G3
 > idmap-frags gate** (`dev/audit_idmap_frags.py`+test, 7 pins; **PASS on real catholic-study eink** — 366 pieces,
-> 57k frag+45k noteref+151 ncx resolve, 100,813 unique ids, 0 dup/orphan/dead) — committing now. **AUTONOMOUS round-14
-> (user: monitors on, fix everything, Mac helping):** G5 glossary-contract (agent in flight) · G4 badge-conservation
-> (byte-neutral sidecar instrument + orphan scan, mine) · G2 eink-leak diff · wire G3/G4/G5 → ALL_CHECKS ·
-> `deep-audit.js LANE=win ROUND=14` compute dims · merge WIN+Mac → `round14-remediation.md` → fix to GREEN, loop until
-> done. **▶ Mac:** cross-OS verify the golden on macOS (build 9 cells → match) + its read-only dims + WS1 byte-proof (done).
-> ⚠ pre-existing debt (separate hygiene pass): kindle_post UP034@477 + C901@540; 5 old git stashes incl. "temp for
-> incoming pull".
+> 57k frag+45k noteref+151 ncx resolve, 100,813 unique ids, 0 dup/orphan/dead). **AUTONOMOUS round-14 REMEDIATION
+> (user: monitors on, fix everything, Mac helping) — WIN survivors + the G5-finding ALL FIXED + verified (uncommitted,
+> pending byte-proof):** **✅ G5 gate** `dev/audit_glossary_contract.py` committed (`ad0eb405`) → surfaced **27 over-cap
+> glossary pieces**; root-caused (post-split `rewrite_links` bare-href inflation, NOT the splitter — str==from-file both
+> clean) → **G5-FIX** = per-atom `_atom_rewrite_headroom` reservation in the glossary budgeting (eink-only) → G5 re-run
+> on the post-fix build = **0 over-cap** (216 pieces, max 399,149, atoms conserved). **✅ #6 (HIGH) est 10:2** —
+> `_merge_mid_verse_breaks` displacement guard (`_mv_displacement_would_corrupt` via the WEB base text: skip merge when
+> lead is a PREFIX of the current verse's WEB text & NOT a SUFFIX of the prior's) → built catholic-study eink:
+> **est 10:1 ends "…sea." (no "Aren't"), est 10:2 starts "Aren't…"**; `test_mid_verse_merge` 10 + `test_file_split` 58.
+> **✅ #4 S1 attribution** — gate the dict-* leaf/body strips on `cascade = s2_group or eink_backmatter` (the exact
+> re-surface condition @4039) → 5 TDD pins; dict source survives under S1-on/S2-off. **⏳ G1 golden BYTE-PROOF running**
+> (rebuild 9 KJV cells post-fix → confirm == golden; all 3 fixes are eink-gated/dormant so expect PASS). **NEXT:** on
+> byte-proof PASS → commit (#6+#4+G5-fix+tests) + push → **G4 badge-conservation** (sidecar instrument + auditor) + wire
+> G3/G4/G5 → ALL_CHECKS (G2 eink-leak ≈ subsumed by G1). **▶ Mac:** #3 canonical-extent · cross-OS verify A1+golden ·
+> #6 `audit_verse_formatting.py` mirror. ⚠ pre-existing debt: kindle_post UP034@477 + C901@540; 5 old git stashes.
 >
 > **★ 2026-06-26 (WIN, env root-cause) — THE "FLAGSHIP-EINK OOM SITE" IS LARGELY ENVIRONMENTAL: an AppXSvc COMMIT LEAK.**
 > Resuming the WIN pickup, the `catholic-study --target-reader eink` build OOM'd at 402s (swallowed `✗` = empty `{e}` =

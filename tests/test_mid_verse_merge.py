@@ -136,3 +136,50 @@ class TestSafety:
         before = p.read_text(encoding="utf-8")
         assert be._merge_mid_verse_breaks(tmp_path) == 0
         assert p.read_text(encoding="utf-8") == before
+
+
+class TestDisplacementGuard:
+    """Round-14 #6 (HIGH, scripture corruption): the lead before a block's first verse marker
+    is NOT always the prior verse's tail — for est 10:2 it is the verse's OWN opening. The WEB
+    discriminator skips that displacement (else "Aren't all the acts…" is corrupted into est
+    10:1) while still merging a genuine spilled tail (gen 48:2)."""
+
+    def test_est_10_2_own_opening_not_merged(self, tmp_path):
+        # est 10:2 OPENS with its own first words "Aren't all the acts…" (a prefix of WEB est 10:2,
+        # not a suffix of est 10:1) → the displacement must be SKIPPED, leaving the text intact.
+        p = _write(
+            tmp_path,
+            _vp(_vn("est", 10, 1), " King Ahasuerus laid a tribute on the land and on the islands of the sea."),
+            _vp(
+                "Aren’t all the acts of his power and of his might,",
+                _vn("est", 10, 2),
+                " and the full account of the greatness of Mordecai, written in the book"
+                " of the chronicles of the kings of Media and Persia?",
+            ),
+        )
+        before = p.read_text(encoding="utf-8")
+        assert be._merge_mid_verse_breaks(tmp_path) == 0  # displacement skipped
+        # byte-identical: "Aren't all the acts…" stays in est 10:2; est 10:1 unchanged.
+        assert p.read_text(encoding="utf-8") == before
+        inners = _verse_p_inners(before)
+        assert "Aren’t all the acts of his power" in inners[1]
+        assert "Aren’t" not in inners[0]
+        assert "islands of the sea." in inners[0]
+
+    def test_gen_48_2_genuine_tail_still_merged(self, tmp_path):
+        # Counter-example: gen 48:1's tail "He took with him his two sons…" (a suffix of WEB
+        # gen 48:1, not a prefix of gen 48:2) genuinely spilled → must STILL be merged.
+        p = _write(
+            tmp_path,
+            _vp(_vn("gen", 48, 1), " After these things, someone said to Joseph, “Behold, your father is sick.”"),
+            _vp(
+                "He took with him his two sons, Manasseh and Ephraim.",
+                _vn("gen", 48, 2),
+                " Someone told Jacob, and said, “Behold, your son Joseph comes to you.”",
+            ),
+        )
+        assert be._merge_mid_verse_breaks(tmp_path) == 1  # genuine tail merged
+        inners = _verse_p_inners(p.read_text(encoding="utf-8"))
+        assert "He took with him his two sons, Manasseh and Ephraim." in inners[0]
+        assert "v-gen-48-2" not in inners[0]
+        assert inners[1].lstrip().startswith('<a class="vn-link" id="v-gen-48-2"')

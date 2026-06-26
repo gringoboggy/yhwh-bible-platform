@@ -88,3 +88,36 @@ class TestClass2StripBodyLeadIns:
         )
         assert dc and "Dictionary (Easton's)" not in d
         assert tc and "<strong>Topics.</strong>" not in t
+
+
+class TestRound14S4AttributionGating:
+    """Round-14 #4: S1 (note_attribution_dedup) must NOT drop dict source attribution
+    when the cascade (S2 group-by-category / eink backmatter) is OFF and so will not
+    re-surface it. The dict-* leaf-label strip + all four body-boiler strips are gated
+    on ``cascade``; the (a) kind-default + (b) self-attribution triggers stay unconditional."""
+
+    _DICT_BOILER = "<strong>Dictionary (Easton's).</strong> CREATION — the act of bringing into being."
+    _DICT_LABEL = '<span class="note-label">Easton.</span> CREATION — the act of bringing into being.'
+
+    def test_dict_body_boiler_kept_when_cascade_off(self):
+        new, changed = be._strip_redundant_body_boilerplate(self._DICT_BOILER, "dict-easton", cascade=False)
+        assert changed is False and new == self._DICT_BOILER  # source attribution survives
+
+    def test_dict_body_boiler_stripped_when_cascade_on(self):
+        new, changed = be._strip_redundant_body_boilerplate(self._DICT_BOILER, "dict-easton", cascade=True)
+        assert changed is True and "Dictionary (Easton's)" not in new and "CREATION" in new
+
+    def test_dict_leaf_label_kept_when_cascade_off(self):
+        new, changed = be._strip_redundant_note_label(self._DICT_LABEL, "dict-easton", {}, cascade=False)
+        assert changed is False and 'class="note-label"' in new  # leaf source label survives
+
+    def test_dict_leaf_label_stripped_when_cascade_on(self):
+        new, changed = be._strip_redundant_note_label(self._DICT_LABEL, "dict-easton", {}, cascade=True)
+        assert changed is True and 'class="note-label"' not in new
+
+    def test_kind_default_strip_stays_unconditional(self):
+        # Trigger (a): a label that merely repeats the (normalized) kind default is safe to
+        # drop under S1 alone, so it must fire even with cascade OFF.
+        row = '<span class="note-label">Hebrew.</span> <em>בָּרָא</em> to create'
+        out, changed = be._strip_redundant_note_label(row, "lang-hebrew", {"lang-hebrew": "hebrew"}, cascade=False)
+        assert changed is True and 'class="note-label"' not in out and "to create" in out
