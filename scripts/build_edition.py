@@ -3927,6 +3927,28 @@ def _emit_cascade_sections(rows: list[dict], cat_meta: dict, *, eink: bool = Fal
     return "".join(out)
 
 
+def _apply_splices(text: str, splices: list[tuple[int, int, str]]) -> str:
+    """Replace each disjoint ``[start, end)`` span in ``text`` with its ``repl`` in a SINGLE
+    pass with one allocation (sort ascending; append the gap before each span then its repl;
+    one ``"".join``).
+
+    Replaces the old O(n·k) per-splice rebuild — ``text = text[:start] + repl + text[end:]``
+    looped reverse-descending — which re-allocated ~|text| every iteration and MemoryError'd
+    on the flagship study-glossary at the Windows commit limit (A2, round-14). Byte-identical
+    to that rebuild for disjoint spans (badge markers/asides + the eink verse-line ``<p>``
+    inserts never overlap). An overlap raises — a loud failure, never silent corruption."""
+    parts: list[str] = []
+    cursor = 0
+    for start, end, repl in sorted(splices, key=lambda s: (s[0], s[1])):
+        if start < cursor:
+            raise AssertionError(f"overlapping splice: {start} < {cursor}")
+        parts.append(text[cursor:start])
+        parts.append(repl)
+        cursor = end
+    parts.append(text[cursor:])
+    return "".join(parts)
+
+
 _VN_LINK_AT_PARA_START_RE = re.compile(r"(?:<p class=\"verse-p\">|</p>\s*<p class=\"verse-p\">)\s*$")
 
 
@@ -3951,9 +3973,7 @@ def apply_eink_verse_line_breaks(tmp: Path, edition: dict, preloaded: dict[str, 
                 breaks += 1
             if not splices_pre:
                 continue
-            for start, end, repl in sorted(splices_pre, key=lambda s: s[0], reverse=True):
-                text = text[:start] + repl + text[end:]
-            preloaded[name] = text
+            preloaded[name] = _apply_splices(text, splices_pre)
         return breaks
     for path in list_html_files(tmp):
         text = path.read_text(encoding="utf-8")
@@ -3966,9 +3986,7 @@ def apply_eink_verse_line_breaks(tmp: Path, edition: dict, preloaded: dict[str, 
             breaks += 1
         if not splices:
             continue
-        for start, end, repl in sorted(splices, key=lambda s: s[0], reverse=True):
-            text = text[:start] + repl + text[end:]
-        path.write_text(text, encoding="utf-8")
+        path.write_text(_apply_splices(text, splices), encoding="utf-8")
     return breaks
 
 
@@ -4437,11 +4455,11 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
 
     # Apply every file's splices in one reverse-order pass (offsets stay valid).
     for fname, splices in edits.items():
-        text = file_texts[fname]
-        # Deterministic: sort by start descending; ties broken by end so nested
-        # spans never interleave (markers/asides are disjoint, so ties are rare).
-        for start, end, repl in sorted(splices, key=lambda s: (s[0], s[1]), reverse=True):
-            text = text[:start] + repl + text[end:]
+        # Single-pass splice-apply (A2 OOM fix): badge markers/asides are disjoint, so the
+        # old reverse-descending per-splice rebuild (~|text| re-allocated per splice ->
+        # MemoryError on the flagship glossary at the Windows commit limit) is byte-identical
+        # to one "".join. _apply_splices raises on any overlap.
+        text = _apply_splices(file_texts[fname], splices)
         file_texts[fname] = text
         (tmp / fname).write_text(text, encoding="utf-8")
         stats["files_touched"] += 1
