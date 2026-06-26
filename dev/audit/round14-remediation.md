@@ -8,7 +8,7 @@ survivors to green with TDD + verification. Source: `round14-mac-survivors.json`
 |---|-----|---------|------|--------|
 | 1 | MED | `eink_glyphs.py` missing from `_PIPELINE_SCRIPTS` → stale cached eink/kepub EPUB | `core/build_cache.py` | ✅ DONE — added to tuple; `TestCacheCoverageGuard` green (was RED) |
 | 2 | LOW | `prospect.main()` None `out_path` → AttributeError crash on all-deduped chapter | `scripts/prospect.py` | ✅ DONE — None-guard + regression test (`test_prospect_write_queue` 3/3) |
-| 3 | LOW | canonical-extent guard is a silent no-op for the 8 Tewahedo-distinctive books | `core/canonical_verse_counts.py` | ⏳ TODO — new dep-free leaf + per-chapter ceiling + lint |
+| 3 | LOW | canonical-extent guard is a silent no-op for the 8 Tewahedo-distinctive books | `core/canonical_verse_counts.py` | ✅ DONE (Mac) — new `core/distinctive_verse_counts.py` leaf (6 dicts, AST-byte-identical) + per-chapter ceiling in `coord_in_canonical_extent`/`html_chapter_count` + `check_distinctive_extent` lint; test 13/13 (834 on-disk coords still valid, 0 over-extent). Ceiling lower-bound `0<=verse` (preserves `1en 91:0`/`94:0` chapter-intro notes); corrected a stale test that pinned the old no-op |
 | 4 | LOW | S1 note-dedup drops dict source attribution when `note_group_by_category` off | `build_edition.py:4213` | ⏳ TODO |
 | 5 | HIGH | no real-build golden gate covers tablet/kindle byte-stable cells (= G1) | `tests/test_kjv_golden_hash_gate.py` (new) | ⏳ TODO — baseline from POST; 9 cells already built in byteproof-out |
 | 6 | HIGH | eink mid-verse merge corrupts est 10:2 on the shipped flagship (displacement-blind) | `build_edition.py:5650` + `audit_verse_formatting.py` | ⏳ TODO — WEB-source discriminator + regression + catholic-study eink build verify |

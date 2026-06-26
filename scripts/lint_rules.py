@@ -2898,6 +2898,55 @@ def check_candidate_extent() -> dict:
     }
 
 
+def check_distinctive_extent() -> dict:
+    """R14 data-validity — no on-disk note coordinate for a Tewahedo-distinctive
+    book (mq1/mq2/mq3/1en/jub/4ba/1cl/2en) may exceed its verse-table /
+    ``books.yaml`` ``ch_count`` ceiling.
+
+    These 8 books have no KJV/LXX skeleton, so ``coord_in_canonical_extent`` used
+    to no-op them (any coordinate kept). The R14 fix validates them against their
+    hand-typed verse tables (``scripts/core/distinctive_verse_counts.py``) /
+    ``ch_count``; this commit-time guard stops the impossible-coordinate class
+    (OCR/parse/typo — the same class the candidate-extent guard pins for the KJV
+    books) from silently RE-ACCUMULATING in ``content/notes`` for them. Current
+    data is clean (0 over-extent). Verse 0 is the legal chapter-level note
+    convention and is accepted by the guard."""
+    from scripts.core.canonical_verse_counts import (
+        TEWAHEDO_DISTINCTIVE_NO_KJV,
+        coord_in_canonical_extent,
+    )
+    from scripts.core.notes_io import load_notes
+
+    notes_dir = REPO / "content" / "notes"
+    violations: list[dict] = []
+    scanned = 0
+    for book in TEWAHEDO_DISTINCTIVE_NO_KJV:
+        p = notes_dir / f"{book}.py"
+        if not p.is_file():
+            continue
+        for tup in load_notes(p) or []:
+            try:
+                ch, v = int(tup[0]), int(tup[1])
+            except (TypeError, ValueError, IndexError):
+                continue
+            scanned += 1
+            if not coord_in_canonical_extent(book, ch, v):
+                violations.append({"coord": f"{book} {ch}:{v}"})
+    return {
+        "id": "distinctive_extent",
+        "name": "Distinctive-book note coords within extent",
+        "status": "pass" if not violations else "fail",
+        "message": (
+            f"all {scanned} distinctive-book note coord(s) within their verse-table / ch_count ceiling"
+            if not violations
+            else f"{len(violations)} distinctive-book note coord(s) exceed the "
+            "verse-table/ch_count ceiling — impossible coordinate(s) "
+            "(OCR/parse/typo); drop or correct them"
+        ),
+        "violations": violations[:40],
+    }
+
+
 def check_hook_parity() -> dict:
     """The two SessionStart bootstrap hooks (Windows .ps1 + Mac .sh) must carry the
     same lane-coordination-v2 model, not the superseded single-baton wording. Both
@@ -3030,6 +3079,10 @@ ALL_CHECKS = {
     # book's canonical extent (regression guard for the STAGE-B 114-orphan cleanup;
     # promote already drops them, so this is staging-hygiene defense-in-depth).
     "candidate_extent": check_candidate_extent,
+    # R14 data-validity — no on-disk note coord for a Tewahedo-distinctive book
+    # (mq1/mq2/mq3/1en/jub/4ba/1cl/2en) exceeds its verse-table / ch_count ceiling
+    # (the impossible-coordinate class, previously a no-op for these 8 books).
+    "distinctive_extent": check_distinctive_extent,
 }
 
 

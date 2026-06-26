@@ -43,10 +43,16 @@ class TestContiguousBooksUnchanged:
         assert coord_in_canonical_extent("psa", 117, 3) is False
         assert coord_in_canonical_extent("gen", 87, 1) is False  # chapter-missing
 
-    def test_no_skeleton_books_kept(self):
-        # Tewahedo distinctives have no KJV skeleton → can't validate → keep
-        assert coord_in_canonical_extent("1en", 71, 99) is True
-        assert coord_in_canonical_extent("jub", 50, 99) is True
+    def test_distinctive_books_now_validated(self):
+        # R14 data-validity fix: Tewahedo distinctives no longer no-op. They are
+        # validated against their hand-typed verse tables (six books) / books.yaml
+        # ch_count (1cl, 2en), so an impossible verse is now REJECTED rather than
+        # kept. Full coverage lives in tests/test_canonical_extent_distinctive.py.
+        assert coord_in_canonical_extent("1en", 71, 99) is False  # 1en 71 has 17 verses
+        assert coord_in_canonical_extent("jub", 50, 99) is False  # jub 50 has 13 verses
+        # real in-extent coords still validate
+        assert coord_in_canonical_extent("1en", 71, 17) is True
+        assert coord_in_canonical_extent("jub", 50, 13) is True
 
     @pytest.mark.slow
     def test_byte_stable_vs_count_model_across_whole_skeleton(self):

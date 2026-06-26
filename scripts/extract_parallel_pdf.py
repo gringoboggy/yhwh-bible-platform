@@ -161,6 +161,21 @@ REPO = Path(__file__).resolve().parent.parent
 SOURCE_DIR = REPO / "content" / "translations" / "sources" / "parallel-bible-eotc"
 TRANSLATIONS_DIR = REPO / "content" / "translations"
 
+# The six Tewahedo-distinctive *_VERSE_COUNTS tables now live in the
+# dependency-free leaf scripts/core/distinctive_verse_counts.py (relocated there
+# in the R14 audit data-validity fix so the core canonical-extent guard can
+# consult them without importing this 3,700-line OCR CLI). Re-imported here so
+# every renumber-floor reference below is byte-identical.
+sys.path.insert(0, str(REPO))
+from scripts.core.distinctive_verse_counts import (  # noqa: E402  (REPO on path)
+    FOUR_BARUCH_VERSE_COUNTS,
+    JUBILEES_VERSE_COUNTS,
+    MQ1_VERSE_COUNTS,
+    MQ2_VERSE_COUNTS,
+    MQ3_VERSE_COUNTS,
+    ONE_ENOCH_VERSE_COUNTS,
+)
+
 # τ.6.x.1 — Tesseract engine constants. The 350-dpi render rate
 # matches the project_maccabees_expansion/02_METHODOLOGY.md §2
 # Phase-4 page-image cadence; higher dpi has diminishing OCR-accuracy
@@ -1645,86 +1660,10 @@ ESTHER_VERSE_COUNTS = {
 # witness the δ.1.x page-image-tier1 divergence apparatus diverges
 # FROM, NOT the long-term authoritative text. Fourteenth/fifteenth/
 # sixteenth renumber-floors under D1-a per-book cadence.
-MQ1_VERSE_COUNTS = {
-    1: 14,
-    2: 28,
-    3: 38,
-    4: 5,
-    5: 14,
-    6: 23,
-    7: 1,
-    8: 22,
-    9: 3,
-    10: 5,
-    11: 3,
-    12: 1,
-    13: 20,
-    14: 15,
-    15: 8,
-    16: 1,
-    17: 14,
-    18: 2,
-    19: 1,
-    20: 14,
-    21: 14,
-    22: 14,
-    23: 14,
-    24: 14,
-    25: 9,
-    26: 14,
-    27: 14,
-    28: 38,
-    29: 5,
-    30: 21,
-    31: 14,
-    32: 14,
-    33: 8,
-    34: 14,
-    35: 14,
-    36: 49,
-}
-# Total 1 Mäqabyan verses = 502 (36 ch; Maqabis-of-Benjamin
-# martyrology vs Ṣiruṣaydan).
-
-MQ2_VERSE_COUNTS = {
-    1: 14,
-    2: 9,
-    3: 11,
-    4: 17,
-    5: 14,
-    6: 8,
-    7: 9,
-    8: 14,
-    9: 11,
-    10: 14,
-    11: 9,
-    12: 18,
-    13: 7,
-    14: 29,
-    15: 11,
-    16: 8,
-    17: 5,
-    18: 14,
-    19: 10,
-    20: 13,
-    21: 11,
-}
-# Total 2 Mäqabyan verses = 256 (21 ch; Maqabis-of-Moab conversion
-# + sons' martyrdom + Ṣiruṣaydan's death).
-
-MQ3_VERSE_COUNTS = {
-    1: 28,
-    2: 24,
-    3: 15,
-    4: 34,
-    5: 14,
-    6: 14,
-    7: 14,
-    8: 10,
-    9: 5,
-    10: 30,
-}
-# Total 3 Mäqabyan verses = 188 (10 ch; homiletic + angelological
+# MQ1/MQ2/MQ3_VERSE_COUNTS relocated to scripts.core.distinctive_verse_counts
+# (imported at module top; R14 data-validity fix) — data + provenance live there.
+# Total 1 Mäqabyan = 502 (36 ch), 2 Mäqabyan = 256 (21 ch), 3 Mäqabyan = 188
+# (10 ch; homiletic + angelological
 # dialogue + Satan-refused-Adam tradition + resurrection-doctrine).
 # Trilogy total = 502 + 256 + 188 = 946 verses / 67 chapters.
 
@@ -1811,17 +1750,8 @@ SIRACH_VERSE_COUNTS = {
 # (identical caveat to TOBIT's GII recension variance). Eighteenth
 # renumber-floor; SECOND τ.7.x.* book in the sixth EOTC-parallel
 # block; drains it (Wisdom of Solomon opens the seventh block after).
-FOUR_BARUCH_VERSE_COUNTS = {
-    1: 11,
-    2: 10,
-    3: 22,
-    4: 11,
-    5: 34,
-    6: 25,
-    7: 37,
-    8: 9,
-    9: 32,
-}
+# FOUR_BARUCH_VERSE_COUNTS relocated to scripts.core.distinctive_verse_counts
+# (imported at module top; R14 data-validity fix) — data + provenance live there.
 # Total 4 Baruch verses = 191 (9 ch; Kraft-Purintun 1972; the
 # Ethiopic ch-9 Christian expansion is reconciled at τ.6.x.3).
 
@@ -1968,58 +1898,8 @@ BEL_AND_THE_DRAGON_VERSE_COUNTS = {
 # distinctive books; the structural_map.jubilees section
 # (Π.1-discovered [1454,1514], cross-validated 3× at τ.7.x.q/r/s)
 # is UPGRADED verified:tentative→true / Π.1→τ.7.x.t by this ship.
-JUBILEES_VERSE_COUNTS = {
-    1: 29,
-    2: 33,
-    3: 35,
-    4: 33,
-    5: 32,
-    6: 38,
-    7: 39,
-    8: 30,
-    9: 15,
-    10: 35,
-    11: 24,
-    12: 31,
-    13: 29,
-    14: 24,
-    15: 34,
-    16: 31,
-    17: 18,
-    18: 19,
-    19: 31,
-    20: 13,
-    21: 26,
-    22: 30,
-    23: 32,
-    24: 33,
-    25: 23,
-    26: 35,
-    27: 27,
-    28: 30,
-    29: 20,
-    30: 26,
-    31: 32,
-    32: 34,
-    33: 23,
-    34: 21,
-    35: 27,
-    36: 24,
-    37: 25,
-    38: 24,
-    39: 18,
-    40: 13,
-    41: 28,
-    42: 25,
-    43: 24,
-    44: 34,
-    45: 16,
-    46: 16,
-    47: 12,
-    48: 19,
-    49: 23,
-    50: 13,
-}
+# JUBILEES_VERSE_COUNTS relocated to scripts.core.distinctive_verse_counts
+# (imported at module top; R14 data-validity fix) — data + provenance live there.
 # Total Jubilees verses = 1306 (50 ch; R.H. Charles 1913 /
 # VanderKam 1989 CSCO enumeration; canonical CEILING — τ.6.x.3
 # reconciles the exact Ethiopic Mäṣḥafä Kufāle recension).
@@ -2050,116 +1930,8 @@ JUBILEES_VERSE_COUNTS = {
 # (Π.1-discovered [1515,1566], cross-validated at τ.7.x.s/t as the
 # post-Jubilees boundary) is UPGRADED verified:tentative→true /
 # Π.1→τ.7.x.u by this ship.
-ONE_ENOCH_VERSE_COUNTS = {
-    1: 9,
-    2: 3,
-    3: 1,
-    4: 1,
-    5: 9,
-    6: 8,
-    7: 6,
-    8: 4,
-    9: 11,
-    10: 22,
-    11: 2,
-    12: 6,
-    13: 10,
-    14: 25,
-    15: 12,
-    16: 4,
-    17: 8,
-    18: 16,
-    19: 3,
-    20: 8,
-    21: 10,
-    22: 14,
-    23: 4,
-    24: 6,
-    25: 7,
-    26: 6,
-    27: 5,
-    28: 3,
-    29: 2,
-    30: 3,
-    31: 3,
-    32: 6,
-    33: 4,
-    34: 3,
-    35: 1,
-    36: 4,
-    37: 5,
-    38: 6,
-    39: 14,
-    40: 10,
-    41: 9,
-    42: 3,
-    43: 4,
-    44: 1,
-    45: 6,
-    46: 8,
-    47: 4,
-    48: 10,
-    49: 4,
-    50: 5,
-    51: 5,
-    52: 9,
-    53: 7,
-    54: 10,
-    55: 4,
-    56: 8,
-    57: 3,
-    58: 6,
-    59: 3,
-    60: 25,
-    61: 13,
-    62: 16,
-    63: 12,
-    64: 2,
-    65: 12,
-    66: 3,
-    67: 13,
-    68: 5,
-    69: 29,
-    70: 4,
-    71: 17,
-    72: 37,
-    73: 8,
-    74: 17,
-    75: 9,
-    76: 14,
-    77: 9,
-    78: 17,
-    79: 6,
-    80: 8,
-    81: 10,
-    82: 20,
-    83: 11,
-    84: 6,
-    85: 10,
-    86: 6,
-    87: 4,
-    88: 3,
-    89: 77,
-    90: 42,
-    91: 19,
-    92: 5,
-    93: 14,
-    94: 11,
-    95: 7,
-    96: 8,
-    97: 10,
-    98: 16,
-    99: 16,
-    100: 13,
-    101: 9,
-    102: 11,
-    103: 15,
-    104: 13,
-    105: 2,
-    106: 19,
-    107: 3,
-    108: 15,
-}
+# ONE_ENOCH_VERSE_COUNTS relocated to scripts.core.distinctive_verse_counts
+# (imported at module top; R14 data-validity fix) — data + provenance live there.
 # Total 1 Enoch verses = 1064 (108 ch; R.H. Charles 1912
 # enumeration; canonical CEILING ≥ the γ.4.4 notes/1en.py maxima
 # at all 108 ch — τ.6.x.3 reconciles the exact Ethiopic Mäṣḥafä

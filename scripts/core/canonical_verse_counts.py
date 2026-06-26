@@ -173,27 +173,106 @@ def canonical_book_shape(book: str) -> dict[int, int]:
     return dict(_book_shape_cached(book))
 
 
-def coord_in_canonical_extent(book: str, chapter: int, verse: int) -> bool:
-    """True if ``(book, chapter, verse)`` is within the book's canonical extent —
-    or the book has no known canonical shape (Tewahedo distinctives etc.), in
-    which case it can't be validated and is kept. The single boundary guard that
-    keeps impossible coordinates (e.g. Genesis 87:12, from OCR/parse noise) out
-    of the corpus, regardless of which source or detector produced them.
+# ── Tewahedo-distinctive extent (R14 data-validity fix) ──────────────────────
+# The 8 books in ``TEWAHEDO_DISTINCTIVE_NO_KJV`` have no KJV/LXX skeleton, so the
+# skeleton-derived guards above cannot validate them — historically that made
+# ``coord_in_canonical_extent``/``html_chapter_count`` a silent NO-OP for them
+# (any coordinate kept). Six DO have an authoritative hand-typed per-chapter
+# verse table (in the dependency-free leaf ``distinctive_verse_counts``); the
+# other two (``1cl``/``2en``) have only a ``books.yaml`` ``ch_count``. Consulting
+# these closes the one boundary where an impossible coordinate (e.g. ``1en``
+# 999:99) could otherwise reach ``content/notes`` and be silently dropped at
+# inject. Additive: current on-disk data is clean (0 over-extent coords) so the
+# Ethiopian build stays byte-identical and the 9 KJV editions are unaffected.
 
-    Tests true verse-number MEMBERSHIP (not ``1..count``), so a non-1-start chapter
-    (``aes`` ch10, verses 4..13) validates against its real numbering — byte-identical
-    for every contiguous 1-start chapter (1361 of the 1362 skeleton chapters).
-    Round-13 data-validity finding DV2."""
+# Distinctive books WITHOUT a verse table — ch_count-ceiling-only (``1cl``/``2en``).
+_DISTINCTIVE_NO_VERSE_TABLE = tuple(
+    b for b in TEWAHEDO_DISTINCTIVE_NO_KJV if b not in ("mq1", "mq2", "mq3", "4ba", "jub", "1en")
+)
+
+
+@lru_cache(maxsize=1)
+def _distinctive_extent_map() -> dict[str, dict[int, int]]:
+    """``{book: {chapter: max_verse}}`` for the six distinctive books that have a
+    hand-typed verse table. The tables are ``{chapter: verse_count}``; for a
+    1-start contiguous book the count IS the highest verse number, so it doubles
+    as the per-chapter verse CEILING. Lazy import keeps the leaf
+    ``distinctive_verse_counts`` (and this module) free of import-time deps."""
+    from .distinctive_verse_counts import (
+        FOUR_BARUCH_VERSE_COUNTS,
+        JUBILEES_VERSE_COUNTS,
+        MQ1_VERSE_COUNTS,
+        MQ2_VERSE_COUNTS,
+        MQ3_VERSE_COUNTS,
+        ONE_ENOCH_VERSE_COUNTS,
+    )
+
+    return {
+        "mq1": dict(MQ1_VERSE_COUNTS),
+        "mq2": dict(MQ2_VERSE_COUNTS),
+        "mq3": dict(MQ3_VERSE_COUNTS),
+        "4ba": dict(FOUR_BARUCH_VERSE_COUNTS),
+        "jub": dict(JUBILEES_VERSE_COUNTS),
+        "1en": dict(ONE_ENOCH_VERSE_COUNTS),
+    }
+
+
+def _distinctive_ch_count(book: str) -> int | None:
+    """``books.yaml`` ``ch_count`` chapter ceiling for a distinctive book that has
+    NO verse table (``1cl``/``2en``). Returns ``None`` for any other code so that
+    genuinely unknown/test codes still reach the keep-all path. Lazy-loads
+    ``books.yaml`` (cached by ``config.load_books``)."""
+    if book not in _DISTINCTIVE_NO_VERSE_TABLE:
+        return None
+    try:
+        from .config import books_by_code
+
+        meta = books_by_code().get(book)
+        if meta is None:
+            return None
+        return int(meta["ch_count"])
+    except Exception:
+        return None
+
+
+def coord_in_canonical_extent(book: str, chapter: int, verse: int) -> bool:
+    """True if ``(book, chapter, verse)`` is within the book's canonical extent.
+    The single boundary guard that keeps impossible coordinates (e.g. Genesis
+    87:12, from OCR/parse noise) out of the corpus, regardless of which source or
+    detector produced them.
+
+    Canonical-skeleton books test true verse-number MEMBERSHIP (not ``1..count``),
+    so a non-1-start chapter (``aes`` ch10, verses 4..13) validates against its
+    real numbering — byte-identical for every contiguous 1-start chapter (1361 of
+    the 1362 skeleton chapters). Round-13 data-validity finding DV2.
+
+    The 8 Tewahedo-distinctive books have no KJV/LXX skeleton. Six are validated
+    against their hand-typed per-chapter verse table as a CEILING + chapter
+    membership; ``1cl``/``2en`` (no verse table) are validated against the
+    ``books.yaml`` ``ch_count`` chapter ceiling only. ``True`` (keep-all) is
+    reserved for genuinely unknown/test book codes. Round-14 data-validity fix
+    (was a silent no-op that kept ANY coordinate for these 8 shipping books)."""
     try:
         sets = dict(_book_verse_sets_cached(book))
     except Exception:
-        return True  # unknown book code — can't validate, keep
-    if not sets:
-        return True  # no canonical shape (Tewahedo distinctives etc.) — keep
-    verses = sets.get(chapter)
-    if not verses:
-        return False  # chapter not in this book's skeleton — impossible coordinate
-    return verse in verses
+        sets = {}  # no KJV/LXX skeleton on disk — try the distinctive fallback
+    if sets:
+        verses = sets.get(chapter)
+        if not verses:
+            return False  # chapter not in this book's skeleton — impossible coordinate
+        return verse in verses
+    # No KJV/LXX skeleton — Tewahedo distinctive. Six have a hand-typed
+    # {chapter: count} table → per-chapter verse CEILING + chapter membership.
+    # verse 0 is the project's chapter-level note convention (e.g. the two real
+    # on-disk 1en 91:0 / 94:0 chapter-intro comm notes) so the floor is 0, not 1.
+    extent = _distinctive_extent_map().get(book)
+    if extent is not None:
+        return chapter in extent and 0 <= verse <= extent[chapter]
+    # 1cl/2en have no verse table → enforce only the books.yaml chapter ceiling.
+    ch_count = _distinctive_ch_count(book)
+    if ch_count is not None:
+        return 1 <= chapter <= ch_count and verse >= 0
+    return True  # genuinely unknown / test book code — can't validate, keep
 
 
 def canonical_count(book: str, chapter: int) -> int:
@@ -235,12 +314,24 @@ def html_chapter_count(book: str) -> int:
     real aes 10..16 coords. A conservative upper bound that rejects clearly
     out-of-canon chapters (aes ch 17+) but does not, by itself, reject the parked
     aes 11-16 coords — their injectability is the inject pipeline's concern, not
-    this guard's. Books with no known skeleton (Tewahedo distinctives, or an
-    unknown/test book code) have no derivable extent and return 0, which the
-    guards treat as "unknown — do not reject" (mirroring ``coord_in_canonical_extent``).
+    this guard's. The 8 Tewahedo-distinctive books have no KJV/LXX skeleton: the
+    six with a hand-typed verse table return ``max(chapter keys)`` of that table,
+    and ``1cl``/``2en`` return the ``books.yaml`` ``ch_count`` (R14 data-validity
+    fix; was 0 = "unknown, do not reject"). Only a genuinely unknown/test book
+    code returns 0, which the guards treat as "unknown — do not reject" (mirroring
+    ``coord_in_canonical_extent``).
     """
     try:
         shape = canonical_book_shape(book)
-        return max(shape) if shape else 0
     except Exception:
-        return 0  # unknown book code — no derivable extent; guards keep
+        shape = {}  # no KJV/LXX skeleton on disk — try the distinctive fallback
+    if shape:
+        return max(shape)
+    # No KJV/LXX skeleton — Tewahedo distinctive (R14 fix).
+    extent = _distinctive_extent_map().get(book)
+    if extent:
+        return max(extent)
+    ch_count = _distinctive_ch_count(book)
+    if ch_count is not None:
+        return ch_count
+    return 0  # no derivable extent — guards treat 0 as "unknown — do not reject"
