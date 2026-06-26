@@ -5,6 +5,13 @@
 > `write_eink_study_backmatter_page` `a9c3857b`). **Findings-only — you implement the reductions in
 > `build_edition.py`.** Reusable profiler shipped: **`dev/audit/eink_oom_profile.py`** (tracemalloc +
 > RSS sampler, ready to run for empirical confirmation — see "Empirical status" below).
+>
+> **★★ 2026-06-26 UPDATE — re-profiled after your #1 streaming fix (`d6c3d270`); it DIAGNOSES the
+> "~1.4 GB post-retarget" site you couldn't. Jump to "Post-#1 re-measure" at the bottom.** TL;DR: peak
+> dropped 3591 → 2460 MB tracked (RSS 2937 → 2865 — barely, Python retains freed arenas). The remaining
+> ~2 GB is `_iter_study_glossary_pieces` STILL holding the ~485 MB glossary **~3× at once** (`text` kept
+> alive for fallback-yields + `_split_head_body_tail` + `_study_index_section_parts` slice sets). The
+> docstring's "peak ~one ~480 MB copy" is **not** achieved.
 
 ## TL;DR — THE remaining OOM driver (verified by code, one-line fix)
 
@@ -138,3 +145,54 @@ The five ~480–490 MB rows (`5469`/`4720`/`5043`/`5065`/`5120`) are the SAME gl
 across the split stages ⇒ ≈ 2.4 GB; plus the 489 MB orphaned entries list (`4271`) co-resident ⇒ the
 ~2.9 GB peak. Confirms (A)+(B) above and the empirical re-rank. The profiler is reusable for the post-fix
 re-measure (`dev/audit/eink_oom_profile.py`; falls back to `catholic-study --target-reader eink`).
+
+## Post-#1 re-measure — the remaining "post-retarget" site DIAGNOSED (2026-06-26, mac)
+
+Re-ran `dev/audit/eink_oom_profile.py ethiopian-tewahedo --target-reader eink` after the #1 streaming
+fix (`d6c3d270`). **Build COMPLETED in 2694 s on the 8 GB Mac (via memory-compression).**
+
+| metric | pre-#1 | post-#1 |
+|---|---:|---:|
+| tracemalloc-tracked peak | 3591 MB | **2460 MB** |
+| sampler peak current | 3582 MB | 2333 MB |
+| peak RSS (ru_maxrss) | 2937 MB | **2865 MB** |
+
+The #1 fix freed ~1130 MB of *tracked* allocation (it removed the cross-FILE `plan`-dict that pooled
+every file's pieces), but **RSS barely moved (2937 → 2865)** — Python keeps freed arenas resident, and a
+big co-resident core remains. **This is the "~1.4 GB post-retarget" site your monitor saw OOM but
+couldn't diagnose. It is actually ~2 GB, not 885 MB — the "885 MB monitored peak" under-measured the
+true whole-build peak** (the monitor likely sampled outside the glossary-split window).
+
+**Top live allocations at the post-#1 peak** (all the same ~485 MB glossary, multiple times):
+
+| MB | site | what's live |
+|---:|---|---|
+| 485 | `build_edition.py:5547` → `pathlib:788` | `p.read_text()` — the whole glossary `text` passed into `_iter_study_glossary_pieces` |
+| 485 | `build_edition.py:4751` (via `:5120` `_split_head_body_tail`) | `head, body, tail = text[:a], text[a:b], text[b:]` — a 2nd full copy |
+| 485 | `build_edition.py:5074` (via `:5125` `_study_index_section_parts`) | `body_prefix, sec_open, inner, body_suffix` — a 3rd full copy |
+| 356 | `build_edition.py:4300` (via `apply_badge_markers:8119`) | the `study-glossary-entry` `<div>` strings list |
+| 258 | `build_edition.py:5096` (via `:5132` `_study_glossary_chunk_atoms`) | the chunk-atom copies of `inner` |
+
+≈ **2.07 GB** in the top five — the ~485 MB glossary held **~3× simultaneously inside one
+`_iter_study_glossary_pieces` call** (`text` + `_split_head_body_tail` slices + `_study_index_section_parts`
+slices), plus the 356 MB entries list and 258 MB chunk atoms.
+
+**Why it's still ~3×, despite the `del body`:** the generator keeps **`text` alive for its whole duration**
+(every fallback `yield (stem, text)` path references the parameter), so the original 485 MB is never freed
+while `_split_head_body_tail(text)` (another 485 MB) and then `_study_index_section_parts(body)` (another
+485 MB) run. The `del body` only frees one of the three; `text`, `head`/`tail`, and the section-part
+wrappers stay co-resident.
+
+**Fix (deeper than #1 — the real terminus):** make `_iter_study_glossary_pieces` **index-based / single-pass**
+so the glossary is held ~1× for real:
+1. **Don't keep `text` alive for fallbacks** — decide the fallback (`len(text) <= target`, or split-failure)
+   FIRST and return; once the section-split path is committed, drop `text` before slicing.
+2. **Work with offsets into `text`, not full-size slices.** Replace `_split_head_body_tail` +
+   `_study_index_section_parts` (which each return whole-length slice tuples) with `text.find()` boundary
+   offsets, then slice + yield + release only each ~0.4 MB piece. No `head`/`body`/`tail`/`inner` full copies.
+3. Optionally shard the `apply_badge_markers` entries (`:4300`, 356 MB) to a temp file incrementally instead
+   of the in-RAM list (your earlier #3) — removes the co-resident 356 MB during the badge phase.
+After (1)+(2) the glossary peak should fall from ~1.45 GB to ~0.49 GB (one copy), taking the whole build
+well under 1 GB. Byte-identical (same cut points / same piece bytes — only the *order/lifetime* of the
+slices changes). Re-run `eink_oom_profile.py` to confirm; catholic-study + canon-filtered editions already
+build clean, so the gate is the flagship superset only.
