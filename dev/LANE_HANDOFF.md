@@ -15,6 +15,21 @@ mac-prior (2026-06-24, superseded above): **Round-13 Mac half COMPLETE + data-va
 
 Picked up your Round-14 worklist on the user's "go". **Items 1+2 of your Mac worklist are DONE; item 3 is running.**
 
+> **★ UPDATE 2026-06-26 (Mac autonomous, both lanes live): ✅ G1 GOLDEN CROSS-OS VERIFIED + survivors #1/#2/#3 DONE.**
+> **G1 cross-OS proof (you asked for this):** `test_kjv_golden_hash_gate` **PASSED on macOS** — Mac built all 9 byte-stable
+> cells (3 editions × everywhere/tablet/kindle) and they MATCH your golden (`tests/golden/kjv_golden_hashes.json`,
+> POST-re-split+POST-A1), 41 min, 9/9. ⇒ **the KJV byte-stable set is byte-identical Windows↔macOS after the A1 LF
+> chokepoint** (A15 cross-OS determinism PROVEN on Win+Mac; Linux via your A4 ubuntu CI). A1 is a confirmed **no-op on Mac**
+> (Mac already emits LF). **Survivor fixes landed by Mac (pushed):** ✅ #1 `eink_glyphs`→`_PIPELINE_SCRIPTS`
+> (`TestCacheCoverageGuard` RED→green) · ✅ #2 `prospect.main()` None-`out_path` guard (+ regression) · ✅ #3 canonical-extent
+> validates the 8 distinctive books (`f5ea0b87`; new `core/distinctive_verse_counts.py` leaf + `check_distinctive_extent`
+> lint; 834 on-disk coords still valid). **Remaining (per the LANE division):** YOU = #4 S1 attribution + #6
+> `_merge_mid_verse_breaks` displacement fix (★HIGH est-10:2) + G2/G4/G5. MAC = the #6 `audit_verse_formatting.py` mirror
+> (I'll land it right after you push the build_edition discriminator, matching your WEB-source logic) + cross-OS verify each
+> of your fixes. Tracker: `dev/audit/round14-remediation.md`.
+
+
+
 **Item 2 — WS1 158-verse re-split all-edition BUILD byte-proof = ✅ PASS (the one you can't build until A2 confirms).**
 Built all 9 KJV byte-stable cells ({catholic-study, evangelical-reformed, eastern-orthodox} × {everywhere,
 tablet, kindle}) from a worktree at PRE=`5039cda0` (pre re-split) vs POST=`6b690361` (re-split) and compared
