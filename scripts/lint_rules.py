@@ -2032,6 +2032,13 @@ _RETIRED_EDITION_SKU_EXCLUDE_PARTS = (
     "dev/SESSION_STATE_archive",
     "HANDOFF_README_v7.md",
     "docs/superpowers/",
+    # The round-15 D1 release-asset gate + its remediation tracker reference the retired
+    # SKU names BY DESIGN — the gate detects retired-SKU EPUBs attached to a release (a
+    # surface this tree-scan can't see) and its selftest must name them to prove it is
+    # non-tautological; the tracker documents the live-release finding. Same category as
+    # ``lint_rules.py`` self-exempting because it defines ``_RETIRED_EDITION_SKUS``.
+    "dev/audit_release_assets.py",
+    "dev/audit/round15-remediation.md",
 )
 
 

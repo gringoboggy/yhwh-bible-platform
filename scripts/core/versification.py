@@ -884,6 +884,21 @@ _VULGATE_PSALM_FIXES: dict[tuple[int, int], tuple[int, int]] = {
     #     endureth for ever") = the tail of KJV 136:26 ("O give thanks unto the God of
     #     heaven: for his mercy endureth for ever") -- the Douay's doubled doxology line.
     (135, 27): (136, 26),
+    # --- Vulgate AND Douay trailing verse on Ps 2 + Ps 4 (round-15 D3 fix) -------
+    # Unlike the three Douay-only folds above, BOTH the Latin Vulgate and the English Douay
+    # carry one EXTRA trailing verse on Pss 2 and 4 (each splits the psalm's closing line in
+    # two), so the shared ``_psalm_map`` had no key for it and ``vulgate_to_kjv`` returned None
+    # -- the closing clause was silently DROPPED from BOTH parallel popups (caught by
+    # dev/audit_versification_coverage.py; KJV 2:12 / 4:8 shipped missing their tail). Fold
+    # each onto the LAST KJV verse of its psalm (concatenated in source order). Verified vs KJV:
+    #   Ps 2: D/V 2:13 ("When his wrath shall be kindled in a short time, blessed are all they
+    #     that trust in him") = the close of KJV 2:12 ("...when his wrath is kindled but a
+    #     little. Blessed are all they that put their trust in him"). [2:12 already maps 1:1.]
+    (2, 13): (2, 12),
+    #   Ps 4: D/V 4:10 ("For thou, O Lord, singularly hast settled me in hope") = the tail of
+    #     KJV 4:8 ("...for thou, LORD, only makest me dwell in safety"). [D/V 4:9 already -> 4:8,
+    #     so KJV 4:8's popup carries D/V 4:9 + 4:10, the whole verse.]
+    (4, 10): (4, 8),
 }
 
 # Per-book verse-segment tables (source = Vulgate/Douay numbering -> canonical KJV),

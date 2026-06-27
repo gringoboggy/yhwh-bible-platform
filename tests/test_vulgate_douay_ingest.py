@@ -344,6 +344,12 @@ class TestVulgatePsalmFixes:
             (108, 17, (109, 16)),  # split: second half merged onto 109:16
             (108, 18, (109, 17)),  # merge: KJV 109:18 folds into D 108:18
             (108, 19, (109, 19)),  # identity resumes
+            # round-15 D3 fix: BOTH the Latin Vulgate and the English Douay carry one extra
+            # trailing verse on Ps 2 + Ps 4 (split the psalm's closing line); it had no map
+            # key, so vulgate_to_kjv returned None and the clause was DROPPED from the popups.
+            # Fold each onto the last KJV verse (dev/audit_versification_coverage.py guards it).
+            (2, 13, (2, 12)),  # was None (dropped); folds the close of KJV 2:12
+            (4, 10, (4, 8)),  # was None (dropped); folds the tail of KJV 4:8
         ],
     )
     def test_psalm_fix_maps(self, vch, vvs, expected):

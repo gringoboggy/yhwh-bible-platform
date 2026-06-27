@@ -5,21 +5,21 @@ Process matches round-14: configure `deep-audit.js ROUND=15` → run two-lane �
 byte-stability → loop-until-green. `truth_owner = windows`; file-disjoint (WIN owns `scripts/build_edition.py` +
 build-heavy dims; Mac owns `scripts/core/versification.py` + source/build-free dims + cross-OS verify).
 Marathon core off-limits. Round-14 SETTLED items are `DEFERRED_BY_DESIGN` (a verifier must refute any finding that
-merely re-raises them).
+merely re-raises them). Mac plan: `~/.claude/plans/tranquil-sleeping-lemur.md`.
 
 ## Dimensions
 
 | Dim | sev | lane | finding / defect class | status |
 |-----|-----|------|------------------------|--------|
-| **D4** | HIGH | WIN | round-14 #4 `_cascade = s2_group or eink_backmatter` over-strips dict/topic/xref/witness **source provenance** in the `{S1-on, S2-off, eink-backmatter}` /customize combo — the eink-backmatter glossary (`_study_glossary_category_body`, `s2_group=False`) emits BARE rows with no re-surfacing byline | ✅ **FIXED** (WIN) — `build_edition.py:4228` narrowed to `_cascade = s2_group`. Empirically confirmed: gen-1 dict-easton provenance `Dictionary (Easton's)` 545→**0** pre-fix vs **545** post-fix (matches non-eink control). Regression test `test_d4_dict_source_provenance_conserved_on_eink_backmatter_s2off` (RED 0≠545 → GREEN 545==545). `test_note_rehaul` 51 + `test_ws2_cascade_redundancy` 11 (round-14 #4 strip-fn pins intact) + `test_kobo_device_qa` 16 green. **Byte-stable by tautology** (all 9 KJV golden cells non-eink ⇒ `eink_backmatter=False` ⇒ line identical; catholic-study eink has `s2_group=True` ⇒ `_cascade` identical) — G1 golden gate confirming. |
-| **D3** | HIGH | MAC | Douay/Clementine-Vulgate **Psalm 2:13 + Psalm 4:10 silently DROPPED** — `vulgate_to_kjv` returns `None`, so real scripture text is missing from the parallel popups | ☐ **CONFIRMED LIVE (WIN verified, Mac to fix).** `vulgate_to_kjv("psa",2,13)→None`, `("psa",4,10)→None`; both verses present in `content/translations/sources/douay-rheims/engDRA_vpl.txt`. Fix = add `_VULGATE_PSALM_FIXES` `(2,13)→(2,12)` + `(4,10)→(4,8)` (trailing concat-fold, same shape as the present `(135,27)→(136,26)` at `versification.py:886`). Build `dev/audit_versification_coverage.py` (source-coverage gate). **Byte note:** changes catholic-study (carries the Douay popup) → reviewed re-baseline via `G1 --regen` on the affected cells; confirm diff confined to Ps 2:12 / 4:8 popups. |
-| **D1** | HIGH | MAC | release asset-set integrity (orphan/missing/dup SHA256SUMS, stale hard-coded version, retired-SKU EPUBs) | ☐ TODO (Mac) — `dev/audit_release_assets.py`. Spotted: `gen_release_catalog.py:47-55/61-68` hard-codes `v0.1.0`; `lint_rules.check_retired_edition_skus` scans only the repo tree. |
-| **D2** | MED | WIN | rendered xref/noteref anchor whose target id is absent from the reader's spine piece (idmap miss / canon-filter drop); `check_xrefs.py` scans only pre-split superset | ◐ **PARTIAL (WIN).** ✅ `check_xrefs.py:52-53` regex hardened — `\bid=`/`\bhref=` → `(?<![-\w])…` so a future `data-*-id=`/`data-*-href=` value is no longer harvested as a real id/link (dormant today: 0 in base, proven zero-diff; self-checked). ☐ Remaining: extend **G3** `audit_idmap_frags` with an xref breakout on FRESH canon-filtered + superset builds + wire into the per-build gate (needs a build). |
-| **D5** | HIGH | WIN | `_stream_glossary_pieces_from_bytes` byte-streamer reached in PROD only by the >64 MB ethiopian flagship glossary, never byte-verified at scale; G5/`_atom_rewrite_headroom` proven only on catholic link density | ☐ TODO (WIN) — CHECK A (real flagship `index_split_900` str==from-file) + CHECK B (G5 on a fresh flagship build). Resolve: is catholic-study's glossary <64 MB (str-delegate)? |
-| **D6** | MED | MAC | two independent canon determinations feed one EPUB with no source-anchored cross-check; Delta.4 equivalence pin is vacuous | ☐ TODO (Mac) — `dev/audit_canon_bookcount.py` (4-way source-anchored recount + note recount + printed "It spans N books" == spine count). |
-| **D7** | MED | MAC | migration re-run/idempotency: 0001 coarse single-file marker before non-atomic `shutil.copy2`; torn-partial reports "migrated" | ☐ TODO (Mac) — `dev/audit_migration_idempotence.py` (AST write-route + double-apply convergence + ledger-independence + torn-partial probe). |
-| **D8** | MED | WIN | emitted nav/opf order never asserted vs config; `enrich_nav_chapters` sorts chapters ascending → a reading-flow swap is invisible to the ToC AND the auditor | ☐ TODO (WIN) — `dev/audit_canonical_order.py` (spine bp == canonical w/ folds/demotions; chapter anchors ascending in DOCUMENT order; encode the nav-83-vs-spine-86 demotion model). No confirmed order defect; latent sort-masking. |
-| **D9** | MED | WIN | fresh ethiopian `.kepub` inline `verse-notes` ids missing `-sN` tail (Kobo navigates instead of pops); `verify_kr2_build._POPUP_ASIDE_RE` can pass vacuously if kepubify reorders attrs | ☐ TODO (WIN) — `dev/audit_kepub_revid_family.py` (bucket inline vs navigate ids on a FRESH `.kepub`; assert `_POPUP_ASIDE_RE` matches >0). Fix `deep-audit.js:294` stale `dist/…kepub` pointer. |
+| **D4** | HIGH | WIN | round-14 #4 `_cascade = s2_group or eink_backmatter` over-strips dict/topic/xref/witness **source provenance** in the `{S1-on, S2-off, eink-backmatter}` /customize combo — the eink-backmatter glossary (`_study_glossary_category_body`, `s2_group=False`) emits BARE rows with no re-surfacing byline | ✅ **FIXED** (WIN, `2afa6126`) — `build_edition.py:4228` narrowed to `_cascade = s2_group`. Empirically confirmed: gen-1 dict-easton provenance 545→**0** pre-fix vs **545** post-fix. Regression `test_d4_dict_source_provenance_conserved_on_eink_backmatter_s2off` (RED→GREEN). **Byte-stable by tautology** (9 KJV golden cells non-eink ⇒ `eink_backmatter=False`; catholic-study eink has `s2_group=True`). Gate `audit_customize_flag_matrix.py` = WIN (couples with the fix). Mac diagnosis (3-agent) concurred. |
+| **D3** | HIGH | MAC | Douay/Clementine-Vulgate **Ps 2:13 + Ps 4:10 silently DROPPED** — `vulgate_to_kjv`→`None`, real scripture missing from the `vulgate` parallel popup | ✅ **FIXED** (Mac, `29321fad`) — `_VULGATE_PSALM_FIXES` `(2,13)→(2,12)` + `(4,10)→(4,8)` (same trailing-fold shape as `(135,27)→(136,26)`); regen CONFINED to douay/vulgate `psa.py` (2:12/4:8 gain their tails; appendix + `_meta` preserved). `dev/audit_versification_coverage.py` exhaustive gate GREEN (selftest non-taut; breadth pass found 0 more drops). Pinned: `test_psalm_fix_maps[(2,13)/(4,10)]` + `test_round15_source_gates`. ⚠ **G1 golden RE-STAMP PENDING (WIN)** — `vulgate` popup (all 4 study editions) gains the Ps 2:12/4:8 clause; built delta confined to those 2 verses; `douay` store latent. |
+| **D1** | HIGH | MAC | release asset-set integrity (orphan/missing/dup SHA256SUMS, retired-SKU EPUBs) | ✅ **GATE DONE** (Mac, `29321fad`) `dev/audit_release_assets.py` (selftest + live). **Live v0.1.0 has 100 retired-SKU EPUBs attached** (all 5 retired editions × 20 cells — not "2"); bijection clean (0 orphan/missing). The `gen_release_catalog` v0.1.0 strings are INTENTIONAL legacy cells (sub-check dropped, per plan). **FIX = v1.0.0 tag-time re-cut** (outward-facing → flagged, NOT autonomous). `check_retired_edition_skus` excludes the gate+tracker (they name SKUs to detect them). |
+| **D2** | MED | WIN | rendered xref/noteref anchor whose target id is absent from the reader's spine piece; `check_xrefs.py` scans only pre-split superset | ◐ **PARTIAL (WIN, `2afa6126`).** ✅ `check_xrefs.py:52-53` regex hardened (`\bid=`/`\bhref=` → `(?<![-\w])…`; dormant today, zero-diff). ☐ Remaining: extend **G3** `audit_idmap_frags` xref breakout on FRESH builds + wire into the per-build gate. |
+| **D5** | HIGH | WIN | `_stream_glossary_pieces_from_bytes` byte-streamer reached in PROD only by the >64 MB ethiopian flagship glossary, never byte-verified at scale | ☐ TODO (WIN) — CHECK A (real flagship `index_split_900` str==from-file) + CHECK B (G5 on a fresh flagship build). |
+| **D6** | MED | MAC | two independent canon determinations feed one EPUB with no source-anchored cross-check; Delta.4 equivalence pin is vacuous (both paths share `_canon_books_for_edition`) | ☐ **IN PROGRESS (Mac)** — `dev/audit_canon_bookcount.py` (source-anchored 4-way recount: fresh `yaml.safe_load(canons.yaml)` == `compute_matrix` == file-walk == `epub_utils.load_canons`; note recount == `resolved_note_counts['total']`) + de-vacuum the Δ.4 test. |
+| **D7** | MED | MAC | migration re-run/idempotency: 0001 coarse single-file marker before non-atomic UNSORTED `shutil.copy2`; torn-partial reports "migrated" | ☐ **IN PROGRESS (Mac)** — `dev/audit_migration_idempotence.py` (sandbox via `YHWH_DATA_DIR`: double-apply convergence + ledger-independence + torn-partial probe) + 0001 torn-safe fix (sorted copy + marker written LAST, atomically). |
+| **D8** | MED | WIN | emitted nav/opf order never asserted vs config; `enrich_nav_chapters` sorts chapters ascending → a swap is invisible to ToC + auditor | ☐ TODO (WIN) — `dev/audit_canonical_order.py` (encode the nav-83-vs-spine-86 demotion model). |
+| **D9** | MED | WIN | fresh ethiopian `.kepub` inline `verse-notes` ids missing `-sN` tail; `_POPUP_ASIDE_RE` can pass vacuously if kepubify reorders attrs | ☐ TODO (WIN) — `dev/audit_kepub_revid_family.py` (bucket inline vs navigate ids on a FRESH `.kepub`). |
 
 ## Round-14 SETTLED → DEFERRED_BY_DESIGN (do NOT re-litigate)
 A1 LF chokepoint · A2 single-pass `_apply_splices` (the OOM was largely the AppXSvc commit-leak) · G1–G5 + A4 built ·
@@ -30,11 +30,52 @@ separators, eink font `!important`, page-break re-arch, poetry mid-verse KEPT.
 
 | owner | dimensions | files |
 |-------|-----------|-------|
-| **WIN** | D4 ✅ · D2 · D5 · D8 · D9 + `audit_customize_flag_matrix.py` (couples with the D4 fix) | `scripts/build_edition.py` (WIN-exclusive), `scripts/check_xrefs.py`, `dev/audit_canonical_order.py`, `dev/audit_kepub_revid_family.py`, `dev/audit_customize_flag_matrix.py`, `tests/**`, `.claude/workflows/deep-audit.js` |
-| **MAC** | D3 · D1 · D6 · D7 + cross-OS verify every WIN build | `scripts/core/versification.py`, `dev/audit_versification_coverage.py`, `dev/audit_release_assets.py`, `dev/audit_canon_bookcount.py`, `dev/audit_migration_idempotence.py` |
+| **WIN** | D4 ✅ · D2 ◐ · D5 · D8 · D9 + `audit_customize_flag_matrix.py` (D4 gate) + the G1 golden re-stamp for D3 | `scripts/build_edition.py` (WIN-exclusive), `scripts/check_xrefs.py`, `tests/golden/kjv_golden_hashes.json`, `dev/audit_canonical_order.py`, `dev/audit_kepub_revid_family.py`, `dev/audit_customize_flag_matrix.py`, `.claude/workflows/deep-audit.js` |
+| **MAC** | D3 ✅ · D1 ✅(gate) · D6 · D7 + cross-OS verify every WIN build | `scripts/core/versification.py`, `content/translations/{douay-rheims,vulgate-clementine}/psa.py`, `dev/audit_versification_coverage.py`, `dev/audit_release_assets.py`, `dev/audit_canon_bookcount.py`, `dev/audit_migration_idempotence.py` |
+
+## D3 detail — versification coverage (HIGH, build-free)
+
+The exhaustive gate walks **every** source vpl coordinate (Douay `engDRA_vpl.txt` 35,811 v + Vulgate
+`latVUC_vpl.txt` 35,809 v) through the real `vulgate_to_kjv` and flags any non-allowlisted `None`/out-of-extent.
+
+- **Real defects (FIXED): exactly Ps 2:13 + Ps 4:10** — trailing folds of the closing clause of KJV Ps 2:12 / 4:8
+  (`_LXX_PSALM_COUNTS[2]=12`/`[4]=9`, were absent from `_VULGATE_PSALM_FIXES`). The breadth find pass found 0 more.
+- **By-design omits (allowlisted, documented in the gate):** 66 psalm superscriptions (62 v1 + 4 two-line v1+v2 for
+  Ps 50/51/53/59 — verified psa 50:3 "Miserere mei, Deus" → KJV 51:1); Greek Additions to Esther (est 10:4–16:24,
+  no `aes` parallel store, matches the LXX `_EST_OMIT`); **dan 14:42** (Vulgate-only closing decree — documented at
+  `versification.py` `_vulgate_cross` ~L1445; **a naive fix would have corrupted bel 42 — caught by reading the code**);
+  tob/jdt/sir (`_VULGATE_OMIT`).
+- Post-fix gate exits 0 both translations (mapped_ok +2 each; `psa.py` diff confined). Removed 3 stale untracked douay
+  `tob/jdt/sir` leftovers (identity coords from an old non-remap extraction; current remap omits them).
+
+**⚠ CROSS-LANE — G1 golden re-stamp (WIN):** the `vulgate` popup → `vulgate-clementine` store, which **all 4 study
+editions carry** (`popup_languages_default`), so D3 changes the built EPUB at Ps 2:12/4:8 for catholic-study /
+evangelical-reformed / eastern-orthodox (the 3 G1 golden editions) + ethiopian. RATIFIED content restoration (plan-
+approved) → re-stamp `tests/golden/kjv_golden_hashes.json` (same as the WS1 re-split). Expected built delta = ONLY the
+Ps 2:12/4:8 `vulgate` popup. The `douay` store change is latent (no edition uses the `douay` popup). WIN: rebuild the
+9 cells, confirm the confined delta, `G1 --regen`.
+
+## D1 detail — release-asset integrity (HIGH, offline gate)
+
+Gate run against LIVE v0.1.0: **187 attached = 180 grammar + 2 legacy + 4 platform (exe/AppImage/dmg/font-pack) + 1
+meta**, bijection clean, **but 100 retired-SKU EPUBs attached** (anglican-bcp, coptic-orthodox, jewish-study,
+lutheran-confessional, scholarly-academic × 4 fmt × 5 colour). `check_retired_edition_skus` is blind (repo-tree only).
+**FIX = the v1.0.0 tag-time asset re-cut** (delete the 100 + their sums lines) — outward-facing, flagged for the user.
+
+## Invariants
+- 9-KJV byte-stable: the KJV scripture BODIES are untouched by every Mac dim. **D3 changes the `vulgate` popup at Ps
+  2:12/4:8** in the study editions (the 3 G1 golden editions) — a RATIFIED restoration → G1 re-stamp (WIN). D4 (WIN) is
+  unshipped-combo-only. No build-path import added by the Mac gates.
+- Gates are standalone `dev/audit_*.py` with `--selftest` (non-tautological), mirroring G3/G4/G5; build-free ones wired
+  into `tests/test_round15_source_gates.py` (per-push), exhaustive scans `slow`-marked.
+- deep-audit/breadth engine edits stay LOCAL (the Mac breadth pass was a fresh inline Workflow, not a committed-engine
+  edit → no commit hazard).
 
 ## Log
-- **2026-06-26 kickoff (WIN)** — plan approved in plan mode; program verified still-apt against current code (D3/D4
-  confirmed live; D2/D9 blindspots real; round-14 settled items on disk). Mac monitor armed.
-- **2026-06-26 D4 FIXED (WIN)** — `_cascade = s2_group`; RED→GREEN regression + 78 related tests green; byte-stable
-  (tautology + G1 gate running). D3/D1/D6/D7 handed to Mac via LANE_HANDOFF.
+- **2026-06-26 kickoff (WIN)** — plan approved; program verified still-apt; D3/D4 confirmed live; round-14 settled on disk.
+- **2026-06-26 D4 FIXED (WIN, `2afa6126`)** — `_cascade = s2_group`; RED→GREEN + 78 tests; byte-stable. D2 xref regex hardened.
+- **2026-06-26 Mac breadth find pass** — fresh inline Workflow, 5 Mac dims, find→adversarially-verify: **0 new survivors**
+  (every candidate refuted; confirms the pre-found defects + exhaustive gates are complete).
+- **2026-06-26 D3 FIXED + D1 GATE (Mac, `29321fad`)** — Ps 2:13/4:10 fold; D3 + D1 gates built + selftested + wired;
+  D1 live-confirmed 100 retired assets; 3 stale douay leftovers removed; `check_retired_edition_skus` exclusion. **WIN: re-stamp G1 golden for D3.**
+- **2026-06-26 Mac D6/D7 IN PROGRESS** — building the canon-bookcount + migration-idempotence gates (+ 0001 torn-safe fix).
