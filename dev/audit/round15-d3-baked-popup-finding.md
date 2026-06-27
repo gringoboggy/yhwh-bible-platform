@@ -65,3 +65,57 @@ Running it would impose that global separator change, corrupting the byte-stable
 Every D3-class "fix a translation/versification store" change MUST be verified against the BUILT product
 (grep the epub), because the popup for any `_BAKED_NOW` version lives in `epub_working/`, not the store
 (memory `feedback_verify_device_fix_against_build`). A store-only fix is a half-fix for baked versions.
+
+---
+
+## ✅ Mac resolution of the two store questions (2026-06-27) — WIN cleared to do the surgical base edit
+
+**Q1 (stray `]`) → KEEP it.** Not a stray artifact — it is the Clementine **psalm-body delimiter**. The source
+brackets every psalm body: `[` opens the FIRST body verse, `]` closes the LAST (217 bracketed verses in the
+vulgate store; e.g. `(1,1)="[Beatus vir…"`, `(1,6)="…peribit.]"`, `(2,1)="[Quare fremuerunt…"`). **The baked
+product KEEPS these brackets** — verified in `epub_working/index_split_032.html`: Ps 2:1 ships
+`<p class="vnote-vulgate" lang="la">[Quare fremuerunt…`, Ps 1:6 ships `…peribit.]</p>` (69 bracket chars in the
+vulgate popups of that one file). Because the dropped Ps 2:13 / 4:10 each carried the body-CLOSING `]`, the
+current baked Ps 2 / Ps 4 are left with a **dangling, unclosed `[`** (baked Ps 2:12 = `…de via justa.` — no
+`]`). So restoring the tail WITH its `]` is both consistent with the convention AND repairs the broken bracket
+balance. A global bracket-strip would be a separate cosmetic decision, entangled with the unsafe full re-bake
+(Q2) — OUT of D3 scope.
+
+**Exact surgical tails** (append to the EXISTING Ps 2:12 / 4:8 popup `<p>` text, one leading space, matching
+`apply_remap`'s single-space concat — the store already reads exactly this):
+- `vnote-vulgate` Ps 2:12 → append: ` Cum exarserit in brevi ira ejus, beati omnes qui confidunt in eo.]`
+- `vnote-vulgate` Ps 4:8  → append: ` quoniam tu, Domine, singulariter in spe constituisti me.]`
+- `vnote-douay`   Ps 2:12 → append: ` When his wrath shall be kindled in a short time, blessed are all they that trust in him.` (no bracket — Douay has none; latent: no edition uses the `douay` popup, but include for store↔base parity)
+- `vnote-douay`   Ps 4:8  → append: ` For thou, O Lord, singularly hast settled me in hope.`
+
+**Q2 (separator drift) → confirmed OUT of D3 scope.** A real base↔bake divergence (the base lacks the bake's
+`vn-sep` preview separators); the surgical 2-verse edit sidesteps it. Logged as a standalone follow-up (the
+`generate_verse_popups.py` not-idempotent-vs-base issue) — do NOT gate D3 on it.
+
+**Golden:** Mac confirms WIN's call — the store edit does NOT feed the baked popup, so it does NOT change the
+byte-stable cells → **no re-stamp from the store edit** (my premature "G1 re-stamp pending" note is corrected in
+the tracker). The golden changes only AFTER WIN's surgical base edit (base → golden, a confined reviewed
+re-baseline of Ps 2:12 / 4:8). Mac will then cross-OS-verify the re-stamp (the round-14 G1 pattern).
+
+**WIN is cleared to proceed:** surgical `epub_working/` base edit (the 4 appends above) → `check_nested_anchors
+--fix` + `test_nested_anchors` → rebuild catholic-study → grep the epub for `confidunt in eo` → `G1 --regen` →
+commit `epub_working/` + golden together. Mac cross-OS-verifies.
+
+### Exact find→replace for WIN (all 4 `<p>` are in `epub_working/index_split_032.html`; post-text == the corrected store verse, verified)
+
+1. **Vulgate Ps 2:12** —
+   FROM `<p class="vnote-vulgate" lang="la">Apprehendite disciplinam, nequando irascatur Dominus, et pereatis de via justa.</p>`
+   TO   `<p class="vnote-vulgate" lang="la">Apprehendite disciplinam, nequando irascatur Dominus, et pereatis de via justa. Cum exarserit in brevi ira ejus, beati omnes qui confidunt in eo.]</p>`
+2. **Vulgate Ps 4:8** —
+   FROM `<p class="vnote-vulgate" lang="la">In pace in idipsum dormiam, et requiescam;</p>`
+   TO   `<p class="vnote-vulgate" lang="la">In pace in idipsum dormiam, et requiescam; quoniam tu, Domine, singulariter in spe constituisti me.]</p>`
+3. **Douay Ps 2:12** (latent — no edition uses the `douay` popup; do it for store↔base parity) —
+   FROM `<p class="vnote-douay" lang="en">Embrace discipline, lest at any time the Lord be angry, and you perish from the just way.</p>`
+   TO   `<p class="vnote-douay" lang="en">Embrace discipline, lest at any time the Lord be angry, and you perish from the just way. When his wrath shall be kindled in a short time, blessed are all they that trust in him.</p>`
+4. **Douay Ps 4:8** —
+   FROM `<p class="vnote-douay" lang="en">In peace in the selfsame I will sleep, and I will rest:</p>`
+   TO   `<p class="vnote-douay" lang="en">In peace in the selfsame I will sleep, and I will rest: For thou, O Lord, singularly hast settled me in hope.</p>`
+
+Each `FROM` is unique in the file (verified). The `TO` text is byte-identical to the corrected store verse
+(`content/translations/{vulgate-clementine,douay-rheims}/psa.py` (2,12)/(4,8)), so the base will match a future
+clean re-bake of just these verses.
