@@ -9,19 +9,24 @@
 > file-disjoint (truth_owner=windows): **WIN** = `build_edition.py` + D2/D5/D8/D9 + build-needing gates + `deep-audit.js`
 > config; **MAC** = `versification.py` + D3/D1/D6/D7 + build-free gates + cross-OS verify. Tracker
 > `dev/audit/round15-remediation.md`.
-> - **✅ D4 (HIGH) FIXED (WIN)** — round-14 #4's `_cascade = s2_group or eink_backmatter` over-stripped dict/topic/xref/
->   witness source provenance in the `{S1-on, S2-off, eink-backmatter}` /customize combo (the backmatter glossary's
->   `s2_group=False` branch never re-surfaces it). Narrowed to `_cascade = s2_group` (`build_edition.py:4228`).
->   gen-1 `Dictionary (Easton's)` provenance 0→545 (matches non-eink control); regression RED 0≠545 → GREEN 545==545;
->   `test_note_rehaul` 51 + `test_ws2_cascade_redundancy` 11 + `test_kobo_device_qa` 16 green. Byte-stable by tautology
->   (9 KJV golden cells non-eink ⇒ line identical; catholic-study eink `s2_group=True` ⇒ identical) — **G1 golden gate
->   RUNNING** to confirm; commit + push on PASS.
-> - **▶ MAC (handed off, LANE_HANDOFF WIN→Mac at TOP):** D3 Douay/Vulgate **Ps 2:13 + 4:10 silently DROPPED**
->   (confirmed-live `vulgate_to_kjv→None`; fix `_VULGATE_PSALM_FIXES` `(2,13)→(2,12)` + `(4,10)→(4,8)` + coverage gate) ·
->   D1 release-asset gate · D6 book-count gate · D7 migration-idempotence gate · cross-OS verify WIN builds.
-> - **WIN remaining:** D2 (G3 xref breakout + `check_xrefs.py:52` regex) · D5 (flagship glossary byte-verify) ·
->   D8 (`audit_canonical_order.py`) · D9 (`audit_kepub_revid_family.py` + `deep-audit.js:294` stale pointer). Heavy
->   builds run ONE-AT-A-TIME (RAM cap). Optional: configure + run `deep-audit.js ROUND=15` for deeper discovery.
+> - **✅ D4 (HIGH) FIXED + PUSHED (WIN, `2afa6126`)** — `_cascade = s2_group` (`build_edition.py:4228`); gen-1
+>   `Dictionary (Easton's)` provenance 0→545; regression RED 0≠545 → GREEN; 78 tests; **G1 golden gate PASSED 9/9**
+>   (byte-stable empirically confirmed) + tautology (golden cells non-eink ⇒ identical).
+> - **✅ D2 PARTIAL + PUSHED (WIN, `2afa6126`+`65bcfa0a`)** — `check_xrefs.py:52` regex guard (`data-*-id` dormant,
+>   zero-diff) + **G3 presence floor** (`--min-links`; guards wholesale xref loss → vacuous-green) wired at 10000 +
+>   value-flag arg-parse fix. ☐ remaining: G3 xref breakout on a fresh build.
+> - **✅ MAC DONE its 4 dims (pulled):** D3 (`_VULGATE_PSALM_FIXES` `(2,13)→(2,12)`+`(4,10)→(4,8)` + coverage gate) ·
+>   D1 (release-asset gate; live v0.1.0 has 100 retired-SKU EPUBs → v1.0.0 tag-time re-cut) · D6 (canon book-count
+>   gate + de-vacuumed Δ.4) · D7 (migration 0001 torn-safe + idempotence gate). + cross-OS verify pending.
+> - **★ D3 IS INCOMPLETE (WIN discovery, `dev/audit/round15-d3-baked-popup-finding.md`):** verified vs the BUILT epub
+>   — vulgate/douay popups are BAKED into `epub_working/` (`_BAKED_NOW`) and no edition sets `translation_id`, so
+>   Mac's store fix does NOT reach the shipped popup. ⇒ (1) **G1 golden UNCHANGED, NO re-stamp** (the "mismatch" was
+>   the `--version` confound; saved a 42-min regen); (2) the Bible STILL drops Ps 2:13/4:10 until `epub_working/` is
+>   re-baked. Full re-bake UNSAFE (22k-line `vn-sep` separator drift) → SURGICAL 2-verse base edit + `G1 --regen` is
+>   the path. ⚠ Gated on 2 Mac store questions (stray `]` in `latVUC_vpl.txt`; the separator drift). WIN-owned.
+> - **WIN remaining:** the D3 surgical re-bake (after Mac settles the `]`) · D5 (flagship glossary byte-verify) ·
+>   D8 (`audit_canonical_order.py`) · D9 (`audit_kepub_revid_family.py` + `deep-audit.js:294` stale pointer) · the G3
+>   xref breakout. Heavy builds run ONE-AT-A-TIME (RAM cap).
 >
 > **★ 2026-06-26 — ROUND-14 ✅ COMPLETE (both lanes) · ROUND-15 was PREPARED, now LAUNCHED (above).**
 > **Round-14:** all 8 deep-audit survivors GREEN (WIN #4 S1-attr/#5 G1/#6 (HIGH) est-10:2 · Mac #1/#2/#3) + WIN **G5 over-cap** fixed
