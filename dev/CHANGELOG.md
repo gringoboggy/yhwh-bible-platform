@@ -4,6 +4,37 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-27 — Round-15 D5 ✅ flagship glossary byte-streamer proven + G5 `--reference-split` confound fixed (Windows; autonomous)
+
+Bootstrapped, armed the Mac lane monitor (`lane_watch.py --loop --auto-pull --assign-mac`), and closed the lone
+remaining round-15 WIN dimension, **D5** — byte-verifying `_stream_glossary_pieces_from_bytes`, the flagship-only
+>64 MB glossary byte-streamer that had zero real-edition coverage (pinned only on a monkeypatched ~KB synthetic).
+
+- **CHECK A** — captured the real pre-split `index_split_900.html` monolith (**255.4 MB**, comfortably over the 64 MB
+  threshold → the byte branch fires on real content for the first time; the old "~480 MB" note was a stale str-side
+  estimate) from a real `ethiopian-tewahedo --target-reader eink` build, and proved `_iter_study_glossary_pieces_from_file`
+  (byte branch) is **byte-identical to `split_study_glossary_document`** (str reference): 690/690 pieces, identical names
+  and bytes (255,162,686 B each). Zero production-code change — captured via a module-attr monkeypatch in a dev driver.
+- **CHECK B** — G5 (`dev/audit_glossary_contract.py`) on the fresh flagship eink build: **PASS** (`max_inner_cp=399171 <
+  400000` cap, 0 over-cap, 83 book-heads, 0 multi-bookhead, 30148 atoms == 30148 distinct ids; the round-14
+  `_atom_rewrite_headroom` reservation holds at flagship link density).
+- **Permanent regression** — `tests/test_file_split::TestStreamGlossaryFromFile::test_real_threshold_byte_branch_identical_to_str_at_scale`
+  (slow): synthesizes an 82 MB glossary that crosses the **real** threshold with **no monkeypatch**, so the production
+  dispatcher selects the byte branch itself, then asserts str==from-file byte-identity.
+- **Found + fixed in passing** — G5's opt-in `--reference-split` (check 4) **false-FAILed on every real build**: it
+  reconstructs from POST-`rewrite_links` pieces (cross-file hrefs expanded to `index_split_<n>_<m>.html#frag`, headroom
+  regex matches 0) and re-splits, which cannot reproduce the build's PRE-rewrite, headroom-reserved cut points. The gate
+  now detects post-rewrite pieces (`_REWRITTEN_HREF_RE`) and SKIPS with an explanatory WARN instead of false-FAILing;
+  docstring corrected; regression `test_reference_split_skips_post_rewrite_built_pieces` added (the synthetic check-4
+  tests passed only because they use href-less, never-rewritten atoms). The sound str==from-file proof lives in CHECK A /
+  the new slow test.
+
+9-KJV byte-stable set untouched (no production code changed — only the dev gate's reference-split branch + tests).
+Gates: `ruff format --check .` clean (1243 files) · `test_audit_glossary_contract` 11/11 · `test_file_split` 58/58 (+ the
+new slow case) · G5 PASS on the real build. Report: `dev/audit/round15-d5-glossary-byteproof.md`. **Round-15 dims all done**
+(remaining: the D2 G3 xref-breakout sub-item; the D1 retired-asset re-cut at the v1.0.0 tag). **▶ Mac:** cross-OS verify
+the D5 build. Mac monitor stays armed for the session.
+
 ## 2026-06-26 (close) — Round-14 ✅ COMPLETE (both lanes) + ROUND-15 PREPARED (9 completeness gaps scoped) (Windows; autonomous)
 
 Round-14 build-pipeline deep-audit is fully complete: all 8 deep-audit survivors green (WIN #4/#5/#6, Mac

@@ -1,7 +1,7 @@
 # In-flight work — current task tracker
 
 <!-- TRACKER-STATE: active -->
-<!-- task: ROUND-15 LAUNCHED + RUNNING (WIN, autonomous; plan USER-APPROVED). Two-lane file-disjoint. WIN: D4 ✅ + D2/D5/D8/D9 + gates; MAC: D3 (confirmed-live)/D1/D6/D7 + cross-OS verify. Tracker dev/audit/round15-remediation.md. Mac monitor armed. Round-14 ✅ COMPLETE both lanes (HEAD 9e04d327). -->
+<!-- task: ROUND-15 ✅ WIN DIMS COMPLETE — D5 DONE 2026-06-27 (flagship glossary byte-streamer proven str==from-file 690/690 + G5 PASS + permanent regression; found+fixed G5 --reference-split false-FAIL on real builds). D4/D2◐/D8/D9 + D3 re-bake done. Lone WIN sub-item: D2 G3-xref-breakout. Mac: cross-OS verify D5. Mac monitor armed (lane_watch --loop). Tracker dev/audit/round15-remediation.md. -->
 
 > **★ 2026-06-26 — ROUND-15 LAUNCHED + RUNNING (WIN, autonomous — user "continue your work" + Mac monitor armed).**
 > Plan USER-APPROVED in plan mode; program `dev/audit/round-15-completeness-audit-program-2026-06-26.md` verified
@@ -29,8 +29,14 @@
 > - **✅ D8 + D9 DONE (WIN, pushed):** D8 `audit_canonical_order.py` (`e57e6c64`) — reading-flow order gate (no defect;
 >   validated 1299 ch / 75 books) · D9 `audit_kepub_revid_family.py` (`93d2fb85`) — guard #19 confirmed by-design (rev
 >   606 navigate, 0 inline-bare; liveness non-vacuous). Both wired/tested + per-build (D8).
-> - **WIN remaining:** **D5** (flagship glossary byte-verify — heaviest build, own cycle) · the G3 xref breakout (fresh
->   build) · `deep-audit.js:294` stale pointer (if the engine is run). Heavy builds ONE-AT-A-TIME (RAM cap).
+> - **✅ D5 DONE (WIN, 2026-06-27, `dev/audit/round15-d5-glossary-byteproof.md`):** real **255 MB** flagship
+>   `index_split_900` monolith str==from-file **byte-identical (690/690 pieces)** + **G5 PASS** on the fresh flagship eink
+>   build (`max_inner_cp 399171 < 400000` cap, 0 over-cap, 30148 atoms == distinct) + permanent real-threshold regression
+>   `test_real_threshold_byte_branch_identical_to_str_at_scale` (slow, no monkeypatch). Byte branch confirmed firing
+>   (255 MB > 64 MB; doc "~480 MB" was a stale str-side estimate). **Found+fixed:** G5 opt-in `--reference-split`
+>   false-FAILed on REAL (post-`rewrite_links`) builds → detect+skip+WARN (`_REWRITTEN_HREF_RE`) + regression test.
+> - **WIN remaining (round-15):** the **D2 G3 xref breakout** on a fresh build (lone sub-item) · `deep-audit.js:294` stale
+>   pointer (if the engine is run) · D1 retired-asset re-cut = deferred to the v1.0.0 tag. Heavy builds ONE-AT-A-TIME (RAM cap).
 >
 > **★ 2026-06-26 — ROUND-14 ✅ COMPLETE (both lanes) · ROUND-15 was PREPARED, now LAUNCHED (above).**
 > **Round-14:** all 8 deep-audit survivors GREEN (WIN #4 S1-attr/#5 G1/#6 (HIGH) est-10:2 · Mac #1/#2/#3) + WIN **G5 over-cap** fixed

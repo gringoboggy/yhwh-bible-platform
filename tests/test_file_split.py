@@ -17,6 +17,8 @@ discovery), plus a real-build integration test gated behind the slow marker.
 import re
 from pathlib import Path
 
+import pytest
+
 REPO = Path(__file__).resolve().parents[1]
 
 
@@ -1117,6 +1119,44 @@ class TestStreamGlossaryFromFile:
         monkeypatch.setattr(be, "_GLOSSARY_STREAM_BYTE_THRESHOLD", 1)
         actual = list(be._iter_study_glossary_pieces_from_file(fp, stem, 8_000))
         assert actual == [(f"{stem}.html", text)]
+
+    @pytest.mark.slow
+    def test_real_threshold_byte_branch_identical_to_str_at_scale(self, tmp_path):
+        """D5: cross the REAL 64 MB byte-stream threshold (no monkeypatch) so the production
+        per-book byte branch (``_stream_glossary_pieces_from_bytes``) runs on a flagship-scale,
+        multi-byte (Hebrew/Greek/Geʽez) glossary for the first time — and assert it is
+        byte-identical to the in-memory str reference splitter.
+
+        The other cases force the byte branch by monkeypatching the threshold down to 1/10 on a
+        ~KB sample; in PRODUCTION the branch is reached ONLY by the >64 MB ethiopian flagship
+        glossary, so its real-content/real-threshold behaviour was never pinned. This synthesizes
+        a >64 MB document (mirroring ``write_eink_study_backmatter_page``'s shape) so the real
+        dispatcher (``len(raw) > _GLOSSARY_STREAM_BYTE_THRESHOLD``) selects the byte path itself.
+        Slow-marked: builds + splits a ~75 MB document twice."""
+        import scripts.build_edition as be
+
+        stem = be.EINK_STUDY_BACKMATTER_STEM
+        target = be.FILE_SPLIT_TARGET_DEFAULT  # the production glossary gtarget (every edition >= default)
+        # ~400 k asides over 40 books → ~75 MB even counting codepoints (ASCII bytes >= cp), so the
+        # on-disk UTF-8 bytes comfortably exceed the 64 MB threshold; each book far exceeds ``target``
+        # so within-book entry splitting AND book-head flushing both fire.
+        text = self._glossary(n_books=40, asides_per_book=10_000)
+        fp = tmp_path / f"{stem}.html"
+        fp.write_text(text, encoding="utf-8")  # write_text → CRLF on Windows, mirroring the build's monolith
+        raw = fp.read_bytes()
+        assert len(raw) > be._GLOSSARY_STREAM_BYTE_THRESHOLD, (
+            f"sample {len(raw):,} B must exceed the {be._GLOSSARY_STREAM_BYTE_THRESHOLD:,} B threshold "
+            "to exercise the real byte branch (else it silently delegates to the str path)"
+        )
+        # str reference == decode-normalized text (exactly what the from-file path decodes to).
+        expected = be.split_study_glossary_document(be._decode_nl(raw), stem, target)
+        assert len(expected) > 1, "flagship-scale sample must fan into many pieces"
+        actual = list(be._iter_study_glossary_pieces_from_file(fp, stem, target))
+        assert [n for n, _ in actual] == [n for n, _ in expected]
+        for (an, at), (en, et) in zip(actual, expected, strict=True):
+            assert an == en
+            assert at == et
+            assert at.encode("utf-8") == et.encode("utf-8")
 
 
 class TestStudyGlossaryTocPatch:

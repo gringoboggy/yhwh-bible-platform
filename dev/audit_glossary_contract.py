@@ -34,10 +34,17 @@ Checks (all per spec gate G5):
   4. REFERENCE PARTITION (opt-in ``--reference-split``; memory-heavy) — reconstruct the
      monolith from the pieces and re-run the in-memory reference splitter
      ``split_study_glossary_document``; assert the built pieces are the byte-identical
-     partition the reference produces (the catholic 453/453 str==from-file proof, made
-     standing). OFF by default — it re-materializes the ~tens-of-MB monolith the
-     streaming build exists to avoid; the str==from-file equality is also pinned cheaply
-     by ``tests/test_file_split::TestStreamGlossaryFromFile``.
+     partition the reference produces. SOUND ONLY on pieces that have NOT been through the
+     build's ``rewrite_links`` pass (e.g. the raw reference-splitter output the synthetic
+     tests feed it). A REAL built epub's glossary pieces are POST-rewrite (cross-file hrefs
+     carry the ``index_split_<n>_<m>.html`` piece infix), and the build splits the monolith
+     PRE-rewrite reserving ``_atom_rewrite_headroom`` per link — so a post-rewrite
+     reconstruction CANNOT reproduce the build's cut points (atom lengths AND reserved
+     headroom both differ). Check 4 therefore detects rewritten pieces and SKIPS with a WARN
+     rather than false-FAIL. OFF by default (it re-materializes the ~tens-of-MB monolith the
+     streaming build exists to avoid). The str==from-file partition equality is verified
+     soundly, on the PRE-rewrite flagship monolith, by
+     ``tests/test_file_split::TestStreamGlossaryFromFile`` (D5).
 
 Standalone stdlib only for checks 1-3 (mirrors ``audit_idmap_frags.py``) -> light +
 OOM-safe; ``--reference-split`` lazily imports ``scripts.build_edition``.
@@ -74,6 +81,12 @@ _ENTRY_ID_RE = re.compile(r'<div class="study-glossary-entry"\s+id="([^"]+)"')
 # kepubify wraps text in <span class="koboSpan" id="kobo.N.M">; its presence inflates the
 # measured inner past the build's codepoint count (the cap was applied pre-kepubify).
 _KOBO_SPAN_RE = re.compile(r'<span class="koboSpan"')
+# Built glossary pieces that have been through apply_file_split's ``rewrite_links`` carry
+# cross-file hrefs with the piece infix (``index_split_<n>_<m>.html``). The PRE-split monolith
+# the build actually split never has this form, so its presence marks a POST-rewrite
+# reconstruction that check 4 (--reference-split) cannot soundly re-split (the build reserves
+# per-link ``_atom_rewrite_headroom`` PRE-rewrite). See ``_reference_split_via_raw``.
+_REWRITTEN_HREF_RE = re.compile(r'(?:href|src)="index_split_\d+_\d+\.html')
 
 
 @dataclass
@@ -291,6 +304,20 @@ def _reference_split_via_raw(
         return [], ["--reference-split: could not recover the document wrapper from the first piece"]
     head, body_prefix_open, body_suffix, tail = wrap
     full_inner = "".join(p.inner or "" for p in ordered)
+    if _REWRITTEN_HREF_RE.search(full_inner):
+        # The pieces are a REAL built epub (post rewrite_links): re-splitting this
+        # reconstruction cannot reproduce the build's PRE-rewrite, headroom-reserved cut
+        # points (atom lengths + reserved _atom_rewrite_headroom both differ), so a byte
+        # comparison here is a guaranteed false-FAIL, not a real divergence. Skip with a WARN;
+        # the sound str==from-file proof is tests/test_file_split::TestStreamGlossaryFromFile.
+        return [], [
+            "--reference-split skipped: the built glossary pieces are POST-rewrite_links "
+            "(cross-file hrefs carry the index_split_<n>_<m>.html piece infix). The build splits "
+            "the monolith PRE-rewrite, reserving _atom_rewrite_headroom per link, so re-splitting "
+            "the post-rewrite reconstruction cannot reproduce the build's cut points. The sound "
+            "str==from-file partition proof runs on the PRE-rewrite monolith in "
+            "tests/test_file_split::TestStreamGlossaryFromFile (D5)."
+        ]
     doc = head + body_prefix_open + full_inner + "</section>" + body_suffix + tail
     ref = split_study_glossary_document(doc, stem, cap)
     ref_inners = [(_base(n), _section_inner(t)) for n, t in ref]

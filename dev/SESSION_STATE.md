@@ -2,15 +2,19 @@
 
 > **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`.
 >
-> **★ 2026-06-27 — ROUND-15 ✅ 8 of 9 DONE (both lanes) · only D5 remains. HEAD `43fd5001`, both remotes synced, tree clean.**
-> **Done:** D1 release-asset gate (Mac) · D2 check_xrefs regex + G3 presence floor (WIN) · **D3 (HIGH) COMPLETE** (Mac store fix +
-> the ★WIN discovery that vulgate popups are BAKED so the store fix didn't reach the product → surgical `epub_working/` re-bake +
-> golden re-stamp; dropped Ps 2:13/4:10 now SHIP) · D4 (HIGH) `_cascade` source-provenance (WIN) · D6 canon book-count gate (Mac) ·
-> D7 migration torn-safe + idempotence (Mac) · D8 `audit_canonical_order` (WIN) · D9 `audit_kepub_revid_family` — guard #19 = by-design,
-> not a regression (WIN). **▶ NEXT: D5** (WIN) — the >64 MB flagship-glossary byte-streamer (`_stream_glossary_pieces_from_bytes`) has
-> ~zero real-edition coverage; CHECK A (real flagship `index_split_900` str==from-file) + CHECK B (G5 on a fresh flagship build) — the
-> HEAVIEST/OOM-prone build, START on clean RAM. **▶ Mac:** cross-OS verify the D3 golden re-stamp; the `generate_verse_popups.py` base↔bake
-> separator-drift follow-up. See `dev/IN_FLIGHT.md` + `dev/audit/round15-remediation.md` + `round15-d3-baked-popup-finding.md`.
+> **★ 2026-06-27 — ROUND-15 ✅ 9 of 9 DONE (all WIN+Mac dims) · only the D2-G3 xref-breakout sub-item + the v1.0.0-tag
+> D1 re-cut remain. Both remotes synced, tree clean.**
+> **Done:** D1 release-asset gate (Mac) · D2 check_xrefs regex + G3 presence floor (WIN; ☐ G3 xref-breakout sub-item) ·
+> **D3 (HIGH) COMPLETE** (Mac store fix + the ★WIN discovery that vulgate popups are BAKED so the store fix didn't reach the
+> product → surgical `epub_working/` re-bake + golden re-stamp; dropped Ps 2:13/4:10 now SHIP) · D4 (HIGH) `_cascade`
+> source-provenance (WIN) · **D5 (HIGH) COMPLETE** (WIN, 2026-06-27) · D6 canon book-count gate (Mac) · D7 migration torn-safe
+> + idempotence (Mac) · D8 `audit_canonical_order` (WIN) · D9 `audit_kepub_revid_family` — guard #19 = by-design (WIN).
+> **D5:** the >64 MB flagship-glossary byte-streamer (`_stream_glossary_pieces_from_bytes`) PROVEN — CHECK A real **255 MB**
+> monolith str==from-file **byte-identical (690/690 pieces)**; CHECK B **G5 PASS** on the fresh flagship eink build (399171 <
+> 400000 cap); permanent real-threshold regression (no monkeypatch); **+ found+fixed a G5 `--reference-split` false-FAIL on real
+> post-`rewrite_links` builds** (detect+skip+WARN). Report `dev/audit/round15-d5-glossary-byteproof.md`. **▶ Mac:** cross-OS
+> verify the D5 build (rebuild flagship eink on macOS → G5 PASS + the new slow str==from-file test) and the D3 golden re-stamp;
+> the `generate_verse_popups.py` base↔bake separator-drift follow-up. See `dev/IN_FLIGHT.md` + `dev/audit/round15-remediation.md`.
 > **Round-14 DONE — all 8 deep-audit survivors GREEN + the WIN-surfaced G5 over-cap fixed + all 5 gates built, 9-KJV byte-stable both OSes.**
 > Survivors: WIN **#4** S1-attribution (cascade-gate `s2_group or eink_backmatter`) · **#5** G1 · **#6 (HIGH)** est 10:2 scripture corruption
 > (`_mv_displacement_would_corrupt` WEB-base discriminator); Mac **#1** eink_glyphs-cache · **#2** prospect None · **#3** canonical-extent.

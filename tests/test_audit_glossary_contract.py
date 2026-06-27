@@ -226,6 +226,44 @@ def test_reference_split_detects_tampered_partition(tmp_path):
     assert any("reference" in f.lower() or "diverges" in f.lower() for f in res.fails)
 
 
+def test_reference_split_skips_post_rewrite_built_pieces(tmp_path):
+    """Opt-in check 4 must SKIP (WARN, not false-FAIL) when handed a REAL built epub whose
+    glossary pieces are post-``rewrite_links``: their cross-file hrefs carry the
+    ``index_split_<n>_<m>.html`` piece infix, and the build split the monolith PRE-rewrite with
+    per-link ``_atom_rewrite_headroom`` reserved — so a post-rewrite reconstruction cannot
+    reproduce the build's cut points (D5 finding 2026-06-27; the sound str==from-file proof is
+    ``tests/test_file_split::TestStreamGlossaryFromFile``). Before the fix this false-FAILed on
+    every real flagship build."""
+
+    def _entry_rw(vid: str, j: int) -> str:
+        # a glossary entry whose back-link is the REWRITTEN cross-file form (index_split_000_02.html#…)
+        return (
+            f'<div class="study-glossary-entry" id="{vid}">'
+            f'<aside epub:type="footnote" class="study-glossary-cat verse-notes" id="{vid}-comm">'
+            f'<p>note <a href="index_split_000_02.html#v-gen-1-{j}">1:{j}</a></p></aside></div>\n'
+        )
+
+    # One book spanning two split pieces: the book-head lives only in the first piece (the
+    # continuation piece carries no head — matching the build, and keeping check 2/3 green).
+    p0 = _piece(
+        '<h1>Study Notes</h1><p class="study-notes-lead">lead</p>'
+        + _bookhead("study-b1", "Book 1")
+        + "".join(_entry_rw(f"study-entry-b1-1-{j}", j) for j in range(1, 4))
+    )
+    p1 = _piece("".join(_entry_rw(f"study-entry-b1-2-{j}", j) for j in range(1, 4)))
+    path = _make_epub(tmp_path, {f"{STEM}_00.html": p0, f"{STEM}_01.html": p1})
+
+    res = g.audit_epub(path, reference_split=True)
+    # the structural checks (cap / one-book / atom conservation) pass...
+    assert res.green, res.fails
+    assert res.stats["over_cap"] == 0
+    assert res.stats["multi_bookhead_pieces"] == 0
+    assert res.stats["total_atoms"] == res.stats["distinct_atom_ids"] == 6
+    # ...and check 4 did NOT false-FAIL — it detected the rewrite and skipped with a WARN.
+    assert any("skipped" in w.lower() and "rewrite" in w.lower() for w in res.warns), res.warns
+    assert any("TestStreamGlossaryFromFile" in w for w in res.warns)
+
+
 @pytest.mark.slow
 def test_real_round14_study_eink_build(tmp_path):
     """Smoke against the real built catholic-study eink epub (no rebuild). Confirms the gate
