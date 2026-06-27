@@ -2,9 +2,13 @@
 
 > **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`.
 >
-> **★ 2026-06-27 — ROUND-15 ✅ ALL 9 DIMENSIONS COMPLETE (D1–D9, both lanes). Only follow-ups: the v1.0.0-tag D1
-> retired-asset re-cut (outward-facing → flagged) + Mac cross-OS verify of the D5/D2 builds + the D3 golden re-stamp.
-> Both remotes synced, tree clean.**
+> **★ 2026-06-27 — ROUND-15 ✅ FULLY CLOSED (all 9 dims D1–D9 + cross-OS verified, both lanes). Mac cross-OS-verified
+> D3/D5/D8/D9 (`4f69aa05`) AND D2 (`405eda85`, G3 xref-breakout + per-build gate PASS on macOS) — nothing pending for
+> Mac. The ONLY remaining round-15 follow-up is the v1.0.0-tag D1 retired-asset re-cut (outward-facing → flagged, not
+> autonomous). Both remotes synced, tree clean.** _(Cross-OS observation, low priority: catholic-study eink G3 xref count
+> differs Win 55,774 vs Mac 45,057 — catholic-study eink is NOT in the 9-cell byte-stable golden set, so cross-OS
+> byte-identity was never proven for it; the `--min-xrefs 10000` floor is robust to both. Worth a future cross-OS
+> determinism check, but out of round-15 scope.)_
 > **Done:** D1 release-asset gate (Mac) · **D2 (MED) COMPLETE** (WIN) — check_xrefs regex + G3 **xref-class breakout**
 > (`v-`/`ch-` scripture cross-refs counted/bucketed separately + `--min-xrefs 10000` floor wired into the per-build gate;
 > ethiopian 88,541 / catholic-study 55,774 xrefs, 0 dead) ·
