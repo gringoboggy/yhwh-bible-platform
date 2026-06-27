@@ -17,6 +17,7 @@ from __future__ import annotations
 import pytest
 
 import dev.audit_canon_bookcount as d6
+import dev.audit_migration_idempotence as d7
 import dev.audit_release_assets as d1
 import dev.audit_versification_coverage as d3
 
@@ -56,3 +57,14 @@ def test_d6_canon_bookcount_clean_on_current_tree() -> None:
     """The 5 canon sources agree per edition + note counts are internally consistent + in-canon."""
     res = d6.audit()
     assert res.green, f"D6 canon/note cross-check FAIL: {res.fails[:5]}"
+
+
+def test_d7_migration_idempotence_selftest_non_tautological() -> None:
+    """The D7 checks fire on a deliberately-broken (marker-first, non-atomic) migration."""
+    assert d7._selftest() == 0
+
+
+def test_d7_migration_torn_safe_and_idempotent() -> None:
+    """Real 0001 migration is marker-last + atomic + double-apply idempotent + torn-recoverable."""
+    fails, _ = d7.audit()
+    assert not fails, f"D7 migration idempotency FAIL: {fails[:5]}"

@@ -26,6 +26,7 @@ audio, plus the YAML config files). Nothing under ``scripts/``,
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 import sys
 from pathlib import Path
@@ -52,10 +53,18 @@ def _dst_content() -> Path:
     return paths.user_data_root() / "content"
 
 
-def _is_already_migrated() -> bool:
-    """Heuristic: destination exists AND has the editions.yaml marker."""
-    dst = _dst_content()
-    return (dst / "editions.yaml").is_file()
+MARKER_NAME = "editions.yaml"
+
+
+def _is_already_migrated(dst: Path | None = None) -> bool:
+    """Heuristic: destination exists AND has the ``editions.yaml`` marker.
+
+    The marker is the LAST file ``perform_migration`` copies (atomically), so its presence is
+    a reliable "fully migrated" signal — a torn/interrupted first run leaves NO marker, so this
+    returns False and the next run repairs the partial copy (round-15 D7). The optional ``dst``
+    makes the check testable against a sandbox destination."""
+    dst = dst if dst is not None else _dst_content()
+    return (dst / MARKER_NAME).is_file()
 
 
 def _walk_files(root: Path):
@@ -85,16 +94,34 @@ def plan_migration(src: Path, dst: Path) -> dict:
     }
 
 
+def migration_copy_order(src: Path) -> list[Path]:
+    """Deterministic copy order: every non-marker file (sorted), then the ``editions.yaml``
+    marker LAST. Copying the marker last makes its presence a transactional completion signal —
+    a crash mid-copy leaves the marker absent, so the run is correctly seen as incomplete and
+    the next run repairs it (round-15 D7 torn-safety)."""
+    files = sorted(_walk_files(src), key=lambda p: str(p.relative_to(src)))
+    marker = src / MARKER_NAME
+    ordered = [f for f in files if f != marker]
+    if marker.is_file():
+        ordered.append(marker)
+    return ordered
+
+
 def perform_migration(src: Path, dst: Path, *, force: bool = False) -> dict:
-    """Execute the copy. Skips files that already exist in ``dst``
-    unless ``force`` is set. Creates ``dst`` if absent."""
+    """Execute the copy. Skips files that already exist in ``dst`` unless ``force`` is set;
+    creates ``dst`` if absent. Files copy in ``migration_copy_order`` (the ``editions.yaml``
+    marker LAST) and the marker is written ATOMICALLY (temp + ``os.replace``), so a torn run
+    never leaves the marker without the full content — making ``_is_already_migrated``
+    torn-safe and the migration safely re-runnable (round-15 D7). The completed end-state is
+    byte-identical to the prior unordered copy."""
     if not src.is_dir():
         return {"copied": 0, "skipped": 0, "errors": ["source missing"]}
     dst.mkdir(parents=True, exist_ok=True)
     copied = 0
     skipped = 0
     errors: list[str] = []
-    for src_file in _walk_files(src):
+    marker = src / MARKER_NAME
+    for src_file in migration_copy_order(src):
         rel = src_file.relative_to(src)
         dst_file = dst / rel
         if dst_file.exists() and not force:
@@ -102,7 +129,12 @@ def perform_migration(src: Path, dst: Path, *, force: bool = False) -> dict:
             continue
         try:
             dst_file.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(src_file, dst_file)
+            if src_file == marker:
+                tmp = dst_file.with_suffix(dst_file.suffix + ".tmp")
+                shutil.copy2(src_file, tmp)
+                os.replace(tmp, dst_file)  # atomic: the marker appears whole-or-not-at-all
+            else:
+                shutil.copy2(src_file, dst_file)
             copied += 1
         except OSError as e:
             errors.append(f"{rel}: {e}")
