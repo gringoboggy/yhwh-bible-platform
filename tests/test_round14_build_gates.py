@@ -48,10 +48,13 @@ def test_round14_build_gates_pass_on_catholic_study_eink(tmp_path):
         if gate == "audit_badge_conservation.py":
             args.append("--require-sidecar")  # build_one wrote the sidecar -> enforce, don't skip
         if gate == "audit_idmap_frags.py":
-            # round-15 D2 presence floor: catholic-study eink resolves ~100k frag+noteref
-            # anchors (round-14: 57k frag + 45k noteref), so a count below 10k means the
-            # build dropped its cross-references wholesale -> FAIL instead of vacuous-green.
-            args += ["--min-links", "10000"]
+            # round-15 D2 presence floors: a fresh catholic-study eink resolves ~100k
+            # frag+noteref anchors (measured 2026-06-27: 57,032 frag of which 55,774 are
+            # scripture v-/ch- xrefs + 44,664 noteref), so a count under these floors means the
+            # build dropped its cross-references wholesale -> FAIL instead of vacuous-green. The
+            # --min-xrefs floor is SEPARATE because the ~45k noteref bulk keeps --min-links
+            # satisfied even if every scripture cross-reference were dropped (the D2 breakout).
+            args += ["--min-links", "10000", "--min-xrefs", "10000"]
         proc = subprocess.run(args, capture_output=True, text=True, stdin=subprocess.DEVNULL)
         if proc.returncode != 0:
             failures.append(f"{gate} (exit {proc.returncode}):\n{(proc.stdout + proc.stderr)[-800:]}")

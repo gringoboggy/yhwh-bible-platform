@@ -189,6 +189,50 @@ def test_presence_floor_guards_wholesale_xref_loss(tmp_path):
     assert aif.main([epub, "--min-links", "1000"]) == 1
 
 
+def test_xref_class_broken_out(tmp_path):
+    """round-15 D2: a NON-noteref link whose target is a scripture ``v-``/``ch-`` anchor is
+    counted in its own ``xref_links`` bucket (a subset of ``frag_links``), and a DEAD one is
+    bucketed as an ``xref_fails`` finding — so scripture cross-references are visible, distinct
+    from the noteref popup bulk and from plain front/back-matter links."""
+    a = (
+        '<a href="b.html#v-gen-2-1">cf 2:1</a>'  # xref (resolves)
+        '<a href="b.html#ch-b00-c2">ch 2</a>'  # xref (resolves)
+        '<a href="b.html#secB">plain</a>'  # plain (resolves, not v-/ch-)
+        '<a epub:type="noteref" class="vn-link" id="r1" href="b.html#note1">*</a>'  # noteref
+        '<a href="b.html#v-gen-9-9">cf 9:9</a>'  # DEAD xref (no target)
+    )
+    b = '<p id="v-gen-2-1"></p><a id="ch-b00-c2"></a><p id="secB"></p><aside epub:type="footnote" id="note1">n</aside>'
+    epub = _make_epub(tmp_path, {"a.html": a, "b.html": b}, ["a.html", "b.html"])
+    res = aif.audit_epub(epub)
+    # three v-/ch- xref anchors counted (2 live + 1 dead); the noteref is NOT an xref.
+    assert res.stats["xref_links"] == 3, res.stats
+    assert res.stats["noteref_links"] == 1, res.stats
+    assert res.stats["xref_links"] <= res.stats["frag_links"]  # xref is a subset of all non-noteref
+    # the dead xref is bucketed as an xref failure (not a plain link / noteref failure)...
+    assert res.stats["xref_fails"] == 1, res.stats
+    assert res.stats["noteref_fails"] == 0, res.stats
+    assert any("v-gen-9-9" in f for f in res.fails), res.fails
+    assert not res.green
+
+
+def test_xref_floor_catches_loss_hidden_by_noteref_bulk(tmp_path):
+    """round-15 D2: the dedicated ``--min-xrefs`` floor catches a wholesale scripture-xref
+    loss that the ``--min-links`` floor would miss, because the (here plentiful) noteref bulk
+    keeps the frag+noteref total above ``--min-links`` even when zero scripture xrefs survive."""
+    a = "".join(f'<a epub:type="noteref" class="vn-link" id="r{i}" href="b.html#n{i}">*</a>' for i in range(5))
+    b = "".join(f'<aside epub:type="footnote" id="n{i}">x</aside>' for i in range(5))
+    epub = _make_epub(tmp_path, {"a.html": a, "b.html": b}, ["a.html", "b.html"])
+    base = aif.audit_epub(epub)
+    assert base.stats["xref_links"] == 0 and base.stats["noteref_links"] == 5, base.stats
+    # --min-links is satisfied (5 noterefs + nav link >> 2) → green despite ZERO scripture xrefs ...
+    assert aif.audit_epub(epub, min_links=2).green
+    # ... but the dedicated xref floor FAILS on the wholesale scripture-xref loss.
+    res = aif.audit_epub(epub, min_links=2, min_xrefs=1)
+    assert not res.green
+    assert any("xref floor" in f for f in res.fails), res.fails
+    assert aif.main([epub, "--min-xrefs", "1"]) == 1
+
+
 # ── real-data fixture (round-14 catholic-study eink epub) — gated slow ──────────
 _REAL_GLOBS = [
     Path(r"C:\Users\bogda\YHWH-builds\round14-postA1"),

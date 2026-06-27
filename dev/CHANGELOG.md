@@ -4,9 +4,25 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
-## 2026-06-27 — Round-15 D5 ✅ flagship glossary byte-streamer proven + G5 `--reference-split` confound fixed (Windows; autonomous)
+## 2026-06-27 — Round-15 ✅ COMPLETE — D5 glossary byte-streamer proven + D2 G3 xref-class breakout (Windows; autonomous)
 
-Bootstrapped, armed the Mac lane monitor (`lane_watch.py --loop --auto-pull --assign-mac`), and closed the lone
+**Round-15 is now complete across all 9 dimensions (both lanes).** This session (WIN) closed the two remaining WIN items:
+**D5** (flagship glossary byte-streamer) and **D2** (G3 xref-class breakout), and fixed a G5 gate confound found in passing.
+
+**D2 — G3 xref-class breakout (`dev/audit_idmap_frags.py`).** Scripture cross-references (a NON-noteref `<a>` whose
+target frag is a `v-` verse or `ch-` chapter anchor) are now counted (`xref_links`) and failure-bucketed (`xref_fails`)
+separately from the noteref popup/badge bulk, with a dedicated **`--min-xrefs` presence floor**. This is the real
+wholesale-loss guard: the ~45k-strong noteref bulk keeps `--min-links` satisfied even if every scripture cross-reference
+were dropped (a canon-filter that drops the target book, an idmap that bares every link), so a separate xref floor is
+needed to catch it. Wired **`--min-xrefs 10000`** into the per-build gate (`tests/test_round14_build_gates.py`) alongside
+the existing `--min-links 10000`. Verified on FRESH builds: ethiopian eink **88,541 xrefs** · catholic-study eink
+**55,774 xrefs**, **0 dead** (G3 PASS); all 4 per-build gates (G3/G4/G5/D8) PASS on the fresh catholic-study build;
+the negative case (`--min-xrefs` above the true count) FAILs with an "xref floor" message; +2 unit tests
+(`test_xref_class_broken_out`, `test_xref_floor_catches_loss_hidden_by_noteref_bulk`). Backward-compatible: `frag_links`
+(total non-noteref) and `link_fails` keep their meaning; `xref_links`/`xref_fails` are additive subsets.
+
+**D5 — flagship glossary byte-streamer proof.** Bootstrapped, armed the Mac lane monitor (`lane_watch.py --loop
+--auto-pull --assign-mac`), and closed the lone
 remaining round-15 WIN dimension, **D5** — byte-verifying `_stream_glossary_pieces_from_bytes`, the flagship-only
 >64 MB glossary byte-streamer that had zero real-edition coverage (pinned only on a monkeypatched ~KB synthetic).
 
@@ -31,9 +47,11 @@ remaining round-15 WIN dimension, **D5** — byte-verifying `_stream_glossary_pi
 
 9-KJV byte-stable set untouched (no production code changed — only the dev gate's reference-split branch + tests).
 Gates: `ruff format --check .` clean (1243 files) · `test_audit_glossary_contract` 11/11 · `test_file_split` 58/58 (+ the
-new slow case) · G5 PASS on the real build. Report: `dev/audit/round15-d5-glossary-byteproof.md`. **Round-15 dims all done**
-(remaining: the D2 G3 xref-breakout sub-item; the D1 retired-asset re-cut at the v1.0.0 tag). **▶ Mac:** cross-OS verify
-the D5 build. Mac monitor stays armed for the session.
+new slow case) · `test_audit_idmap_frags` 10/10 · G3/G4/G5/D8 PASS on fresh ethiopian + catholic-study eink builds ·
+`lint_rules` 0 fail. Reports: `dev/audit/round15-d5-glossary-byteproof.md` + the round-15 tracker.
+**★ ROUND-15 ✅ ALL 9 DIMENSIONS COMPLETE (D1–D9, both lanes).** Follow-ups only: the D1 retired-asset re-cut at the v1.0.0
+tag (outward-facing → flagged, not autonomous); Mac cross-OS verify of the D5/D2 builds + the D3 golden re-stamp. **▶ Mac:**
+rebuild flagship eink on macOS → G5 PASS + str==from-file via the new slow test. Mac monitor stays armed for the session.
 
 ## 2026-06-26 (close) — Round-14 ✅ COMPLETE (both lanes) + ROUND-15 PREPARED (9 completeness gaps scoped) (Windows; autonomous)
 

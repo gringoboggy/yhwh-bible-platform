@@ -2,9 +2,12 @@
 
 > **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`.
 >
-> **★ 2026-06-27 — ROUND-15 ✅ 9 of 9 DONE (all WIN+Mac dims) · only the D2-G3 xref-breakout sub-item + the v1.0.0-tag
-> D1 re-cut remain. Both remotes synced, tree clean.**
-> **Done:** D1 release-asset gate (Mac) · D2 check_xrefs regex + G3 presence floor (WIN; ☐ G3 xref-breakout sub-item) ·
+> **★ 2026-06-27 — ROUND-15 ✅ ALL 9 DIMENSIONS COMPLETE (D1–D9, both lanes). Only follow-ups: the v1.0.0-tag D1
+> retired-asset re-cut (outward-facing → flagged) + Mac cross-OS verify of the D5/D2 builds + the D3 golden re-stamp.
+> Both remotes synced, tree clean.**
+> **Done:** D1 release-asset gate (Mac) · **D2 (MED) COMPLETE** (WIN) — check_xrefs regex + G3 **xref-class breakout**
+> (`v-`/`ch-` scripture cross-refs counted/bucketed separately + `--min-xrefs 10000` floor wired into the per-build gate;
+> ethiopian 88,541 / catholic-study 55,774 xrefs, 0 dead) ·
 > **D3 (HIGH) COMPLETE** (Mac store fix + the ★WIN discovery that vulgate popups are BAKED so the store fix didn't reach the
 > product → surgical `epub_working/` re-bake + golden re-stamp; dropped Ps 2:13/4:10 now SHIP) · D4 (HIGH) `_cascade`
 > source-provenance (WIN) · **D5 (HIGH) COMPLETE** (WIN, 2026-06-27) · D6 canon book-count gate (Mac) · D7 migration torn-safe

@@ -1,7 +1,7 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active -->
-<!-- task: ROUND-15 ✅ WIN DIMS COMPLETE — D5 DONE 2026-06-27 (flagship glossary byte-streamer proven str==from-file 690/690 + G5 PASS + permanent regression; found+fixed G5 --reference-split false-FAIL on real builds). D4/D2◐/D8/D9 + D3 re-bake done. Lone WIN sub-item: D2 G3-xref-breakout. Mac: cross-OS verify D5. Mac monitor armed (lane_watch --loop). Tracker dev/audit/round15-remediation.md. -->
+<!-- TRACKER-STATE: idle -->
+<!-- task: ROUND-15 ✅ ALL DIMENSIONS COMPLETE (D1–D9 both lanes), 2026-06-27. WIN this session: D5 (flagship glossary byte-streamer proven str==from-file 690/690 + G5 PASS + permanent regression; fixed G5 --reference-split false-FAIL on real builds) + D2 (G3 xref-class breakout + --min-xrefs floor wired into the per-build gate; ethiopian 88541 / catholic 55774 xrefs, 0 dead). Follow-ups: D1 retired-asset re-cut at the v1.0.0 tag (outward-facing); Mac cross-OS verify D5/D2 + D3 golden. Mac monitor armed (lane_watch --loop). Tracker dev/audit/round15-remediation.md. -->
 
 > **★ 2026-06-26 — ROUND-15 LAUNCHED + RUNNING (WIN, autonomous — user "continue your work" + Mac monitor armed).**
 > Plan USER-APPROVED in plan mode; program `dev/audit/round-15-completeness-audit-program-2026-06-26.md` verified
@@ -35,8 +35,14 @@
 >   `test_real_threshold_byte_branch_identical_to_str_at_scale` (slow, no monkeypatch). Byte branch confirmed firing
 >   (255 MB > 64 MB; doc "~480 MB" was a stale str-side estimate). **Found+fixed:** G5 opt-in `--reference-split`
 >   false-FAILed on REAL (post-`rewrite_links`) builds → detect+skip+WARN (`_REWRITTEN_HREF_RE`) + regression test.
-> - **WIN remaining (round-15):** the **D2 G3 xref breakout** on a fresh build (lone sub-item) · `deep-audit.js:294` stale
->   pointer (if the engine is run) · D1 retired-asset re-cut = deferred to the v1.0.0 tag. Heavy builds ONE-AT-A-TIME (RAM cap).
+> - **✅ D2 DONE (WIN, 2026-06-27):** G3 **xref-class breakout** — scripture `v-`/`ch-` cross-references counted +
+>   failure-bucketed separately (`xref_links`/`xref_fails`) from the noteref bulk + a dedicated **`--min-xrefs` floor**
+>   (the ~45k noteref bulk keeps `--min-links` satisfied even if every xref were dropped); **wired `--min-xrefs 10000`
+>   into the per-build gate** (`test_round14_build_gates.py`). Verified on FRESH builds: ethiopian **88,541** / catholic-study
+>   **55,774** xrefs, **0 dead**; all 4 per-build gates (G3/G4/G5/D8) PASS; +2 unit tests.
+> - **★★ ROUND-15 ✅ ALL DIMENSIONS COMPLETE (D1–D9, both lanes).** Follow-ups only: D1 retired-asset re-cut at the v1.0.0
+>   tag (outward-facing → flagged, not autonomous) · `deep-audit.js:294` stale pointer (if the engine is run) · **Mac:**
+>   cross-OS verify the D5 build + the D3 golden re-stamp. Heavy builds ONE-AT-A-TIME (RAM cap).
 >
 > **★ 2026-06-26 — ROUND-14 ✅ COMPLETE (both lanes) · ROUND-15 was PREPARED, now LAUNCHED (above).**
 > **Round-14:** all 8 deep-audit survivors GREEN (WIN #4 S1-attr/#5 G1/#6 (HIGH) est-10:2 · Mac #1/#2/#3) + WIN **G5 over-cap** fixed
