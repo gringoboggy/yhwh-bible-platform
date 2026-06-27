@@ -2,6 +2,21 @@
 
 > **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`.
 >
+> **★ 2026-06-27 — ROUND-16 DEEP-AUDIT READY TO RUN (PREPARED, NOT STARTED). ▶ NEXT WIN SESSION RUNS THE WIN LANE.**
+> Build-Program Bulletproofing — a two-lane **FINDINGS-ONLY** audit of the EPUB-builder across the full output
+> cross-product (edition × reader-version × OS) + options-completeness + display-redundancy + HTML-integrity +
+> per-reader marker-logic + builder-robustness lenses. The engine (`.claude/workflows/deep-audit.js`) is configured +
+> committed: `ROUND=16`, 11 `ROUND16_DIMS`, 8 new dim objects, the `ROUND===16` selector branch, round-15 D1–D9 +
+> round-14 build-source dims folded into `DEFERRED_BY_DESIGN`; `LANE='all'` committed (each box flips its own local
+> `LANE`). **▶ NEXT WIN SESSION:** bootstrap → `git pull --rebase` → flip local `const LANE='win'` →
+> `Workflow({scriptPath:".../.claude/workflows/deep-audit.js"})` (all 11 dims) CONCURRENTLY with the full-catalog
+> build-inspect harness (12 base builds + 4 kindle-posts + 2 standalones → colour fan-out → scan each;
+> flagship-eink LAST+SOLO; never pytest beside a build). **MAC** has its standing autonomous block in
+> `dev/LANE_HANDOFF.md` (both lanes run ALL 11 dims; only the side-work differs — WIN harness / Mac cross-OS verify).
+> Program `dev/audit/round-16-build-program-bulletproofing-2026-06-27.md`; tracker `dev/audit/round16-remediation.md`;
+> full WIN run steps in `dev/IN_FLIGHT.md`. **The audit is NOT started — each lane runs to completion in a fresh
+> session, then STOPS at a complete verified findings set + a phased fixes plan for the user to approve (NO fixes this round).**
+>
 > **★ 2026-06-27 — ROUND-15 ✅ FULLY CLOSED + NO REMAINING FOLLOW-UPS (all 9 dims D1–D9 + cross-OS verified, both
 > lanes). Mac cross-OS-verified D3/D5/D8/D9 (`4f69aa05`) AND D2 (`405eda85`). **D1 LIVE RE-CUT DONE (WIN, user "do it"):**
 > removed all 100 retired-SKU EPUBs + their SHA256SUMS lines from the live GitHub v0.1.0 release → D1 gate PASS (87 assets,
