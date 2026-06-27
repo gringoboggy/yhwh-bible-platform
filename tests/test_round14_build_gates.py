@@ -24,7 +24,12 @@ import pytest
 pytestmark = pytest.mark.slow
 
 REPO = Path(__file__).resolve().parents[1]
-_GATES = ("audit_idmap_frags.py", "audit_glossary_contract.py", "audit_badge_conservation.py")
+_GATES = (
+    "audit_idmap_frags.py",
+    "audit_glossary_contract.py",
+    "audit_badge_conservation.py",
+    "audit_canonical_order.py",  # round-15 D8 — reading-flow book/chapter order
+)
 
 
 def test_round14_build_gates_pass_on_catholic_study_eink(tmp_path):
