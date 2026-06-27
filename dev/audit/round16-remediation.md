@@ -140,7 +140,7 @@ Both deep-audit lanes ran to completion + adversarially verified. **Detailed per
 - **engine-win:** 36→**26** survivors (3 medium, 23 low), 10 refuted.
 - **engine-mac:** 32→**20** survivors (2 medium, 18 low), 12 refuted. **9 touch `build_edition.py`/`epub_working/` → WIN-owned fix surface.**
 - **WIN build-inspect harness:** 18 artifacts, all everywhere/tablet/kindle/eink-epub **CLEAN**; 3 kepubs = harness-applicability (now kepub-aware).
-- **MAC cross-OS verify ✅ (done-def #3):** G1 9/9 byte-identical Win↔Mac · G3/G4/G5/G6 PASS on a fresh macOS catholic-study eink. ☐ `audit_output_hygiene` + the build-free `_selftest`s on macOS = **pending Mac re-pull** (WIN's gates just landed/pushed).
+- **MAC cross-OS verify ✅ COMPLETE (done-def #3):** G1 9/9 byte-identical Win↔Mac · G3/G4/G5/G6 PASS on a fresh macOS catholic-study eink · **`audit_output_hygiene` PASS** (macOS catholic-study eink: leak_hits=0/nested=0/midchapter_breaks=0; 22 orphan-aside WARN = hidden-aes residual, non-fail) · **`tests/test_round16_source_gates.py` 5/5 PASS** on macOS. _(Mac re-pulled e6858045 + ran WIN's just-landed gates; selftests non-tautological.)_ **Mac lane fully run.**
 
 ### Dedup map (same defect, both lanes — count once)
 - **F2 `verse_marker_glyph` orphan** = engine-win #17/#21 = engine-mac #18.
@@ -169,5 +169,5 @@ Kepub colour-variant fan-out (only 1 colour scanned) · no build-time enum valid
 
 ### ▶ Remaining (fresh session — RAM seam) — then STOP
 1. WIN flagship **ethiopian-tewahedo eink** build + the 2 standalones (the kepub-aware harness; CommitFree pre-flight).
-2. Mac re-pull → run `audit_output_hygiene` + the build-free `_selftest`s on macOS (done-def #3b/#3c).
+2. ✅ DONE (Mac, this pull): `audit_output_hygiene` PASS on macOS catholic-study eink + `tests/test_round16_source_gates.py` 5/5 PASS. **Mac lane fully complete — nothing left on the Mac for round-16.**
 3. Produce ONE unified severity-RANKED remediation plan from the two lane plans (safest-first), present for user approval. **FINDINGS-ONLY — no fixes this round.**
