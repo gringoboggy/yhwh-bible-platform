@@ -1,9 +1,29 @@
 # In-flight work — current task tracker
 
 <!-- TRACKER-STATE: active -->
-<!-- task: ROUND-14 ✅ COMPLETE (both lanes; optional final WIN full slow-suite not yet run — Mac HDD too slow, WIN SSD can) · ROUND-15 PREPARED, awaiting fresh-session plan-mode review + USER approval before execution. See dev/audit/round-15-completeness-audit-program-2026-06-26.md -->
+<!-- task: ROUND-15 LAUNCHED + RUNNING (WIN, autonomous; plan USER-APPROVED). Two-lane file-disjoint. WIN: D4 ✅ + D2/D5/D8/D9 + gates; MAC: D3 (confirmed-live)/D1/D6/D7 + cross-OS verify. Tracker dev/audit/round15-remediation.md. Mac monitor armed. Round-14 ✅ COMPLETE both lanes (HEAD 9e04d327). -->
 
-> **★ 2026-06-26 — ROUND-14 ✅ COMPLETE (both lanes) · ROUND-15 PREPARED (awaiting plan-mode review + USER approval).**
+> **★ 2026-06-26 — ROUND-15 LAUNCHED + RUNNING (WIN, autonomous — user "continue your work" + Mac monitor armed).**
+> Plan USER-APPROVED in plan mode; program `dev/audit/round-15-completeness-audit-program-2026-06-26.md` verified
+> still-apt vs current code (D3/D4 confirmed LIVE; D2/D9 blindspots real; round-14 SETTLED items on disk). Two-lane
+> file-disjoint (truth_owner=windows): **WIN** = `build_edition.py` + D2/D5/D8/D9 + build-needing gates + `deep-audit.js`
+> config; **MAC** = `versification.py` + D3/D1/D6/D7 + build-free gates + cross-OS verify. Tracker
+> `dev/audit/round15-remediation.md`.
+> - **✅ D4 (HIGH) FIXED (WIN)** — round-14 #4's `_cascade = s2_group or eink_backmatter` over-stripped dict/topic/xref/
+>   witness source provenance in the `{S1-on, S2-off, eink-backmatter}` /customize combo (the backmatter glossary's
+>   `s2_group=False` branch never re-surfaces it). Narrowed to `_cascade = s2_group` (`build_edition.py:4228`).
+>   gen-1 `Dictionary (Easton's)` provenance 0→545 (matches non-eink control); regression RED 0≠545 → GREEN 545==545;
+>   `test_note_rehaul` 51 + `test_ws2_cascade_redundancy` 11 + `test_kobo_device_qa` 16 green. Byte-stable by tautology
+>   (9 KJV golden cells non-eink ⇒ line identical; catholic-study eink `s2_group=True` ⇒ identical) — **G1 golden gate
+>   RUNNING** to confirm; commit + push on PASS.
+> - **▶ MAC (handed off, LANE_HANDOFF WIN→Mac at TOP):** D3 Douay/Vulgate **Ps 2:13 + 4:10 silently DROPPED**
+>   (confirmed-live `vulgate_to_kjv→None`; fix `_VULGATE_PSALM_FIXES` `(2,13)→(2,12)` + `(4,10)→(4,8)` + coverage gate) ·
+>   D1 release-asset gate · D6 book-count gate · D7 migration-idempotence gate · cross-OS verify WIN builds.
+> - **WIN remaining:** D2 (G3 xref breakout + `check_xrefs.py:52` regex) · D5 (flagship glossary byte-verify) ·
+>   D8 (`audit_canonical_order.py`) · D9 (`audit_kepub_revid_family.py` + `deep-audit.js:294` stale pointer). Heavy
+>   builds run ONE-AT-A-TIME (RAM cap). Optional: configure + run `deep-audit.js ROUND=15` for deeper discovery.
+>
+> **★ 2026-06-26 — ROUND-14 ✅ COMPLETE (both lanes) · ROUND-15 was PREPARED, now LAUNCHED (above).**
 > **Round-14:** all 8 deep-audit survivors GREEN (WIN #4 S1-attr/#5 G1/#6 (HIGH) est-10:2 · Mac #1/#2/#3) + WIN **G5 over-cap** fixed
 > (`_atom_rewrite_headroom`) + **A1 cross-OS LF chokepoint** (Mac-verified 9/9 byte-identical Win↔Mac) + **A4** ubuntu CI + **all 5 gates**
 > (G1 golden · A4 · G3 idmap · G4 badge · G5 glossary) committed+pushed, G3/G4/G5 wired into a slow per-build gate

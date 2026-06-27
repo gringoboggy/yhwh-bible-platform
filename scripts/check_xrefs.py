@@ -49,8 +49,14 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 EPUB_DIR = REPO_ROOT / "epub_working"
 
-ID_RE = re.compile(r'\bid="([^"]+)"')
-HREF_RE = re.compile(r'\bhref="([^"]*)"')
+# round-15 D2: ``\b`` sits at the hyphen inside ``data-*-id=`` / ``data-*-href=``, so
+# ``\bid=`` would harvest a ``data-foo-id`` VALUE as if it were an element id (and a
+# ``data-*-href`` as a link) — polluting the id-set / link-set and masking a real
+# broken-id. Require the attribute name NOT be preceded by ``-`` or a word char so only
+# a genuine ``id=``/``href=`` attribute matches. Dormant on today's calibre base
+# (0 ``data-*-id``/``data-*-href`` ⇒ proven zero-diff), latent-safe for future builds.
+ID_RE = re.compile(r'(?<![-\w])id="([^"]+)"')
+HREF_RE = re.compile(r'(?<![-\w])href="([^"]*)"')
 
 # Same aside pattern as link_xrefs.py — keeps the two scripts in lockstep.
 ASIDE_PAT = re.compile(

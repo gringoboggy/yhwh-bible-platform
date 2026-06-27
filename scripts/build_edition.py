@@ -4224,8 +4224,17 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         # dedup decision so the dedup keys stay byte-identical to the
                         # flag-off build. Operates on the rendered row (base-consistent).
                         if s1_dedup:
-                            # round-14 #4: only strip the source/category boiler the cascade re-surfaces
-                            _cascade = s2_group or eink_backmatter
+                            # round-14 #4 / round-15 D4: strip the dict/topic/xref/witness source-
+                            # boiler ONLY when a downstream re-surfacer re-emits the source. The S2
+                            # cascade (_emit_cascade_sections) re-states the source byline once; the
+                            # eink-backmatter glossary's s2_group=False branch
+                            # (_study_glossary_category_body) emits BARE rows with NO byline, so
+                            # eink_backmatter alone must NOT trigger the strip — else dict/topic source
+                            # provenance is silently lost on the {S1-on, S2-off, eink-backmatter}
+                            # /customize combo (round-14 #4's `or eink_backmatter` was over-permissive).
+                            # Byte-identical for every shipped edition (all carry note_group_by_category
+                            # =on ⇒ s2_group True); only the unshipped S2-off eink combo changes.
+                            _cascade = s2_group
                             row, _changed = _strip_redundant_note_label(row, kind, kind_defaults, cascade=_cascade)
                             if _changed:
                                 stats["s1_labels_suppressed"] += 1

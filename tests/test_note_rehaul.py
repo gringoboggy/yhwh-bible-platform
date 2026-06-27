@@ -228,6 +228,52 @@ class TestNoteRehaulS1InBuild:
         assert counts_off, "fixture produced no gen-1 badges"
         assert counts_off == counts_on, "S1 changed a badge count — it dropped or added a row"
 
+    def test_d4_dict_source_provenance_conserved_on_eink_backmatter_s2off(self, tmp_path):
+        """round-15 D4: the {note_attribution_dedup ON, note_group_by_category OFF,
+        eink backmatter} /customize combo must NOT silently strip dict-* source
+        provenance. The eink-backmatter glossary (``_study_glossary_category_body``
+        on the ``s2_group=False`` branch) emits BARE rows with no re-surfacing byline,
+        so stripping the ``Dictionary (Easton's).`` boiler there loses the source. The
+        non-eink S2-off render keeps the boiler inline; the eink build must keep the
+        SAME provenance (routed into the Study Notes glossary it moves notes to).
+
+        Regression for round-14 #4's over-permissive ``_cascade = s2_group or
+        eink_backmatter`` (which stripped on eink-backmatter where nothing re-surfaces);
+        the correct gate is ``_cascade = s2_group``. RED before the fix (eink prov == 0),
+        GREEN after. Byte-identical for every SHIPPED edition (all carry S2 on)."""
+        from scripts.build_edition import apply_badge_markers
+
+        prov = "Dictionary (Easton's)"  # the dict-easton source-attribution boiler
+
+        eink, book = self._gen_tmp(tmp_path / "d4_eink_s2off")
+        eink_stats = apply_badge_markers(
+            eink,
+            {
+                "id": "x",
+                "marker_style": "badge",
+                "note_attribution_dedup": True,
+                "note_group_by_category": False,
+                "target_reader": "eink",
+                "reader_eink_study_layout": "backmatter",
+            },
+        )
+        # eink-backmatter routes note bodies into the Study Notes glossary entries
+        # (stats["study_backmatter_entries"]), NOT the prose files — count there.
+        eink_prov = sum(entry[2].count(prov) for entry in eink_stats.get("study_backmatter_entries", []))
+
+        every, _ = self._gen_tmp(tmp_path / "d4_every_s2off")
+        apply_badge_markers(
+            every,
+            {"id": "x", "marker_style": "badge", "note_attribution_dedup": True, "note_group_by_category": False},
+        )
+        every_prov = sum((every / f).read_text(encoding="utf-8").count(prov) for f in book["files"])
+
+        assert every_prov > 400, f"control fixture lost provenance ({every_prov}) — bad gen-1 fixture"
+        assert eink_prov == every_prov, (
+            f"D4: eink-backmatter S2-off dict source provenance {eink_prov} != non-eink {every_prov} — "
+            "the {S1-on, S2-off, eink} combo strips dict source the backmatter glossary never re-surfaces"
+        )
+
 
 class TestNoteRehaulS1Wiring:
     """The ``note_attribution_dedup`` builder option is plumbed exactly like the
