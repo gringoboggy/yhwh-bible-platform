@@ -1,11 +1,30 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: round-16 READY (prepared 2026-06-27; NOT started — runs next session) -->
+<!-- TRACKER-STATE: round-16 WIN lane RUNNING (2026-06-27) — engine wf_571060b9-289 + build sweep bsen5mmqv in flight; gates committed c01ba2e9; flagship-eink + merge → fresh session -->
 <!-- task: ROUND-15 ✅ ALL DIMENSIONS COMPLETE (D1–D9 both lanes), 2026-06-27. WIN this session: D5 (flagship glossary byte-streamer proven str==from-file 690/690 + G5 PASS + permanent regression; fixed G5 --reference-split false-FAIL on real builds) + D2 (G3 xref-class breakout + --min-xrefs floor wired into the per-build gate; ethiopian 88541 / catholic 55774 xrefs, 0 dead). Mac cross-OS-verified ALL 9 dims (D3/D5/D8/D9 at 4f69aa05 + D2 at 405eda85). D1 LIVE RE-CUT DONE (WIN, user "do it"): removed the 100 retired-SKU EPUBs + SHA lines from the live GitHub v0.1.0 release, gate PASS (87 assets, 0 retired). ★ ROUND-15 FULLY CLOSED, NO REMAINING FOLLOW-UPS. Next = the separate v1.0.0 release gate / next audit round (need a user trigger). Mac monitor stood down at wrap. Tracker dev/audit/round15-remediation.md. -->
 
 <!-- task: ROUND-16 deep-audit PREPARED + Mac instructions pushed (2026-06-27). Engine deep-audit.js configured (ROUND=16, 8 new dims, ROUND16_DIMS=11, selector branch, round-15 D1–D9 + round-14 build-source dims folded into DEFERRED_BY_DESIGN, round-15 fixes in PRIOR_SURVIVOR_TITLES, stale dist pointer fixed; node syntax OK; all 11 keys resolve). Program dev/audit/round-16-build-program-bulletproofing-2026-06-27.md + tracker dev/audit/round16-remediation.md. NOT STARTED (user directive: set up + push Mac, then a FRESH session runs it). FINDINGS-ONLY two-lane (both lanes all 11 dims; WIN full-catalog build-inspect harness; Mac cross-OS verify). -->
 
-> **★ 2026-06-27 — ROUND-16 READY TO RUN (PREPARED, NOT STARTED). ▶▶ NEXT WIN SESSION = run the WIN lane autonomously.**
+> **▶▶ 2026-06-27 — ROUND-16 WIN LANE IS RUNNING (autonomous; user "bootstrap and continue" + monitor armed).**
+> Bootstrap + env-health (CommitFree ~50 GB, no AppXSvc leak; tree clean; in sync) + pull (up to date). Local `LANE='win'`
+> flipped (NOT committed — revert before push). **Engine `Workflow` `wf_571060b9-289`** (LANE=win, ROUND=16, 11 dims,
+> feature-dev agents) running. **Authored + COMMITTED (`c01ba2e9`, findings-only) 3 gates + the harness + tests** (all
+> ruff-clean, synthetic selftests, pre-commit incl. mypy green): `dev/audit_output_hygiene.py` (dims 5/6/7/8, headline
+> html-integrity/code-leak) · `dev/audit_cross_product.py` (dim 4 → **F1 `computer` orphan**) · `dev/audit_customize_completeness.py`
+> (dim 9 → **F2 `verse_marker_glyph` orphan**) · `dev/round16_build_inspect.py` (full-catalog harness) · `tests/test_round16_source_gates.py`.
+> **Build sweep RUNNING** (`bsen5mmqv`, `--skip-flagship`, 13 jobs / 20 assets) concurrently; **Monitor `babphifvi`** streams progress.
+> Findings live in `dev/audit/round16-remediation.md`. Smoke-test validated the harness (epubcheck/idmap/badge PASS; hygiene content-clean).
+>
+> **▶ FRESH-SESSION HANDOFF (the RAM-heavy seam, per user 2026-06-27):** when this session's engine + non-flagship sweep finish
+> and their findings are recorded, the NEXT (fresh, clean-RAM) WIN session: (1) bootstrap + confirm `LANE='win'` (re-flip if a
+> pull reverted it); (2) run the **flagship ethiopian-tewahedo eink** build solo —
+> `py -3 dev/round16_build_inspect.py --only ethiopian-tewahedo:eink --out build/r16` (CommitFree pre-flight guards OOM; reboot
+> if AppXSvc leak recurs) + the 2 standalones if not yet scanned; (3) collect the engine survivors (both lanes) + harness gate-FAILs
+> + Mac cross-OS deltas → **merge** into `dev/audit/round16-remediation.md` (dedup by `keyOf`, source-tag, severity-calibrate,
+> verbatim COUNT_LINE); (4) run the completeness-critic + the 8-asks×11-dims coverage matrix; (5) STOP at the phased fixes plan
+> for user approval. `git checkout -- .claude/workflows/deep-audit.js` to drop the local LANE flip before any push.
+>
+> **★ 2026-06-27 — ROUND-16 READY TO RUN (PREPARED — now RUNNING, see above). ▶▶ NEXT WIN SESSION = run the WIN lane autonomously.**
 > Build-Program Bulletproofing — audit the EPUB-builder across the full output cross-product (edition × reader-version
 > × OS) + options-completeness + display-redundancy + HTML-integrity + per-reader marker-logic + builder-robustness.
 > **Two-lane, FINDINGS-ONLY** (rounds 14/15 pattern). The Mac has its standing autonomous block in `dev/LANE_HANDOFF.md`.

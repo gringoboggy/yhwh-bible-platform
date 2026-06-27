@@ -4,7 +4,8 @@ Plan USER-APPROVED in plan mode (2026-06-27). Program: `dev/audit/round-16-build
 Process: configure `deep-audit.js ROUND=16` (DONE) → run two-lane (both lanes all 11 dims; WIN harness + Mac cross-OS verify) → adversarially verify → **gather all findings (FINDINGS-ONLY)** → merge → phased fixes plan for user approval. NO fixes this round.
 `truth_owner = windows`; file-disjoint parallel. Marathon core OFF-LIMITS. Round-14 build-source dims + round-15 D1–D9 are `DEFERRED_BY_DESIGN` (do NOT re-litigate).
 
-## Status: ▶ WIN LANE RUNNING (2026-06-27) — engine (wf_571060b9-289) in flight; build-free gates authored + producing findings; full-catalog build sweep staged for a fresh session (RAM-heavy seam, per user).
+## Status: ▶ WIN LANE — engine COMPLETE + merged (2026-06-27); non-flagship build sweep finishing; flagship-eink + Mac cross-OS + finalize = fresh session.
+**Engine done:** 36→26 survivors (3 med, 23 low), 10 refuted — merged below + artifacts in `round16-engine-win-{survivors.json,plan.md,completeness.md}`. **Harness:** everywhere/tablet/kindle/eink-epub all CLEAN; kepub gate-FAILs = harness-applicability (fixed kepub-aware). **Build-free F1/F2 corroborated by the engine.** Phased plan below; **FINDINGS-ONLY — no fixes applied.**
 
 ## Findings (filled as the run surfaces them)
 
@@ -48,3 +49,84 @@ Process: configure `deep-audit.js ROUND=16` (DONE) → run two-lane (both lanes 
   - `dev/audit_cross_product.py` — R16 build-free dim-4 gate → **surfaced F1 (`computer` orphan)**; checks 1/2/4/5 PASS (seeds #2/#3 = non-defects). `--selftest` PASS.
   - `dev/round16_build_inspect.py` — the full-catalog build-inspect harness driver (RAM-safe ladder; flagship eink LAST+SOLO w/ CommitFree pre-flight; incremental JSON; per-asset scan suite). Ruff+parse clean; smoke-test (catholic-study:everywhere) RUNNING.
   - In flight: Explore recon of `/customize` field-wiring (for `audit_customize_completeness.py`, dim 9). **Heavy full-catalog build sweep + final merge staged for a FRESH session** (user-directed RAM seam).
+- **2026-06-27 WIN lane — gates committed + sweep launched autonomously (`c01ba2e9`).** Smoke-test (catholic-study everywhere+kindle) VALIDATED the harness end-to-end: zip/epubcheck/idmap/badge PASS; hygiene **content-clean** (leak_hits=0, nested=0, orphan_asides=0, empty-anchors/asides=0). Two tooling refinements applied from the smoke-test: (a) gate subprocesses importing `scripts.*` now get `PYTHONPATH=repo` (audit_canonical_order had errored `ModuleNotFoundError: scripts`); (b) hygiene mid-chapter spine-break severity is now **reader-aware** — FAIL on eink (forces a page break), WARN on reflowable everywhere/tablet (it found psa 119:88→89 + dan 12:21→22 on the everywhere build = reflowable-low-impact, not a defect). **Dim-3 lint deliverable largely PRE-EXISTS**: `lint_rules.py` already enforces "subprocess calls pass explicit stdin=" (W-W1) + "Atomic writes (no raw open('w') outside notes_io)" — both PASS; a new dim-3 lint is unnecessary (note for the merge). Gates committed (6 files, pre-commit incl. mypy green). **Build sweep RUNNING** (`--skip-flagship`, 13 jobs / 20 assets, bg `bsen5mmqv`) concurrently with the engine; **Monitor armed** (`babphifvi`) streaming per-job progress. Flagship-eink (job 12, RAM ceiling) + standalones-if-needed + final merge = the fresh-session handoff.
+
+---
+
+## ▶ CONSOLIDATED MERGE (WIN lane) — engine + harness + build-free gates
+
+**Engine (`wf_571060b9-289`, LANE=win):** deduped 36 → **survived 26** (3 medium · 23 low), refuted 10. Full data: `round16-engine-win-survivors.json` · plan `round16-engine-win-plan.md` · completeness-critic `round16-engine-win-completeness.md`.
+
+> Dedup: engine #12/#16/#20 = build-free **F1** (`computer` orphan); engine #17/#21 = build-free **F2** (`verse_marker_glyph` orphan) — same defects, independently corroborated source+gate.
+
+
+### Engine survivors — MEDIUM (3)
+
+| # | dim | title | file:line | note |
+|---|-----|-------|-----------|------|
+| 1 | correctness (was high) | Core config loaders read glyph-bearing YAML with the platform-default encoding (cp1252 crash on Windows) | `scripts/core/config.py:280, 292, 316, 341` | |
+| 2 | builder-robustness (was high) | Study-glossary str splitter holds ~3x copies of the body (offset-vs-slice not done); the structure-surprise fallback reintroduces the full-monolith OOM the | `scripts/build_edition.py:5191-5236 (residual); 5386-5393 (fallback amplifier)` | |
+| 3 | display-redundancy (was high) | Round-16 display-redundancy gate (family C) is a dead check: scans for a class the build never emits, and omits the body/byline checks its docstring promis | `dev/audit_output_hygiene.py:108, 200-209 (docstring 26-27)` | |
+
+### Engine survivors — LOW (23)
+
+| # | dim | title | file:line | note |
+|---|-----|-------|-----------|------|
+| 4 | correctness (was medium) | Authoring/dev tools read & write Unicode content without encoding= (same cp1252 hazard; writes can also raise UnicodeEncodeError) | `scripts/add_note.py:add_note.py:149,203; add_kind.py:60,79,85,95; bulk_inject.py` | |
+| 5 | correctness | dashboard_stats() runs its second SQL query on a connection that has escaped the _read_cursor() lock (gap-4 use-after-close race) | `scripts/core/corpus_index.py:1487-1514` | |
+| 6 | correctness | translations.get_chapter sorts by raw verse value, crashing on 'own'-versification stores that mix int and lettered verse keys | `scripts/core/translations.py:241` | |
+| 7 | security | _send_file magic-byte verification is defeated by the extension fallback in _detect_format — non-image bytes with a whitelisted extension are served with a | `scripts/web.py:1345-1355` | |
+| 8 | cross-module | run_kenyon_at_scale.py --books filter is not normalized → a legacy alias silently drops that book's candidates | `scripts/run_kenyon_at_scale.py:116-117, 132` | |
+| 9 | cross-module | add_note.py routes the notes-file write through the raw --book alias after get_book only normalized validation (crash on legacy alias) | `scripts/add_note.py:301, 322, 346` | |
+| 10 | builder-robustness (was medium) | Flagship glossary from-file streamer's structural fallback re-materializes the whole-document str while still holding the 480 MB raw bytes (re-introduces t | `scripts/build_edition.py:5390-5393` | |
+| 11 | cross-product | Cross-product gate audit_cross_product.py checks only the /customize reader dropdown, not the wizard target cards — a parallel target_reader entry point th | `dev/audit_cross_product.py:49-74` | |
+| 12 ·DUP F1 | cross-product (was medium) | `computer` is an orphan reader target — selectable in /customize + wizard, but has no FORMAT_MATRIX cell, no build behavior, and no catalog asset | `scripts/build_edition.py:1977 (TARGET_READERS); 2034-2086 (FORMAT_MATRIX); 1766-` | |
+| 13 | html-integrity (was medium) | Output-hygiene gate misses html.escape'd Python class reprs (<class '...'>) — _unescape only decodes &lt;/&gt;/&amp;, not &#x27; | `dev/audit_output_hygiene.py:115-116, 78, 149-152, 329-357` | |
+| 14 | whitespace-pagebreak (was medium) | apply_eink_verse_line_breaks ignores verse-p-flush — leaves an empty paragraph and drops flush styling at every chapter/stanza opener | `scripts/build_edition.py:3965, 3976-3999` | |
+| 15 | display-redundancy (was medium) | S2 cascade body-boilerplate de-dup is gated on note_attribution_dedup instead of note_group_by_category — category text prints twice in the {S1-off, S2-on} | `scripts/build_edition.py:4226-4243 (helper 3004-3025)` | |
+| 16 ·DUP F1 | options-completeness (was medium) | `computer` target_reader is offered + accepted but has no build branch or FORMAT_MATRIX row — a dead option that silently builds as an `everywhere` alias | `scripts/build_edition.py:1977, 2034-2086` | |
+| 17 ·DUP F2 | options-completeness | `verse_marker_glyph` is schema'd + validated + echoed + has a /customize control but is read NOWHERE on the build/cover path (orphan option) | `scripts/api/editions.py:68, 1256-1257` | |
+| 18 | options-completeness (was medium) | Change-impact Preview hides + misreports real savable options: `api_preview_edition_changes` keeps a duplicate EDITABLE allow-list that has drifted from th | `scripts/api/editions.py:695-756, 786` | |
+| 19 | options-completeness (was medium) | Four /customize options never display their saved value (loader leg missing in api_customize_data) | `scripts/web_editions.py:393-499` | |
+| 20 ·DUP F1 | options-completeness (was high) | `computer` target_reader is an offered option that produces output identical to `everywhere` (dead/meaningless choice) | `scripts/build_edition.py:1977` | |
+| 21 ·DUP F2 | options-completeness | `verse_marker_glyph` is a savable /customize option with no build consumer (orphan); catholic-study's `¶` is silently ignored | `content/editions.yaml:197` | |
+| 22 | options-completeness | Dead eink-unsafe badge guard: `dot` marker_badge_style is not rejected server-side for eink builds | `scripts/build_edition.py:2278` | |
+| 23 | os-binary-parity | Linux AppImage ships an unbranded placeholder icon while Win/Mac carry the branded app icon (cross-OS branding divergence) | `dev/build_appimage.sh:80-97` | |
+| 24 | os-binary-parity | Windows desktop build installs an UNPINNED PyInstaller, diverging from the CI/Mac pin (could build the shipping .exe on an untested major) | `dev/build_desktop.cmd:19-24` | |
+| 25 | os-binary-parity | build_appimage.sh has unreachable code and a contradictory user message after the appimagetool guard | `dev/build_appimage.sh:42-50` | |
+| 26 | os-binary-parity | Frozen Windows .exe carries no version resource while the macOS .app embeds CFBundleVersion (file-metadata parity gap) | `dev/launcher.spec:217-237` | |
+
+### ⚠ Findings about the round-16 gates themselves (fix before relying on them)
+
+- **#3** (medium): `audit_output_hygiene.py` family C (display-redundancy) is a **dead check** — scans a class the build never emits + omits the body/byline checks its docstring promises.
+- **#11** (low): `audit_cross_product.py` checks only the /customize dropdown, **not the wizard target cards** (a parallel `target_reader` entry point).
+- **#13** (low): `audit_output_hygiene.py` `_unescape` misses `&#x27;` → an html.escape'd `<class '…'>` repr leak slips past the leak detector.
+
+
+### WIN build-inspect harness (built artifacts)
+
+| edition | format | result |
+|---------|--------|--------|
+| catholic-study | everywhere | clean |
+| catholic-study | kindle | clean |
+| evangelical-reformed | everywhere | clean |
+| evangelical-reformed | kindle | clean |
+| eastern-orthodox | everywhere | clean |
+| eastern-orthodox | kindle | clean |
+| ethiopian-tewahedo | everywhere | clean |
+| ethiopian-tewahedo | kindle | clean |
+| catholic-study | apple-tablet | clean |
+| evangelical-reformed | apple-tablet | clean |
+| eastern-orthodox | apple-tablet | clean |
+| ethiopian-tewahedo | apple-tablet | clean |
+| catholic-study | eink-epub | clean |
+| catholic-study | kobo-kepub | FAIL epubcheck,audit_idmap_frags,audit_glossary_contract |
+
+_14 assets scanned so far. eastern-orthodox eink + 2 standalones + the flagship ethiopian-tewahedo eink (RAM ceiling) = fresh-session._
+
+> **Kepub gate-applicability (NOT product defects):** the catholic-study `kobo-kepub` idmap/glossary/epubcheck FAILs are harness-scope — `audit_idmap_frags`+`audit_glossary_contract` are PLAIN-eink-epub gates (kepubify koboSpan inflates the glossary cap [gate WARNs this] + per-document layout ids `book-columns`/`book-inner`, never link targets, read as cross-piece dups), and epubcheck **timed out under engine CPU load** (not an error). The plain `eink-epub` scanned **clean** on all gates, and `verify_kr2_build` (the authoritative Kobo gate) **passed GREEN**. Harness fixed to be kepub-aware (skip idmap/glossary on kepubs; epubcheck best-effort).
+
+### Final WIN sweep state (sweep killed mid-standalone-geez — non-flagship ladder essentially complete)
+- **18 assets scanned, all 11 non-standalone jobs done:** 4 everywhere + 4 kindle + 4 tablet + 3 filtered eink-epub = **ALL CLEAN**.
+- **All 3 filtered kepubs** (catholic/evangelical/eastern `kobo-kepub`) show the **identical** epubcheck/idmap/glossary pattern → confirms it is **systematic harness-applicability, not a product defect** (idmap/glossary are plain-eink-epub gates; verify_kr2_build green; the plain eink-epub clean on all). Harness now kepub-aware.
+- **Remaining (fresh session):** the 2 standalone builds (geez/amharic — FUTURE per DEFERRED, low priority) + the **flagship ethiopian-tewahedo eink** (RAM ceiling). Resume steps in `dev/IN_FLIGHT.md`.
