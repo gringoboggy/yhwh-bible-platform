@@ -130,3 +130,44 @@ _14 assets scanned so far. eastern-orthodox eink + 2 standalones + the flagship 
 - **18 assets scanned, all 11 non-standalone jobs done:** 4 everywhere + 4 kindle + 4 tablet + 3 filtered eink-epub = **ALL CLEAN**.
 - **All 3 filtered kepubs** (catholic/evangelical/eastern `kobo-kepub`) show the **identical** epubcheck/idmap/glossary pattern → confirms it is **systematic harness-applicability, not a product defect** (idmap/glossary are plain-eink-epub gates; verify_kr2_build green; the plain eink-epub clean on all). Harness now kepub-aware.
 - **Remaining (fresh session):** the 2 standalone builds (geez/amharic — FUTURE per DEFERRED, low priority) + the **flagship ethiopian-tewahedo eink** (RAM ceiling). Resume steps in `dev/IN_FLIGHT.md`.
+
+---
+
+## ▶ CROSS-LANE CONSOLIDATION (both lanes complete) — 2026-06-27
+
+Both deep-audit lanes ran to completion + adversarially verified. **Detailed per-lane plans:** WIN `round16-engine-win-plan.md` + completeness `round16-engine-win-completeness.md`; MAC `round16-engine-mac.md` (carries its own Phases 1–7 + optimization-verdicts + constraints).
+
+- **engine-win:** 36→**26** survivors (3 medium, 23 low), 10 refuted.
+- **engine-mac:** 32→**20** survivors (2 medium, 18 low), 12 refuted. **9 touch `build_edition.py`/`epub_working/` → WIN-owned fix surface.**
+- **WIN build-inspect harness:** 18 artifacts, all everywhere/tablet/kindle/eink-epub **CLEAN**; 3 kepubs = harness-applicability (now kepub-aware).
+- **MAC cross-OS verify ✅ (done-def #3):** G1 9/9 byte-identical Win↔Mac · G3/G4/G5/G6 PASS on a fresh macOS catholic-study eink. ☐ `audit_output_hygiene` + the build-free `_selftest`s on macOS = **pending Mac re-pull** (WIN's gates just landed/pushed).
+
+### Dedup map (same defect, both lanes — count once)
+- **F2 `verse_marker_glyph` orphan** = engine-win #17/#21 = engine-mac #18.
+- **AppImage placeholder icon** = engine-win #23 = engine-mac #20.
+- **4 options don't display saved value** = engine-win #19 = engine-mac #19.
+- **Glossary ~3×-copy / whole-doc fallback OOM** = engine-win #2/#10 ≈ engine-mac #9/#12 (+ mac #10 enrich_nav OOM, #11 ThreadPool-eink are sibling RAM hazards).
+- **F1 `computer` orphan** = engine-win #12/#16/#20 (+ my build-free gate); mac did not re-raise it.
+
+### ★ Priority items (5 mediums across the lanes)
+1. **[mac#1, medium, WIN] Kindle DIRECT build path ships the E999-failing variant** — `build_one` never applies `make_kindle_safe`; only the matrix path (`build_format_matrix._apply_kindle_post`) does. **This refines/corrects my seed#2** ("kindle declared==built") — the *matrix* path is correct, but a desktop /customize user who picks 📬 Kindle + rebuilds gets a non-deliverable artifact. (My cross-product gate only checked the FORMAT_MATRIX level → missed the build_one path — a gate-coverage gap to close.)
+2. **[mac#2, medium, WIN] eink study-glossary return link teleports to chapter start** for the 13 Strategy-B books that DO carry v-anchors (psa/job/kings/...) — turn-135 regression; gate on actual v-anchor presence, not `strategy=='B'`.
+3. **[win#1, medium] `config.py` reads glyph YAML without `encoding="utf-8"`** → cp1252 crash on Windows without PYTHONUTF8 (4 loaders).
+4. **[win#2, medium, WIN] glossary str-splitter ~3×-copy + structure-fallback OOM** (≈ mac#9/#12).
+5. **[win#3, medium] my own `audit_output_hygiene` family-C is a dead check** — fix before relying on the display-redundancy dim.
+
+### Notable lows (cross-lane, by theme)
+- **Code/placeholder leak in shipped output:** mac#16 `TODO_CERTIFIER_NAME` in every edition's OPF (a11y:certifiedBy) — the html-integrity class, but in the .opf (my hygiene scanner only scans html/xhtml → extend to .opf). mac#15 reviewer-scaffold lint screens only the body field.
+- **Security boundaries:** mac#5 note-editor READ path innerHTML unsanitized; mac#6 SSRF allowlist bypassed by redirects; win#7 `_send_file` magic-byte defeated by extension fallback; mac#14 `sanitize_html` emits unbalanced/nested-`<a>`.
+- **Book-code ★BUGCLUSTER:** win#8/#9 (run_kenyon/add_note alias) + mac#7/#8 (patristic lint omits the 6th store) — prefer the glob-based lint fix.
+- **My round-16 gate self-fixes:** win#3 (family-C dead), win#11 (gate misses wizard target cards — Mac corroborates a parallel `target_reader` entry point), win#13 (`_unescape` misses `&#x27;`).
+- **OS-binary parity:** win#24 unpinned PyInstaller, win#25 unreachable code, win#26 no Windows version resource (+ the shared AppImage icon).
+- **Cross-OS harness bug (mac-observed):** the EXISTING `tests/test_round14_build_gates.py:58` runs gates via subprocess WITHOUT `PYTHONPATH`/`cwd` → `audit_canonical_order` fails on clean macOS — the same fix I applied to the round-16 harness should land in `test_round14_build_gates.py` too.
+
+### Combined next-round seeds (completeness-critics: WIN 7 + MAC 8)
+Kepub colour-variant fan-out (only 1 colour scanned) · no build-time enum validation of `editions.yaml` (validate_schemas is type=str only) · the website **release-catalog** as a 3rd offering surface (`gen_release_catalog`) · eink/kepub **cross-OS determinism** (only 9 KJV cells gated; Win/Mac eink xref count already diverges) · per-book/chapter **override→marker** chain · kindle_post output shape · the whole 6-store enumeration class. Full text in the two completeness files.
+
+### ▶ Remaining (fresh session — RAM seam) — then STOP
+1. WIN flagship **ethiopian-tewahedo eink** build + the 2 standalones (the kepub-aware harness; CommitFree pre-flight).
+2. Mac re-pull → run `audit_output_hygiene` + the build-free `_selftest`s on macOS (done-def #3b/#3c).
+3. Produce ONE unified severity-RANKED remediation plan from the two lane plans (safest-first), present for user approval. **FINDINGS-ONLY — no fixes this round.**
