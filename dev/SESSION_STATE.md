@@ -2,10 +2,11 @@
 
 > **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`.
 >
-> **★ 2026-06-27 — ROUND-15 ✅ FULLY CLOSED (all 9 dims D1–D9 + cross-OS verified, both lanes). Mac cross-OS-verified
-> D3/D5/D8/D9 (`4f69aa05`) AND D2 (`405eda85`, G3 xref-breakout + per-build gate PASS on macOS) — nothing pending for
-> Mac. The ONLY remaining round-15 follow-up is the v1.0.0-tag D1 retired-asset re-cut (outward-facing → flagged, not
-> autonomous). Both remotes synced, tree clean.** _(Cross-OS observation, low priority: catholic-study eink G3 xref count
+> **★ 2026-06-27 — ROUND-15 ✅ FULLY CLOSED + NO REMAINING FOLLOW-UPS (all 9 dims D1–D9 + cross-OS verified, both
+> lanes). Mac cross-OS-verified D3/D5/D8/D9 (`4f69aa05`) AND D2 (`405eda85`). **D1 LIVE RE-CUT DONE (WIN, user "do it"):**
+> removed all 100 retired-SKU EPUBs + their SHA256SUMS lines from the live GitHub v0.1.0 release → D1 gate PASS (87 assets,
+> 0 retired, bijection clean); no website breakage (website references 0 retired assets). The v1.0.0 release gate / next
+> audit round are SEPARATE future work (need a user trigger). Both remotes synced, tree clean.** _(Cross-OS observation, low priority: catholic-study eink G3 xref count
 > differs Win 55,774 vs Mac 45,057 — catholic-study eink is NOT in the 9-cell byte-stable golden set, so cross-OS
 > byte-identity was never proven for it; the `--min-xrefs 10000` floor is robust to both. Worth a future cross-OS
 > determinism check, but out of round-15 scope.)_
@@ -79,7 +80,7 @@
 
 **Shipped (v0.1.0 track):** M1 everywhere · M2 Apple · M4 Kindle catalog columns live · the full Ethiopian Bible EPUB + Kobo kepub. ci pytest triage green · orphan inline-marker strip · 4-edition test pins.
 
-**Blocks the v1.0.0 tag:** M2 Apple audit (K-R5-3 device re-test of the rebuilt tablet artifact) · Kindle STK device bisect (one deliverable m4b) · M3 Kobo (45 kepub + user taps) · **release assets + desktop binaries re-cut at tag** (the live v0.1.0 release assets still attach epubs for the two retired notes-only SKUs from the 2026-06-10 cut — the body now reads "four canon-shaped study editions", so re-cut the attached asset set at the v1.0.0 tag). *(Phase F website publish — DONE + LIVE 2026-06-22, Mac. Rules+accuracy consolidation — DONE 2026-06-21, Phases A–E,G,H. MacClaude Opt# byte-verify — DONE: Opt#3 reverted.)*
+**Blocks the v1.0.0 tag:** M2 Apple audit (K-R5-3 device re-test of the rebuilt tablet artifact) · Kindle STK device bisect (one deliverable m4b) · M3 Kobo (45 kepub + user taps) · **fresh release assets + desktop binaries built at tag** (the live v0.1.0 retired-SKU asset cleanup is DONE — 2026-06-27 D1 re-cut removed the 100 retired EPUBs + SHA lines from the GitHub v0.1.0 release, gate PASS 87 assets; v1.0.0 just needs its own version-stamped asset set built at tag time, clean by construction since the build emits only the 4 active editions). *(Phase F website publish — DONE + LIVE 2026-06-22, Mac. Rules+accuracy consolidation — DONE 2026-06-21, Phases A–E,G,H. MacClaude Opt# byte-verify — DONE: Opt#3 reverted.)*
 
 ## Next — after the cleanup commits (WIN builds · Mac verifies)
 

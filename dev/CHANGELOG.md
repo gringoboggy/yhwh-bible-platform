@@ -49,9 +49,14 @@ remaining round-15 WIN dimension, **D5** — byte-verifying `_stream_glossary_pi
 Gates: `ruff format --check .` clean (1243 files) · `test_audit_glossary_contract` 11/11 · `test_file_split` 58/58 (+ the
 new slow case) · `test_audit_idmap_frags` 10/10 · G3/G4/G5/D8 PASS on fresh ethiopian + catholic-study eink builds ·
 `lint_rules` 0 fail. Reports: `dev/audit/round15-d5-glossary-byteproof.md` + the round-15 tracker.
-**★ ROUND-15 ✅ ALL 9 DIMENSIONS COMPLETE (D1–D9, both lanes).** Follow-ups only: the D1 retired-asset re-cut at the v1.0.0
-tag (outward-facing → flagged, not autonomous); Mac cross-OS verify of the D5/D2 builds + the D3 golden re-stamp. **▶ Mac:**
-rebuild flagship eink on macOS → G5 PASS + str==from-file via the new slow test. Mac monitor stays armed for the session.
+**★ ROUND-15 ✅ FULLY CLOSED (D1–D9, both lanes, cross-OS verified).** Mac cross-OS-verified all 9 dims (`4f69aa05` +
+`405eda85`). **D1 live re-cut (WIN, user-authorized "do it"):** removed all 100 retired-SKU EPUBs (5 retired editions ×
+4 formats × 5 colours) + their `SHA256SUMS.txt` lines from the live GitHub v0.1.0 release (GitHub = canonical home;
+GitLab v0.1.0 has no file assets) → the `audit_release_assets` D1 gate now **PASS** (`attached=87 sums=86 grammar=80
+legacy=2 platform=4 meta=1 retired=0 orphan_sums=0 missing_sums=0`); the live release is now consistent with its
+"four canon-shaped study editions" body, and the public website references 0 retired assets (no broken links). The auto-mode
+guard correctly gated the destructive release-asset deletion until the user said "do it." **No round-15 follow-ups remain;**
+the v1.0.0 release gate (M2 Apple / Kindle STK / M3 Kobo device taps) + next audit round are separate, user-triggered.
 
 ## 2026-06-26 (close) — Round-14 ✅ COMPLETE (both lanes) + ROUND-15 PREPARED (9 completeness gaps scoped) (Windows; autonomous)
 

@@ -1,7 +1,7 @@
 # In-flight work — current task tracker
 
 <!-- TRACKER-STATE: idle -->
-<!-- task: ROUND-15 ✅ ALL DIMENSIONS COMPLETE (D1–D9 both lanes), 2026-06-27. WIN this session: D5 (flagship glossary byte-streamer proven str==from-file 690/690 + G5 PASS + permanent regression; fixed G5 --reference-split false-FAIL on real builds) + D2 (G3 xref-class breakout + --min-xrefs floor wired into the per-build gate; ethiopian 88541 / catholic 55774 xrefs, 0 dead). Mac cross-OS-verified ALL 9 dims (D3/D5/D8/D9 at 4f69aa05 + D2 at 405eda85) — round-15 FULLY CLOSED both lanes. Only follow-up: D1 retired-asset re-cut at the v1.0.0 tag (outward-facing, not autonomous). Mac monitor stood down at wrap. Tracker dev/audit/round15-remediation.md. -->
+<!-- task: ROUND-15 ✅ ALL DIMENSIONS COMPLETE (D1–D9 both lanes), 2026-06-27. WIN this session: D5 (flagship glossary byte-streamer proven str==from-file 690/690 + G5 PASS + permanent regression; fixed G5 --reference-split false-FAIL on real builds) + D2 (G3 xref-class breakout + --min-xrefs floor wired into the per-build gate; ethiopian 88541 / catholic 55774 xrefs, 0 dead). Mac cross-OS-verified ALL 9 dims (D3/D5/D8/D9 at 4f69aa05 + D2 at 405eda85). D1 LIVE RE-CUT DONE (WIN, user "do it"): removed the 100 retired-SKU EPUBs + SHA lines from the live GitHub v0.1.0 release, gate PASS (87 assets, 0 retired). ★ ROUND-15 FULLY CLOSED, NO REMAINING FOLLOW-UPS. Next = the separate v1.0.0 release gate / next audit round (need a user trigger). Mac monitor stood down at wrap. Tracker dev/audit/round15-remediation.md. -->
 
 > **★ 2026-06-26 — ROUND-15 LAUNCHED + RUNNING (WIN, autonomous — user "continue your work" + Mac monitor armed).**
 > Plan USER-APPROVED in plan mode; program `dev/audit/round-15-completeness-audit-program-2026-06-26.md` verified
@@ -42,9 +42,12 @@
 >   **55,774** xrefs, **0 dead**; all 4 per-build gates (G3/G4/G5/D8) PASS; +2 unit tests.
 > - **★★ ROUND-15 ✅ FULLY CLOSED (all 9 dims D1–D9 + cross-OS verified, both lanes).** Mac cross-OS-verified D3/D5/D8/D9
 >   (`4f69aa05`) AND D2 (`405eda85`: G3 xref-breakout PASS on the macOS catholic-study build, `xref_fails=0`; per-build gate
->   green). Follow-ups only: D1 retired-asset re-cut at the v1.0.0 tag (outward-facing → flagged, not autonomous) ·
->   `deep-audit.js:294` stale pointer (if the engine is run). _Low-pri cross-OS observation: catholic-study eink G3 xref
->   count Win 55,774 vs Mac 45,057 (not a byte-stable golden cell; floor robust) — future determinism check._
+>   green). **✅ D1 LIVE RE-CUT DONE (WIN, 2026-06-27, user "do it"):** removed all 100 retired-SKU EPUBs + SHA256SUMS
+>   lines from the live GitHub v0.1.0 release → D1 gate PASS (87 assets, 0 retired, bijection clean); website references 0
+>   retired assets (no breakage). **★★ ROUND-15 FULLY CLOSED — no remaining follow-ups.** Separate future work (needs a user
+>   trigger): the v1.0.0 release gate (M2 Apple / Kindle STK / M3 Kobo device taps) · the next audit round · `deep-audit.js:294`
+>   stale pointer. _Low-pri cross-OS observation: catholic-study eink G3 xref count Win 55,774 vs Mac 45,057 (not a byte-stable
+>   golden cell; floor robust) — future determinism check._
 >
 > **★ 2026-06-26 — ROUND-14 ✅ COMPLETE (both lanes) · ROUND-15 was PREPARED, now LAUNCHED (above).**
 > **Round-14:** all 8 deep-audit survivors GREEN (WIN #4 S1-attr/#5 G1/#6 (HIGH) est-10:2 · Mac #1/#2/#3) + WIN **G5 over-cap** fixed
