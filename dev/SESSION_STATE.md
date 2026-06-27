@@ -2,7 +2,15 @@
 
 > **➤➤➤ FRESH SESSION START HERE.** `git pull` → read `AGENTS.md` → the triad → this block → `dev/IN_FLIGHT.md`.
 >
-> **★ 2026-06-26 — ROUND-14 ✅ COMPLETE (both lanes) · ROUND-15 LAUNCHED + RUNNING (plan APPROVED in plan mode; WIN D4 FIXED + byte-stable; D3/D1/D6/D7 handed to Mac). See `dev/IN_FLIGHT.md` + `dev/audit/round15-remediation.md`.**
+> **★ 2026-06-27 — ROUND-15 ✅ 8 of 9 DONE (both lanes) · only D5 remains. HEAD `43fd5001`, both remotes synced, tree clean.**
+> **Done:** D1 release-asset gate (Mac) · D2 check_xrefs regex + G3 presence floor (WIN) · **D3 (HIGH) COMPLETE** (Mac store fix +
+> the ★WIN discovery that vulgate popups are BAKED so the store fix didn't reach the product → surgical `epub_working/` re-bake +
+> golden re-stamp; dropped Ps 2:13/4:10 now SHIP) · D4 (HIGH) `_cascade` source-provenance (WIN) · D6 canon book-count gate (Mac) ·
+> D7 migration torn-safe + idempotence (Mac) · D8 `audit_canonical_order` (WIN) · D9 `audit_kepub_revid_family` — guard #19 = by-design,
+> not a regression (WIN). **▶ NEXT: D5** (WIN) — the >64 MB flagship-glossary byte-streamer (`_stream_glossary_pieces_from_bytes`) has
+> ~zero real-edition coverage; CHECK A (real flagship `index_split_900` str==from-file) + CHECK B (G5 on a fresh flagship build) — the
+> HEAVIEST/OOM-prone build, START on clean RAM. **▶ Mac:** cross-OS verify the D3 golden re-stamp; the `generate_verse_popups.py` base↔bake
+> separator-drift follow-up. See `dev/IN_FLIGHT.md` + `dev/audit/round15-remediation.md` + `round15-d3-baked-popup-finding.md`.
 > **Round-14 DONE — all 8 deep-audit survivors GREEN + the WIN-surfaced G5 over-cap fixed + all 5 gates built, 9-KJV byte-stable both OSes.**
 > Survivors: WIN **#4** S1-attribution (cascade-gate `s2_group or eink_backmatter`) · **#5** G1 · **#6 (HIGH)** est 10:2 scripture corruption
 > (`_mv_displacement_would_corrupt` WEB-base discriminator); Mac **#1** eink_glyphs-cache · **#2** prospect None · **#3** canonical-extent.
@@ -13,8 +21,8 @@
 > (`dev/audit_badge_conservation.py` + byte-neutral sidecar `badge_verses_skipped`) · G5 glossary (`dev/audit_glossary_contract.py`);
 > **G3/G4/G5 wired** into a slow per-build gate (`tests/test_round14_build_gates.py`). 9-KJV byte-stability PROVEN post-fix (G1 golden re-run =
 > "9 cells match"); all build-path fixes eink-gated/dormant. Program: `dev/audit/build-pipeline-deep-audit-program-2026-06-25.md`. HEAD `48807147`.
-> **★ ROUND-15 LAUNCHED + RUNNING (WIN, autonomous) — `dev/audit/round-15-completeness-audit-program-2026-06-26.md` + tracker
-> `dev/audit/round15-remediation.md` (READ FIRST).** Plan USER-APPROVED in plan mode (program verified still-apt vs current code).
+> **★ ROUND-15 (8/9 DONE — current status in the header above; this block = program + dims reference) — program
+> `dev/audit/round-15-completeness-audit-program-2026-06-26.md` + tracker `dev/audit/round15-remediation.md` (READ FIRST).**
 > The **9 completeness-critic gaps**: D1 release pipeline · D2 xref subsystem · D3 `versification.py` fold-tables · D4 /customize flag
 > cross-product · D5 glossary-streaming FLAGSHIP · D6 `corpus_index`↔matrix book-count · D7 migration re-run safety · D8 nav/opf order ·
 > D9 kepub `-sN` rev-id. Two-lane file-disjoint (truth_owner=windows): **WIN** = `build_edition.py` + D2/D5/D8/D9 + build-needing gates +
