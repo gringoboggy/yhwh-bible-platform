@@ -18,15 +18,19 @@
 > - **✅ MAC DONE its 4 dims (pulled):** D3 (`_VULGATE_PSALM_FIXES` `(2,13)→(2,12)`+`(4,10)→(4,8)` + coverage gate) ·
 >   D1 (release-asset gate; live v0.1.0 has 100 retired-SKU EPUBs → v1.0.0 tag-time re-cut) · D6 (canon book-count
 >   gate + de-vacuumed Δ.4) · D7 (migration 0001 torn-safe + idempotence gate). + cross-OS verify pending.
-> - **★ D3 IS INCOMPLETE (WIN discovery, `dev/audit/round15-d3-baked-popup-finding.md`):** verified vs the BUILT epub
->   — vulgate/douay popups are BAKED into `epub_working/` (`_BAKED_NOW`) and no edition sets `translation_id`, so
->   Mac's store fix does NOT reach the shipped popup. ⇒ (1) **G1 golden UNCHANGED, NO re-stamp** (the "mismatch" was
->   the `--version` confound; saved a 42-min regen); (2) the Bible STILL drops Ps 2:13/4:10 until `epub_working/` is
->   re-baked. Full re-bake UNSAFE (22k-line `vn-sep` separator drift) → SURGICAL 2-verse base edit + `G1 --regen` is
->   the path. ⚠ Gated on 2 Mac store questions (stray `]` in `latVUC_vpl.txt`; the separator drift). WIN-owned.
-> - **WIN remaining:** the D3 surgical re-bake (after Mac settles the `]`) · D5 (flagship glossary byte-verify) ·
->   D8 (`audit_canonical_order.py`) · D9 (`audit_kepub_revid_family.py` + `deep-audit.js:294` stale pointer) · the G3
->   xref breakout. Heavy builds run ONE-AT-A-TIME (RAM cap).
+> - **✅ D3 COMPLETE (WIN re-bake, `dev/audit/round15-d3-baked-popup-finding.md`):** the discovery — vulgate/douay
+>   popups are BAKED into `epub_working/` (`_BAKED_NOW`), no edition sets `translation_id`, so Mac's store fix didn't
+>   reach the shipped popup. Mac resolved the `]` (it's the Clementine psalm-body delimiter → restoring the tail WITH
+>   `]` also repairs a dangling unclosed `[`). **WIN surgical 4-append base edit** (Ps 2:12/4:8 vulgate+douay in
+>   `index_split_032.html`; confined 4-line diff; `check_nested_anchors` 0 + `test_nested_anchors` 10/10). Verified the
+>   restored Latin tail SHIPS in the built epub (`beati omnes qui confidunt in eo` ×1). **G1 golden RE-STAMPED** (6
+>   cells = everywhere+tablet × 3 editions; the 3 kindle cells unchanged — kindle compacts the parallel-Latin popup).
+>   Mac to cross-OS verify. ⚠ Separator drift (`generate_verse_popups.py` not idempotent-vs-base) = standalone follow-up.
+> - **✅ D8 + D9 DONE (WIN, pushed):** D8 `audit_canonical_order.py` (`e57e6c64`) — reading-flow order gate (no defect;
+>   validated 1299 ch / 75 books) · D9 `audit_kepub_revid_family.py` (`93d2fb85`) — guard #19 confirmed by-design (rev
+>   606 navigate, 0 inline-bare; liveness non-vacuous). Both wired/tested + per-build (D8).
+> - **WIN remaining:** **D5** (flagship glossary byte-verify — heaviest build, own cycle) · the G3 xref breakout (fresh
+>   build) · `deep-audit.js:294` stale pointer (if the engine is run). Heavy builds ONE-AT-A-TIME (RAM cap).
 >
 > **★ 2026-06-26 — ROUND-14 ✅ COMPLETE (both lanes) · ROUND-15 was PREPARED, now LAUNCHED (above).**
 > **Round-14:** all 8 deep-audit survivors GREEN (WIN #4 S1-attr/#5 G1/#6 (HIGH) est-10:2 · Mac #1/#2/#3) + WIN **G5 over-cap** fixed
