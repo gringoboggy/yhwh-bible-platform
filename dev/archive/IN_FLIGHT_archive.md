@@ -6,6 +6,130 @@
 
 <!-- BATCHES (newest first) -->
 
+<!-- archived: 8 entries, 2026-06-24..2026-06-25 (rotate_truth_records.py) -->
+
+> **▶ 2026-06-24 (Windows, autonomous Mac-helping session) — IN PROGRESS.**
+> **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
+> **▶▶▶ WS1 mid-verse fix ✅ DONE+VERIFIED both lanes (62→0, epubcheck 0/0/0/0, staged; Mac `39799498` PASS incl. byte-stability eink-gate).**
+> **▶▶▶ WS2 note-cascade de-dup ✅ LANDED+BUILD-VERIFIED (2026-06-25, WIN, `8115876f`).** Per Mac's `note-redundancy-findings.md`:
+> Class 1 — drop the per-note leaf `<a class="note-sym">` in the grouped `_emit_cascade_sections` (vn-cat-head shows the glyph once);
+> Class 2 — strip `xref-citation` "Cross-references." + `text-witness` "Manuscript witness." body lead-ins in
+> `_strip_redundant_body_boilerplate` (exact-kind, s1_dedup-gated). **Built catholic-study eink: leaf note-sym 0 · xref lead-in 0 ·
+> text-witness lead-in 0; survivors intact (10,717 vn-cat-sym headers · 12,994 vn-item leaves · 4,218 xref groups).** 6 TDD pins +
+> 96 cascade green. Deliberate grouped re-baseline (s1_dedup editions). ⏳ epubcheck (running) · ⏳ Mac cross-OS byte-diff (handed off).
+> **NEXT (WIN):** WS1 mixed-translation (18 ¶ + co-located KJV brackets → WEB; source CACHED `content/translations/sources/web/eng-web_vpl.txt`)
+> → then WS3 popup (Mac research). **Discrete Prayer-of-Azariah ToC ✅ (`83391827`).**
+> **▶▶▶ WS3 Kobo run-on popup fix ✅ LANDED+BUILD-VERIFIED (2026-06-25, WIN).** Per Mac's
+> `dev/audit/kobo-popup-formatting-research.md`: the study/cascade `verse-notes` popups separated category heads /
+> source bylines / note rows ONLY with hidden U+2028 `.vn-sep` spans, which Kobo's tag-stripped Footnote overlay
+> DROPS → the run-on. Gave the family the translation-family's device-proven chrome — visible `·` (U+00B7) +
+> `<br class="kobo-vn-br">`, **EINK-ONLY**. New eink constants `_VN_SEP_{ITEM,CAT,BYLINE}_EINK` + a `br.kobo-vn-br`
+> rule in `_EINK_READER_CSS`; threaded a kw-only `eink=False` through `_emit_cascade_sections` /
+> `_badge_aside_inner_to_row` / `_chunk_vn_item_row` + the budget-pack chain (`_chunk_row_to_budgets` /
+> `_split_popup_units`) + the backmatter-glossary chain (`_study_glossary_category_body` / `_study_glossary_footnote` /
+> `_emit_backmatter_glossary_inner`) + 4 main-loop call sites (`eink=eink_target`). **TDD 9 pins**
+> (`tests/test_ws3_popup_separators.py`, incl. default-path byte-stability) + **224 caller tests green**
+> (popup_split / marker_style / note_rehaul / ws2_cascade / marker_badge_style / kobo_device_qa). **Built catholic-study
+> eink: kobo-vn-br 22,897 · visible-middot cat-heads 10,717 · bylines-with-break 9,903 · 0 stale hidden cat-heads ·
+> 12,994 leaves; epubcheck 0/0/0/0.** **Non-eink build: 0 kobo-vn-br, hidden `.vn-sep` separators retained** (eink-gated
+> by construction → 9-KJV byte-stable). ⏳ **Mac cross-OS byte-diff + the device A/B** (user gate: `·` renders in Cardo,
+> worst-case unit POPs not crashes) — handed off (`dev/LANE_HANDOFF.md` P6 + the WS3-implemented section).
+> **▶▶▶ Flagship-eink build OOM — tier-1 frees DONE (2026-06-25, WIN), per Mac's P1 profile.** `del pre_badge_texts`
+> (~131 MB) + `del repair_texts` (~16 MB) + `stats.pop("_study_backmatter_entries", None)` (~489 MB, the biggest) +
+> docstring fix (73 MB → ~480 MB). All determinism-neutral (free-after-use; grep-verified no downstream read).
+> **Byte-identical PROOF: catholic-study eink rebuilt → 453/453 entries identical vs the pre-free build, zero drift.**
+> ~636 MB of the ~2.9 GB peak freed. **▶▶▶ #1 STREAMING DONE (2026-06-25, WIN):** `split_study_glossary_document` →
+> generator `_iter_study_glossary_pieces` + `apply_file_split` writes pieces to disk / keeps only `plan_names` (id +
+> nav scans re-read from disk) → the ~480 MB glossary is held ~1× not ~5×; + 2 glossary-read skips
+> (`_merge_scripture_base_files` remap loop, `retarget_demoted_toc_anchors` toc-book scan — structurally no-ops, the
+> glossary has no scripture-filenames / no `toc-book`). **Byte-identical (catholic-study eink 453/453; `test_file_split`
+> 54/54). Flagship-eink monitored peak 2937 → ~885 MB.** ⚠ **Flagship FULL build still OOMs at ONE more site**
+> (~1.4 GB post-retarget, `✗`/MemoryError, not yet diagnosed) — the WS1+WS2+WS3 flagship re-stage waits on it.
+> catholic-study + the canon-filtered editions build clean.
+> **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
+> **▶▶▶ WS1 FIX LANDED (2026-06-25, WIN, `b7721a4f`) — eink-gated mid-verse-break MERGE.** Poetry decision = user "keep"
+> (HUMAN_DECISIONS resolved). New `_merge_mid_verse_breaks(tmp)` (`build_edition.py`, EINK-only, called after
+> `_merge_scripture_base_files` in `apply_file_split`): re-joins a narrative verse's tail-prose that the calibre base split
+> across a `<p class="verse-p">` boundary into the verse's own paragraph (between-verse paragraphing preserved; ids relocate,
+> all #frags resolve). NARRATIVE/prose canon only — `_MIDVERSE_BREAK_KEEP_BOOKS` keeps poetry/wisdom/poetic-prophet + irregular
+> apocrypha verse-per-line. Auditor mirrors it (new `POETRY_BOOKS` → WARN; `poetry_break` bucket). **9-KJV/tablet/default base
+> UNTOUCHED (eink-gated → no re-baseline)**, same pattern as the page-break + font fixes. TDD: 23 pins (`test_mid_verse_merge` 8
+> + `test_audit_verse_formatting` 15) + `test_file_split` 54 green. **Real-data (base copy): 26/27 within-file narrative breaks
+> merged; poetry(35)/irregular(12) untouched; lone residual = `est 10:2`→`10:3` at the Esther/Additions boundary.** ⏳ Flagship
+> `ethiopian-tewahedo --target-reader eink` rebuild RUNNING (background) → verify auditor narrative-ERROR→0 + epubcheck 0/0/0/0 +
+> kepubify + stage for the user's Kobo eyeball; then resolve the est residual + WS1 mixed-translation (18 ¶ + co-located brackets).
+> **★ NEW PROGRAM (2026-06-24, user-triggered autonomous) — Kobo deep-audit: `dev/audit/kobo-deep-audit-program-2026-06-24.md` (READ FIRST).**
+> **▶▶ WS1 AUDITOR RE-ARCHITECTED + scope CORRECTED (this session, WIN).** The first auditor cut measured the WRONG
+> thing (472 = 1 Clement strategy-B chapters + psalm superscriptions + Song rubrics + apocrypha headings; it MISSED the
+> real gen/exo narrative breaks). Rewrote `dev/audit_verse_formatting.py` (TDD **14/14**): break = ALPHABETIC PROSE before a
+> paragraph's first verse marker; ¶/bracket attributed to the nearest preceding marker; irregular-apocrypha/strategy-B/
+> superscription classified out of the ERROR gate. Verified the BUILD preserves paragraph structure (base gen19 == kepub
+> gen19 == 2 paras) ⇒ **fix target = base HTML `epub_working/`**. **TRUE scope (built flagship kepub):** **62 regular-canon
+> mid-verse breaks** (psa 13·gen 4·job 4·sng 4·num 3·1ch 3·pro 3·isa 3·jer 3·… ; all 4 user cases present) + **18 ¶**
+> (gen 46:13/49:14 + lev/exo/num/jer/dan…) ; mixed-translation = the ¶-co-located bracket set (man/1en brackets are
+> legit Charles editorial brackets → WARN). **Discrete Prayer-of-Azariah ToC = verified DONE** (`83391827`, pinned, wired
+> unconditionally; `test_nav_toc_short_titles` 7/7). **NEXT (WIN):** WS1 fix (62 breaks; decide poetry psa/sng) at the base
+> + deliberate re-baseline + device-verify → then mixed-translation normalize. Mac: cross-OS verify the corrected auditor.
+> Device eyeball of the newest flagship eink kepub (built fresh from HEAD, loaded to G:): **✅ NO PAGE BREAKS Genesis→Revelation**
+> — the page-break defect is RESOLVED on-device. New findings → 3 workstreams + discrete fixes, planned + run + fixed
+> autonomously with Mac, neither lane stops till done. **WS1** scripture-body formatting — ROOT-CAUSED: mid-verse line breaks =
+> a verse split across multiple `<p class="verse-p">` blocks (gen 19:1 etc.); "weird symbol" = the pilcrow `¶` on KJV-text verses
+> (gen 46:13, 49:14) MIXED into WEB/modern text → a mixed-translation defect; badge-trail spaces → `dev/audit_verse_formatting.py`
+> + fix + deliberate re-baseline. **WS2** study-note redundancy/contradiction → cascade rework. **WS3** Kobo run-on popup
+> formatting research (Mac) → fix. **Discrete:** Prayer of Azariah ToC title reverted to the long form (→ `[+]` truncation) —
+> re-shorten + pin. Lane split + loop-until-done protocol in the program doc; Mac's slice in `LANE_HANDOFF.md`. **Earlier today:**
+> **✅ Slice 1 DONE (committed):** the 2 WIN-surface standalone build-bugs Mac flagged in
+> `dev/audit/spine-breaks-all-editions.md` — (1) `build_one` summary-print `KeyError:'enabled_kinds'`
+> that crashed the CLI *after* a successful standalone build (new `_print_edition_build_summary` +
+> `build_one` raises on standalone error for contract parity); (2) Amharic standalone misnamed
+> `Geez_Standalone_*` (new `_output_filename` derives the script label; Ge'ez filename byte-stable).
+> +9 TDD pins; `test_build_standalone` 52/52. No EPUB-byte change. CHANGELOG 2026-06-24.
+> **✅ Page-break Part 1 DONE (drop `_VN_LINK_RE`):** the packer now cuts ONLY at book/chapter
+> boundaries (removed the verse-level cut candidate + the obsolete K-R15b re-merge + the dead regex).
+> **Verified on real data: catholic-study eink 111 mid-chapter → 1** (`audit_spine_breaks.py`); the lone
+> `psa 119:88→89` is the documented BASE calibre-split artifact (`index_split_035`), not a packer cut →
+> Part 2 fixes it for free. +2 TDD pins (`TestNoMidChapterSplit`); `test_file_split` 46/46. Companion: fixed
+> a pre-existing glossary-test breakage from the wrap's backmatter WIP (`min(target, default)`; byte-safe).
+> **✅ Page-break Part 2 DONE (per-book base-file merge):** new `_merge_scripture_base_files` concatenates the
+> scripture base files (EINK target only) so a book the calibre base split across files is contiguous; then shards
+> at `FILE_SPLIT_CEILING` (8 MB, device-validated) → one spine file per book (over-ceiling books chapter-split, never
+> mid-chapter). **Verified end-to-end: catholic-study eink 111 mid + 163 chapter → 0 + 0** (only 71 intended
+> book-title breaks; 238→72 pieces); `audit_spine_breaks.py` PASS; **epubcheck 0/0/0/0**; +5 TDD pins incl. eink-merge
+> determinism (the byte-stability guard); `test_file_split` 54/54. The cross-file opener pop is skipped post-merge.
+> **★ The weeks-long page-break defect is RESOLVED on eink (Parts 1+2).** eink-only → tablet/default/KJV untouched.
+> **✅ FLAGSHIP VERIFIED (the user's exact 130-break case):** `ethiopian-tewahedo --target-reader eink` rebuilt →
+> **130 mid + 40 chapter breaks → 0 + 0** (77 intended book-title breaks; scripture pieces → 77; 29.69 MB);
+> `audit_spine_breaks.py` PASS; **epubcheck 0/0/0/0**; kepubified → `YHWH-koboQA.kepub.epub` (39.1 MB).
+> **⏳ STAGED for the user's device eyeball at `C:\Users\bogda\YHWH-device-staging\YHWH-koboQA.kepub.epub`** (the Kobo
+> `G:` is NOT mounted — when the user connects it, DELETE the old `G:\YHWH-koboQA.kepub.epub` then copy this one).
+> **✅ Page-break Part 2b DONE (standalone per-book merge — completes the defect across ALL editions):** the standalones
+> (`standalone-geez`/`standalone-amharic`) use a SEPARATE path (`build_standalone`) that emitted one spine file PER
+> CHAPTER → chapter-per-page on Kobo (Mac's audit: geez 161 / amharic 125). New pure `pack_book_chapters(book, chapters,
+> ceiling)` merges each book's chapter fragments into one spine file (shards at `be.FILE_SPLIT_CEILING`=8 MB, chapter
+> boundaries only, never mid-chapter); per-chapter `#ch-{book}-c{ch}` anchors keep TOC nav; noterefs stay same-file.
+> **Verified on real builds: standalone-geez 4 books/165 ch → 4 spine pieces 0 mid + 0 chapter (was 161); standalone-amharic
+> psa/126 ch → 1 piece 0+0 (was 125)**; `audit_spine_breaks.py` PASS + **epubcheck 0/0/0/0** on both; +5 TDD pins
+> (`TestPerBookMerge` + `TestStandaloneSpineMerge`); `test_build_standalone` 57/57. UX-only (standalones are not
+> byte-stable-pinned). ⏳ Mac cross-OS verify queued in `LANE_HANDOFF.md`.
+> **▶ NEXT (WIN, in priority order):**
+> 1. **[USER] device eyeball** of the staged flagship kepub on the color Kobo (confirms the page-break fix on-device);
+>    **Mac cross-OS verify Parts 1+2+2b + re-baseline `dev/audit/spine-breaks-all-editions.md`** across all editions incl.
+>    the standalones (instructed in `LANE_HANDOFF.md`; Mac already pushed `spine-breaks-post-part1.json`).
+> 2. **✅ Hebrew/Greek/Ge'ez popup-font fix DONE (eink CSS, byte-safe):** added `!important` `font-family` rules for
+>    `.vnote-hebrew/greek/greek-nt/geez/amharic` to the eink-only `_EINK_READER_CSS` (Hebrew/Greek = embedded Cardo;
+>    Ge'ez/Amharic = embedded `"Noto Serif Ethiopic"`, not the stale wrong `"Noto Sans Ethiopic"`). **Verified on a real
+>    eink build:** all 3 rules ship in the built `stylesheet.css`, **epubcheck 0/0/0/0**; `test_kobo_device_qa` 16/16
+>    (+2 pins). eink-only → 9-KJV untouched. **⏳ DEVICE GATE (`dev/HUMAN_DECISIONS.md`):** does the author `!important`
+>    beat Kobo's firmware override? — the user's "Cardo" vs "Publisher Default" A/B decides (the staged kepub carries it).
+>    **DEFERRED follow-ups:** (a) embed **Noto Naskh Arabic** for `.vnote-arabic` (a global `EMBED_FONT_PATHS` add changes
+>    KJV bytes → needs an eink-only embed path; Arabic is tofu today); (b) the eink "Publisher Default" front-matter page
+>    (Kobo's only guaranteed lever + the only fix for the native footnote-PREVIEW overlay). Plan: `kobo-font-override-research.md`.
+> 3. Device-QA **E** (study-note back-link navigate, `_study_verse_return_link` → cross-file noteref) + **F** (drop redundant
+>    per-note `note-sym` in `_emit_cascade_sections`; supersedes B-1c). round-13 merge remainder (char-vs-byte · 1en 71/90
+>    — Mac fetched the PD Charles source `dev/audit/1en-charles-source-71-90.md` · 5 Mac mediums I remediate / Mac verifies).
+> Plan: `dev/audit/page-breaks-root-cause-2026-06-23.md`. **⏳ Mac cross-OS verifies the re-cut when Part 2 lands.**
+>
+
 <!-- archived: 1 entries, 2026-06-23..2026-06-23 (rotate_truth_records.py) -->
 
 > **▶▶ FRESH AUTONOMOUS SESSION — START HERE (2026-06-23 wrap).** Two live workstreams:
