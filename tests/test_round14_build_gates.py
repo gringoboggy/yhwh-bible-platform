@@ -42,6 +42,11 @@ def test_round14_build_gates_pass_on_catholic_study_eink(tmp_path):
         args = [sys.executable, str(REPO / "dev" / gate), str(epub)]
         if gate == "audit_badge_conservation.py":
             args.append("--require-sidecar")  # build_one wrote the sidecar -> enforce, don't skip
+        if gate == "audit_idmap_frags.py":
+            # round-15 D2 presence floor: catholic-study eink resolves ~100k frag+noteref
+            # anchors (round-14: 57k frag + 45k noteref), so a count below 10k means the
+            # build dropped its cross-references wholesale -> FAIL instead of vacuous-green.
+            args += ["--min-links", "10000"]
         proc = subprocess.run(args, capture_output=True, text=True, stdin=subprocess.DEVNULL)
         if proc.returncode != 0:
             failures.append(f"{gate} (exit {proc.returncode}):\n{(proc.stdout + proc.stderr)[-800:]}")

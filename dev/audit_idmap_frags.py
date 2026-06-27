@@ -33,8 +33,9 @@ Checks (all per spec gate G3):
 Standalone stdlib only (mirrors ``audit_book_structure.py``) -> light + OOM-safe.
 
 Usage:
-    py -3 dev/audit_idmap_frags.py <epub> [<epub> ...] [--json OUT.json] [--max-show N]
-Exit 0 = every internal link resolves + ids unique + no orphan; 1 = any FAIL.
+    py -3 dev/audit_idmap_frags.py <epub> [<epub> ...] [--json OUT.json] [--max-show N] [--min-links N]
+Exit 0 = every internal link resolves + ids unique + no orphan (+ ≥ --min-links
+frag/noteref anchors survive, if given); 1 = any FAIL.
 """
 
 from __future__ import annotations
@@ -237,7 +238,7 @@ def _orphan_fails(manifest: dict[str, tuple[str, str, str]], spine_idrefs: list[
     return fails
 
 
-def audit_epub(path: str) -> IdmapResult:
+def audit_epub(path: str, min_links: int = 0) -> IdmapResult:
     res = IdmapResult(path=path)
     zf = zipfile.ZipFile(path)
     names = set(zf.namelist())
@@ -274,6 +275,17 @@ def audit_epub(path: str) -> IdmapResult:
         "noteref_fails": len(note_fails),
         "orphan_fails": len(orphan_fails),
     }
+    # Presence floor (round-15 D2): every check above only ever reports a link that
+    # FAILS to resolve — so a build that silently dropped ALL its xref/noteref anchors
+    # (a canon-filter or idmap that emitted ZERO) would pass G3 vacuously (0 links → 0
+    # fails → green). Require a minimum surviving frag+noteref count so wholesale xref
+    # loss FAILS the gate instead of passing. Off (0) by default; the per-build gate
+    # passes a real floor calibrated well under the edition's true count.
+    if min_links and (n_links + n_notes) < min_links:
+        res.fails.append(
+            f"presence floor: only {n_links + n_notes} frag+noteref links resolve-checked "
+            f"(< {min_links}) — the build may have dropped its cross-references wholesale"
+        )
     return res
 
 
@@ -297,13 +309,18 @@ def _print(res: IdmapResult, max_show: int) -> None:
 
 
 def main(argv: list[str]) -> int:
-    paths = [a for a in argv if not a.startswith("--")]
+    # Exclude both the flags AND the value that immediately follows each value-flag,
+    # so a flag value (e.g. the N after --min-links) is never mistaken for an epub path.
+    _value_flags = ("--json", "--max-show", "--min-links")
+    _skip = {argv.index(f) + 1 for f in _value_flags if f in argv}
+    paths = [a for i, a in enumerate(argv) if not a.startswith("--") and i not in _skip]
     json_out = argv[argv.index("--json") + 1] if "--json" in argv else None
     max_show = int(argv[argv.index("--max-show") + 1]) if "--max-show" in argv else 50
+    min_links = int(argv[argv.index("--min-links") + 1]) if "--min-links" in argv else 0
     if not paths:
         print(__doc__)
         return 2
-    results = [audit_epub(p) for p in paths]
+    results = [audit_epub(p, min_links=min_links) for p in paths]
     for r in results:
         _print(r, max_show)
     if json_out:

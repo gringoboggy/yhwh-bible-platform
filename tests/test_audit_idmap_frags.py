@@ -168,6 +168,27 @@ def test_noteref_target_miss_labelled(tmp_path):
     assert res.stats["noteref_fails"] >= 1, res.stats
 
 
+def test_presence_floor_guards_wholesale_xref_loss(tmp_path):
+    """round-15 D2: every other check only flags a link that FAILS to resolve, so a
+    build that dropped ALL its xref/noteref anchors would pass G3 vacuously (0 links →
+    0 fails → green). ``--min-links`` requires a minimum surviving frag+noteref count
+    so wholesale loss FAILS. Off (0) by default → backward-compatible."""
+    a = (
+        '<p id="secA"></p>'
+        '<a href="b.html#secB">to B</a>'
+        '<a epub:type="noteref" class="vn-link" id="ref1" href="b.html#note1">*</a>'
+    )
+    b = '<p id="secB"></p><aside epub:type="footnote" id="note1">n</aside>'
+    epub = _make_epub(tmp_path, {"a.html": a, "b.html": b}, ["a.html", "b.html"])
+    # All links resolve → green when the floor is OFF (default) ...
+    assert aif.audit_epub(epub, min_links=0).green
+    # ... but a floor above this epub's tiny (2) link count FAILS the gate.
+    res = aif.audit_epub(epub, min_links=1000)
+    assert not res.green
+    assert any("presence floor" in f for f in res.fails), res.fails
+    assert aif.main([epub, "--min-links", "1000"]) == 1
+
+
 # ── real-data fixture (round-14 catholic-study eink epub) — gated slow ──────────
 _REAL_GLOBS = [
     Path(r"C:\Users\bogda\YHWH-builds\round14-postA1"),
