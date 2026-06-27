@@ -880,4 +880,27 @@ class TestPsi35FinalProjectionsAutoDerived:
         assert m_indexed.per_book == m_walk.per_book
         assert m_indexed.per_chapter == m_walk.per_chapter
         assert m_indexed.edition_canon_books == m_walk.edition_canon_books
+        # Round-15 D6 de-vacuum: the assertion above is VACUOUS for the book set — BOTH
+        # pipelines compute edition_canon_books via the SHARED _canon_books_for_edition, so
+        # they cannot disagree. Anchor it to the SOURCE: recompute each edition's canon book
+        # set from a fresh yaml.safe_load of canons.yaml INLINE (bypassing the shared helper),
+        # and require the matrix to match. This catches a regression where the shared helper
+        # (or the indexed path) drifts from the raw canons.yaml the front-matter/ToC claim.
+        from pathlib import Path as _Path
+
+        import yaml as _yaml
+
+        from scripts.core import config as _config
+
+        _repo = _Path(__file__).resolve().parents[1]
+        _raw = _yaml.safe_load((_repo / "content" / "canons.yaml").read_text(encoding="utf-8")) or {}
+        _canons = _raw.get("canons", {}) or {}
+        _src = {
+            eid: set((_canons.get(ed.get("canon")) or {}).get("books") or [])
+            for eid, ed in _config.editions_by_id().items()
+        }
+        assert m_indexed.edition_canon_books == _src, (
+            "edition_canon_books diverges from the canons.yaml source — the shared "
+            "_canon_books_for_edition no longer matches raw source (round-15 D6)."
+        )
         assert m_indexed.edition_enabled_kinds == m_walk.edition_enabled_kinds

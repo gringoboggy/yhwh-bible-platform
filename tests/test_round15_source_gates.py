@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import pytest
 
+import dev.audit_canon_bookcount as d6
 import dev.audit_release_assets as d1
 import dev.audit_versification_coverage as d3
 
@@ -44,3 +45,14 @@ def test_d3_fix_present_ps_2_13_and_4_10() -> None:
 def test_d1_release_asset_selftest_non_tautological() -> None:
     """The D1 detector flags retired-SKU / orphan-sum / missing-sum / stale-version assets."""
     assert d1._selftest() == 0
+
+
+def test_d6_canon_bookcount_selftest_non_tautological() -> None:
+    """The D6 detector flags a canon book-set divergence between two sources."""
+    assert d6._selftest() == 0
+
+
+def test_d6_canon_bookcount_clean_on_current_tree() -> None:
+    """The 5 canon sources agree per edition + note counts are internally consistent + in-canon."""
+    res = d6.audit()
+    assert res.green, f"D6 canon/note cross-check FAIL: {res.fails[:5]}"
