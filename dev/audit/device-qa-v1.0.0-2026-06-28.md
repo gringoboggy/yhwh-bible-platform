@@ -75,6 +75,67 @@ Screenshots: `OneDrive/Desktop/{kobo_img,apple_img,kindle_img}`.
   (`build_edition.py:4456–4525`) joined by plain spaces, no nowrap. Fix: eink-gated CSS
   `display:inline-block; white-space:nowrap` on the badges + `.badge-trail` (non-eink untouched).
 
+## 2026-06-28 (cont.) — Play round (4th reader) + GENERALIZED root causes
+
+Play Books QA (navy `everywhere` EPUB, the M5 artifact). Verified by grepping the
+**actual built** `index_split_*.html` (400 content files; the body lives in
+`.html`, not `.xhtml` — earlier `--include=*.xhtml` saw only the 9 front/back
+matter files). Findings:
+
+- **The `·`/bullet in note "headings" is NOT eink-only — it is the SAME `vn-sep`
+  system on every profile, glyph-swapped, leaking through CSS-blind POPUP
+  renderers.** `build_edition.py:2631-2633` defines the non-eink separators
+  `_VN_SEP_ITEM`=`•`, `_VN_SEP_CAT`=`¶`, `_VN_SEP_BYLINE`=`◦` (each lead-padded
+  with U+2028); `2645-2647` the eink variants (all `·`). They are designed to be
+  **hidden** by `_VN_SEP_HIDE_CSS` → `.vn-sep{display:none}` (2648-2652) and only
+  surface in CSS-blind raw-text extractors. The built everywhere EPUB confirms:
+  148× `¶` immediately before each `vn-cat-head`, `◦` before every
+  `vnote-source-label`, 203× `•` before note items — all `display:none` in the
+  main flow but **EXPOSED in Play's footnote popup** (same failure class as Kobo's
+  Footnote overlay). So the user sees `¶`/`◦` on Play exactly where Kobo shows `·`.
+  → Fix is cross-profile, not eink-gated: kill the visible glyph in the popup
+  family on every profile; keep structure via block `<p>` (Play's popup honoured
+  per-witness `<p>` line breaks in img 4 — the glyph is redundant there). Kobo's
+  fully-flattened overlay is the only renderer that needs *any* visible mark;
+  rework that one to the least-obtrusive device-proven form and re-QA.
+- **Category headings themselves are CLEAN on everywhere** — `<span
+  class="vn-cat-sym">⌂</span> Historical / Cultural`, zero `·` adjacent. The other
+  134 222 middots in the Play build are LEGITIMATE: Greek *ano teleia* `·` inside
+  the Septuagint text, and topical "appears under: A · B · C" / cross-ref verse
+  lists. **Do not touch those.**
+- **"Two badges" = note-collection SPLIT parts, not a second system.** Gen 1:1 →
+  `vbadge-…-s1` (title "2 notes, part 1 of 2") + `vbadge-…-s2` ("12 notes, part 2
+  of 2"): one verse's 14 notes split across two sibling popups, one badge each.
+  The split exists for Kobo's limited popup buffer (Kobo r7 byte-aware split) and
+  leaks onto Apple/Play/Kindle, which don't need it. Per verse the user also sees
+  the verse-start `vn-link` (translation popup) — so a split verse shows vn-link +
+  2 study badges. DECISION (user, 2026-06-28): **single merged badge** on
+  Apple/Play/Kindle/computer; keep the split **Kobo-only** (eink). Separators:
+  **clean, no marker** — drop every visible `¶`/`◦`/`•`/`·`; line structure from
+  block `<p>` + surviving `<br>`/U+2028 only.
+- **Stale-artifact note:** the staged Play EPUB (built 09:11, pre-removal) still
+  carries `User original`/`User paraphrase` source labels — the rebuild drops them
+  (confirms the User-notes removal + rebuild are both required).
+- Play translation popup renders CLEAN (per-language `<p>` + redundant `◦`),
+  like Apple → confirms the Greek/letter-spacing breakage is **Kobo-only**.
+- Play open questions carried forward: Edition-ID on the study-count page (cross-
+  platform); badge spacing drift (non-eink too → un-gate the nowrap CSS fix); bad
+  page breaks; ToC expandable like Apple (Play keeps `<nav>` collapsed/stuck —
+  reader limitation; attempt, don't block).
+
+### Critical-fix sites CONFIRMED
+- **Apple direction:** `epub_working/content.opf:92` `<spine toc="ncx">` →
+  add `page-progression-direction="ltr"` (regen at `build_edition.py` preserves
+  the spine tag verbatim → propagates to every edition). Base-invariant gate +
+  golden re-baseline apply.
+- **Kindle teleport:** matrix builds Kindle via `build_kindle.py` non-m4b path
+  (`m4b=False`, :29) → notes stay inline+hidden with same-file `#frag` hrefs →
+  Kindle resolves to the spine FILE = teleport to last badge. The **m4b** path
+  (`make_kindle_m4b`) relocates notes to a real backmatter file with cross-file
+  hrefs = true endnotes — which is the correct Kindle model ("no popups by
+  design; notes become visible endnotes"). Fix = build Kindle with m4b + extend
+  the relocate to translation `vnote-*` asides (currently only study `vnotes-*`).
+
 ## Remediation sequence (one rebuild, not many)
 1. ✅ Content: User notes removed (validate + commit).
 2. Root-cause the 2 CRITICAL bugs (Apple direction, Kindle teleport) + finalize return-link / line-breaks / translation.

@@ -89,7 +89,7 @@
     <item id="cover" href="cover.jpeg" media-type="image/jpeg"/>
   
   </manifest>
-  <spine toc="ncx">
+  <spine toc="ncx" page-progression-direction="ltr">
     <itemref idref="titlepage"/>
     <itemref idref="introduction"/>
     <itemref idref="id161"/>

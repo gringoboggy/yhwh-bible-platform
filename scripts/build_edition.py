@@ -2628,23 +2628,22 @@ def _badge_extract_note_kind(marker_html: str) -> str:
 # dialog (whitespace-normalized like any HTML text run) → flipped to the
 # designed fallback, U+2028 LINE SEPARATOR — a hard Unicode line break that
 # whitespace collapsing never eats.
-_VN_SEP_ITEM = '<span class="vn-sep">\u2028• </span>'
-_VN_SEP_CAT = '<span class="vn-sep">\u2028¶ </span>'
-_VN_SEP_BYLINE = '<span class="vn-sep">\u2028◦ </span>'
+_VN_SEP_ITEM = '<span class="vn-sep">\u2028</span>'
+_VN_SEP_CAT = '<span class="vn-sep">\u2028</span>'
+_VN_SEP_BYLINE = '<span class="vn-sep">\u2028</span>'
 # WS3 (Kobo run-on popup fix, 2026-06-25): eink-only, Nickel-survivable separators
 # for the study/cascade verse-notes family. Kobo's tag-stripped Footnote overlay DROPS
-# the hidden U+2028 .vn-sep spans above (K-R14) and the family was never wired into the
-# translation-family <br>+dot-rule pass, so its category heads / source bylines / note
-# rows ran together on-device. These give it the same device-proven chrome the vnote
-# family already ships: a visible middot (U+00B7 — the ONLY on-device-proven glyph; the
-# bullet near-crashed, the pilcrow/white-bullet are untested) with NBSP padding (matching
-# _KOBO_VNOTE_GAP) plus a kobo-safe <br class="kobo-vn-br">. Chosen only when eink=True
-# (default False -> non-eink / 9-KJV byte-identical). The cat head is already a block <p>
-# so it leads with just the middot; item + byline lead with the break so they start a new
-# line in the CSS-blind overlay. Spec: dev/audit/kobo-popup-formatting-research.md.
-_VN_SEP_ITEM_EINK = '<br class="kobo-vn-br" /> · '
-_VN_SEP_CAT_EINK = "· "
-_VN_SEP_BYLINE_EINK = '<br class="kobo-vn-br" /> · '
+# the hidden U+2028 .vn-sep spans above (K-R14) and flattens block <p> elements, so its
+# category heads / source bylines / note rows ran together on-device. The fix is a kobo-
+# safe <br class="kobo-vn-br"> before each — a plain <br> survives the extractor where
+# hidden spans and U+2028 do not. Chosen only when eink=True (default False -> non-eink).
+# device-QA 2026-06-28 ("clean, no marker"): these formerly carried a VISIBLE middot
+# (U+00B7) with NBSP padding after the break; the user found the dots cluttering on the
+# color Kobo, so the glyph is gone and the <br> now carries the structure alone.
+# Spec: dev/audit/kobo-popup-formatting-research.md + dev/audit/device-qa-v1.0.0-2026-06-28.md.
+_VN_SEP_ITEM_EINK = '<br class="kobo-vn-br" />'
+_VN_SEP_CAT_EINK = '<br class="kobo-vn-br" />'
+_VN_SEP_BYLINE_EINK = '<br class="kobo-vn-br" />'
 _VN_SEP_HIDE_CSS = (
     "\n/* K-R3-2 + K-R4-1: text-baked popup separators — visible only to the\n"
     "   CSS-blind Kobo eInk Footnote preview; hidden everywhere CSS applies.\n"
@@ -2659,20 +2658,19 @@ _VN_SEP_HIDE_CSS = (
 
 
 # K-R4-1 (Kobo round 4): the vnote (translation) popup asides run together in
-# the tag-stripped eInk preview — K-R3-2's separators covered only the merged
-# study cascade. Bake the same hidden plain-text separators into vnote markup:
-# ¶ before the verse text, ◦ before each source label. The negative lookahead
-# makes the pass idempotent (re-running never double-inserts).
-# round-7 5.3: the text pattern (a) also matches multi-class paragraphs
-# (`vnote-text vnote-empty` — 346 base placeholders render in the preview like
-# any vnote, so they NEED the block separator too), and (b) skips text already
-# beginning with ¶ (2,970 recovered-base KJV popup verses carry their own
-# pilcrow — a second mark would render "¶ ¶" in the preview).
-# K-R14 (Kobo round 7/14): Kobo's tag-stripped Footnote preview drops U+2028
-# inside `.vn-sep` spans after kepubify's koboSpan pass. Plain `<br>` elements
-# and a visible dot-rule paragraph survive the extractor better than hidden spans.
+# the tag-stripped eInk preview. Insert a kobo-safe <br> before each vnote block so
+# the witnesses start on their own lines. The negative lookbehind makes the pass
+# idempotent (re-running never double-inserts).
+# round-7 5.3: the text pattern also matches multi-class paragraphs
+# (`vnote-text vnote-empty` — 346 base placeholders render in the preview like any
+# vnote, so they NEED the block separator too).
+# K-R14 (Kobo round 7/14): Kobo's tag-stripped Footnote preview drops U+2028 inside
+# `.vn-sep` spans after kepubify's koboSpan pass; plain `<br>` survives the extractor.
+# device-QA 2026-06-28 ("clean, no marker"): _KOBO_VNOTE_GAP previously inserted a
+# visible "· · ·" dot-rule paragraph between witnesses; the user found it cluttering,
+# so the gap is now empty and the <br> separates the witnesses on its own.
 _KOBO_VNOTE_BR = '<br class="kobo-vnote-br" />'
-_KOBO_VNOTE_GAP = '<p class="vnote-kobo-sep">\u00a0\u00b7\u00a0\u00b7\u00a0\u00b7\u00a0</p>'
+_KOBO_VNOTE_GAP = ""
 _VNOTE_BR_BEFORE_P_RE = re.compile(
     r'(?<!<br class="kobo-vnote-br" />)'
     r'(<p class="vnote-(?!kobo-sep)[^"]*"[^>]*>)'
@@ -2680,7 +2678,7 @@ _VNOTE_BR_BEFORE_P_RE = re.compile(
 
 
 def add_eink_vnote_preview_breaks(html: str) -> str:
-    """Insert kobo-safe breaks + dot-rule gaps before each vnote block (K-R14)."""
+    """Insert a kobo-safe <br> before each vnote block (K-R14; clean, no dot-rule)."""
     return _VNOTE_BR_BEFORE_P_RE.sub(_KOBO_VNOTE_GAP + _KOBO_VNOTE_BR + r"\1", html)
 
 
@@ -4149,7 +4147,12 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
     topic_vocab = _topic_vocab() if s3a_topic else frozenset()
     resolve_sources = s2_group or s3a_topic
     # K-R4-2 — the device-calibrated popup-unit cap (0 = splitting off).
-    split_cap = resolve_note_popup_split_cap(edition)
+    # device-QA 2026-06-28: the per-verse popup SPLIT (multiple `-sN` badges on one
+    # verse) exists only for Kobo's limited Footnote buffer; on Apple/Play/Kindle/
+    # computer it leaked as confusing "two badges per verse". Gate the char-cap to
+    # eink too (mirroring the byte-cap line below) so non-eink targets pack a verse
+    # into a SINGLE merged badge (user decision: single badge off-Kobo).
+    split_cap = resolve_note_popup_split_cap(edition) if eink_target else 0
     # K-R6-2 — the serialized-byte budget (estimated post-kepubify; 0 = off).
     # Nickel's byte refusal measure applies only to eink targets — non-eink
     # editions stay byte-identical to the char-cap-only path.
