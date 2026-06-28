@@ -76,11 +76,19 @@ def api_notes(book_code: str) -> dict:
     if isinstance(loaded, dict):
         return loaded
     notes = loaded
+    # R16 Phase B — sanitize at the READ boundary. The editor loads d["body"]
+    # via innerHTML; bulk-ingest bodies bypass the save-path sanitize, so the
+    # read path must also gate (boundary doctrine: sanitize at every render
+    # boundary). For UI-saved notes this is idempotent (already sanitized).
+    from scripts.core.html_sanitize import sanitize_html
+
     items = []
     for i, tup in enumerate(notes):
         if not isinstance(tup, tuple) or len(tup) < 8:
             continue
         d = tuple_to_dict(tup)
+        if d.get("body"):
+            d["body"] = sanitize_html(str(d["body"]))
         d["index"] = i
         d["quality"] = quality_for(book_code, tup)
         items.append(d)

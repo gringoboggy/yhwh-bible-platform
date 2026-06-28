@@ -215,7 +215,7 @@ function renderNotes() {
         ${flagBadge}
         <span class="ml-auto text-xs text-slate-400">${n.quality.word_count}w</span>
       </div>
-      <div class="text-slate-700 line-clamp-2">${excerpt}</div>
+      <div class="text-slate-700 line-clamp-2">${escapeText(excerpt)}</div>
     `;
     div.onclick = () => editNote(n.index);
     list.appendChild(div);

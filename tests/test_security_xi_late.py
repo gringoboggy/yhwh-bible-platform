@@ -826,6 +826,40 @@ class TestXi16Security:
         EBibleHandler._send_file(FakeHandler(), f)
         assert captured["status"] == 415
 
+    def test_send_file_rejects_nonimage_with_image_extension(self, tmp_path):
+        # R16 Phase B — HTML bytes under a .png extension must NOT be served as
+        # image/png. The old _detect_format extension-fallback let the magic
+        # check pass (returned "png" from the suffix); magic-only detection
+        # returns "unknown" → 415.
+        from scripts.web import Handler as EBibleHandler
+
+        f = tmp_path / "evil.png"
+        f.write_bytes(b"<html><script>alert(1)</script></html>")
+
+        captured = {}
+
+        class FakeHandler:
+            wfile = type("W", (), {"write": lambda self, b: None})()
+
+            def send_response(self, code):
+                captured["status"] = code
+
+            def send_header(self, k, v):
+                captured.setdefault("headers", {})[k] = v
+
+            def end_headers(self):
+                pass
+
+            def _send_json(self, payload, status=200):
+                captured["json"] = payload
+                captured["status"] = status
+
+            def _send_security_headers(self):
+                pass
+
+        EBibleHandler._send_file(FakeHandler(), f)
+        assert captured["status"] == 415
+
     def test_send_file_serves_legitimate_png(self, tmp_path):
         from scripts.web import Handler as EBibleHandler
 
@@ -1367,6 +1401,72 @@ class TestG1SchemeAllowlist:
         except SSRFBlockedError:
             return
         raise AssertionError("off-allowlist host must still be blocked")
+
+
+class TestG1RedirectRevalidation:
+    """R16 Phase B — http.get/put validated only the INITIAL url; an allowlisted
+    host that answers 30x ``Location: http://127.0.0.1/`` (or 169.254.169.254)
+    was followed unchecked, defeating the egress pin. The validating opener
+    re-runs ``_check_allowlist`` on every redirect hop."""
+
+    def _handler(self, allow):
+        from scripts.core.http import _AllowlistRedirectHandler
+
+        return _AllowlistRedirectHandler(allow)
+
+    def test_redirect_to_disallowed_host_raises(self):
+        import io
+        import urllib.request
+
+        from scripts.core.http import SSRFBlockedError
+
+        h = self._handler({"archive.org"})
+        req = urllib.request.Request("https://archive.org/x")
+        try:
+            h.redirect_request(req, io.BytesIO(b""), 302, "Found", {}, "http://127.0.0.1/")
+        except SSRFBlockedError:
+            return
+        raise AssertionError("redirect to a non-allowlisted host must be blocked")
+
+    def test_redirect_to_allowed_subdomain_ok(self):
+        import io
+        import urllib.request
+
+        h = self._handler({"archive.org"})
+        req = urllib.request.Request("https://archive.org/x")
+        out = h.redirect_request(req, io.BytesIO(b""), 302, "Found", {}, "https://ia801.us.archive.org/y")
+        assert out is not None  # an allowed hop returns a Request, not a block
+
+    def test_validating_opener_is_callable(self):
+        from scripts.core.http import _validating_opener
+
+        assert callable(_validating_opener({"archive.org"}))
+
+
+class TestG1NoteReadBoundarySanitize:
+    """R16 Phase B — ``api_notes`` (the note-editor READ endpoint) returned the
+    raw stored body, which the editor loads via ``innerHTML``. Bulk-ingest bodies
+    bypass the save-path sanitize, so the READ boundary must sanitize too."""
+
+    def test_api_notes_sanitizes_active_content(self, tmp_path, monkeypatch):
+        from scripts import web_notes
+        from scripts.core import paths
+
+        notes = tmp_path / "notes"
+        notes.mkdir()
+        (notes / "gen.py").write_text(
+            "NOTES = [\n"
+            '    (1, 1, "", "anchor", "commentary", "Title", "note",\n'
+            '     "<img src=x onerror=alert(1)>danger text", "Attr"),\n'
+            "]\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(paths, "notes_dir", lambda: notes)
+        result = web_notes.api_notes("gen")
+        assert "notes" in result, result
+        body = result["notes"][0]["body"]
+        assert "onerror" not in body.lower(), body
+        assert "danger text" in body  # readable text survives the sanitize
 
 
 class TestCheckA11yRunAll:

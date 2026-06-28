@@ -112,6 +112,29 @@ def _check_allowlist(url: str, allowlist) -> None:
     raise SSRFBlockedError(url, host, allow_set)
 
 
+# R16 Phase B — the egress pin checked only the INITIAL url. Python's default
+# opener follows 3xx transparently, and the redirect target was never
+# re-validated, so an allowlisted host answering ``Location: http://127.0.0.1/``
+# (or a cloud metadata IP) defeated the pin. This redirect handler re-runs
+# ``_check_allowlist`` on every hop; the opener is built PER CALL because the
+# allowlist is a per-call argument (cannot be a static module-level default).
+class _AllowlistRedirectHandler(urllib.request.HTTPRedirectHandler):
+    def __init__(self, allowlist):
+        super().__init__()
+        self._allowlist = allowlist
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        # Re-pin the redirect target; raises SSRFBlockedError on a bad hop.
+        _check_allowlist(newurl, self._allowlist)
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+def _validating_opener(allowlist):
+    """An ``urlopen``-compatible callable whose redirect handler re-validates
+    every hop against ``allowlist`` (replaces the default redirect handler)."""
+    return urllib.request.build_opener(_AllowlistRedirectHandler(allowlist)).open
+
+
 DEFAULT_TIMEOUT = 30  # seconds
 DEFAULT_RETRIES = 2  # additional attempts beyond the first
 DEFAULT_BACKOFF_BASE = 1.5  # multiplier for retry delay
@@ -145,7 +168,7 @@ def get(
     retry_on_status: tuple[int, ...] = DEFAULT_RETRY_STATUS,
     allowlist=None,
     sleep_fn=time.sleep,
-    urlopen=urllib.request.urlopen,
+    urlopen=None,
 ) -> bytes:
     """Fetch URL contents as bytes with timeout + retry policy.
 
@@ -165,6 +188,8 @@ def get(
     the URL's host doesn't match. The raising preserves the
     underlying exception via ``__cause__``."""
     _check_allowlist(url, allowlist)
+    if urlopen is None:
+        urlopen = _validating_opener(allowlist)
     attempts_total = retries + 1
     last_exc: Exception | None = None
     for attempt in range(attempts_total):
@@ -214,7 +239,7 @@ def put(
     retry_on_status: tuple[int, ...] = DEFAULT_RETRY_STATUS,
     allowlist=None,
     sleep_fn=time.sleep,
-    urlopen=urllib.request.urlopen,
+    urlopen=None,
 ) -> tuple[int, bytes]:
     """Upload ``body`` bytes via HTTP PUT. Returns ``(status_code,
     response_bytes)``. Same retry / timeout / SSRF semantics as
@@ -230,6 +255,8 @@ def put(
     is the body and ``method`` is "PUT".
     """
     _check_allowlist(url, allowlist)
+    if urlopen is None:
+        urlopen = _validating_opener(allowlist)
     req = urllib.request.Request(url, data=body, method="PUT")
     for k, v in (headers or {}).items():
         req.add_header(k, v)

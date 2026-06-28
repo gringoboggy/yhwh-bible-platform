@@ -1344,7 +1344,11 @@ class Handler(BaseHTTPRequestHandler):
 
             ext = path.suffix.lower().lstrip(".")
             ext_norm = "jpeg" if ext == "jpg" else ext
-            fmt = _detect_format(data[:32], ext)
+            # R16 Phase B — detect by MAGIC BYTES ONLY (empty fallback). With the
+            # extension as fallback, a non-image file under a whitelisted
+            # extension was "detected" as that format and served; magic-only
+            # detection returns "unknown" → the 415 below fires.
+            fmt = _detect_format(data[:32], "")
             if fmt not in UPLOAD_ALLOWED_FORMATS or ext_norm not in UPLOAD_ALLOWED_FORMATS:
                 return self._send_json({"error": "unsupported media type"}, status=415)
             if fmt != ext_norm:
