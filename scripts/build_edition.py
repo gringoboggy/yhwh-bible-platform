@@ -1830,7 +1830,11 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
         # WCAG 2.1 Level AA conformance declarations
         '    <link rel="dcterms:conformsTo" '
         'href="http://www.idpf.org/epub/a11y/accessibility-20170105.html#wcag-aa"/>\n'
-        '    <meta property="a11y:certifiedBy">TODO_CERTIFIER_NAME</meta>\n'
+        # H7 (round-16): self-certified under the project's public name (the build pipeline
+        # ensures the WCAG-AA structure declared above — structural nav, alt text, lang tags).
+        # Replaces the shipped TODO_CERTIFIER_NAME placeholder (a deliberate OPF byte change →
+        # the 9-KJV golden was re-stamped; see tests/golden/kjv_golden_hashes.json).
+        '    <meta property="a11y:certifiedBy">YHWH Ya’ Way</meta>\n'
         '    <meta property="schema:accessMode">textual</meta>\n'
         '    <meta property="schema:accessMode">visual</meta>\n'
         '    <meta property="schema:accessModeSufficient">textual</meta>\n'
@@ -1976,10 +1980,24 @@ DEFAULT_MARKER_STYLE = "badge"
 # "everywhere" so a stale on-disk value can never activate a variant.
 TARGET_READERS = ("everywhere", "eink", "tablet", "computer", "kindle")
 
+# F1 (round-16): ``computer`` is an explicit ALIAS of ``everywhere``. It is a valid build
+# target offered by two UI surfaces (the /customize dropdown + the wizard target card) but
+# has no distinct FORMAT_MATRIX row, so without this it would build as a silent
+# everywhere-clone under its own asset name (an orphan catalog asset — audit dim-4). The
+# alias folds it to everywhere at the one resolver + the build entry so a
+# ``--target-reader computer`` build is NAMED, LOCATED, and OPF-STAMPED exactly as
+# everywhere. The UI card stays (bring-solutions); only mint a distinct row if desktop
+# tuning is ever wanted.
+TARGET_READER_ALIASES = {"computer": "everywhere"}
+
 
 def resolve_target_reader(edition: dict) -> str:
-    """The edition's reader target — the single resolver for every consumer."""
+    """The edition's reader target — the single resolver for every consumer.
+
+    Alias targets (``computer`` → ``everywhere``) fold here so every downstream
+    consumer sees the canonical profile."""
     v = (edition.get("target_reader") or "").strip()
+    v = TARGET_READER_ALIASES.get(v, v)
     return v if v in TARGET_READERS else "everywhere"
 
 
@@ -2008,7 +2026,9 @@ def apply_target_override(edition: dict, target_reader: str | None) -> dict:
             "has no target_reader profiles; build it without --target-reader"
         )
     folded = dict(edition)
-    folded["target_reader"] = target_reader
+    # Fold an alias (computer→everywhere) so the stored record carries the canonical
+    # profile — the asset token, OPF stamp, and every consumer treat it as everywhere.
+    folded["target_reader"] = TARGET_READER_ALIASES.get(target_reader, target_reader)
     return folded
 
 
@@ -2435,9 +2455,14 @@ def resolve_marker_badge_style(edition: dict) -> str:
     values resolve to the target default so they can never activate a
     variant (the TARGET_READERS convention)."""
     v = (edition.get("marker_badge_style") or "").strip()
+    eink = resolve_target_reader(edition) == "eink"
     if v in MARKER_BADGE_STYLES:
+        # G-dot (round-16): an eink-unsafe explicit style (dot • crashes Nickel) coerces
+        # to the bordered chip on eink; every other target honours the explicit value.
+        if eink and v in MARKER_BADGE_STYLES_EINK_UNSAFE:
+            return "chip"
         return v
-    return "chip" if resolve_target_reader(edition) == "eink" else "glyph+count"
+    return "chip" if eink else "glyph+count"
 
 
 def format_marker_badge_text(edition: dict, note_count: int) -> str:
@@ -2860,6 +2885,24 @@ def _eink_safe_note_sym(row_html: str) -> str:
         lambda m: m.group(1) + _eink_category_badge_glyph(m.group(2), m.group(3)) + m.group(4),
         row_html,
     )
+
+
+def apply_eink_note_sym_repair(edition: dict, *, preloaded: dict[str, str], marker_style: str) -> int:
+    """Eink + numbers-mode: rewrite each baked per-note category symbol to its Cardo-safe
+    eink substitute (H3, round-16). In badge mode ``_eink_safe_note_sym`` already runs inside
+    ``apply_badge_markers`` per row; in numbers mode the badge path is skipped, so the bare
+    ``<a class="note-sym">`` glyphs (✦ ⌂ ◇ … absent from Cardo) render as tofu on Kobo. Gated
+    ``eink and marker_style != "badge"`` — every shipped edition is badge ⇒ a complete no-op.
+    Mutates ``preloaded`` in place; returns the number of files touched."""
+    if resolve_target_reader(edition) != "eink" or marker_style == "badge":
+        return 0
+    touched = 0
+    for name in list(preloaded):
+        new = _eink_safe_note_sym(preloaded[name])
+        if new != preloaded[name]:
+            preloaded[name] = new
+            touched += 1
+    return touched
 
 
 # beta-3 (h): categories whose notes legitimately recur verse-to-verse — never
@@ -3746,15 +3789,25 @@ def _unique_cats_sorted(rows: list[dict]) -> list[str]:
     return ordered
 
 
-def _study_verse_return_link(code: str, ch: int, v: int) -> str:
+def _study_verse_return_link(code: str, ch: int, v: int, *, verse_anchored: bool | None = None) -> str:
     """Compact verse-tag jump back to scripture (K-R10 — no long 'Return to …' prose).
 
-    Strategy-B books (plain ``<span class="vn">`` — Jubilees, 2 Enoch, …) have no
-    per-verse ``id="v-…"`` anchors; fall back to the chapter opener ``ch-{bxx}-cN``
-    so epubcheck RSC-012 and Kobo navigate resolve after file-split remapping."""
+    ``verse_anchored`` is the per-chapter signal of whether THIS chapter actually carries
+    per-verse ``id="v-…"`` anchors (round-16 H2). The 13 Strategy-B books that DO inject
+    anchors (psa/job/1ki/2ki/1ch/2ch/neh/ezr/jdt/tob/est/man/1es) must land on the verse,
+    not teleport to the chapter opener:
+      * ``True``  → per-verse anchor ``v-{code}-{ch}-{v}``;
+      * ``False`` → the chapter opener ``ch-{bxx}-cN`` (anchor-less Strategy-B — Jubilees,
+        2 Enoch, … — so epubcheck RSC-012 + Kobo navigate still resolve);
+      * ``None``  → legacy default: infer from book strategy alone (the historical
+        behaviour, kept byte-identical for callers that pass no signal)."""
     label = f"{ch}:{v}"
     book = config.get_book(code)
-    if book and book.get("strategy") == "B" and book.get("bxx"):
+    if verse_anchored is None:
+        use_chapter_opener = bool(book and book.get("strategy") == "B" and book.get("bxx"))
+    else:
+        use_chapter_opener = not verse_anchored
+    if use_chapter_opener and book and book.get("bxx"):
         target_id = f"ch-{book['bxx']}-c{ch}"
     else:
         target_id = f"v-{code}-{ch}-{v}"
@@ -3797,15 +3850,33 @@ def _study_glossary_footnote(
 
 
 def _emit_backmatter_glossary_inner(
-    rows: list[dict], cat_meta: dict, code: str, ch: int, v: int, *, s2_group: bool, eink: bool = False
+    rows: list[dict],
+    cat_meta: dict,
+    code: str,
+    ch: int,
+    v: int,
+    *,
+    s2_group: bool,
+    eink: bool = False,
+    verse_anchored: bool | None = None,
 ) -> tuple[str, dict[str, str]]:
     """Glossary inner HTML with padded footnote asides per category (K-R13).
 
     Returns ``(inner_html, {category_id: badge_target_id})``. Each footnote
     ``aside`` carries ``id="vnotes-{code}-{ch}-{v}-{cat}"`` (or ``-cN`` when a
     category is split) so a per-category ``noteref`` badge uses Kobo's footnote
-    navigate path."""
-    verse_back = f'    <p class="study-verse-back">{_study_verse_return_link(code, ch, v)}</p>\n'
+    navigate path. ``verse_anchored`` (round-16 H2) gates the verse return link on
+    the chapter's actual per-verse anchors."""
+
+    def _verse_back(part_span: str = "") -> str:
+        return (
+            f'    <p class="study-verse-back">'
+            f"{_study_verse_return_link(code, ch, v, verse_anchored=verse_anchored)}{part_span}</p>\n"
+        )
+
+    # Packing length estimator below uses the part-span-less form (the indicator is
+    # added post-pack and is tiny vs the cap); single-group output keeps it absent.
+    verse_back = _verse_back()
     parts: list[str] = []
     category_targets: dict[str, str] = {}
     for cat in _unique_cats_sorted(rows):
@@ -3855,12 +3926,19 @@ def _emit_backmatter_glossary_inner(
             return finalized
 
         groups = _pack_glossary_groups(expanded_rows)
+        n_groups = len(groups)
         badge_target = f"vnotes-{code}-{ch}-{v}-{cat}"
         for c_idx, group in enumerate(groups, start=1):
-            suffix = f"-c{c_idx}" if len(groups) > 1 else ""
+            suffix = f"-c{c_idx}" if n_groups > 1 else ""
             sid = f"vnotes-{code}-{ch}-{v}-{cat}{suffix}"
             if c_idx == 1:
                 badge_target = sid
+            # H4 (round-16): when a category splits across footnote groups, mark each
+            # continuation with a (part/total) indicator (mirrors the popup-unit vn-part at
+            # the K-R4-2 split path) so the cN+ asides read as continuations, not orphans —
+            # the orphan-aside WARN the flagship-eink scan surfaces is exactly these. Empty
+            # for a single group ⇒ byte-identical to the pre-fix output.
+            part_span = f' <span class="vn-part">({c_idx}/{n_groups})</span>' if n_groups > 1 else ""
             parts.append(
                 _study_glossary_footnote(
                     group,
@@ -3870,7 +3948,7 @@ def _emit_backmatter_glossary_inner(
                     ch=ch,
                     v=v,
                     sid=sid,
-                    verse_back=verse_back,
+                    verse_back=_verse_back(part_span),
                     s2_group=s2_group,
                     eink=eink,
                 )
@@ -3962,7 +4040,12 @@ def _apply_splices(text: str, splices: list[tuple[int, int, str]]) -> str:
     return "".join(parts)
 
 
-_VN_LINK_AT_PARA_START_RE = re.compile(r"(?:<p class=\"verse-p\">|</p>\s*<p class=\"verse-p\">)\s*$")
+# H5 (round-16): also recognise the verse-p-flush opener (chapter/stanza first verse) so a
+# vn-link directly after it is NOT double-broken (an empty <p> + the re-triggered K-R15
+# stray break when reader_eink_verse_lines is on).
+_VN_LINK_AT_PARA_START_RE = re.compile(
+    r"(?:<p class=\"verse-p(?:-flush)?\">|</p>\s*<p class=\"verse-p(?:-flush)?\">)\s*$"
+)
 
 
 def apply_eink_verse_line_breaks(tmp: Path, edition: dict, preloaded: dict[str, str] | None = None) -> int:
@@ -4150,7 +4233,8 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                 # previous file (1ch 3) is still found by its verse anchors here.
                 # Only the anchor-less Strategy-B books (Jubilees, 1 Enoch) need
                 # the vn-span chapter-region fallback.
-                if f'id="v-{code}-{ch}-' in text:
+                chapter_has_v_anchors = f'id="v-{code}-{ch}-' in text
+                if chapter_has_v_anchors:
                     verse_iter = _badge_verses_strategy_a(text, code, ch)
                 elif strategy == "B":
                     ch_region = _inject.find_chapter_region_b(text, bxx, ch, ch_count)
@@ -4224,21 +4308,26 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         # dedup decision so the dedup keys stay byte-identical to the
                         # flag-off build. Operates on the rendered row (base-consistent).
                         if s1_dedup:
-                            # round-14 #4 / round-15 D4: strip the dict/topic/xref/witness source-
-                            # boiler ONLY when a downstream re-surfacer re-emits the source. The S2
-                            # cascade (_emit_cascade_sections) re-states the source byline once; the
-                            # eink-backmatter glossary's s2_group=False branch
-                            # (_study_glossary_category_body) emits BARE rows with NO byline, so
-                            # eink_backmatter alone must NOT trigger the strip — else dict/topic source
-                            # provenance is silently lost on the {S1-on, S2-off, eink-backmatter}
-                            # /customize combo (round-14 #4's `or eink_backmatter` was over-permissive).
-                            # Byte-identical for every shipped edition (all carry note_group_by_category
-                            # =on ⇒ s2_group True); only the unshipped S2-off eink combo changes.
-                            _cascade = s2_group
-                            row, _changed = _strip_redundant_note_label(row, kind, kind_defaults, cascade=_cascade)
+                            # round-14 #4 / round-15 D4: strip the dict/topic leaf source-label ONLY
+                            # when a downstream re-surfacer re-emits the source. The S2 cascade
+                            # (_emit_cascade_sections) re-states the source byline once, so the leaf
+                            # label is then redundant; the eink-backmatter glossary's s2_group=False
+                            # branch (_study_glossary_category_body) emits BARE rows with NO byline,
+                            # so eink_backmatter alone must NOT trigger it — else dict/topic source
+                            # provenance is silently lost on the {S1-on, S2-off} combo. Gate the leaf
+                            # strip on s2_group (round-14 #4's `or eink_backmatter` was over-permissive).
+                            row, _changed = _strip_redundant_note_label(row, kind, kind_defaults, cascade=s2_group)
                             if _changed:
                                 stats["s1_labels_suppressed"] += 1
-                            row, _b_changed = _strip_redundant_body_boilerplate(row, kind, cascade=_cascade)
+                        # H6 (round-16): the body-boilerplate strip is the S2 CASCADE's job, not S1's —
+                        # it drops the leading "<strong>Cross-references.</strong>"/dict/topic boiler that
+                        # the vn-cat-head already prints once. Gating it on note_attribution_dedup (S1)
+                        # meant the {S1-off, S2-on} combo printed the category text twice. Gate it on
+                        # s2_group (the cascade that re-states it). _strip_redundant_body_boilerplate is a
+                        # no-op under cascade=False, so this stays byte-identical for every shipped edition
+                        # (all S2-on) and for the {S1-on, S2-off} combo (a no-op there before, too).
+                        if s2_group:
+                            row, _b_changed = _strip_redundant_body_boilerplate(row, kind, cascade=True)
                             if _b_changed:
                                 stats["s1_body_boiler_stripped"] = stats.get("s1_body_boiler_stripped", 0) + 1
                         rank = _POPUP_CATEGORY_RANK.get(cat, _POPUP_CATEGORY_FALLBACK_RANK)
@@ -4334,7 +4423,14 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         # slice-swallow if a bare vnotes-* id prefixes a sibling.
                         entry_id = f"study-entry-{code}-{ch}-{v}"
                         glossary_inner, cat_targets = _emit_backmatter_glossary_inner(
-                            norm_rows, cat_meta, code, ch, v, s2_group=s2_group, eink=eink_target
+                            norm_rows,
+                            cat_meta,
+                            code,
+                            ch,
+                            v,
+                            s2_group=s2_group,
+                            eink=eink_target,
+                            verse_anchored=chapter_has_v_anchors,
                         )
                         # K-R13: per-category targets are padded footnote asides so
                         # noteref → footnote uses Kobo's large-footnote navigate path.
@@ -7993,6 +8089,13 @@ def build_one(
     # cache-lookup time on hits and full-pipeline time on misses.
     _t0 = time.perf_counter()
 
+    # F1 (round-16): fold the ``computer`` alias to everywhere at the single build
+    # entry so the cache key, the artifact token/location, the override, and the OPF
+    # target stamp all treat a ``--target-reader computer`` build identically to
+    # everywhere (no orphan asset). resolve_target_reader folds a pinned record too.
+    if target_reader is not None:
+        target_reader = TARGET_READER_ALIASES.get(target_reader, target_reader)
+
     eds = config.editions_by_id()
     if edition_id not in eds:
         raise ValueError(f"unknown edition {edition_id!r}; known: {sorted(eds)}")
@@ -8469,6 +8572,12 @@ def build_one(
 
         stats["eink_verse_line_breaks"] = apply_eink_verse_line_breaks(tmp, edition, preloaded=repair_texts)
 
+        # H3 (round-16): eink numbers-mode note-sym tofu repair (badge mode already
+        # substitutes inline). No-op for every shipped edition (all badge) + all non-eink.
+        stats["eink_note_sym_repaired"] = apply_eink_note_sym_repair(
+            edition, preloaded=repair_texts, marker_style=marker_style
+        )
+
         stats["eink_bookpage_ornament"] = apply_eink_bookpage_ornament(edition, preloaded=repair_texts)
 
         stats["empty_verse_prose_repaired"] = apply_empty_verse_prose_repair(tmp, preloaded=repair_texts)
@@ -8603,6 +8712,25 @@ def build_one(
                 raise RuntimeError(f"build_epub failed:\n{result.stderr or result.stdout}")
 
         stats["size_mb"] = output_path.stat().st_size / (1024 * 1024)
+
+        # P1 (round-16): the /customize Kindle path builds its artifact through build_one
+        # directly (the M4 catalog asset goes through build_format_matrix._apply_kindle_post,
+        # which build_one does NOT share). Without this a build_one(target_reader="kindle")
+        # ships the E999-failing variant (display:none > 10K → Amazon E3013). Mirror
+        # _apply_kindle_post: strip hidden content + OCF re-zip in place, then assert the
+        # recipe holds. Runs BEFORE the cache store so a content-cache hit restores the
+        # kindle-safe artifact. Gated on is_kindle_target ⇒ no other target is touched.
+        if is_kindle_target(edition):
+            from scripts.core.kindle_post import make_kindle_safe, verify_kindle_safe
+
+            pre = output_path.with_name(output_path.stem + "._pre_kindle.epub")
+            output_path.replace(pre)
+            stats["kindle_safe_post"] = make_kindle_safe(pre, output_path)
+            pre.unlink()
+            ks_fails = verify_kindle_safe(output_path)
+            if ks_fails:
+                raise RuntimeError(f"{output_path.name}: kindle-safe recipe not satisfied: {ks_fails}")
+            stats["size_mb"] = output_path.stat().st_size / (1024 * 1024)
 
     # Phase ω.20-B — warm the content cache after a successful build.
     # Opportunistic: failures here (read-only disk, full disk) MUST NOT

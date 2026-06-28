@@ -65,7 +65,6 @@ EDITABLE_TEXT_FIELDS: frozenset[str] = frozenset(
         "short_title",
         "target_audience",
         "notes",
-        "verse_marker_glyph",
         "theme",
         "popup_translation",
         "cover_image",
@@ -1219,8 +1218,6 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         if field in payload:
             val = payload[field] or ""
             if isinstance(val, str):
-                if field == "verse_marker_glyph" and len(val) > 4:
-                    return {"error": "verse_marker_glyph max 4 chars"}
                 if field in {"title", "short_title"} and len(val) > 200:
                     return {"error": f"{field} too long (max 200)"}
                 if field in {"target_audience", "notes"} and len(val) > 500:

@@ -1601,7 +1601,7 @@ class TestEditionMeta:
         # 4 canon-shaped catalog study editions (2026-06-18 scrub); standalones hidden.
         assert len(d["editions"]) >= 4
         for e in d["editions"]:
-            for f in ("id", "title", "verse_popups", "verse_marker_glyph"):
+            for f in ("id", "title", "verse_popups"):
                 assert f in e
         # Default verse_popups should be True for all editions (back-compat)
         for e in d["editions"]:
@@ -1620,7 +1620,7 @@ class TestEditionMeta:
 
             r = self.web.api_save_edition_meta(
                 "catholic-study",
-                {"verse_popups": False, "verse_marker_glyph": "¶"},
+                {"verse_popups": False},
             )
             assert r.get("ok"), r
 
@@ -1630,7 +1630,6 @@ class TestEditionMeta:
             data = yaml.safe_load(path.read_text())
             cath = next(e for e in data["editions"] if e["id"] == "catholic-study")
             assert cath["verse_popups"] is False, f"expected real bool False, got {cath['verse_popups']!r}"
-            assert cath["verse_marker_glyph"] == "¶"
 
             # Comments preserved
             text = path.read_text()
@@ -1672,10 +1671,6 @@ class TestEditionMeta:
 
     def test_invalid_verse_popups_value_rejected(self):
         r = self.web.api_save_edition_meta("catholic-study", {"verse_popups": "maybe"})
-        assert "error" in r
-
-    def test_oversize_marker_rejected(self):
-        r = self.web.api_save_edition_meta("catholic-study", {"verse_marker_glyph": "way-too-long-for-a-marker"})
         assert "error" in r
 
     # ---------- Phase τ.1.5: per-edition translation picker ----------

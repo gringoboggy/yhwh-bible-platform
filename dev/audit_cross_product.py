@@ -101,22 +101,27 @@ def _check_matrix_targets(res, format_matrix, base_build_target, target_set, tar
             )
 
 
-def _check_customize_options(res, reader_options, target_set, matrix_targets) -> None:
-    """Check 3 — every /customize reader option maps to a FORMAT_MATRIX row (else orphan)."""
+def _check_customize_options(res, reader_options, target_set, matrix_targets, aliases=None) -> None:
+    """Check 3 — every /customize reader option maps to a FORMAT_MATRIX row (else orphan).
+
+    An option that is an explicit ALIAS of a matrix target (``computer`` → ``everywhere``,
+    ``build_edition.TARGET_READER_ALIASES``) is NOT an orphan: it builds, is named, and is
+    OPF-stamped as its alias target, so it ships that target's real catalog asset (F1)."""
+    aliases = aliases or {}
     for opt in reader_options:
         if opt not in target_set:
             res.fails.append(
                 f"check3 customize-option {opt!r} is not a valid TARGET_READERS value "
                 f"(the dropdown offers a target the resolver does not know)"
             )
-        elif opt not in matrix_targets:
+        elif aliases.get(opt, opt) not in matrix_targets:
             res.fails.append(
                 f"check3 ORPHAN OPTION: /customize offers reader target {opt!r} (a valid build target) "
                 f"but NO FORMAT_MATRIX row produces it — it builds as a silent alias with no catalog "
                 f"asset and no test (round-16 'computer' seed)"
             )
     for t in target_set:
-        if t not in matrix_targets and t not in set(reader_options):
+        if aliases.get(t, t) not in matrix_targets and t not in set(reader_options):
             res.warns.append(
                 f"target {t!r} is in TARGET_READERS but neither a format row nor a /customize option uses it"
             )
@@ -145,7 +150,13 @@ def _check_standalone(res, editions, catalog_ids, apply_target_override) -> int:
 
 
 def audit_grid(reader_options: list[str] | None = None) -> CrossProductResult:
-    from scripts.build_edition import COVER_COLOURS, FORMAT_MATRIX, TARGET_READERS, apply_target_override
+    from scripts.build_edition import (
+        COVER_COLOURS,
+        FORMAT_MATRIX,
+        TARGET_READER_ALIASES,
+        TARGET_READERS,
+        apply_target_override,
+    )
     from scripts.build_format_matrix import base_build_target, standard_edition_ids
     from scripts.core import config
 
@@ -175,7 +186,9 @@ def audit_grid(reader_options: list[str] | None = None) -> CrossProductResult:
             f"wizard target cards {sorted(set(wizard_options))} — the two reader-offering surfaces "
             f"must present the identical target set so neither silently diverges"
         )
-    _check_customize_options(res, sorted(set(reader_options) | set(wizard_options)), target_set, matrix_targets)
+    _check_customize_options(
+        res, sorted(set(reader_options) | set(wizard_options)), target_set, matrix_targets, TARGET_READER_ALIASES
+    )
 
     catalog_ids = set(standard_edition_ids())
     standalone_seen = _check_standalone(res, config.load_editions(), catalog_ids, apply_target_override)

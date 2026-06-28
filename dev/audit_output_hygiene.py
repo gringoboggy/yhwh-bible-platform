@@ -94,6 +94,21 @@ _LEAK_WARN = [
     ("printf-leftover", re.compile(r"%\([A-Za-z_]\w*\)[sdrfx]")),
 ]
 
+# H7 (round-16): the OPF metadata is FULLY build-controlled (no user content), so a
+# TODO/PLACEHOLDER stub token in it is an un-filled placeholder shipping in the artifact —
+# e.g. the a11y:certifiedBy ``TODO_CERTIFIER_NAME`` leak. FAIL-grade, scanned ONLY in the
+# .opf. The optional UPPER_SNAKE tail catches ``TODO_CERTIFIER_NAME`` and bare ``TODO``.
+_OPF_PLACEHOLDER_RE = re.compile(r"\b(?:TODO|FIXME|PLACEHOLDER|TBD|CHANGEME)(?:_[A-Z0-9]+)*\b")
+
+
+def _scan_opf_placeholders(member: str, text: str) -> list[str]:
+    """FAILs for any TODO/PLACEHOLDER stub token in the OPF metadata (build-controlled)."""
+    return [
+        f"{_base(member)}: OPF metadata placeholder {m.group(0)!r} shipped (un-filled stub)"
+        for m in _OPF_PLACEHOLDER_RE.finditer(text)
+    ]
+
+
 # Marker / aside classes (build_edition.py emitted markup).
 _BADGE_HREF_RE = re.compile(
     r'<a\b[^>]*class="[^"]*\b(?:verse-notes-badge|vn-link|study-glossary-jump|note-ref|note-backref)\b[^"]*"[^>]*\bhref="([^"]+)"'
@@ -260,9 +275,16 @@ def audit_epub(path: str, *, eink: bool = False) -> HygieneResult:
     aside_ids: set[str] = set()
     marker_targets: set[str] = set()
     members = 0
+    opf_placeholders = 0
 
     with zipfile.ZipFile(path) as zf:
         for name in zf.namelist():
+            if name.endswith(".opf"):
+                # H7 — OPF metadata placeholder leak (build-controlled → FAIL-grade).
+                of = _scan_opf_placeholders(name, zf.read(name).decode("utf-8", "replace"))
+                res.fails.extend(of)
+                opf_placeholders += len(of)
+                continue
             if not name.endswith((".html", ".xhtml")):
                 continue
             members += 1
@@ -340,6 +362,7 @@ def audit_epub(path: str, *, eink: bool = False) -> HygieneResult:
         "aside_ids": len(aside_ids),
         "marker_targets": len(marker_targets),
         "orphan_asides": len(orphan_asides),
+        "opf_placeholders": opf_placeholders,
         **spine_stats,
     }
     return res
@@ -414,6 +437,13 @@ def _selftest() -> int:
         problems.append(f"family-C expected >=3 dups (header+byline+body), got {rdups}")
     if cdups != 0:
         problems.append(f"family-C false-fired on clean aside: {cdups}")
+    # H7 — OPF metadata placeholder leak (the a11y:certifiedBy TODO stub) caught; clean OPF passes.
+    of_dirty = _scan_opf_placeholders("content.opf", '<meta property="a11y:certifiedBy">TODO_CERTIFIER_NAME</meta>')
+    of_clean = _scan_opf_placeholders("content.opf", '<meta property="a11y:certifiedBy">YHWH Ya’ Way</meta>')
+    if not of_dirty:
+        problems.append("OPF placeholder TODO_CERTIFIER_NAME not caught")
+    if of_clean:
+        problems.append(f"clean OPF certifier false-fired: {of_clean}")
     if problems:
         print("SELFTEST FAIL:")
         for p in problems:

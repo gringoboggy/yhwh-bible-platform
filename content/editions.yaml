@@ -194,7 +194,6 @@ editions:
     note_topic_dedup: true
     time_filter_ceiling: null
     verse_popups: true
-    verse_marker_glyph: ¶
     popup_translation: kjv
     title: The Catholic Study Bible — Ethiopian Edition
     display_name: Catholic Study Bible

@@ -29,16 +29,15 @@ def test_cross_product_selftest_non_tautological() -> None:
     assert cx._selftest() == 0
 
 
-def test_cross_product_detects_computer_orphan() -> None:
-    """Pins finding F1 — the real grid still surfaces the ``computer`` orphan (build-free, deterministic).
-
-    This intentionally asserts the KNOWN-defect state; when F1 is remediated (a FORMAT_MATRIX
-    row for ``computer`` or its removal from the /customize dropdown) this flips and is updated
-    to assert the grid is clean."""
+def test_cross_product_grid_clean_after_f1() -> None:
+    """F1 REMEDIATED (round-16 Phase H): ``computer`` is now an explicit alias of
+    ``everywhere`` (build_edition.TARGET_READER_ALIASES), so the cross-product grid no
+    longer surfaces it as an ORPHAN OPTION and the whole grid is clean."""
     res = cx.audit_grid()
-    assert any("ORPHAN OPTION" in f and "computer" in f for f in res.fails), (
-        f"expected the computer orphan; grid fails={res.fails}"
+    assert not any("ORPHAN OPTION" in f and "computer" in f for f in res.fails), (
+        f"computer should be an alias, not an orphan; grid fails={res.fails}"
     )
+    assert res.green, f"cross-product grid should be clean after F1; fails={res.fails}"
 
 
 def test_cross_product_reads_wizard_cards_and_detects_drift() -> None:
@@ -58,13 +57,15 @@ def test_customize_completeness_selftest_non_tautological() -> None:
     assert cc._selftest() == 0
 
 
-def test_customize_completeness_detects_verse_marker_glyph_orphan() -> None:
-    """Pins finding F2 — ``verse_marker_glyph`` is validated/echoed but read nowhere on the
-    build path. Updated to a clean-tree assertion once F2 is remediated."""
+def test_customize_completeness_clean_after_f2() -> None:
+    """F2 REMEDIATED (round-16 Phase H): ``verse_marker_glyph`` was RETIRED (control +
+    validator + schema spec + loader echo + the catholic-study ``¶`` value all removed),
+    so the completeness gate no longer surfaces it as an orphan and the path is clean."""
     res = cc.audit_completeness()
-    assert any("verse_marker_glyph" in f for f in res.fails), (
-        f"expected the verse_marker_glyph orphan; fails={res.fails}"
+    assert not any("verse_marker_glyph" in f for f in res.fails), (
+        f"verse_marker_glyph should be retired, not an orphan; fails={res.fails}"
     )
+    assert res.green, f"customize-completeness should be clean after F2; fails={res.fails}"
 
 
 def test_output_hygiene_selftest_non_tautological() -> None:

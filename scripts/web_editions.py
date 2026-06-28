@@ -416,7 +416,6 @@ def api_customize_data() -> dict:
                 "note_attribution_dedup": e.get("note_attribution_dedup", False),
                 "note_group_by_category": e.get("note_group_by_category", False),
                 "note_topic_dedup": e.get("note_topic_dedup", False),
-                "verse_marker_glyph": e.get("verse_marker_glyph", ""),
                 "popup_translation": e.get("popup_translation", ""),
                 "popup_languages_default": list(e.get("popup_languages_default") or []),
                 # Decoded to a JSON-friendly dict for the UI; on-disk

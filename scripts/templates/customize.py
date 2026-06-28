@@ -346,10 +346,6 @@ function renderEditions() {
               </select>
             </label>
             <label class="text-xs flex items-center gap-1.5">
-              <span>marker:</span>
-              <input class="symbol-input" data-field="verse_marker_glyph" value="${escapeAttr(e.verse_marker_glyph)}" maxlength="4" placeholder="·" title="leave empty for default verse number">
-            </label>
-            <label class="text-xs flex items-center gap-1.5">
               <span>theme:</span>
               <select class="label-input" data-field="theme">
                 ${(DATA.themes || []).map(t => `<option value="${t.id}" ${e.theme === t.id ? 'selected' : ''} title="${escapeAttr(t.description)}">${escapeAttr(t.name)}</option>`).join('')}

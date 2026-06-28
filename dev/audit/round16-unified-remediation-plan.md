@@ -1,5 +1,11 @@
 # Round-16 — UNIFIED Remediation Plan (both lanes synthesized)
 
+> **✅ ALL PHASES EXECUTED + byte-proven (2026-06-28).** Phases A–G + I committed earlier; **Phase H** (the 10
+> byte-sensitive build-path items) executed this session — TDD red→green, baseline 9/9 control + round-B byte-proof
+> (6 non-kindle BODY-IDENTICAL, 3 kindle `verify_kindle_safe==[]`) + golden re-stamped & re-verified 9/9. F1→alias,
+> F2→retire. 2 items stay verifier-DEFERRED by design (C3 at-scale-stat, B4 sanitizer-balancing). See `dev/CHANGELOG.md`
+> 2026-06-28 + `dev/SESSION_STATE.md`. _(The findings-only language below is the original synthesis, preserved.)_
+>
 > **Status: FINDINGS-ONLY. This is the plan, not the work.** No code is modified by this synthesis.
 > Synthesizes `round16-engine-win-plan.md` (26 survivors) + `round16-engine-mac.md` (20 survivors) +
 > the build-free gates (F1/F2) + the WIN full-catalog build-inspect harness, after cross-lane `keyOf` dedup.

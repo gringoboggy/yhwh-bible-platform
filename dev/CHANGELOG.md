@@ -4,6 +4,48 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-28 — Round-16 ✅ COMPLETE — Phase H (10 behaviour-changing build-path fixes) + 9-KJV golden re-stamp (Windows; autonomous)
+
+**Round-16 remediation is now COMPLETE across all phases A–I.** This fresh session executed **Phase H** — the 10
+byte-sensitive build-path items the earlier phases deferred — TDD red→green, with a full 9-KJV byte-proof.
+
+**Items (all `scripts/build_edition.py` unless noted):**
+- **H1 [P1 medium] Kindle build_one E999 fix.** A direct `build_one(target_reader="kindle")` (the /customize Kindle path
+  + the golden gate) now runs `kindle_post.make_kindle_safe` + `verify_kindle_safe` at the build tail (gated on
+  `is_kindle_target`, before the cache store), raising on any conformance failure — mirroring
+  `build_format_matrix._apply_kindle_post`. Closes the display:none>10K → Amazon E3013 ship. The **catalog M4 Kindle asset
+  is unchanged** (the matrix builds the everywhere base + kindle_post, never `build_one`'s kindle branch).
+- **H2 [P2 medium] eink return link.** `_study_verse_return_link` gains `verse_anchored: bool|None`, threaded from the
+  per-chapter `id="v-{code}-{ch}-"` signal so the 13 anchor-carrying Strategy-B books (psa/job/1ki/…) land on the verse,
+  not the chapter opener; `None` reproduces the legacy strategy inference.
+- **H3 [low]** `apply_eink_note_sym_repair` glyph-substitutes `class="note-sym"` in numbers-mode eink (badge mode already
+  does it inline), gated `eink and marker_style != "badge"` (every shipped edition is badge ⇒ no-op).
+- **H4 [low]** `_emit_backmatter_glossary_inner` adds the `(c/n)` `vn-part` indicator to split-group continuation
+  footnotes (resolves the orphan-aside WARN); single-group unchanged.
+- **H5 [low]** `_VN_LINK_AT_PARA_START_RE` also matches the `verse-p-flush` opener (no double-break; flag off for all shipped).
+- **H6 [low]** the S2 body-boilerplate strip re-gated on `s2_group` (was `s1_dedup`), fixing the {S1-off, S2-on} double
+  print; a no-op under cascade=False ⇒ byte-identical for every shipped {S1-on, S2-on}.
+- **H7 [low]** OPF `a11y:certifiedBy` `TODO_CERTIFIER_NAME` → **"YHWH Ya' Way"** (honest self-certification of the WCAG-AA
+  structure the pipeline emits); `dev/audit_output_hygiene.py` now also scans the `.opf` for TODO/PLACEHOLDER stubs.
+  **Deliberate 9-KJV OPF byte change → golden re-stamped.**
+- **H8 [F2 low]** `verse_marker_glyph` **RETIRED** — /customize control, EDITABLE_TEXT_FIELDS + per-field validator,
+  FieldSpec, `api_customize_data` echo, the catholic-study `¶` value, and the test refs all removed (read nowhere on the
+  build path ⇒ byte-safe).
+- **H9 [F1 low]** `TARGET_READER_ALIASES = {"computer":"everywhere"}` folds at `resolve_target_reader` +
+  `apply_target_override` + the build entry; `audit_cross_product` resolves the alias → no orphan; the UI card stays.
+- **H10 [G-dot low]** `resolve_marker_badge_style` coerces an eink-unsafe `dot` → `chip` on eink (no edition stores it ⇒ byte-neutral).
+
+**Byte-proof (rigorous):** baseline control = HEAD rebuilt all 9 KJV cells **9/9 == the committed golden** (deterministic);
+round-B (all edits) rebuilt 9 cells, a certifiedBy-normalized member digest showed the **6 non-kindle cells BODY-IDENTICAL**
+(items 2–10 byte-neutral; H7 isolated to the one `certifiedBy` line) and the **3 kindle cells `verify_kindle_safe == []`**
+(H1 deliverable); golden re-stamped from round B and **independently re-verified 9/9** by a fresh rebuild. `make_kindle_safe`'s
+re-zip is reproducible + cross-OS (`_ocf_rezip`: pinned date_time/create_system + A1 `ocf_member_bytes` LF-normalize), so the
+new kindle golden cells match the ubuntu CI gate. Boggy decisions resolved: **F1** computer→alias, **F2** verse_marker_glyph→retire.
+
+**Gates/tests:** F1/F2 build-free gates flipped to clean-tree assertions; 18 new `tests/test_round16_phase_h.py` unit pins;
+hygiene OPF-placeholder selftest; F2 API smoke (customize clean, valid save round-trips, retired field ignored); `lint_rules`
+36 pass/0 fail; mypy + ruff-format clean.
+
 ## 2026-06-27 — Round-15 ✅ COMPLETE — D5 glossary byte-streamer proven + D2 G3 xref-class breakout (Windows; autonomous)
 
 **Round-15 is now complete across all 9 dimensions (both lanes).** This session (WIN) closed the two remaining WIN items:
