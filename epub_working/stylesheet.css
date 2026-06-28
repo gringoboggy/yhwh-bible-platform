@@ -848,6 +848,11 @@ p.verse-p, p.verse-p-flush {
    coarse → mis-taps. User decision: KEEP both popups (translation = verse
    start, ◈ notes = verse end) + a clear gap between them. */
 .verse-notes-badge { text-decoration: none; margin: 0 0.4em 0 0.12em; }
+/* device-QA 2026-06-28: in justified verse text the badges drifted/stretched and a
+   lone badge wrapped with a big gap (reported on Kobo + Play). Make every verse-
+   boundary tap target an atomic, non-breaking inline-block so justification can
+   neither split the glyph from its count nor stretch the badge itself. */
+.verse-notes-badge, .study-glossary-jump, .vn-link { display: inline-block; white-space: nowrap; }
 .marker-badge {
   font-size: 0.72em;
   vertical-align: 0.4em;        /* explicit baseline-shift — never the "super"

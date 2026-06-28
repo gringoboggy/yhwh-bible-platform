@@ -136,6 +136,20 @@ matter files). Findings:
   design; notes become visible endnotes"). Fix = build Kindle with m4b + extend
   the relocate to translation `vnote-*` asides (currently only study `vnotes-*`).
 
+## PROGRESS LOG (2026-06-28, live)
+
+Code fixes applied so far (commit `3c46a46d` = batch 1; batch 2 pending commit):
+- ✅ **Apple LTR direction** — `epub_working/content.opf:92` spine `page-progression-direction="ltr"`. (batch 1)
+- ✅ **Single merged badge off-Kobo** — `build_edition.py` `split_cap` gated to eink (one badge per verse on Apple/Play/Kindle/computer; split stays Kobo-only). (batch 1)
+- ✅ **Clean separators (no marker)** — `build_edition.py` `_VN_SEP_*` (non-eink → hidden U+2028 only; eink → bare `<br>`); `_KOBO_VNOTE_GAP=""`; comments updated. (batch 1)
+- ✅ **Badge-spacing drift** — `epub_working/stylesheet.css` `.verse-notes-badge,.study-glossary-jump,.vn-link { display:inline-block; white-space:nowrap }` (un-gated; Kobo + Play). (batch 2)
+- ✅ **Edition-ID relocation** — moved the `Edition ID + Build` line from the "Your Edition"/study-count page to the **copyright page** (`matter_pages.py render_copyright_page`, threaded `version` via `inject_copyright_page`; removed from `render_your_edition_page`). Reverses the 2026-06-09 move. (batch 2)
+- 🔄 **Kindle teleport (CRITICAL)** — delegated to a focused agent: route the matrix Kindle cell through the m4b endnote-relocate path AND extend the relocate to translation `vnote-*` asides (keep all content). In progress.
+- ⏸ **Kobo return-link missing (first category)** — DEFERRED to post-rebuild device re-QA. The return link IS emitted for *every* category (`build_edition.py:3949` via `_study_verse_return_link`), so the symptom is device-side (the first/largest category's bottom-anchored link likely scrolls off Kobo's footnote overlay), not a code miss. Diagnose on the rebuilt kepub; candidate fix = also place the link at the top of each category aside.
+- ⏳ **Still to do before the rebuild:** residual mid-verse line breaks (WS1); Kindle layout polish (justification / ToC pills via `kindle_post._flatten_toc_pills` / title-page split — after the Kindle agent returns, same file); Play ToC expandable (attempt; likely a Play reader limitation).
+
+Tests: the separator/badge-merge/edition-ID changes intentionally change build output → unit tests asserting the old glyphs/placement (`test_ws3_popup_separators`, `test_popup_split`, the matter-page tests) + the 9-KJV golden are updated together in the post-rebuild pass (step 5).
+
 ## Remediation sequence (one rebuild, not many)
 1. ✅ Content: User notes removed (validate + commit).
 2. Root-cause the 2 CRITICAL bugs (Apple direction, Kindle teleport) + finalize return-link / line-breaks / translation.

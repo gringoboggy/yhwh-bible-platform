@@ -26,6 +26,7 @@ def render_copyright_page(
     *,
     annotation_count: int,
     category_count: int,
+    version: str = "",
 ) -> str:
     """Render the front colophon XHTML. Identity from ``publishing``
     (_resolve_publishing), NOT the dead content/onix.py TODO_ defaults; counts term-ref-ok
@@ -43,6 +44,12 @@ def render_copyright_page(
     pub_x = html.escape(pub)
     holder_x = html.escape(holder)
     ann = f"{annotation_count:,}"
+    # device-QA 2026-06-28: the Edition ID + Build line lives HERE with the copyright/
+    # identity text (the user found it orphaned on its own page / at the foot of the
+    # study-count page on Apple/Kindle/Play). Reverses the 2026-06-09 move to the
+    # "Your Edition" page. Build segment is omitted when no version is supplied.
+    edition_urn = f"urn:yhwh:edition:{edition['id']}"
+    build_seg = f" &#183; <strong>Build:</strong> {html.escape(version)}" if version else ""
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
@@ -59,6 +66,7 @@ def render_copyright_page(
     <p class="copyright-compiler"><strong>YHWH Ya&#8217; Way</strong> — published by <strong>{pub_x}</strong>, {cyear}.</p>
     <p>&#169; {cyear} {holder_x}. All rights reserved. Editorial notes, selection, arrangement, and presentation are original editorial work; the underlying biblical texts and cited public-domain reference works retain their own public-domain status.</p>
     <p>This edition carries <strong>{ann}</strong> annotations across <strong>{category_count} categories</strong> — a key to the symbols follows on the next page; full source credits are at the back.</p>
+    <p class="copyright-edition-id"><strong>Edition ID:</strong> {edition_urn}{build_seg}</p>
   </section>
 </body>
 </html>
@@ -115,7 +123,7 @@ def _drop_placeholder_introduction(tmp: Path) -> None:
         intro_file.unlink()
 
 
-def inject_copyright_page(tmp: Path, edition: dict) -> None:
+def inject_copyright_page(tmp: Path, edition: dict, version: str = "") -> None:
     """Write copyright.xhtml, register it in content.opf (manifest + spine after
     titlepage) and nav.xhtml. Identity from _resolve_publishing.
 
@@ -138,7 +146,7 @@ def inject_copyright_page(tmp: Path, edition: dict) -> None:
 
     # 1) Write the page
     html_text = render_copyright_page(
-        edition, publishing, annotation_count=annotation_count, category_count=category_count
+        edition, publishing, annotation_count=annotation_count, category_count=category_count, version=version
     )
     (tmp / "copyright.xhtml").write_text(html_text, encoding="utf-8")
 
@@ -498,14 +506,11 @@ def render_your_edition_page(edition: dict, stats: dict, version: str) -> str:
     else:
         perbook_block = '    <p class="your-edition-perbook-empty">This edition carries no annotations.</p>'
 
-    # Edition identity (Edition ID + Build) — relocated here from the front colophon
-    # (device-QA 2026-06-09) so it sits beside the composition + per-book note details,
-    # which the user found more logical than splitting it onto the colophon.
-    edition_urn = f"urn:yhwh:edition:{edition['id']}"
-    meta_line = (
-        f'    <p class="your-edition-meta"><strong>Edition ID:</strong> {edition_urn}'
-        f" &#183; <strong>Build:</strong> {html.escape(version)}</p>"
-    )
+    # device-QA 2026-06-28: the Edition ID + Build line moved to the copyright page
+    # (render_copyright_page) — the user found it orphaned here at the foot of the
+    # study-count details on Apple/Kindle/Play. ``version`` is still accepted so the
+    # build-time call signature is unchanged.
+    _ = version
 
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
@@ -521,7 +526,6 @@ def render_your_edition_page(edition: dict, stats: dict, version: str) -> str:
 {notes_block}{inside_line}
 {total_line}
 {perbook_block}
-{meta_line}
   </section>
 </body>
 </html>

@@ -8607,7 +8607,7 @@ def build_one(
         # annotation_count_override (which corrected only the tradition/time
         # ref-id filters): resolved_note_counts subsumes it AND adds the rest of
         # the ρ.3 hierarchy + the base-coverage gate — strictly more accurate.
-        inject_copyright_page(tmp, edition)
+        inject_copyright_page(tmp, edition, version)
         inject_dedication_page(tmp, edition)
         # σ.3.2 — the "Your Edition" page is the FIRST content page after the
         # cover. It anchors its spine/nav insert at the titlepage and runs AFTER
