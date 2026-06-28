@@ -16,6 +16,21 @@
 - **Build-free source gates (3c) — ✅ PASS** on macOS: `tests/test_round16_source_gates.py` **5/5** (`audit_cross_product` + `audit_customize_completeness` + `audit_output_hygiene` selftests non-tautological; the `computer`-orphan + `verse_marker_glyph`-orphan detections fire).
 - **⇒ MAC CROSS-OS VERIFY COMPLETE (program done-def #3):** 3a G1 9/9 ✓ · 3b G3/G4/G5/G6 + `audit_output_hygiene` ✓ · 3c build-free `_selftest` ✓. **Mac lane fully run.**
 
+### Standalone build-inspect (Mac — round-16 catalog-coverage completion, 2026-06-27)
+
+WIN's full-catalog sweep was killed mid-`standalone-geez` (remediation tracker §"Final WIN sweep state"), so the two standalones were the only un-inspected non-flagship catalog assets. Built + scanned both on macOS via the round-16 harness (`dev/round16_build_inspect.py --only standalone-{geez,amharic}:standalone`); the round-16 gate suite ran per asset (epubcheck + `audit_idmap_frags` G3 + `audit_badge_conservation` G4 + `audit_canonical_order` G6 + `audit_output_hygiene`). **Both assets CLEAN — `gate_fails=[]`, harness exit 0.**
+
+| asset | size | epubcheck | G3 idmap | G4 badge | G6 canon-order | R16 hygiene |
+|---|---|---|---|---|---|---|
+| `standalone-geez` | 1.72 MB | 0/0/0/0 | PASS — 6 pcs, frag=165 (xref=165), noteref=2972, ncx=165, uids=6109, **0** dup/fail | clean (`is_badge_edition=0`) | clean (spine=6) | PASS — members=7, leak/nested/empty/midbreak **all 0**, book_breaks=3 |
+| `standalone-amharic` | 1.55 MB | 0/0/0/0 | PASS — 3 pcs, frag=126 (xref=126), noteref=2243, ncx=126, uids=4612, **0** dup/fail | clean (`is_badge_edition=0`) | clean (spine=3) | PASS — members=4, leak/nested/empty/midbreak **all 0** |
+
+**The 2 WARNs per asset are expected non-applicability (NOT findings)** — the same harness-applicability class WIN flagged for the kepubs:
+- **badge:** standalones are not badge/study editions (`is_badge_edition=0`) → the `…stats.json` sidecar is absent and badge-conservation is vacuously clean. Correct by design.
+- **canonical-order:** the standalone Ge'ez/Amharic Bibles do not carry the study `ch-bNN-cMM` chapter anchors the gate keys on → it reports "order not assertable" and passes (`chapters=0/books=0`). The standalone uses its own per-book chapter scheme; G6 is a study-edition gate. Correct by design — and corroborates the engine's "seed #3 standalone target degeneracy = not a defect" (remediation §"refuted seeds").
+
+**Scope note (honest framing):** there is no Windows-side standalone result to byte-compare against (WIN's sweep died mid-geez), so this is round-16 **catalog-coverage completion**, not a Win↔Mac byte-identity proof. Standalone EPUBs also carry build-time OPF timestamps (`dc:date`/`dcterms:modified`) and are not in the 9-KJV byte-stable golden set, so byte-identity is neither expected nor required for them. Results JSON: `build/r16/standalone-{geez,amharic}-mac.json` (gitignored). ⇒ With this, **every round-16 non-flagship catalog asset is now build-inspected clean** (WIN's 18 + Mac's 2 standalones = 20); the only remaining inspect item is the flagship `ethiopian-tewahedo` eink (RAM ceiling → WIN-only by design).
+
 ### Cross-OS observations (LOW — for WIN)
 - **(harness) `tests/test_round14_build_gates.py:58`** runs each gate via `subprocess.run([sys.executable, dev/<gate>.py, epub])` WITHOUT `env={**os.environ,"PYTHONPATH":REPO}` / `cwd=REPO`. On a clean macOS `python -m pytest` (no ambient PYTHONPATH) the `audit_canonical_order.py` subprocess's `from scripts.core import config` → `ModuleNotFoundError('scripts')`. WIN passes only via a globally-exported PYTHONPATH. Fix: pass PYTHONPATH/cwd so the gate is invocation-independent (the coming `test_round16_build_gates.py` should adopt the same). G3/G4/G5 don't import `scripts` at main scope → unaffected. _(This sibling also relates to survivors [9]–[12] / dim builder-robustness subprocess hygiene.)_
 - **(build) catholic-study eink `spine_pieces=369`** on this round-16 build vs **307** on the round-15 board; chapters/books/appendix identical (1299/75/3), order-clean. Piece-count drift — sanity-check whether a file-split cap changed (no `build_edition.py` change expected this round).
