@@ -18,8 +18,11 @@ pushd "%~dp0\.."
 
 where pyinstaller >nul 2>&1
 if errorlevel 1 (
-    echo PyInstaller not found. Installing into the active Python...
-    python -m pip install --user pyinstaller
+    REM R16 Phase I — install from the PINNED canonical desktop deps (pyinstaller==
+    REM 6.20.0 to match build-linux.yml + pywebview==6.2.1) instead of an unpinned
+    REM `pip install pyinstaller`, so all three OSes freeze on one tested toolchain.
+    echo PyInstaller not found. Installing pinned desktop deps into the active Python...
+    python -m pip install --user -r dev\requirements-desktop.txt
     if errorlevel 1 goto :err
 )
 

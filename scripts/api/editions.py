@@ -692,68 +692,34 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         return {"error": f"unknown edition: {edition_id}"}
     current = eds[edition_id]
 
-    EDITABLE = {
-        "title",
-        "short_title",
-        "target_audience",
-        "notes",
-        "verse_marker_glyph",
-        "theme",
-        "popup_translation",
-        "cover_image",
-        "verse_popups",
-        "note_attribution_dedup",
-        "note_group_by_category",
-        "note_topic_dedup",
-        "popup_languages_default",
-        "popup_languages_per_book",
-        "traditions_default",
-        "traditions_per_book",
-        "book_covers",
-        "chapter_number_format",
-        "chapter_number_decoration",
-        "book_toc_ornament",
-        "title_page_style",
-        "cover_template",
-        "verse_popup_style",
-        "note_popup_style",
-        # K-R6-6 — in-page verse-badge form ("chip" | "glyph+count");
-        # absent = target default (chip on eink, glyph+count elsewhere).
-        "marker_badge_style",
-        "marker_style",
-        "reader_eink_study_layout",
-        "topical_index_source",
-        "note_popup_split_cap",
-        # K-R6-2 — popup-unit byte cap (estimated post-kepubify bytes; 0 =
-        # off; unset = the calibrated 8,858 default).
-        "note_popup_split_byte_cap",
-        "reader_toc_collapsible",
-        "reader_toc_default_open",
-        "reader_native_toc_chapters",
-        # K-R2 — where the builder will read the EPUB ("everywhere" | "eink" |
-        # "tablet" | "computer"); set by the wizard's reader-target step, gates
-        # which optional features the UIs offer. Absent = everywhere (no-op).
-        "target_reader",
-        # K-R2-6 — keep/drop the closing colophon page (default keep).
-        "closing_colophon",
-        "enabled_reading_plans",
-        "description",
-        "dedication",
-        # σ.4 — edition-identity fields (cover subtitle / "Your Edition" name + cover main title)
-        "display_name",
-        "cover_main_title",
-        # ρ.3 Phase C1 — per-book/chapter/verse hierarchical-customization fields
-        "note_families_on_per_book",
-        "note_families_off_per_book",
-        "note_families_on_per_chapter",
-        "note_families_off_per_chapter",
-        "popup_languages_per_chapter",
-        "popup_languages_per_verse",
-        # K-KIN (C) — per-reader popup-language cap + the bible-wide pick
-        # that fills it (kindle defaults: cap 2, Hebrew + Greek).
-        "max_popup_languages",
-        "popup_languages_capped",
-    }
+    # R16 Phase G (#18) — derive the previewable field set from the SAVE registry
+    # so it can NEVER drift from what api_save_edition_meta actually accepts. The
+    # old hardcoded copy had dropped time_filter_ceiling / reader_eink_verse_lines
+    # / reader_eink_study_inline / enable_ai_notes (all savable), so editing one
+    # showed up as an "unknown field … silently ignored" and disabled the confirm.
+    # Scalars come from the two field registries; only the list/state fields (not
+    # in either registry) stay explicit here.
+    EDITABLE = (
+        set(EDITABLE_TEXT_FIELDS)
+        | set(EDITABLE_BOOL_FIELDS)
+        | {
+            # list / per-book / per-chapter / per-verse STATE fields the save path
+            # handles outside the scalar text/bool registries.
+            "popup_languages_default",
+            "popup_languages_per_book",
+            "popup_languages_per_chapter",
+            "popup_languages_per_verse",
+            "popup_languages_capped",
+            "traditions_default",
+            "traditions_per_book",
+            "book_covers",
+            "enabled_reading_plans",
+            "note_families_on_per_book",
+            "note_families_off_per_book",
+            "note_families_on_per_chapter",
+            "note_families_off_per_chapter",
+        }
+    )
 
     changes: list[dict] = []
     unchanged: list[str] = []

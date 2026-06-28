@@ -472,6 +472,17 @@ def api_customize_data() -> dict:
                 "reader_toc_collapsible": e.get("reader_toc_collapsible", False),
                 "reader_toc_default_open": e.get("reader_toc_default_open", False),
                 "book_toc_ornament": e.get("book_toc_ornament", "none"),
+                # R16 Phase G (#19) — four presentation fields that ARE saved +
+                # build-read but were absent from this loader, so /customize showed
+                # the hard-coded fallback and a builder could not reset a stored
+                # non-default to default. The two split caps are surfaced RAW (not
+                # resolved): the YAML loader yields None for an unset/cleared cap and
+                # an int when pinned, so the control's `?? ''` renders blank for "use
+                # the device-calibrated default" vs the stored integer when pinned.
+                "chapter_number_format": e.get("chapter_number_format", "digit"),
+                "chapter_number_decoration": e.get("chapter_number_decoration", "plain"),
+                "note_popup_split_cap": e.get("note_popup_split_cap"),
+                "note_popup_split_byte_cap": e.get("note_popup_split_byte_cap"),
                 "target_reader": resolve_target_reader(e),
                 # K-R7-3 — eink/Kobo verse layout (opt-in; default off).
                 "reader_eink_verse_lines": e.get("reader_eink_verse_lines", False),

@@ -214,6 +214,53 @@ else:
     # STAGE D: the Windows EXE carries the branded icon (Explorer/taskbar);
     # PyInstaller ignores icon= on Linux, so the same spec stays shared.
     _ICO = ROOT / "assets" / "icons" / "program_icon.ico"
+    # R16 Phase I — embed a Windows version resource so the frozen .exe carries a
+    # FileVersion/ProductVersion (parity with the macOS .app's CFBundleVersion;
+    # before this the Win .exe shipped no version metadata). PyInstaller ignores
+    # version= on Linux, and the win32 helper only imports on Windows, so both the
+    # construction AND the param are guarded on sys.platform.
+    _verinfo = None
+    if sys.platform == "win32":
+        from PyInstaller.utils.win32.versioninfo import (
+            FixedFileInfo,
+            StringFileInfo,
+            StringStruct,
+            StringTable,
+            VarFileInfo,
+            VarStruct,
+            VSVersionInfo,
+        )
+
+        # "0.1.0" / "0.1.0-rc1" / "0.1.0+build" -> (0, 1, 0, 0) (filevers needs 4 ints).
+        _core = VERSION.split("+")[0].split("-")[0]
+        _vtuple = tuple((list(int(x) for x in _core.split(".")) + [0, 0, 0, 0])[:4])
+        _verinfo = VSVersionInfo(
+            ffi=FixedFileInfo(
+                filevers=_vtuple, prodvers=_vtuple, mask=0x3F, flags=0x0, OS=0x40004, fileType=0x1, subtype=0x0
+            ),
+            kids=[
+                StringFileInfo(
+                    [
+                        StringTable(
+                            "040904B0",
+                            [
+                                StringStruct("CompanyName", "YHWH Ya' Way"),
+                                StringStruct("FileDescription", "YHWH Bible publishing platform"),
+                                StringStruct("FileVersion", VERSION),
+                                StringStruct("InternalName", "YHWH"),
+                                StringStruct("OriginalFilename", "YHWH.exe"),
+                                StringStruct("ProductName", "YHWH"),
+                                StringStruct("ProductVersion", VERSION),
+                                StringStruct(
+                                    "LegalCopyright", "Source-available; incorporates public-domain texts."
+                                ),
+                            ],
+                        )
+                    ]
+                ),
+                VarFileInfo([VarStruct("Translation", [1033, 1200])]),
+            ],
+        )
     exe = EXE(
         pyz,
         a.scripts,
@@ -234,4 +281,5 @@ else:
         codesign_identity=None,
         entitlements_file=None,
         icon=str(_ICO) if _ICO.is_file() else None,
+        version=_verinfo,
     )

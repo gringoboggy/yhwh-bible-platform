@@ -5211,11 +5211,14 @@ def _iter_study_glossary_pieces(text: str, stem: str, target: int) -> Iterator[t
         yield (f"{stem}.html", text)
         return
     head, body, tail = parts
+    del parts  # R16 Phase F — the tuple kept body alive, so the `del body` below was
+    # a no-op; drop the tuple ref first so body is actually freed (byte-neutral).
     sec_parts = _study_index_section_parts(body)
     if sec_parts is None:
         yield (f"{stem}.html", text)
         return
     body_prefix, sec_open, inner, body_suffix = sec_parts
+    del sec_parts  # R16 Phase F — same: free the tuple so the `del inner` below frees inner.
     del body  # inner + the small wrappers are independent copies → free the ~480 MB body
 
     atoms = _study_glossary_chunk_atoms(inner, target)
@@ -5389,8 +5392,22 @@ def _iter_study_glossary_pieces_from_file(path: Path, stem: str, target: int) ->
         return
     try:
         yield from _stream_glossary_pieces_from_bytes(raw, stem, target)
-    except _GlossaryStructureError:
-        yield from _iter_study_glossary_pieces(_decode_nl(raw), stem, target)
+    except _GlossaryStructureError as e:
+        # R16 Phase F (P4) — do NOT fall back to the whole-document str splitter for
+        # a >threshold monolith: that decodes ~480 MB + holds ~3 full-size copies →
+        # the flagship-eink OOM the byte streamer was built to remove (and, frozen,
+        # crashes the in-process server). The byte patterns at 5259-5262 are exact
+        # ASCII twins of the str patterns, so the ONLY way this fires on a real
+        # ~480 MB monolith is a glossary-markup change — surface that, don't OOM.
+        # Byte-neutral: this fallback is production-dead today (in-spec monoliths
+        # stream cleanly); the ≤threshold str path above is untouched.
+        raise RuntimeError(
+            f"study-glossary monolith {path.name} ({len(raw)} bytes) exceeds the "
+            f"{_GLOSSARY_STREAM_BYTE_THRESHOLD}-byte stream threshold but the byte streamer "
+            f"could not parse its structure (glossary markup likely changed) — update the "
+            f"byte-twin patterns near _stream_glossary_pieces_from_bytes; refusing the "
+            f"whole-document str fallback (~{len(raw) // 1_000_000} MB + ~3x copies → OOM)."
+        ) from e
 
 
 _STUDY_BOOK_HEAD_ID_RE = re.compile(r'<h2 class="study-book-head" id="([^"]+)"[^>]*>([^<]+)</h2>')
@@ -6644,6 +6661,12 @@ def enrich_nav_chapters(tmp: Path) -> dict:
     by_book: dict[int, list[tuple[int, str, str]]] = {}
     seen: set[str] = set()
     for p in list_split_html_files(tmp):
+        # R16 Phase F — skip the ~480 MB study-glossary monolith (it carries only
+        # study-book-head ids, never ch-bNN-cMM): read_text()-ing it whole is the
+        # flagship-eink OOM the sibling passes (retarget_demoted_toc_anchors,
+        # _merge_mid_verse_breaks) already guard. Byte-identical no-op.
+        if p.stem == EINK_STUDY_BACKMATTER_STEM:
+            continue
         for m in re.finditer(r'\bid="ch-b(\d+)-c(\d+)"', p.read_text(encoding="utf-8")):
             chid = f"ch-b{m.group(1)}-c{m.group(2)}"
             if chid in seen:
@@ -8708,12 +8731,19 @@ def main() -> None:
     # ★CONFIRMED-OPTIMAL (round-7 audit, 2026-06-10): workers=5 + the
     # content-addressable build cache + the mtime incremental check were
     # audited together — more workers would OOM the 16 GB box; don't re-derive.
+    # R16 Phase F carve-out: the round-7 pin predates the eink study-glossary
+    # monolith path (round 14-15). Each eink build_one co-resides a ~255-480 MB
+    # glossary in THIS process (only build_epub is forked), so 5 concurrent eink
+    # builds = 5× that peak → OOM. Cap eink to 1 worker (no edition bakes
+    # target_reader:eink, so non-eink --all is unchanged). Byte-neutral: worker
+    # count is scheduling only — per-edition output bytes are deterministic.
     if not args.dry_run and len(targets) > 1 and not args.no_parallel:
         from concurrent.futures import ThreadPoolExecutor, as_completed
 
         failures = 0
         results: dict[str, dict] = {}
-        with ThreadPoolExecutor(max_workers=min(len(targets), 5)) as pool:
+        workers = 1 if args.target_reader == "eink" else min(len(targets), 5)
+        with ThreadPoolExecutor(max_workers=workers) as pool:
             future_to_id = {
                 pool.submit(
                     build_one,

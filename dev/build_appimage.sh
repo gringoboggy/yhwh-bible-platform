@@ -37,16 +37,14 @@ if [[ ! -f "$APP_BIN" ]]; then
     ./dev/build_desktop.sh
 fi
 
-# Download appimagetool if not present (cached at /tmp).
+# Require a pre-installed appimagetool (auto-download removed 2026-05-12).
 APPIMAGETOOL="/tmp/appimagetool-${ARCH}.AppImage"
 if [[ ! -x "$APPIMAGETOOL" ]]; then
-    echo "Downloading appimagetool to $APPIMAGETOOL..."
-    # Auto-download URL removed 2026-05-12. Install appimagetool manually
-    # to ${APPIMAGETOOL} and re-run this script.
+    # R16 Phase I — removed the misleading "Downloading…" echo and the
+    # unreachable `chmod` after `exit 1`; this branch only errors + exits.
     echo "ERROR: appimagetool not found at ${APPIMAGETOOL}." >&2
-    echo "       Install it manually and re-run." >&2
+    echo "       Install it manually to that path and re-run." >&2
     exit 1
-    chmod +x "$APPIMAGETOOL"
 fi
 
 # Build the AppDir layout.
@@ -75,9 +73,15 @@ Categories=Office;Publishing;
 Terminal=false
 EOF
 
-# Icon (placeholder — appimagetool requires *.png at AppDir root).
-# A real release should drop a designed icon.png here.
-if [[ -f "content/covers/icon.png" ]]; then
+# Icon — R16 Phase I: prefer the BRANDED app icon so the Linux AppImage carries
+# the same mark as the Win .ico / Mac .icns (they did; the AppImage shipped a
+# teal placeholder because content/covers/icon.png does not exist). Fall through
+# to the generated placeholder only if no branded PNG is present.
+if [[ -f "assets/icons/icon_256.png" ]]; then
+    cp "assets/icons/icon_256.png" "$APPDIR/YHWH.png"
+elif [[ -f "assets/icons/icon_512.png" ]]; then
+    cp "assets/icons/icon_512.png" "$APPDIR/YHWH.png"
+elif [[ -f "content/covers/icon.png" ]]; then
     cp "content/covers/icon.png" "$APPDIR/YHWH.png"
 else
     # Generate a minimal 256x256 placeholder PNG (8 bytes — solid color).

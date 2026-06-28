@@ -1080,6 +1080,22 @@ class TestStreamGlossaryFromFile:
             assert at == et
             assert at.encode("utf-8") == et.encode("utf-8")
 
+    def test_from_file_raises_not_ooms_on_oversized_unparseable(self, tmp_path, monkeypatch):
+        # R16 Phase F (P4) — a >threshold monolith whose structure the byte streamer
+        # cannot parse must RAISE a clear, actionable error (the glossary markup
+        # changed), NOT silently decode the whole ~480 MB doc through the 3x-copy
+        # str splitter (the flagship-eink OOM the streamer exists to remove).
+        import pytest
+
+        import scripts.build_edition as be
+
+        bad = "<html><head></head>no body or study-notes-index, just filler beyond target</html>"
+        monkeypatch.setattr(be, "_GLOSSARY_STREAM_BYTE_THRESHOLD", 10)
+        fp = tmp_path / "g.html"
+        fp.write_text(bad, encoding="utf-8")
+        with pytest.raises(RuntimeError, match="byte streamer could not parse"):
+            list(be._iter_study_glossary_pieces_from_file(fp, "g", 5))
+
     def test_streaming_matches_str_across_targets_and_shapes(self, tmp_path, monkeypatch):
         import scripts.build_edition as be
 

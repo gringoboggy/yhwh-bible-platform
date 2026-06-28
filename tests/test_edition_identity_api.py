@@ -138,6 +138,53 @@ def test_preview_recognizes_identity_fields():
     assert "cover_main_title" in changed
 
 
+def test_preview_no_drift_from_save_registry():
+    # R16 Phase G (#18) — the preview's EDITABLE is now DERIVED from the save
+    # registry, so EVERY scalar api_save_edition_meta accepts is previewable (none
+    # is mislabeled "silently ignored"). Pins the no-drift invariant.
+    from scripts.api.editions import (
+        EDITABLE_BOOL_FIELDS,
+        EDITABLE_TEXT_FIELDS,
+        api_preview_edition_changes,
+    )
+
+    _clear_caches()
+    payload = {f: "x" for f in EDITABLE_TEXT_FIELDS} | {f: True for f in EDITABLE_BOOL_FIELDS}
+    res = api_preview_edition_changes("catholic-study", payload)
+    assert "error" not in res, res
+    assert not res.get("unknown_fields"), res.get("unknown_fields")
+
+
+def test_preview_recognizes_previously_dropped_scalar_fields():
+    # R16 Phase G (#18) — these were savable but absent from the old hardcoded set.
+    from scripts.api.editions import api_preview_edition_changes
+
+    _clear_caches()
+    res = api_preview_edition_changes(
+        "catholic-study", {"time_filter_ceiling": "1900", "reader_eink_verse_lines": True}
+    )
+    assert "error" not in res, res
+    assert "time_filter_ceiling" not in res.get("unknown_fields", [])
+    assert "reader_eink_verse_lines" not in res.get("unknown_fields", [])
+
+
+def test_customize_data_surfaces_four_presentation_fields():
+    # R16 Phase G (#19) — these are saved + build-read but were absent from the
+    # api_customize_data loader, so /customize could not display or reset them.
+    from scripts.web import api_customize_data
+
+    _clear_caches()
+    data = api_customize_data()
+    rec = {e["id"]: e for e in data["editions"]}["catholic-study"]
+    for k in (
+        "chapter_number_format",
+        "chapter_number_decoration",
+        "note_popup_split_cap",
+        "note_popup_split_byte_cap",
+    ):
+        assert k in rec, k
+
+
 # ---------------------------------------------------------------------------
 # σ.4.1 — clone carries display_name + cover_main_title
 # ---------------------------------------------------------------------------
