@@ -50,17 +50,6 @@ NOTES = [
     (
         1,
         3,
-        "",
-        "Adam, Seth, Enosh",
-        "comm",
-        "Genealogical opening",
-        "Note",
-        """<strong>The genealogy as theology.</strong> Chronicles opens with nine chapters of genealogies, working from Adam to the post-exilic returnees. The form is not antiquarianism but theology: the Chronicler frames Israel’s identity as continuous with the human family from creation. The Chronicler’s pacing — three verses for ten generations — signals that Adam-to-Abraham is preface, and the real subject is David and the temple cult.""",
-        "User original",
-    ),
-    (
-        1,
-        3,
         "a",
         "",
         "topic-nave",
