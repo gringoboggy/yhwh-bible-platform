@@ -958,6 +958,46 @@ class TestDelta5IndexDashboardStats:
         assert isinstance(result["per_kind"], dict)
         assert isinstance(result["chapter_density"], dict)
 
+    def test_dashboard_stats_never_queries_outside_read_cursor(self, monkeypatch):
+        """Δ.5 / R16 Phase C — both roll-up queries must run inside a
+        ``_read_cursor`` lock (gap-4 use-after-close race). The chapter-density
+        query used to execute on a connection whose ``_CONN_LOCK`` had already
+        released, so a concurrent invalidate()/rebuild() could pull the handle.
+        """
+        import contextlib
+
+        from scripts.core import config
+        from scripts.core import corpus_index as ci
+
+        ci.rebuild()
+        real = ci._read_cursor
+        state = {"inside": False, "violation": False}
+
+        class GuardedConn:
+            def __init__(self, c):
+                self._c = c
+
+            def execute(self, *a, **k):
+                if not state["inside"]:
+                    state["violation"] = True
+                return self._c.execute(*a, **k)
+
+            def __getattr__(self, n):
+                return getattr(self._c, n)
+
+        @contextlib.contextmanager
+        def guarded():
+            state["inside"] = True
+            try:
+                with real() as c:
+                    yield GuardedConn(c)
+            finally:
+                state["inside"] = False
+
+        monkeypatch.setattr(ci, "_read_cursor", guarded)
+        ci.dashboard_stats(config.load_books())
+        assert not state["violation"], "a query ran outside the _read_cursor lock (use-after-close)"
+
     def test_dashboard_stats_per_book_has_expected_keys(self):
         from scripts.core import config, corpus_index
 

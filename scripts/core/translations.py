@@ -238,7 +238,10 @@ def get_chapter(translation: str, book_code: str, chapter: int) -> list[tuple[in
     if not verses:
         return []
     out = [(v, t) for (c, v, t) in verses if c == chapter]
-    out.sort(key=lambda p: p[0])
+    # R16 Phase C — sort versification-aware (verse_sort_key), not by the raw
+    # value: an 'own'-versification store can mix int + lettered keys ("2a"),
+    # which a raw `<` comparison crashes on. Byte-identical for all-int chapters.
+    out.sort(key=lambda p: verse_sort_key(p[0]))
     return out
 
 

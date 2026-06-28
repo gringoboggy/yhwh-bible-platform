@@ -1505,13 +1505,17 @@ def dashboard_stats(books: list[dict]) -> dict:
         per_kind[kind] = per_kind.get(kind, 0) + cnt
 
     # Per (book, chapter): count, fed into chapter_density. Same
-    # filter on book_codes.
-    chap_rows = conn.execute(
-        f"SELECT book_code, chapter, COUNT(*) AS cnt "
-        f"FROM notes WHERE book_code IN ({placeholders}) "
-        f"GROUP BY book_code, chapter",
-        book_codes,
-    ).fetchall()
+    # filter on book_codes. R16 Phase C — this query MUST hold its own
+    # _read_cursor lock; running it on the released `conn` from the block
+    # above is the gap-4 use-after-close race (a concurrent invalidate()/
+    # rebuild() could swap the handle mid-execute).
+    with _read_cursor() as conn:
+        chap_rows = conn.execute(
+            f"SELECT book_code, chapter, COUNT(*) AS cnt "
+            f"FROM notes WHERE book_code IN ({placeholders}) "
+            f"GROUP BY book_code, chapter",
+            book_codes,
+        ).fetchall()
 
     book_chapters: dict[str, set[int]] = {}
     for r in chap_rows:

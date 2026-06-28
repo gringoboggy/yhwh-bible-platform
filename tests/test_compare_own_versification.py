@@ -35,3 +35,15 @@ def test_api_compare_handles_own_vers_string_verse_labels(monkeypatch):
     assert [row["verse"] for row in r["verses"]] == [1, 2, "2a", 3]
     assert r["verse_count"] == 4
     assert r["verses"][2]["by_translation"]["ov"] == "extra"
+
+
+def test_get_chapter_sorts_mixed_int_and_lettered_own_verses(monkeypatch):
+    # R16 Phase C — get_chapter() was the round-11 gap-2 "fix the class" miss:
+    # it sorted by the raw verse value, so an 'own'-versification store mixing
+    # int + lettered keys crashed (TypeError: '<' not supported between int/str).
+    import scripts.core.translations as tx
+
+    rows = [(1, 2, "two"), (1, "2a", "two-a"), (1, 1, "one"), (2, 1, "ch2-v1")]
+    monkeypatch.setattr(tx, "_load_book", lambda t, b: rows)
+    out = tx.get_chapter("geez-own", "psa", 1)
+    assert [v for v, _ in out] == [1, 2, "2a"]

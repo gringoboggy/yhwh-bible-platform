@@ -73,6 +73,12 @@ def _edition_signature(edition_id: str) -> tuple:
         "popup_languages_per_book",
         "popup_languages_per_chapter",
         "popup_languages_per_verse",
+        # R16 Phase C — the popup-language CAP fields also feed the resolved
+        # popup_languages set (resolve_popup_language_cap reads them), so a
+        # runtime edit to any of these must invalidate the count cache too.
+        "target_reader",
+        "max_popup_languages",
+        "popup_languages_capped",
         "enable_ai_notes",
         "max_phase",
     )

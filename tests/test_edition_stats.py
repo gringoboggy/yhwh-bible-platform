@@ -142,3 +142,18 @@ def test_resolved_total_equals_built_epub_note_count(tmp_path, monkeypatch):
     expected = edition_stats.resolved_note_counts(config.editions_by_id()["catholic-study"])["total"]
     built = _build_catholic_study_and_count_note_refs(tmp_path, monkeypatch)
     assert built == expected, f"resolved {expected} != built EPUB {built}"
+
+
+@pytest.mark.parametrize("field", ["target_reader", "max_popup_languages", "popup_languages_capped"])
+def test_edition_signature_includes_popup_cap_fields(field, monkeypatch):
+    # R16 Phase C — the lru_cache key (_edition_signature) omitted the 3
+    # popup-cap fields, so a runtime edit to one did NOT invalidate the cache;
+    # resolved_note_counts then baked a stale popup-language set into the EPUB
+    # About page (resolve_popup_language_cap reads exactly these fields).
+    from scripts.core import config, edition_stats
+
+    monkeypatch.setattr(config, "editions_by_id", lambda: {"e": {"canon": "x", field: "a"}})
+    sig1 = edition_stats._edition_signature("e")
+    monkeypatch.setattr(config, "editions_by_id", lambda: {"e": {"canon": "x", field: "b"}})
+    sig2 = edition_stats._edition_signature("e")
+    assert sig1 != sig2, f"{field} must be part of the edition-stats cache key"
