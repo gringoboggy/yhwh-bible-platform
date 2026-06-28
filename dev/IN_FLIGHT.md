@@ -1,10 +1,39 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: round-16 ✅ FULLY COMPLETE (2026-06-28). Both engines + cross-OS + the WIN RAM-seam finish all done. All 22 catalog assets built+scanned CLEAN (flagship ethiopian-tewahedo eink exit-0/no-OOM/G5-PASS-at-scale + 2 standalones epubcheck 0/0/0/0 + kepubs verify_kr2 GREEN). ONE unified severity-ranked plan = dev/audit/round16-unified-remediation-plan.md (~38 findings: 5 medium/~33 low/0 high/0 opt). FINDINGS-ONLY — awaiting user approval to remediate. THEN remediate safest-first (Phase A→I) OR another work-ladder item. -->
+<!-- TRACKER-STATE: round-16 REMEDIATION IN PROGRESS (2026-06-28, USER-APPROVED). Plan dev/audit/round16-unified-remediation-plan.md. Phases A-G + I DONE + committed (358c916a A · 5db750e6 B · bc808706 C · 0846abba D · 3e5ec2f2 E · ae663f09 F+G+I), TDD, 0 regressions, byte-proofs PASS. 3 of 5 mediums fixed (P3 config-cp1252, P5 family-C dead gate, + the gate self-fixes; P4 glossary-fallback-OOM). ▶ PHASE H = THE ONLY REMAINING PHASE (the 2 mediums P1 kindle-build_one-E999 + P2 eink-return-link-teleport + 7 lows + the G-dot item) — fresh session (user "prep for a fresh session before phase h"). Full Phase-H execution handoff in the block below. 2 items verifier-deferred (C3 at-scale-stat, B4 sanitizer-balancing; recipes in the plan). Decisions: F1 computer->alias, F2 verse_marker_glyph->RETIRE. -->
 <!-- task: ROUND-15 ✅ ALL DIMENSIONS COMPLETE (D1–D9 both lanes), 2026-06-27. WIN this session: D5 (flagship glossary byte-streamer proven str==from-file 690/690 + G5 PASS + permanent regression; fixed G5 --reference-split false-FAIL on real builds) + D2 (G3 xref-class breakout + --min-xrefs floor wired into the per-build gate; ethiopian 88541 / catholic 55774 xrefs, 0 dead). Mac cross-OS-verified ALL 9 dims (D3/D5/D8/D9 at 4f69aa05 + D2 at 405eda85). D1 LIVE RE-CUT DONE (WIN, user "do it"): removed the 100 retired-SKU EPUBs + SHA lines from the live GitHub v0.1.0 release, gate PASS (87 assets, 0 retired). ★ ROUND-15 FULLY CLOSED, NO REMAINING FOLLOW-UPS. Next = the separate v1.0.0 release gate / next audit round (need a user trigger). Mac monitor stood down at wrap. Tracker dev/audit/round15-remediation.md. -->
 
 <!-- task: ROUND-16 deep-audit PREPARED + Mac instructions pushed (2026-06-27). Engine deep-audit.js configured (ROUND=16, 8 new dims, ROUND16_DIMS=11, selector branch, round-15 D1–D9 + round-14 build-source dims folded into DEFERRED_BY_DESIGN, round-15 fixes in PRIOR_SURVIVOR_TITLES, stale dist pointer fixed; node syntax OK; all 11 keys resolve). Program dev/audit/round-16-build-program-bulletproofing-2026-06-27.md + tracker dev/audit/round16-remediation.md. NOT STARTED (user directive: set up + push Mac, then a FRESH session runs it). FINDINGS-ONLY two-lane (both lanes all 11 dims; WIN full-catalog build-inspect harness; Mac cross-OS verify). -->
 
+> **▶▶ 2026-06-28 — ROUND-16 REMEDIATION IN PROGRESS (USER-APPROVED) — PHASES A–G + I DONE; PHASE H = FRESH SESSION.**
+> Plan `dev/audit/round16-unified-remediation-plan.md` (READ FIRST). User approved the whole plan + then "prep for a fresh
+> session before phase h". **DONE + committed (TDD red→green each, 0 regressions, byte-proofs PASS):**
+> - **A** `358c916a` — encoding hardening + commit-time lint completeness. **P3 (medium)** config.py 4 loaders `encoding="utf-8"`
+>   (cp1252 crash) + 20 dev-tool sites + new `text_io_encoding` lint guard; patristic-store glob (★BUGCLUSTER); reviewer-scaffold label+attribution.
+> - **B** `5db750e6` — security boundaries: SSRF redirect re-validation (http.py) · note-editor read-boundary sanitize (api_notes) · `_send_file` magic-bytes-only.
+> - **C** `bc808706` — correctness/cache/concurrency: dashboard_stats use-after-close · translations.get_chapter verse_sort_key · edition_stats cache key 3 popup-cap fields. _(C item 3 at-scale-stat = verifier-DEFERRED, recipe in plan.)_
+> - **D** `0846abba` — book-code normalization (★BUGCLUSTER): run_kenyon `--books` · add_note/new_note canonical stem.
+> - **E** `3e5ec2f2` — gate self-corrections: **P5 (medium)** audit_output_hygiene family-C dead check retargeted to the REAL vn-* markup (40,600 matches vs 0) · `_unescape`→html.unescape (#13) · audit_cross_product wizard parity (#11) · test_round14_build_gates cross-OS env.
+> - **F+G+I** `ae663f09` — **F** builder-robustness: **P4 (medium)** glossary `>threshold` fallback RAISES (not whole-doc-OOM) + parts/sec_parts frees (byte-identical, str==from-file proven) · enrich_nav stem-skip · --all eink worker=1. Byte-proof: catholic eink build exit-0/24.03 MB/epubcheck 0/0/0/0/**G5 clean**. **G** api loaders #18/#19 (preview EDITABLE derived-from-registry · 4 customize fields). **I** packaging (AppImage branded icon + unreachable-code · build_desktop.cmd pinned deps · launcher.spec Windows VSVersionInfo).
+>
+> **▶▶ PHASE H — THE ONLY REMAINING PHASE (fresh session; byte-sensitive — the deliberate 9-KJV golden re-stamp lives here).**
+> All in `scripts/build_edition.py` unless noted; TEST-FIRST each; byte-proof at the end (9 KJV golden 9/9 for the gated/eink-only
+> items + catholic eink G5 + a fresh ethiopian eink for RSC-012; the TODO_CERTIFIER re-stamp LAST). **Items:**
+> 1. **[P1 medium] kindle build_one ships the E999 variant** — at the build_one tail (frozen in-process + dev subprocess branches),
+>    gated on `is_kindle_target` (def 2015): run `kindle_post.make_kindle_safe` + `verify_kindle_safe`, raise on fails. (def build_one ~7981.)
+> 2. **[P2 medium] eink return-link teleports to chapter start** — `_study_verse_return_link` (3749) add `verse_anchored: bool|None=None`
+>    (legacy strategy inference default); thread from `_emit_backmatter_glossary_inner` (3799) + call site ~4336 using the per-chapter
+>    `f'id="v-{code}-{ch}-' in text` signal at line 4153. No hardcoded anchor-less list.
+> 3. **[low] numbers+eink note-sym tofu** — eink-gated `_eink_safe_note_sym` repair pass (repair_texts ~8445-8463), gated `eink and marker_style!="badge"`.
+> 4. **[low] eink backmatter glossary part-indicator** — `_emit_backmatter_glossary_inner` ~3857-3877, `(c_idx/n_groups)` `vn-part` span ONLY (the mac#17 the 22 orphan-asides corroborate).
+> 5. **[low] apply_eink_verse_line_breaks verse-p-flush** — ~3965,3976-3999 broaden the start-of-para test.
+> 6. **[low] S2 cascade body-boilerplate flag** — ~4226-4243 gate on `s2_group` not `s1_dedup`.
+> 7. **[low] TODO_CERTIFIER_NAME OPF placeholder** — patch_opf ~1833; **★ DELIBERATE 9-KJV byte change → golden re-stamp** (`tests/test_kjv_golden_hash_gate.py --regen` + re-run byte gate; mirror round-15 D3). **DO LAST.**
+> 8. **[F2 RETIRE verse_marker_glyph]** — remove control (customize.py:350) + EDITABLE_TEXT_FIELDS (api/editions.py:68) + validator (1256-1257) + FieldSpec (validate_schemas.py:229) + loader (web_editions.py:419) + editions.yaml:197 `¶` + test_scripts.py. Byte-safe (unread).
+> 9. **[F1 ALIAS computer]** — `TARGET_READER_ALIASES={"computer":"everywhere"}` into resolve_target_reader (1980-1983) + apply_target_override + asset-name token (~6992); flip `test_round16_source_gates.py::test_cross_product_detects_computer_orphan` to assert-clean.
+> 10. **[G-dot low] dot marker_badge_style not rejected for eink** — `resolve_marker_badge_style` (2437-2440) coerce eink-unsafe→"chip". Byte-neutral.
+> **After Phase H = ROUND-16 REMEDIATION COMPLETE** → milestone `save-all.ps1` (5-leg). _(Full detail + byte-proof procedure: the unified plan + the scratchpad handoff folded here.)_
+>
 > **✅✅ 2026-06-28 — ROUND-16 FRESH-SESSION FINISH DONE (WIN, RAM seam; user "bootstrap, set up monitor and continue").**
 > Bootstrap + triad + `git pull --rebase` (→ `b15517a4`, Mac lane's final push) + lane-ping CLEAR + env-health (CommitFree 43.4 GB,
 > AppXSvc leaking 12.7 GB but no threat — no reboot). Ran the kepub-aware harness on the RAM seam: **flagship ethiopian-tewahedo eink**
