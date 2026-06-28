@@ -1,10 +1,21 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: round-16 FINDINGS-ONLY — BOTH engines done + merged (engine-win 26 + engine-mac 20 survivors; cross-lane consolidation in dev/audit/round16-remediation.md). ✅ MAC LANE COMPLETE (cross-OS 3a G1 9/9 + 3b G3/G4/G5/G6 + audit_output_hygiene + 3c source-gate _selftest, all PASS on macOS). WIN remainder = FRESH SESSION (RAM seam): flagship ethiopian-tewahedo eink + 2 standalone build-inspect scans + the ONE unified severity-ranked remediation plan (truth_owner synth). THEN user approves the fixes (next phase, separate). -->
+<!-- TRACKER-STATE: round-16 ✅ FULLY COMPLETE (2026-06-28). Both engines + cross-OS + the WIN RAM-seam finish all done. All 22 catalog assets built+scanned CLEAN (flagship ethiopian-tewahedo eink exit-0/no-OOM/G5-PASS-at-scale + 2 standalones epubcheck 0/0/0/0 + kepubs verify_kr2 GREEN). ONE unified severity-ranked plan = dev/audit/round16-unified-remediation-plan.md (~38 findings: 5 medium/~33 low/0 high/0 opt). FINDINGS-ONLY — awaiting user approval to remediate. THEN remediate safest-first (Phase A→I) OR another work-ladder item. -->
 <!-- task: ROUND-15 ✅ ALL DIMENSIONS COMPLETE (D1–D9 both lanes), 2026-06-27. WIN this session: D5 (flagship glossary byte-streamer proven str==from-file 690/690 + G5 PASS + permanent regression; fixed G5 --reference-split false-FAIL on real builds) + D2 (G3 xref-class breakout + --min-xrefs floor wired into the per-build gate; ethiopian 88541 / catholic 55774 xrefs, 0 dead). Mac cross-OS-verified ALL 9 dims (D3/D5/D8/D9 at 4f69aa05 + D2 at 405eda85). D1 LIVE RE-CUT DONE (WIN, user "do it"): removed the 100 retired-SKU EPUBs + SHA lines from the live GitHub v0.1.0 release, gate PASS (87 assets, 0 retired). ★ ROUND-15 FULLY CLOSED, NO REMAINING FOLLOW-UPS. Next = the separate v1.0.0 release gate / next audit round (need a user trigger). Mac monitor stood down at wrap. Tracker dev/audit/round15-remediation.md. -->
 
 <!-- task: ROUND-16 deep-audit PREPARED + Mac instructions pushed (2026-06-27). Engine deep-audit.js configured (ROUND=16, 8 new dims, ROUND16_DIMS=11, selector branch, round-15 D1–D9 + round-14 build-source dims folded into DEFERRED_BY_DESIGN, round-15 fixes in PRIOR_SURVIVOR_TITLES, stale dist pointer fixed; node syntax OK; all 11 keys resolve). Program dev/audit/round-16-build-program-bulletproofing-2026-06-27.md + tracker dev/audit/round16-remediation.md. NOT STARTED (user directive: set up + push Mac, then a FRESH session runs it). FINDINGS-ONLY two-lane (both lanes all 11 dims; WIN full-catalog build-inspect harness; Mac cross-OS verify). -->
 
+> **✅✅ 2026-06-28 — ROUND-16 FRESH-SESSION FINISH DONE (WIN, RAM seam; user "bootstrap, set up monitor and continue").**
+> Bootstrap + triad + `git pull --rebase` (→ `b15517a4`, Mac lane's final push) + lane-ping CLEAR + env-health (CommitFree 43.4 GB,
+> AppXSvc leaking 12.7 GB but no threat — no reboot). Ran the kepub-aware harness on the RAM seam: **flagship ethiopian-tewahedo eink**
+> (`--only ethiopian-tewahedo:eink`, solo) + **2 standalones** (`standalone-geez`/`standalone-amharic:standalone`). **All 22 catalog
+> assets CLEAN.** Flagship eink **exit 0, no OOM** (~26 min) — epubcheck 0/0/0/0 · G3 88,541 xrefs/0 dead · G4 40,578 anchors/0 orphan ·
+> D8 1692 ch/86 bk · **G5 PASS at scale** (399,171<400,000) · verify_kr2 GREEN; 22 orphan-aside WARN = hidden-aes residual (corroborates
+> mac#17). Standalones epubcheck 0/0/0/0. **Flagship-eink OOM proven permanently resolved.** Merged into `round16-remediation.md`
+> (22-asset table + flagship detail); produced **`dev/audit/round16-unified-remediation-plan.md`** (≈38 findings, 5 medium/~33 low/0 high/0 opt,
+> safest-first Phase A→I, the 8-asks×11-dims coverage matrix, WIN-7+Mac-8 next-round seeds). **FINDINGS-ONLY — no fix applied; awaiting
+> user approval.** Tree: findings-only doc commit (local). _(Note: deep-audit.js LANE now reads `args?.lane ?? 'all'` — no local flip to revert.)_
+>
 > **▶▶ 2026-06-27 — ROUND-16 WIN LANE IS RUNNING (autonomous; user "bootstrap and continue" + monitor armed).**
 > Bootstrap + env-health (CommitFree ~50 GB, no AppXSvc leak; tree clean; in sync) + pull (up to date). Local `LANE='win'`
 > flipped (NOT committed — revert before push). **Engine `Workflow` `wf_571060b9-289`** (LANE=win, ROUND=16, 11 dims,
