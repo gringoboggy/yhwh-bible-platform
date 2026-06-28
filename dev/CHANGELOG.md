@@ -4,6 +4,17 @@
 > session. See `dev/CLAUDE_PROJECT_RULES.md` §12 for the protocol that
 > governs what goes in here.
 
+## 2026-06-28 — v1.0.0 pre-tag Windows lane executed — VERSION bump + binaries built/signed + M5 built + 4 device-QA artifacts staged (Windows; autonomous)
+
+User: "bootstrap and plan a step-by-step v1.0.0 release gate for me / Mac / yourself," then chose to execute the **full pre-tag Windows lane**. Plan: `~/.claude/plans/bootstrap-and-then-i-magical-origami.md` (three-way ME/Mac/USER split, mapped to release-plan §8). WIN ran W0→W3 and STOPPED at a clean device-QA handoff — **tag NOT cut** (user-only, §8 all-green).
+
+- **W0 — `VERSION` 0.1.0 → 1.0.0** (`c2b71e97`, local; pre-commit ruff-format/lint_rules/mypy green). The single semver the build scripts + catalog + appcast read; refreshed the human-readable block for the first full release. Confirmed no test pins the file content. Shared P0: Mac pulls before its `.dmg`.
+- **W1 — Windows desktop binary PROVEN end-to-end at v1.0.0.** PyInstaller freeze (canonical `python -m PyInstaller dev\launcher.spec`, run directly to preserve the unrelated Mac tarballs in gitignored `dist/`) → `dist\YHWH.exe` (677 MB) → **Azure Trusted Signing → signature Valid** (cached ctx `gringo.boggy@hotmail.com`, no device login). Inno Setup 6.7.3 was missing → re-installed via winget (per-user `%LOCALAPPDATA%\Programs\Inno Setup 6\ISCC.exe`) → `dev\build_msi.cmd` → **`dist\YHWH-1.0.0-windows-x64.exe` (541 MB) Azure-signed, signature Valid**. Binaries are gitignored (attach at tag).
+- **W2 — M5 Play column built.** `build_format_matrix --phase M5 --edition ethiopian-tewahedo --version v1.0.0` → 5 `YHWH-ethiopian-tewahedo-v1.0.0-play-{black,brown,forest,navy,red}.epub` (~27–28 MB), **epubcheck 0/0/0/0**, K-R2 gates green, 66,687 noterefs all-resolve.
+- **W3 — all 4 device-QA artifacts staged** at `C:\Users\bogda\YHWH-device-staging\` (+ `v1.0.0-device-QA-README.md` with per-reader tap lists): **Kobo** `YHWH-koboQA.kepub.epub` (FRESH v1.0.0 eink w/ Phase-H fixes; build ~10 min no OOM; eink epubcheck 0/0/0/0; kepub K-R2 green) · **Apple** `…-apple-tablet.epub` (epubcheck 0/0/0/0) · **Kindle** `…-kindle.epub` (epubcheck 0/0/0/0; **verified kindle-safe**, 0 display:none) · **Play** `…-play-navy.epub` (epubcheck 0/0/0/0).
+
+**NEXT — USER (parallel, `dev/HUMAN_DECISIONS.md` rows OPEN):** U1 Kobo taps · U2 Apple re-QA · U3 STK read · U4 Play phone QA. **MAC (autonomous):** pull `VERSION=1.0.0` → `.dmg` notarize · cross-OS 9-KJV verify · post-tag website + AppImage CI. **WIN (autonomous, tag prep):** `gen_release_catalog --tag v1.0.0` + asset-count reconcile + finalize `RELEASE_NOTES_v1.0.0.md` + final `ci.py`/`trace_matrix`/`ebible verify`. Open decision deferred to W7 handoff: clean the stale v0.1.0 Mac tarballs in `dist/`.
+
 ## 2026-06-28 — Round-16 ✅ COMPLETE — Phase H (10 behaviour-changing build-path fixes) + 9-KJV golden re-stamp (Windows; autonomous)
 
 **Round-16 remediation is now COMPLETE across all phases A–I.** This fresh session executed **Phase H** — the 10
