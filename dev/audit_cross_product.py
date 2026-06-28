@@ -47,10 +47,14 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 CUSTOMIZE_TEMPLATE = REPO_ROOT / "scripts" / "templates" / "customize.py"
+WIZARD_TEMPLATE = REPO_ROOT / "scripts" / "templates" / "wizard.py"
 # The reader dropdown's options carry ``data-field="target_reader"`` then a run of
 # ``<option value="X" ${e.target_reader … >`` — pull the X values out of THAT select only.
 _TARGET_SELECT_RE = re.compile(r'data-field="target_reader".*?</select>', re.S)
 _OPTION_VALUE_RE = re.compile(r'<option value="([a-z]+)"')
+# R16 Phase E (#11) — the wizard's target CARDS (`<div class="… target-card …"
+# data-target="X">`) are a PARALLEL target_reader entry point to /customize.
+_TARGET_CARD_RE = re.compile(r'\btarget-card\b[^>]*?\bdata-target="([a-z]+)"')
 
 
 @dataclass
@@ -72,6 +76,13 @@ def _customize_reader_options(template_path: Path = CUSTOMIZE_TEMPLATE) -> list[
     if not m:
         raise ValueError(f"could not find the target_reader <select> in {template_path}")
     return _OPTION_VALUE_RE.findall(m.group(0))
+
+
+def _wizard_reader_options(template_path: Path = WIZARD_TEMPLATE) -> list[str]:
+    """The reader-target values the build wizard's target CARDS offer — a parallel
+    target_reader entry point to /customize, parsed so drift between the two
+    offering surfaces is caught instead of one silently diverging."""
+    return _TARGET_CARD_RE.findall(template_path.read_text(encoding="utf-8"))
 
 
 def _check_matrix_targets(res, format_matrix, base_build_target, target_set, target_readers) -> None:
@@ -150,7 +161,21 @@ def audit_grid(reader_options: list[str] | None = None) -> CrossProductResult:
         except (OSError, ValueError) as e:
             res.warns.append(f"check3 skipped — could not parse /customize options ({e})")
             reader_options = []
-    _check_customize_options(res, reader_options, target_set, matrix_targets)
+    # R16 Phase E (#11) — also parse the wizard target cards and FAIL on any drift
+    # between the two offering surfaces, then check BOTH surfaces' targets for
+    # orphans (the old gate looked at /customize only).
+    try:
+        wizard_options = _wizard_reader_options()
+    except OSError as e:
+        res.warns.append(f"check3 skipped wizard target-card parse ({e})")
+        wizard_options = []
+    if wizard_options and set(wizard_options) != set(reader_options):
+        res.fails.append(
+            f"check3 SURFACE DRIFT: /customize reader options {sorted(set(reader_options))} != "
+            f"wizard target cards {sorted(set(wizard_options))} — the two reader-offering surfaces "
+            f"must present the identical target set so neither silently diverges"
+        )
+    _check_customize_options(res, sorted(set(reader_options) | set(wizard_options)), target_set, matrix_targets)
 
     catalog_ids = set(standard_edition_ids())
     standalone_seen = _check_standalone(res, config.load_editions(), catalog_ids, apply_target_override)

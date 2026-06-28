@@ -15,6 +15,7 @@ koboSpan inflation would skew the G5 codepoint cap).
 
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -55,7 +56,17 @@ def test_round14_build_gates_pass_on_catholic_study_eink(tmp_path):
             # --min-xrefs floor is SEPARATE because the ~45k noteref bulk keeps --min-links
             # satisfied even if every scripture cross-reference were dropped (the D2 breakout).
             args += ["--min-links", "10000", "--min-xrefs", "10000"]
-        proc = subprocess.run(args, capture_output=True, text=True, stdin=subprocess.DEVNULL)
+        # R16 Phase E — pass PYTHONPATH + cwd so a gate that imports `scripts` at
+        # module scope (audit_canonical_order) resolves it WITHOUT relying on an
+        # ambient PYTHONPATH (the macOS `ModuleNotFoundError('scripts')` Mac hit).
+        proc = subprocess.run(
+            args,
+            capture_output=True,
+            text=True,
+            stdin=subprocess.DEVNULL,
+            cwd=str(REPO),
+            env={**os.environ, "PYTHONPATH": str(REPO)},
+        )
         if proc.returncode != 0:
             failures.append(f"{gate} (exit {proc.returncode}):\n{(proc.stdout + proc.stderr)[-800:]}")
     assert not failures, "round-14 build gate(s) FAILED on catholic-study eink:\n" + "\n\n".join(failures)

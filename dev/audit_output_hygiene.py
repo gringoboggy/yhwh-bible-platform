@@ -45,6 +45,7 @@ Exit 0 = no FAIL (and, under --strict, no WARN); 1 = any FAIL (or any WARN under
 
 from __future__ import annotations
 
+import html
 import json
 import os
 import re
@@ -105,7 +106,36 @@ _VERSE_ANCHOR_EMPTY_RE = re.compile(r'<a\b[^>]*\bid="v-[^"]+"[^>]*>\s*</a>')
 _EMPTY_ASIDE_RE = re.compile(r"<aside\b[^>]*>\s*</aside>")
 _BR_RUN_RE = re.compile(r"(?:<br\s*/?>\s*){3,}", re.I)
 _EMPTY_P_RUN_RE = re.compile(r"(?:<p\b[^>]*>(?:\s|&nbsp;|<br\s*/?>)*</p>\s*){2,}", re.I)
-_CAT_HEADER_RE = re.compile(r'<[^>]*class="[^"]*\bnote-category[^"]*"[^>]*>(.*?)</[^>]+>', re.S)
+# R16 Phase E (P5) — family C scans the ACTUAL emitted study-note markup
+# (build_edition emits `vn-cat-head` / `vn-source-byline` / `vn-item`, never the
+# old `note-category` the dead regex looked for).
+_VN_CAT_HEAD_RE = re.compile(r'<p[^>]*\bclass="[^"]*\bvn-cat-head\b[^"]*"[^>]*>(.*?)</p>', re.S)
+_VN_CAT_SYM_RE = re.compile(r"<span[^>]*\bvn-cat-sym\b[^>]*>.*?</span>", re.S)
+_VN_BYLINE_RE = re.compile(r'<p[^>]*\bclass="[^"]*\bvn-source-byline\b[^"]*"[^>]*>(.*?)</p>', re.S)
+_VN_ITEM_OPEN_RE = re.compile(r'<div class="vn-item[^"]*">')
+
+
+def _vn_item_bodies(text: str) -> list[str]:
+    """Inner HTML of each ``<div class="vn-item …">`` block, extracted with
+    balanced ``<div>`` matching (vn-item bodies can contain nested ``<div>``s, so
+    a non-greedy regex would truncate at the first inner ``</div>``)."""
+    bodies: list[str] = []
+    for m in _VN_ITEM_OPEN_RE.finditer(text):
+        i = m.end()
+        depth = 1
+        for tag in re.finditer(r"<(/?)div\b", text[i:]):
+            if tag.group(1):
+                depth -= 1
+                if depth == 0:
+                    bodies.append(text[i : i + tag.start()])
+                    break
+            else:
+                depth += 1
+    return bodies
+
+
+def _norm_ws(s: str) -> str:
+    return re.sub(r"\s+", " ", s).strip()
 
 
 def _strip(text: str) -> str:
@@ -113,7 +143,11 @@ def _strip(text: str) -> str:
 
 
 def _unescape(text: str) -> str:
-    return text.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
+    # R16 Phase E (#13) — html.unescape decodes the FULL entity set, not just
+    # &lt;/&gt;/&amp;. The hand-rolled version missed &#x27; (apostrophe), so an
+    # html.escape'd `<class '…'>` repr (`&lt;class &#x27;…&#x27;&gt;`) slipped
+    # past the py-repr-class leak detector.
+    return html.unescape(text)
 
 
 @dataclass
@@ -198,14 +232,21 @@ def _scan_whitespace(member: str, text: str) -> tuple[list[str], dict[str, int]]
 
 
 def _scan_redundancy(member: str, text: str) -> tuple[list[str], int]:
-    """Family C — adjacent duplicate category headers inside one member."""
+    """Family C — adjacent duplicate category headers / source bylines / item
+    bodies inside one member (the S2-cascade boilerplate-repeat class the
+    eink split-group footnotes exhibit). All three are WARN-grade."""
     warns: list[str] = []
-    headers = [re.sub(r"\s+", " ", h).strip() for h in _CAT_HEADER_RE.findall(text)]
     dups = 0
-    for i in range(1, len(headers)):
-        if headers[i] and headers[i] == headers[i - 1]:
-            dups += 1
-            warns.append(f"{_base(member)}: adjacent duplicate category header {headers[i][:50]!r}")
+    # Category header label, with the leading vn-cat-sym glyph span stripped so
+    # two headers with the same label but different decoration still compare equal.
+    heads = [_norm_ws(_VN_CAT_SYM_RE.sub("", h)) for h in _VN_CAT_HEAD_RE.findall(text)]
+    bylines = [_norm_ws(b) for b in _VN_BYLINE_RE.findall(text)]
+    bodies = [_norm_ws(b) for b in _vn_item_bodies(text)]
+    for label, seq in (("category header", heads), ("source byline", bylines), ("item body", bodies)):
+        for i in range(1, len(seq)):
+            if seq[i] and seq[i] == seq[i - 1]:
+                dups += 1
+                warns.append(f"{_base(member)}: adjacent duplicate {label} {seq[i][:50]!r}")
     return warns, dups
 
 
@@ -348,6 +389,31 @@ def _selftest() -> int:
         problems.append(f"clean text false-fired leaks: {cf}")
     if ch != 0 or cn:
         problems.append(f"clean text false hits: leaks={ch} nested={cn}")
+    # #13 — an html.escape'd `<class '…'>` repr (apostrophes as &#x27;) must be
+    # caught via the unescaped path; the old hand-rolled _unescape missed &#x27;.
+    escaped_only = "<p>repr &lt;class &#x27;dict&#x27;&gt; here</p>"
+    ef, _, eh = _scan_leaks("t.html", escaped_only)
+    if eh < 1:
+        problems.append(f"escaped <class '…'> repr not caught (html.unescape regression): {ef}")
+    # Family C — adjacent duplicate cat-head (glyph-stripped) / byline / item body
+    # flagged; a clean aside yields zero. Proves the dim is live, not a dead check.
+    dup_c = (
+        '<p class="vn-cat-head"><span class="vn-cat-sym">◇</span>Historical</p>'
+        '<p class="vn-cat-head"><span class="vn-cat-sym">◆</span>Historical</p>'
+        '<p class="vn-source-byline">Easton</p><p class="vn-source-byline">Easton</p>'
+        '<div class="vn-item note-comm">body text</div><div class="vn-item note-comm">body text</div>'
+    )
+    clean_c = (
+        '<p class="vn-cat-head"><span class="vn-cat-sym">◇</span>Historical</p>'
+        '<p class="vn-cat-head"><span class="vn-cat-sym">◆</span>Cultural</p>'
+        '<div class="vn-item note-comm">a</div><div class="vn-item note-comm">b</div>'
+    )
+    _, rdups = _scan_redundancy("t.html", dup_c)
+    _, cdups = _scan_redundancy("t.html", clean_c)
+    if rdups < 3:
+        problems.append(f"family-C expected >=3 dups (header+byline+body), got {rdups}")
+    if cdups != 0:
+        problems.append(f"family-C false-fired on clean aside: {cdups}")
     if problems:
         print("SELFTEST FAIL:")
         for p in problems:

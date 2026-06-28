@@ -41,6 +41,18 @@ def test_cross_product_detects_computer_orphan() -> None:
     )
 
 
+def test_cross_product_reads_wizard_cards_and_detects_drift() -> None:
+    """R16 Phase E (#11) — the gate now reads BOTH the /customize dropdown and the
+    wizard target CARDS (a parallel target_reader entry point) and FAILs on drift."""
+    # The wizard cards parse and include the computer target.
+    assert "computer" in set(cx._wizard_reader_options())
+    # The two real surfaces currently agree → no SURFACE DRIFT on the real grid.
+    assert not any("SURFACE DRIFT" in f for f in cx.audit_grid().fails)
+    # Inject a divergent /customize set → the parity check fires.
+    drift = cx.audit_grid(reader_options=["everywhere"])
+    assert any("SURFACE DRIFT" in f for f in drift.fails), drift.fails
+
+
 def test_customize_completeness_selftest_non_tautological() -> None:
     """Dim-9: the build-read detector distinguishes a read field from an unread one."""
     assert cc._selftest() == 0
