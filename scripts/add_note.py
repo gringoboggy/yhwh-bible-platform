@@ -146,7 +146,7 @@ def validate_anchor(book, ch, v, anchor):
         path = EPUB_DIR / fname
         if not path.exists():
             continue
-        text = path.read_text()
+        text = path.read_text(encoding="utf-8")
         scope = _find_verse_scope(text, book, ch, v)
         if scope is None:
             continue
@@ -200,7 +200,7 @@ def format_tuple(ch, v, suffix, anchor, kind, title, label, body, attribution=No
 def append_to_notes_file(code, tuple_text):
     """Append `tuple_text` immediately before the closing `]` of the NOTES list."""
     fpath = CONTENT_NOTES / f"{code}.py"
-    src = fpath.read_text()
+    src = fpath.read_text(encoding="utf-8")
     # The notes list is the FIRST top-level `]` (closing NOTES = [...]).
     # Find `NOTES = [` opening, then walk forward to its matching `]` at column 0.
     m = re.search(r"^NOTES\s*=\s*\[", src, re.MULTILINE)

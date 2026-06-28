@@ -277,7 +277,7 @@ def apply_plan(
         return {"applied": False, "reason": plan.skipped_reason}
     target = target_file or plan.target_file
 
-    text = target.read_text()
+    text = target.read_text(encoding="utf-8")
     # Existing constants for the cross-link list — check both inline
     # and templates/ to support pre- and post-split layouts.
     existing = bulk_inject.list_constants(target)
@@ -341,7 +341,7 @@ def apply_plan(
             route_block + '        if path == "/api/corpus-progress"',
             1,
         )
-    target.write_text(text)
+    target.write_text(text, encoding="utf-8")
 
     # 3. Inject the new nav link into every existing non-exempt
     #    console. Post-split: target is templates/ directory.
@@ -365,7 +365,7 @@ def apply_plan(
     # 4. Update lint_rules.py route_for_constant table (only when
     #    operating on the real web.py)
     if plan.will_update_linter and LINT_PY.is_file():
-        lint_text = LINT_PY.read_text()
+        lint_text = LINT_PY.read_text(encoding="utf-8")
         # Find the route_for_constant dict and add the new entry
         pat = re.compile(
             r'(route_for_constant\s*=\s*\{[^}]*?)("PREFLIGHT_HTML"\s*:\s*"/preflight"\s*,\s*\n)',
@@ -374,19 +374,19 @@ def apply_plan(
         new_entry = f'        "{plan.constant_name}": "{plan.route}",\n'
         if pat.search(lint_text) and plan.constant_name not in lint_text:
             lint_text = pat.sub(r"\1\2" + new_entry, lint_text, count=1)
-            LINT_PY.write_text(lint_text)
+            LINT_PY.write_text(lint_text, encoding="utf-8")
             stats["linter_updated"] = True
         else:
             stats["linter_updated"] = False
 
     # 5. Update SESSION_STATE.md consoles inventory
     if plan.will_update_session_state and SESSION_STATE.is_file():
-        ss_text = SESSION_STATE.read_text()
+        ss_text = SESSION_STATE.read_text(encoding="utf-8")
         marker = "  /preflight pre-ship readiness dashboard"
         new_line = f"  {plan.route}{' ' * (10 - len(plan.route))} {plan.title.lower()}"
         if marker in ss_text and plan.route not in ss_text:
             ss_text = ss_text.replace(marker, marker + "\n" + new_line, 1)
-            SESSION_STATE.write_text(ss_text)
+            SESSION_STATE.write_text(ss_text, encoding="utf-8")
             stats["session_state_updated"] = True
         else:
             stats["session_state_updated"] = False

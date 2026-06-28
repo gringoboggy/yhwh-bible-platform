@@ -1079,6 +1079,97 @@ def check_atomic_writes() -> dict:
     }
 
 
+# R16 Phase A / P3 — glyph-bearing content/config/notes reads must pin
+# encoding="utf-8". `Path.read_text()`/`.write_text()` with no encoding fall
+# back to the platform locale (cp1252 on Windows without PYTHONUTF8) → a hard
+# UnicodeDecodeError the moment a non-ASCII glyph is read (categories.yaml
+# ❑/❖ U+2751/U+2756, notes-store em-dashes, Ge'ez). The 4 config loaders
+# crashed exactly this way. AST-based so it never matches its own docstring.
+#
+# Exempt: the byte-stable build pipeline (build_edition/build_epub/kindle_post/
+# build_format_matrix) runs under `-X utf8` and normalizes member bytes at the
+# OCF zip layer, so its scratch writes are byte-managed elsewhere; notes_io is
+# the atomic-write home (its raw writes are intentional). Per-site opt-out:
+# a `# encoding-waived: <reason>` comment on the call line or the line above.
+_TEXT_IO_METHODS = ("read_text", "write_text")
+_ENCODING_EXEMPT_FILES = frozenset(
+    {
+        "build_edition.py",
+        "build_epub.py",
+        "kindle_post.py",
+        "build_format_matrix.py",
+        "notes_io.py",
+    }
+)
+
+
+def _find_unencoded_text_io(tree: ast.AST) -> list[int]:
+    """Line numbers of `.read_text(...)`/`.write_text(...)` Call nodes that
+    pass no ``encoding=`` keyword (AST-based, so docstrings/strings that merely
+    mention the methods are not matched)."""
+    hits: list[int] = []
+    for node in ast.walk(tree):
+        if (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and node.func.attr in _TEXT_IO_METHODS
+            and not any(kw.arg == "encoding" for kw in node.keywords)
+        ):
+            hits.append(node.lineno)
+    return hits
+
+
+def _has_encoding_waiver(lines: list[str], ln: int) -> bool:
+    """True if a `# encoding-waived: <reason>` comment sits on line ``ln`` or
+    the line immediately before it (1-based)."""
+    same = lines[ln - 1] if 0 < ln <= len(lines) else ""
+    prev = lines[ln - 2] if 1 < ln <= len(lines) else ""
+    return "encoding-waived" in same or "encoding-waived" in prev
+
+
+def check_text_io_encoding() -> dict:
+    """R16 Phase A — every `.read_text()`/`.write_text()` in scripts/ must pin
+    ``encoding="utf-8"`` (or be explicitly waived). A locale-default decode is a
+    cp1252 crash on Windows the moment a glyph appears; this is a drift-prevention
+    lock-in for the whole class after the round-16 config-loader fix.
+    """
+    violations: list[dict] = []
+    scripts_dir = REPO / "scripts"
+    for py in scripts_dir.rglob("*.py"):
+        if py.name in _ENCODING_EXEMPT_FILES:
+            continue
+        tree, lines = _load_parsed_python(py)
+        if tree is None:
+            continue
+        rel = str(py.relative_to(REPO)).replace("\\", "/")
+        for ln in _find_unencoded_text_io(tree):
+            if _has_encoding_waiver(lines, ln):
+                continue
+            same = lines[ln - 1] if 0 < ln <= len(lines) else ""
+            violations.append({"file": rel, "line": ln, "snippet": same.strip()[:120]})
+
+    name = "Text I/O pins encoding= (no locale-default read_text/write_text)"
+    if not violations:
+        return {
+            "id": "text_io_encoding",
+            "name": name,
+            "status": "pass",
+            "message": "all .read_text()/.write_text() in scripts/ pin encoding=",
+            "violations": [],
+        }
+    return {
+        "id": "text_io_encoding",
+        "name": name,
+        "status": "fail",
+        "message": (
+            f"{len(violations)} .read_text()/.write_text() site(s) with no encoding= "
+            f"(locale-default → cp1252 crash on Windows without PYTHONUTF8) — pass "
+            f'encoding="utf-8" or add `# encoding-waived: <reason>`'
+        ),
+        "violations": violations,
+    }
+
+
 def check_render_coverage_no_regression() -> dict:
     """Audit 2026-05-20 — render-coverage regression detector.
 
@@ -2204,6 +2295,16 @@ def check_no_stray_artifacts() -> dict:
     }
 
 
+def _commentary_json_specs() -> list[str]:
+    """The book-keyed commentary stores screened by the ★BUGCLUSTER guard,
+    discovered by glob so a newly-ingested ``*_commentaries.json`` auto-screens
+    (round-16 found ``patristic_commentaries.json`` — the 6th, detector-feeding
+    store — omitted from the old hardcoded 5-store list). Sorted for determinism.
+    """
+    src = REPO / "content" / "sources"
+    return sorted(p.relative_to(REPO).as_posix() for p in src.glob("*_commentaries.json"))
+
+
 def check_book_codes_canonical() -> dict:
     """mint-7 ★BUGCLUSTER guard (memory ``feedback_book_code_canonical``).
 
@@ -2266,20 +2367,17 @@ def check_book_codes_canonical() -> dict:
     ]
     list_specs = [("scripts.render_coverage", "_CANONICAL_BOOKS")]
 
-    # round-7 1.3 — the commentary-corpus JSON tier. The 5 *_commentaries.json
-    # stores carried 135 legacy "book" values ("joh"/"ps"/"mar"/…); the loader
-    # (scripts/core/sources_commentary.py) normalizes only its INDEX KEY, so the
-    # raw legacy string rode every entry's .book field (leak surface: future
-    # attributions/logs/ingests). The data is normalized in the same round-7
-    # commit; this tier blocks reintroduction at COMMIT time (★BUGCLUSTER:
-    # "recurs every ingest").
-    json_specs = [
-        "content/sources/ethiopian_commentaries.json",
-        "content/sources/protestant_commentaries.json",
-        "content/sources/catholic_commentaries.json",
-        "content/sources/rabbinic_commentaries.json",
-        "content/sources/reformation_commentaries.json",
-    ]
+    # round-7 1.3 — the commentary-corpus JSON tier. In round-7, five
+    # *_commentaries.json stores carried 135 legacy "book" values
+    # ("joh"/"ps"/"mar"/…); the loader (scripts/core/sources_commentary.py)
+    # normalizes only its INDEX KEY, so the raw legacy string rode every entry's
+    # .book field (leak surface: future attributions/logs/ingests). The data was
+    # normalized in the same round-7 commit; this tier blocks reintroduction at
+    # COMMIT time (★BUGCLUSTER: "recurs every ingest").
+    # R16 Phase A: a GLOB (not a hardcoded list) so a new *_commentaries.json
+    # auto-screens — round-16 found the 6th store (patristic_commentaries.json)
+    # was omitted, leaving a detector-feeding corpus unguarded.
+    json_specs = _commentary_json_specs()
 
     violations: list[dict] = []
     screened = 0
@@ -2575,20 +2673,28 @@ def _find_notes_list(tree: ast.Module) -> ast.List | None:
 
 
 def _count_reviewer_scaffold_bodies(notes_list: ast.List) -> int:
-    """Count note tuples whose body (index 7) is a constant string carrying a
-    ``[reviewer:`` token (case-insensitive). Helper for the RX-Phase-1 guard."""
+    """Count note tuples carrying a ``[reviewer:`` token (case-insensitive) in any
+    reader-facing free-text field. Helper for the RX-Phase-1 guard.
+
+    R16 Phase A widened this from body-only (index 7) to also screen the LABEL
+    (index 6 — ships as ``<span class="note-label">`` via inject.build_aside) and
+    the ATTRIBUTION (index 8 when present — becomes the cascade source byline).
+    NOT the title (index 5): it is unpacked but never rendered.
+    """
+
+    def _has_reviewer(node: ast.AST) -> bool:
+        return isinstance(node, ast.Constant) and isinstance(node.value, str) and "[reviewer:" in node.value.lower()
+
     hits = 0
     for elt in notes_list.elts:
         # (chapter, verse, suffix, anchor, kind, title, label, body_html
-        # [, attribution]) — the body is index 7.
+        # [, attribution]) — label is index 6, body 7, attribution 8.
         if not isinstance(elt, ast.Tuple) or len(elt.elts) < 8:
             continue
-        body_node = elt.elts[7]
-        if (
-            isinstance(body_node, ast.Constant)
-            and isinstance(body_node.value, str)
-            and "[reviewer:" in body_node.value.lower()
-        ):
+        fields = [elt.elts[6], elt.elts[7]]  # label, body (both always present)
+        if len(elt.elts) > 8:
+            fields.append(elt.elts[8])  # attribution (optional)
+        if any(_has_reviewer(n) for n in fields):
             hits += 1
     return hits
 
@@ -3052,6 +3158,7 @@ ALL_CHECKS = {
     "ephemeral_doc_pins": check_no_ephemeral_doc_pins,
     # ω.9 + ω.10 hardening tier
     "atomic_writes": check_atomic_writes,
+    "text_io_encoding": check_text_io_encoding,
     "external_http": check_external_http,
     # ω.15 plan-coherence tier
     "plan_coherence": check_plan_coherence,

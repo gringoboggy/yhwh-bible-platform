@@ -418,7 +418,7 @@ print(f"Loaded {len(BOOKS)} books, {len(EDITIONS)} editions, {len(KINDS)} kinds.
 print()
 '''
     init_path = TMP / ".ebible_repl_init.py"
-    init_path.write_text(init_code)
+    init_path.write_text(init_code, encoding="utf-8")
     env = os.environ.copy()
     env["PYTHONSTARTUP"] = str(init_path)
     return subprocess.run([PYTHON], env=env, cwd=REPO).returncode

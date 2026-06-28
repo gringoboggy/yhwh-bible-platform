@@ -277,7 +277,7 @@ def load_books():
     life of the process — call ``load_books.cache_clear()`` to refresh
     after editing books.yaml.
     """
-    return _parse_yaml_records(paths.books_yaml().read_text())
+    return _parse_yaml_records(paths.books_yaml().read_text(encoding="utf-8"))
 
 
 class _CachedLoader(Protocol):
@@ -289,7 +289,7 @@ class _CachedLoader(Protocol):
 def _load_kinds_cached(mtime_ns: int) -> list[dict]:
     """Cached parse of kinds.yaml. The cache key includes mtime_ns, so
     runtime edits invalidate automatically without an explicit clear."""
-    return _parse_yaml_records(paths.kinds_yaml().read_text())
+    return _parse_yaml_records(paths.kinds_yaml().read_text(encoding="utf-8"))
 
 
 def _load_kinds_uncached() -> list[dict]:
@@ -313,7 +313,7 @@ def _load_categories_cached(mtime_ns: int) -> list[dict]:
     p = paths.categories_yaml()
     if not p.is_file():
         return []
-    return _parse_yaml_records(p.read_text())
+    return _parse_yaml_records(p.read_text(encoding="utf-8"))
 
 
 def _load_categories_uncached() -> list[dict]:
@@ -338,7 +338,7 @@ def _load_editions_cached(mtime_ns: int) -> list[dict]:
     p = paths.editions_yaml()
     if not p.is_file():
         return []
-    return _parse_yaml_records(p.read_text())
+    return _parse_yaml_records(p.read_text(encoding="utf-8"))
 
 
 def _load_editions_uncached() -> list[dict]:

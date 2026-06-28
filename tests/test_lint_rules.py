@@ -93,6 +93,109 @@ class TestNoReviewerScaffoldingDetection:
         assert result["status"] == "pass", result
         assert not result["violations"]
 
+    # R16 Phase A — the guard now screens every reader-facing field, not just body.
+    _LABEL_LEAK = (
+        "NOTES = [\n"
+        '    (1, 1, "", "anchor", "commentary", "Title", "note [Reviewer: fix label]",\n'
+        '     "A clean body.",\n'
+        '     "Attribution"),\n'
+        "]\n"
+    )
+    _ATTRIBUTION_LEAK = (
+        "NOTES = [\n"
+        '    (1, 1, "", "anchor", "commentary", "Title", "note",\n'
+        '     "A clean body.",\n'
+        '     "Source [Reviewer: cite the edition]"),\n'
+        "]\n"
+    )
+
+    def test_fails_on_reviewer_scaffold_in_label(self, tmp_path, monkeypatch):
+        result = self._run_against(tmp_path, monkeypatch, self._LABEL_LEAK)
+        assert result["status"] == "fail", result
+
+    def test_fails_on_reviewer_scaffold_in_attribution(self, tmp_path, monkeypatch):
+        result = self._run_against(tmp_path, monkeypatch, self._ATTRIBUTION_LEAK)
+        assert result["status"] == "fail", result
+
+
+class TestCommentaryStoreGlob:
+    """R16 Phase A — the ★BUGCLUSTER bookcode guard screens commentary stores via
+    a glob, so the 6th store (patristic) is no longer silently omitted."""
+
+    def test_glob_includes_all_six_stores_incl_patristic(self):
+        from scripts.lint_rules import _commentary_json_specs
+
+        specs = _commentary_json_specs()
+        names = {s.rsplit("/", 1)[-1] for s in specs}
+        assert "patristic_commentaries.json" in names
+        assert names == {
+            "catholic_commentaries.json",
+            "ethiopian_commentaries.json",
+            "patristic_commentaries.json",
+            "protestant_commentaries.json",
+            "rabbinic_commentaries.json",
+            "reformation_commentaries.json",
+        }
+
+
+class TestTextIoEncodingGuard:
+    """R16 Phase A — ``check_text_io_encoding`` flags any ``.read_text()``/
+    ``.write_text()`` in scripts/ that omits ``encoding=`` (the cp1252 crash on
+    Windows the config loaders hit). Pins the AST helper + the file-level check
+    incl. the ``# encoding-waived:`` opt-out and the build-pipeline exemption."""
+
+    def _lines(self, src: str) -> list[int]:
+        import ast
+
+        from scripts.lint_rules import _find_unencoded_text_io
+
+        return _find_unencoded_text_io(ast.parse(src))
+
+    def test_flags_unencoded_read_and_write(self):
+        assert self._lines("p.read_text()\nq.write_text(x)\n") == [1, 2]
+
+    def test_passes_encoded_calls(self):
+        src = 'p.read_text(encoding="utf-8")\nq.write_text(x, encoding="utf-8")\n'
+        assert self._lines(src) == []
+
+    def test_ignores_string_mentions(self):
+        # AST-based: a string literal mentioning read_text() is not a call.
+        assert self._lines('msg = "call p.read_text() somewhere"\n') == []
+
+    def test_check_fails_on_planted_unencoded_read(self, tmp_path, monkeypatch):
+        from scripts import lint_rules
+
+        scripts_dir = tmp_path / "scripts"
+        scripts_dir.mkdir(parents=True)
+        (scripts_dir / "bad_io.py").write_text(
+            "from pathlib import Path\nPath('x.yaml').read_text()\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        lint_rules._clear_parse_cache()
+        result = lint_rules.check_text_io_encoding()
+        assert result["status"] == "fail", result
+        assert any("bad_io.py" in v["file"] for v in result["violations"]), result
+
+    def test_check_respects_waiver_and_exempt_file(self, tmp_path, monkeypatch):
+        from scripts import lint_rules
+
+        scripts_dir = tmp_path / "scripts"
+        scripts_dir.mkdir(parents=True)
+        (scripts_dir / "waived.py").write_text(
+            "from pathlib import Path\nPath('x').read_text()  # encoding-waived: ascii only\n",
+            encoding="utf-8",
+        )
+        # build_edition.py is exempt (bytes managed at the OCF zip layer).
+        (scripts_dir / "build_edition.py").write_text(
+            "from pathlib import Path\nPath('x').read_text()\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(lint_rules, "REPO", tmp_path)
+        lint_rules._clear_parse_cache()
+        result = lint_rules.check_text_io_encoding()
+        assert result["status"] == "pass", result
+
 
 class TestNotesStoreAtomicWriteGuard:
     """v0.1.0 audit Phase 0 — ``check_atomic_writes`` was extended past the

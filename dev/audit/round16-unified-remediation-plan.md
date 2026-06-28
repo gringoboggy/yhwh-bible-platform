@@ -7,6 +7,10 @@
 > (KJV golden G1 stays 9/9; glossary parity G5). `truth_owner = windows`. Marathon core OFF-LIMITS.
 > Round-14 build-source dims + round-15 D1–D9 = `DEFERRED_BY_DESIGN` (do not re-litigate).
 > Companion ledger: `dev/audit/round16-remediation.md`. Program: `dev/audit/round-16-build-program-bulletproofing-2026-06-27.md`.
+>
+> **★ USER APPROVED REMEDIATION (2026-06-28).** Execute safest-first Phase A→I, TDD, byte-proof. **Two design decisions made:**
+> **F1 `computer`** → make it an **explicit alias of `everywhere`** (keep the UI card; no orphan asset; byte-neutral).
+> **F2 `verse_marker_glyph`** → **RETIRE** the control + all legs + the catholic-study `¶` value (byte-safe since unread).
 
 ## Provenance & method
 

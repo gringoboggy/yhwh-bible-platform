@@ -159,7 +159,7 @@ def count_injected(book):
         path = EPUB_DIR / fname
         if not path.exists():
             continue
-        for m in pat.finditer(path.read_text()):
+        for m in pat.finditer(path.read_text(encoding="utf-8")):
             key = (m.group(1), m.group(2), m.group(3))
             if key in seen:
                 continue

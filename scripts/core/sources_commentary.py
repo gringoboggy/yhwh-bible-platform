@@ -302,8 +302,9 @@ class _CommentaryCorpus:
                     # Normalize at CONSTRUCTION (round-7 1.3): the index key below
                     # always normalized, but the raw legacy string ("joh"/"ps")
                     # used to ride .book into any consumer that read the field
-                    # directly. The 5 JSON stores are normalized + lint-screened
-                    # (bookcode_canonical json tier); this is the belt to that
+                    # directly. All 6 *_commentaries.json stores are normalized +
+                    # lint-screened (bookcode_canonical json tier, now a glob over
+                    # content/sources/*_commentaries.json); this is the belt to that
                     # suspenders for future ingests.
                     book=_normalize_book_code(str(entry["book"])),
                     chapter=int(entry["chapter"]),

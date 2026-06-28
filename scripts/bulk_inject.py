@@ -96,7 +96,7 @@ def insert(
             total_skipped += sub["skipped"]
         return {"modified": total_modified, "skipped": total_skipped, "file": str(p)}
 
-    text = p.read_text()
+    text = p.read_text(encoding="utf-8")
 
     # `before` may be a regex or a literal. Use literal-first for
     # predictability; only fall back to regex if the literal isn't
@@ -133,7 +133,7 @@ def insert(
 
     new_text = HTML_CONSTANT_RE.sub(_transform, text)
     if modified > 0:
-        p.write_text(new_text)
+        p.write_text(new_text, encoding="utf-8")
     return {"modified": modified, "skipped": skipped, "file": str(p)}
 
 
@@ -178,7 +178,7 @@ def replace_between_markers(
             total_skipped += sub["skipped"]
         return {"modified": total_modified, "skipped": total_skipped, "file": str(p)}
 
-    text = p.read_text()
+    text = p.read_text(encoding="utf-8")
 
     modified = 0
     skipped = 0
@@ -212,7 +212,7 @@ def replace_between_markers(
 
     new_text = HTML_CONSTANT_RE.sub(_transform, text)
     if modified > 0:
-        p.write_text(new_text)
+        p.write_text(new_text, encoding="utf-8")
     return {"modified": modified, "skipped": skipped, "file": str(p)}
 
 
@@ -277,7 +277,7 @@ def main(argv: list[str] | None = None) -> int:
     exempt = set(DEFAULT_EXEMPT) | set(args.exempt or [])
 
     if args.cmd == "insert":
-        content = args.content_file.read_text()
+        content = args.content_file.read_text(encoding="utf-8")
         if args.marker not in content:
             print(
                 f"WARNING: marker {args.marker!r} not found in content; "
@@ -295,7 +295,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.cmd == "replace":
-        new_content = args.content_file.read_text()
+        new_content = args.content_file.read_text(encoding="utf-8")
         result = replace_between_markers(
             args.file,
             args.open_marker,

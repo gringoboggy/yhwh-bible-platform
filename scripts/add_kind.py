@@ -35,7 +35,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.core import config
+from scripts.core import config, notes_io
 
 KINDS_YAML = REPO_ROOT / "content" / "kinds.yaml"
 STYLESHEET = REPO_ROOT / "epub_working" / "stylesheet.css"
@@ -57,7 +57,7 @@ def hex_to_rgb_alpha(hex_color, alpha):
 
 def append_to_kinds_yaml(code, symbol, note_class, marker_class, label, title_attr):
     """Append a new entry block to content/kinds.yaml. Format mirrors existing entries."""
-    text = KINDS_YAML.read_text()
+    text = KINDS_YAML.read_text(encoding="utf-8")
     if not text.endswith("\n"):
         text += "\n"
 
@@ -76,13 +76,16 @@ def append_to_kinds_yaml(code, symbol, note_class, marker_class, label, title_at
     if not text.endswith("\n\n"):
         text += "\n"
     text += block
-    KINDS_YAML.write_text(text)
+    # content/kinds.yaml is a critical source-of-truth config — write it
+    # atomically with a backup (mirrors the notes-store write doctrine).
+    notes_io.ensure_backup(KINDS_YAML)
+    notes_io.atomic_write(KINDS_YAML, text)
     return block
 
 
 def append_to_stylesheet(code, color):
     """Append marker-<code> and note-<code> CSS rules to stylesheet.css."""
-    text = STYLESHEET.read_text()
+    text = STYLESHEET.read_text(encoding="utf-8")
     bg = hex_to_rgb_alpha(color, 0.13)
     rules = (
         f"\n/* Added by scripts/add_kind.py — kind: {code} */\n"
@@ -92,7 +95,9 @@ def append_to_stylesheet(code, color):
     if not text.endswith("\n"):
         text += "\n"
     text += rules
-    STYLESHEET.write_text(text)
+    # epub_working/stylesheet.css is regenerable build base (not a source store)
+    # → a plain write is fine; just pin the encoding.
+    STYLESHEET.write_text(text, encoding="utf-8")
     return rules
 
 

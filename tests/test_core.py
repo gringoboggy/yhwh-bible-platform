@@ -298,6 +298,58 @@ class TestConfig:
             config.load_kinds.cache_clear()
 
 
+class TestConfigEncoding:
+    """R16 Phase A / P3 — the 4 config loaders must decode glyph-bearing YAML as
+    UTF-8 regardless of the platform's locale default (a cp1252 crash on Windows
+    without PYTHONUTF8; real trigger ``❑``/``❖`` U+2751/U+2756 in categories.yaml).
+
+    Modeled portably: intercept ``Path.read_text`` so a call with NO explicit
+    encoding decodes as cp1252 (exactly the bug). Before the fix the loaders call
+    ``read_text()`` → cp1252 → UnicodeDecodeError on byte 0x9D; after the fix they
+    call ``read_text(encoding="utf-8")`` → the interceptor passes through → OK.
+    """
+
+    @pytest.mark.parametrize(
+        "yaml_name, loader",
+        [
+            ("books.yaml", "load_books"),
+            ("kinds.yaml", "load_kinds"),
+            ("categories.yaml", "load_categories"),
+            ("editions.yaml", "load_editions"),
+        ],
+    )
+    def test_loader_reads_utf8_not_locale_default(self, yaml_name, loader, tmp_path, monkeypatch):
+        import shutil
+
+        from scripts.core import paths
+
+        work = tmp_path / "content"
+        work.mkdir()
+        # Copy the real YAML and prepend a comment carrying U+2751 (byte 0x9D is
+        # undefined in cp1252). The parser skips `#` lines, so parsing is unaffected
+        # — but the file bytes now make a cp1252 decode raise.
+        src = config._CONTENT / yaml_name
+        dst = work / yaml_name
+        dst.write_text("# ❑❖ glyph guard\n" + src.read_text(encoding="utf-8"), encoding="utf-8")
+
+        orig_read_text = Path.read_text
+
+        def cp1252_default_read_text(self, encoding=None, errors=None):
+            # Model the locale-default bug: no explicit encoding => cp1252.
+            return orig_read_text(self, encoding=encoding or "cp1252", errors=errors)
+
+        monkeypatch.setattr(Path, "read_text", cp1252_default_read_text)
+        paths.set_content_root_for_testing(work)
+        fn = getattr(config, loader)
+        fn.cache_clear()
+        try:
+            records = fn()
+            assert isinstance(records, list) and len(records) > 0
+        finally:
+            paths.set_content_root_for_testing(None)
+            fn.cache_clear()
+
+
 class TestCovers:
     """Phase π.4-A — per-book cover model + image metadata reader."""
 
