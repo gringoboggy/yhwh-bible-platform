@@ -114,7 +114,12 @@ def main() -> int:
 
     book_filter = None
     if args.books:
-        book_filter = {b.strip() for b in args.books.split(",") if b.strip()}
+        # R16 Phase D (★BUGCLUSTER) — normalize legacy aliases to canonical codes
+        # (mirrors run_ethiopian_at_scale); an un-normalized "joh"/"ps" would never
+        # match a canonical candidate's .book and silently drop that book's hits.
+        from scripts.core.sources import _normalize_book_code
+
+        book_filter = {_normalize_book_code(b.strip()) for b in args.books.split(",") if b.strip()}
 
     detector = KenyonReferenceDetector(
         max_candidates_per_verse=args.max_per_verse,

@@ -85,3 +85,58 @@ def test_sample_html_legacy_alias_joh() -> None:
     result = api_sample_html("catholic-study", "joh", 1, 1)
     assert result["status"] == "ok"
     assert result["book"] == "jhn"
+
+
+def test_add_note_routes_legacy_alias_to_canonical_file(monkeypatch):
+    # R16 Phase D (★BUGCLUSTER) — `add_note --book joh` must write the canonical
+    # content/notes/jhn.py, not crash on a missing joh.py. main() reassigned
+    # args.book to book["code"]; this pins the canonical code reaching the writer.
+    import sys
+
+    from scripts import add_note
+
+    captured: dict = {}
+    monkeypatch.setattr(add_note, "validate_anchor", lambda *a, **k: ["body"])
+    monkeypatch.setattr(add_note, "load_notes", lambda code: [])
+
+    def fake_append(code, text):
+        captured["code"] = code
+        return add_note.REPO_ROOT / "content" / "notes" / f"{code}.py"
+
+    monkeypatch.setattr(add_note, "append_to_notes_file", fake_append)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "add_note.py",
+            "--book",
+            "joh",
+            "--ch",
+            "3",
+            "--v",
+            "16",
+            "--kind",
+            "comm",
+            "--anchor",
+            "x",
+            "--title",
+            "T",
+            "--body",
+            "<strong>X.</strong>",
+        ],
+    )
+    add_note.main()
+    assert captured["code"] == "jhn"
+
+
+def test_new_note_legacy_alias_prints_canonical_path(monkeypatch, capsys):
+    # R16 Phase D — `new_note joh ...` must print the canonical jhn.py paste hint.
+    import sys
+
+    from scripts import new_note
+
+    monkeypatch.setattr(sys, "argv", ["new_note.py", "joh", "3", "16", "--kind", "comm"])
+    new_note.main()
+    out = capsys.readouterr().out
+    assert "content/notes/jhn.py" in out
+    assert "content/notes/joh.py" not in out

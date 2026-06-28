@@ -299,10 +299,14 @@ def main() -> None:
 
     # Validate book
     try:
-        config.get_book(args.book)
+        book = config.get_book(args.book)
     except KeyError as e:
         print(f"{RED}✗ {e}{RESET}", file=sys.stderr)
         sys.exit(2)
+    # R16 Phase D (★BUGCLUSTER) — normalize a legacy alias to the canonical stem
+    # so the rendered tuple + the "paste into content/notes/<code>.py" hint point
+    # at the real file (e.g. `--book joh` → jhn), mirroring add_note.
+    args.book = book["code"]
 
     # Look up template
     label, body, attribution = template_for(args.kind)

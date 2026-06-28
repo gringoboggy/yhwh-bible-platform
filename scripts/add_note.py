@@ -306,6 +306,12 @@ def main():
     except KeyError as e:
         err(str(e))
 
+    # R16 Phase D (★BUGCLUSTER) — get_book() validated a legacy alias but
+    # returned the canonical record; route every downstream notes-file op
+    # (load_notes / append_to_notes_file / printed paths) through the canonical
+    # stem so `--book joh` writes content/notes/jhn.py, not a missing joh.py.
+    args.book = book["code"]
+
     if book.get("ch_count", 0) > 0 and (args.ch < 1 or args.ch > book["ch_count"]):
         err(f"chapter {args.ch} out of range for {args.book} (1..{book['ch_count']})")
     if args.v < 1:
