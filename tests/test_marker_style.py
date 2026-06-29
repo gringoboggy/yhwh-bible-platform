@@ -506,6 +506,66 @@ class TestApplyBadgeMarkersUnit:
                 elif cur is not None:
                     assert val >= cur, f"{f}: a gen {val} badge renders inside chapter {cur} (K-R3-4 class)"
 
+    def test_mid_chapter_verse_badge_clusters_at_text_end(self, tmp_path):
+        """Device-QA round-2 cluster B: a MID-CHAPTER verse's badge must cluster
+        at the verse's TEXT END, never between the verse number and its prose.
+
+        The mid-chapter ``else`` branch used to splice the badge in place at the
+        last surviving note-marker. For the many verses whose note anchors sit
+        right after the verse number (e.g. Gen 17:3, 8:15), that landed the badge
+        BEFORE the verse text — the user's Kobo saw ``◈ 3 ◈ Abram fell…``
+        ([number][badge][text]). The fix mirrors the chapter-boundary branch:
+        delete every marker, insert the single badge at the verse's text end so it
+        reads [number][verse text]…[badge]. RED before the fix (a vn-link is
+        immediately followed by a badge), GREEN after."""
+        from scripts.build_edition import apply_badge_markers
+        from scripts.core import config as _c
+
+        book = _c.get_book("gen")
+        epub = REPO / "epub_working"
+        tmp = tmp_path / "build"
+        tmp.mkdir()
+        for f in book["files"]:
+            (tmp / f).write_text((epub / f).read_text(encoding="utf-8"), encoding="utf-8")
+        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
+
+        # (a) the canonical instances: Gen 17:3 + 8:15 carry their note anchors
+        #     right after the verse number, so the badge used to land before the
+        #     prose. After the fix the badge sits at the verse text end — the next
+        #     non-trivial content after it (past the badge-trail spacer) is the
+        #     NEXT verse's vn-link, not verse prose.
+        fname = next(f for f in book["files"] if 'id="v-gen-17-3"' in (tmp / f).read_text(encoding="utf-8"))
+        text = (tmp / fname).read_text(encoding="utf-8")
+        for ref in ("17-3", "8-15"):
+            vlink = re.search(rf'<a class="vn-link" id="v-gen-{ref}"[^>]*>\s*<span class="vn">\d+</span>\s*</a>', text)
+            assert vlink, f"gen {ref} vn-link missing"
+            after = text[vlink.end() :].lstrip()
+            assert not after.startswith('<a class="verse-notes-badge"'), (
+                f"gen {ref}: a badge sits between the verse number and its text (cluster B)"
+            )
+            badge = re.search(rf'<a class="verse-notes-badge" id="vbadge-gen-{ref}-s1".*?</a>', text, re.DOTALL)
+            assert badge, f"gen {ref} badge missing"
+            tail = text[badge.end() :].lstrip()
+            if tail.startswith('<span class="badge-trail"'):
+                tm = re.match(r'<span class="badge-trail"[^>]*>.*?</span>', tail, re.DOTALL)
+                tail = tail[tm.end() :].lstrip()
+            assert tail.startswith('<a class="vn-link"'), (
+                f"gen {ref}: badge not at the verse text end (followed by {tail[:48]!r})"
+            )
+
+        # (b) the CLASS, whole-book: no verse-notes badge may sit immediately after
+        #     a verse-number anchor in ANY gen file — the cluster-B signature.
+        for f in book["files"]:
+            t = (tmp / f).read_text(encoding="utf-8")
+            for vl in re.finditer(
+                r'<a class="vn-link" id="v-gen-[\d-]+"[^>]*>\s*<span class="vn">\d+</span>\s*</a>', t
+            ):
+                after = t[vl.end() :].lstrip()
+                assert not after.startswith('<a class="verse-notes-badge"'), (
+                    f"{f}: a badge sits between a verse number and its text (cluster B) near "
+                    f"{t[vl.start() : vl.start() + 90]!r}"
+                )
+
 
 class TestKoboPreviewSeparators:
     """K-R3-2 history → device-QA 2026-06-28 "clean, no marker": the merged-aside

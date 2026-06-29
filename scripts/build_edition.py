@@ -4586,10 +4586,30 @@ def apply_badge_markers(tmp: Path, edition: dict) -> dict:
                         for m in markers:
                             bucket.append((v_start + m.start(), v_start + m.end(), ""))
                     else:
-                        # Replace the LAST marker with the badge; delete the others.
-                        last = markers[-1]
-                        bucket.append((v_start + last.start(), v_start + last.end(), prose_insert))
-                        for m in markers[:-1]:
+                        # Device-QA round-2 (cluster B): the verse's note anchors
+                        # often sit right after the verse number, so replacing the
+                        # LAST marker in place landed the badge BEFORE the verse text
+                        # ([number][badge][text], e.g. Gen 17:3 "◈ 3 ◈ Abram fell…").
+                        # Delete EVERY marker and insert the badge at the verse's
+                        # TEXT END so every verse reads [number][verse text]…[badge].
+                        # A mid-chapter verse's region ends at the next verse's
+                        # vn-link, so the region end IS the text end; insert there —
+                        # UNLESS the region closes its own paragraph at the tail, in
+                        # which case go just inside that </p>. Unlike the boundary
+                        # branch we must NOT grab an EARLY </p> from a page-split that
+                        # opens a fresh verse-p mid-region (Gen 17:23 begins
+                        # "</p><p class="verse-p">Abraham took…"), so the </p> is used
+                        # only when it sits at the region tail. Bound to before any
+                        # notes-section so the badge never lands in the hidden wrapper.
+                        ns = verse_html.find('<aside class="notes-section"')
+                        limit = ns if ns != -1 else len(verse_html)
+                        p_close = verse_html.rfind("</p>", 0, limit)
+                        if p_close != -1 and not verse_html[p_close + 4 : limit].strip():
+                            at = v_start + p_close
+                        else:
+                            at = v_start + limit
+                        bucket.append((at, at, prose_insert))
+                        for m in markers:
                             bucket.append((v_start + m.start(), v_start + m.end(), ""))
                     # Eink inline/popup: asides stay in prose (K-R7-2d). Eink
                     # backmatter + non-eink: drop per-note asides from prose.
