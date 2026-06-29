@@ -152,6 +152,8 @@ Code fixes applied so far (commit `3c46a46d` = batch 1; batch 2 pending commit):
 
 Tests: the separator/badge-merge/edition-ID changes intentionally change build output → unit tests asserting the old glyphs/placement (`test_ws3_popup_separators`, `test_popup_split`, the matter-page tests) + the 9-KJV golden are updated together in the post-rebuild pass (step 5).
 
+**2026-06-29 — ✅ 9-KJV golden RE-BASELINED (`tests/golden/kjv_golden_hashes.json`).** `py -3 tests/test_kjv_golden_hash_gate.py --regen` rebuilt all 9 byte-stable cells ({catholic-study, evangelical-reformed, eastern-orthodox} × {everywhere, tablet, kindle}) — every cell's digest changed (the User-notes removal + clean-separators + single-merged-badge + Edition-ID→copyright all land in `build_one`'s everywhere base, which these non-eink cells derive from; the golden kindle cell uses `build_one(target_reader="kindle")`→`make_kindle_safe`, NOT the M4b matrix path, so the teleport/justify edits don't touch it). Diff = ONLY the 9 hashes (9 ins / 9 del), nothing else → confirmed a clean, deliberate re-baseline. Determinism is round-14-proven (A1 LF-normalize + `zip_repro` pins); **Mac's cross-OS verify (lane #2) is the independent confirmation** — pushed for it.
+
 ## COUNT-SWEEP SURFACES (pre-located 2026-06-28; old headline = `91,555`)
 
 After the rebuild gives the exact new count (~90,191 — confirm), replace `91,555`
