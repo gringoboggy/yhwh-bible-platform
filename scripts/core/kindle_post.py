@@ -323,6 +323,14 @@ _VNOTE_BLOCK_RE = re.compile(
 _KINDLE_M4B_CSS_MARKER = "/* yhwh:kindle-m4b */"
 _KINDLE_M4B_CSS = """
 /* yhwh:kindle-m4b — KFX pagination + ToC spacing (device QA 2026-06-18) */
+/* Body justification (device QA 2026-06-28): the base stylesheet justifies
+   p.verse-p, which Apple/Kobo honour, but Amazon's KFX converter falls back to
+   ragged-left unless the body itself carries an explicit alignment. Give the
+   reading body an unambiguous justify signal so Kindle matches the other readers
+   (the reader's own alignment toggle still wins if the user overrides). */
+body {
+  text-align: justify;
+}
 .book-title-page {
   page-break-after: auto;
   break-after: auto;
