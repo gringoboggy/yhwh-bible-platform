@@ -77,6 +77,17 @@ hdiutil create \
     -ov -format UDZO \
     "$DMG_PATH"
 
+# Code-sign the DMG container itself (Apple's recommended flow signs the disk
+# image BEFORE notarizing). Without this, the .app inside is notarized/stapled
+# but `spctl -a -t open` on the .dmg reports "no usable signature" because the
+# container carries no Developer ID signature. Signing it makes the distributable
+# assess clean ("accepted, source=Notarized Developer ID") and offline-robust.
+if [[ -n "${CODESIGN_IDENTITY:-}" ]]; then
+    echo "Code-signing the DMG with \"$CODESIGN_IDENTITY\"..."
+    codesign --force --sign "$CODESIGN_IDENTITY" --timestamp "$DMG_PATH"
+    codesign --verify --verbose=2 "$DMG_PATH"
+fi
+
 # Optional notarization (requires CODESIGN_IDENTITY + NOTARIZE_KEYCHAIN_PROFILE).
 if [[ -n "${CODESIGN_IDENTITY:-}" && -n "${NOTARIZE_KEYCHAIN_PROFILE:-}" ]]; then
     echo "Submitting $DMG_PATH for notarization..."
