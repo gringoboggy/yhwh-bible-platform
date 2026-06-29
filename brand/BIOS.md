@@ -24,13 +24,13 @@ Tone: professional, reverent, accurate, non-commercial. Author: **Bogdan Zorlesc
 > Building YHWH Ya’ Way — a free desktop app: 4 canon study Bibles + full customize, from one 83-book public-domain superset. Self-taught dev, Ontario.
 
 **Bio (alt, faith-forward, 149 chars):**
-> Building a free study-Bible program for everyone — 4 canon editions, full customize, 91k notes, clean EPUBs from one 83-book superset. Solo dev, Ontario.
+> Building a free study-Bible program for everyone — 4 canon editions, full customize, 90k notes, clean EPUBs from one 83-book superset. Solo dev, Ontario.
 
 ---
 
 ## 2. GitLab — profile bio (≤250 chars, UI-only)
 
-> Self-taught dev in Ontario. I build **YHWH Ya’ Way** — a free, non-commercial desktop app that ships 4 canon-shaped study Bibles (Ethiopian, Catholic, Orthodox, Reformed) plus full customize, from one 83-book public-domain superset with 91,555 study notes. Source-available.
+> Self-taught dev in Ontario. I build **YHWH Ya’ Way** — a free, non-commercial desktop app that ships 4 canon-shaped study Bibles (Ethiopian, Catholic, Orthodox, Reformed) plus full customize, from one 83-book public-domain superset with 90,181 study notes. Source-available.
 
 *(248 chars — within GitLab's 250 limit. Bold `**` is for display here; GitLab's bio field is plain text — paste without the asterisks.)*
 
@@ -47,7 +47,7 @@ Tone: professional, reverent, accurate, non-commercial. Author: **Bogdan Zorlesc
 
 > ### What you’re supporting
 >
-> **YHWH Ya’ Way** is a free, non-commercial program that lets anyone build their own scholarly study Bible. From a single public-domain 83-book Ethiopian Tewahedo superset — the widest scriptural canon in continuous use — it ships **four canon-shaped study editions** (Ethiopian Tewahedo, Catholic, Eastern Orthodox, Reformed/Evangelical) and a full **customize console** for any other tradition. Toggle from **91,555** public-domain study notes and cross-references, add original-language verse popups in Hebrew, Greek, Latin, and Arabic, and export a clean, valid EPUB 3.
+> **YHWH Ya’ Way** is a free, non-commercial program that lets anyone build their own scholarly study Bible. From a single public-domain 83-book Ethiopian Tewahedo superset — the widest scriptural canon in continuous use — it ships **four canon-shaped study editions** (Ethiopian Tewahedo, Catholic, Eastern Orthodox, Reformed/Evangelical) and a full **customize console** for any other tradition. Toggle from **90,181** public-domain study notes and cross-references, add original-language verse popups in Hebrew, Greek, Latin, and Arabic, and export a clean, valid EPUB 3.
 >
 > It is, and always will be, **free** — no ads, no tracking, no paywall. It’s a service, not a product.
 >
@@ -85,7 +85,7 @@ You only need to *describe* the work; Stripe collects the factual/legal bits (le
 
 ## 5. Reusable "About" paragraph (website / anywhere longer)
 
-> **YHWH Ya’ Way** is a free, non-commercial program for building your own scholarly study Bible. Starting from one public-domain 83-book Ethiopian Tewahedo superset, it offers four canon-shaped starting editions (Ethiopian Tewahedo, Catholic, Eastern Orthodox, Reformed/Evangelical) plus a customize console for any tradition. Toggle 91,555 study notes and cross-references, add original-language verse popups — Hebrew, Greek, Latin, and Arabic — and export a clean, valid EPUB 3 that runs entirely on your own device. Standalone Geʽez and Amharic Bibles from the manuscripts are in progress. No account, no server, no cost. Built and maintained by Bogdan Zorlescu, a self-taught developer in Ontario, Canada.
+> **YHWH Ya’ Way** is a free, non-commercial program for building your own scholarly study Bible. Starting from one public-domain 83-book Ethiopian Tewahedo superset, it offers four canon-shaped starting editions (Ethiopian Tewahedo, Catholic, Eastern Orthodox, Reformed/Evangelical) plus a customize console for any tradition. Toggle 90,181 study notes and cross-references, add original-language verse popups — Hebrew, Greek, Latin, and Arabic — and export a clean, valid EPUB 3 that runs entirely on your own device. Standalone Geʽez and Amharic Bibles from the manuscripts are in progress. No account, no server, no cost. Built and maintained by Bogdan Zorlescu, a self-taught developer in Ontario, Canada.
 
 ---
 
@@ -103,12 +103,12 @@ Applies to **github.com/gringoboggy/yhwh-bible-platform** (public mirror) and th
 
 | Field | Value |
 |---|---|
-| **Description** (GitHub ≤350) | Free desktop app to build customizable study Bibles — 4 canon editions + full customize, 91k notes, clean EPUB 3. Windows, macOS, Linux. |
+| **Description** (GitHub ≤350) | Free desktop app to build customizable study Bibles — 4 canon editions + full customize, 90k notes, clean EPUB 3. Windows, macOS, Linux. |
 | **Website** | https://www.yhwhyaway.com |
 | **Topics** (GitHub) | `bible`, `epub`, `study-bible`, `ethiopian-bible`, `desktop-app`, `python`, `ebook`, `tewahedo`, `public-domain` |
 
 **GitLab project description** (plain text, same gist):
-> Free desktop app to build customizable study Bibles — four canon-shaped editions (Ethiopian Tewahedo, Catholic, Eastern Orthodox, Reformed/Evangelical) plus full customize, from one 83-book public-domain superset with 91,555 study notes. Clean EPUB 3 export for Windows, macOS, and Linux.
+> Free desktop app to build customizable study Bibles — four canon-shaped editions (Ethiopian Tewahedo, Catholic, Eastern Orthodox, Reformed/Evangelical) plus full customize, from one 83-book public-domain superset with 90,181 study notes. Clean EPUB 3 export for Windows, macOS, and Linux.
 
 ---
 
