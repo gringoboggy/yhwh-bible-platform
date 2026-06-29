@@ -301,7 +301,16 @@ _VNOTE_ASIDE_RE = re.compile(
     re.DOTALL | re.I,
 )
 _VNOTE_COORD_RE = re.compile(r"^vnote-([a-z0-9]+)-(\d+)-(\d+)")
-_EMPTY_NOTES_SECTION_RE = re.compile(r'<aside class="notes-section"[^>]*>\s*</aside>\s*', re.DOTALL)
+# After the M4b relocation the per-chapter footnotes wrapper is left with only its
+# own chrome (an <hr> + an <h3>Notes</h3> heading) plus the whitespace where the
+# relocated asides used to sit — a HIDDEN block (hidden="") that routinely exceeds
+# Amazon's ~10K E999 ceiling. Drop the wrapper whenever it holds NO surviving note
+# <aside> child: the tempered token consumes the chrome/whitespace but stops at its
+# own </aside>; a section that still contains a note aside won't match, so nothing
+# with real content is ever removed.
+_EMPTY_NOTES_SECTION_RE = re.compile(
+    r'<aside class="notes-section"[^>]*>(?:(?!</aside>|<aside\b).)*</aside>\s*', re.DOTALL
+)
 _EMPTY_VERSE_REFS_RE = re.compile(
     r'<section class="verse-refs-section"[^>]*>\s*</section>\s*',
     re.DOTALL,
@@ -902,9 +911,40 @@ def apply_kindle_m4b(epub_path: Path | str) -> dict:
     return stats
 
 
+# Amazon's converter (E999) refuses a single HIDDEN block beyond ~10K serialized
+# chars. display:none / visibility:hidden are stripped + gated elsewhere; this gate
+# catches the HTML ``hidden`` attribute (which the june10 recipe PRESERVES) left on
+# an OVERSIZED element — e.g. a notes-section wrapper emptied-but-not-removed by the
+# M4b relocation (its <hr>+<h3>Notes</h3> chrome + leftover whitespace was 14K → E999).
+_E999_HIDDEN_LIMIT = 10_000
+_HIDDEN_OPEN_RE = re.compile(r'<(\w+)\b[^>]*?\shidden(?:\s*=\s*["\'][^"\']*["\'])?[^>]*>', re.I)
+
+
+def _oversized_hidden_blocks(html: str) -> list[str]:
+    fails: list[str] = []
+    for m in _HIDDEN_OPEN_RE.finditer(html):
+        tag = m.group(1)
+        depth = 0
+        end = len(html)
+        for t in re.finditer(rf"<{re.escape(tag)}\b|</{re.escape(tag)}>", html[m.start() :], re.I):
+            if t.group(0).startswith("</"):
+                depth -= 1
+                if depth == 0:
+                    end = m.start() + t.end()
+                    break
+            else:
+                depth += 1
+        if end - m.start() > _E999_HIDDEN_LIMIT:
+            fails.append(
+                f"e999: <{tag} hidden> block {end - m.start()} chars > {_E999_HIDDEN_LIMIT} (Amazon E999 risk)"
+            )
+    return fails
+
+
 def verify_kindle_m4b_scripture_html(html: str) -> list[str]:
     """Structural M4b checks on scripture HTML. Empty list = pass."""
     fails: list[str] = []
+    fails.extend(_oversized_hidden_blocks(html))
     if "kindle-chapter-study" in html:
         fails.append("m4b-6: retired kindle-chapter-study block survives in scripture")
     # study side
