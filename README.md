@@ -21,7 +21,7 @@ machine. No account, no server, no cloud.
 - **Full customization** — the builder's customize console can shape any
   tradition (a Tanakh-only Bible, a denser scholarly apparatus, and more)
   without needing a separate pre-built SKU.
-- **91,555 study notes** (cross-references, Strong's Hebrew/Greek, patristic
+- **90,181 study notes** (cross-references, Strong's Hebrew/Greek, patristic
   commentary, Nave's Topical, Easton's Dictionary, …) that you toggle on or off
   per edition.
 - **Original-language verse popups** — Hebrew (WLC), Greek (LXX + Byzantine NT),

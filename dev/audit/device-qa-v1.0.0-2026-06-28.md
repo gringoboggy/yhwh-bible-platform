@@ -154,11 +154,22 @@ Tests: the separator/badge-merge/edition-ID changes intentionally change build o
 
 **2026-06-29 — ✅ 9-KJV golden RE-BASELINED (`tests/golden/kjv_golden_hashes.json`).** `py -3 tests/test_kjv_golden_hash_gate.py --regen` rebuilt all 9 byte-stable cells ({catholic-study, evangelical-reformed, eastern-orthodox} × {everywhere, tablet, kindle}) — every cell's digest changed (the User-notes removal + clean-separators + single-merged-badge + Edition-ID→copyright all land in `build_one`'s everywhere base, which these non-eink cells derive from; the golden kindle cell uses `build_one(target_reader="kindle")`→`make_kindle_safe`, NOT the M4b matrix path, so the teleport/justify edits don't touch it). Diff = ONLY the 9 hashes (9 ins / 9 del), nothing else → confirmed a clean, deliberate re-baseline. Determinism is round-14-proven (A1 LF-normalize + `zip_repro` pins); **Mac's cross-OS verify (lane #2) is the independent confirmation** — pushed for it.
 
-## COUNT-SWEEP SURFACES (pre-located 2026-06-28; old headline = `91,555`)
+## COUNT-SWEEP SURFACES (old headline = `91,555` → **NEW = `90,181`**, confirmed 2026-06-29)
 
-After the rebuild gives the exact new count (~90,191 — confirm), replace `91,555`
-on every surface below (EPUB/OPF metadata + the auto Guide-to-the-Notes regenerate
-on rebuild; these are the HAND-swept ones). Counts = occurrences per file.
+**★ EXACT NEW COUNT CONFIRMED = `90,181`** (ethiopian-tewahedo, the public headline).
+Source of truth = `edition_stats.resolved_note_counts(ed)["total"]` (the documented
+note-ref marker count); the rebuilt EPUB's Guide-to-the-Notes (`legend.xhtml`) sums to
+the same 90,181. Per-edition (for any per-edition surface): **ethiopian-tewahedo 90,181 ·
+catholic-study 40,585 · evangelical-reformed 37,377 · eastern-orthodox 40,036.** Symbol
+categories unchanged (6 groups: topic 48,097 · lang 30,551 · xref 6,132 · hist 3,778 ·
+comm 1,509 · text 114), kinds still 72 (71 enabled / 1 disabled per the build log).
+_(Drop 91,555→90,181 = 1,374; the 1,364 removed User notes + a 10-ref delta — the old
+91,555 was the 2026-06-21 figure; the authoritative recompute is 90,181.)_
+
+Replace `91,555` → `90,181` on every LIVE-headline surface below (EPUB/OPF metadata +
+the auto Guide-to-the-Notes regenerate on rebuild; these are the HAND-swept ones). **Keep
+historical occurrences** (`dev/archive/**`, dated audit notes, the kindle-r13 note) — they
+record what shipped at v0.1.0. Counts = occurrences per file.
 
 **Public (user mandate — must be true everywhere):**
 - `website/src/index.html` (3), `website/src/roadmap.html` (1)

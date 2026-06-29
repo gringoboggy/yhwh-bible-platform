@@ -19,7 +19,7 @@ and other uses permitted by applicable copyright law):
 
 | Component | Description | Year | Status |
 |---|---|---|---|
-| Editorial notes | 91,555 attributed annotations across 15 categories / 72 kinds | 2026 | © Bogdan Zorlescu — all rights reserved |
+| Editorial notes | 90,181 attributed annotations across 15 categories / 72 kinds | 2026 | © Bogdan Zorlescu — all rights reserved |
 | Cross-canon parallels | Selection, framing, theological synthesis | 2026 | © Bogdan Zorlescu — all rights reserved |
 | Apparatus structure | 72-kind taxonomy, edition-filtering rules | 2026 | © Bogdan Zorlescu — all rights reserved |
 | Per-edition selection | Which sub-kinds appear in each edition build | 2026 | © Bogdan Zorlescu — all rights reserved |
