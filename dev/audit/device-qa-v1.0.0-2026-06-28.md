@@ -154,6 +154,13 @@ Tests: the separator/badge-merge/edition-ID changes intentionally change build o
 
 **2026-06-29 — ✅ 9-KJV golden RE-BASELINED (`tests/golden/kjv_golden_hashes.json`).** `py -3 tests/test_kjv_golden_hash_gate.py --regen` rebuilt all 9 byte-stable cells ({catholic-study, evangelical-reformed, eastern-orthodox} × {everywhere, tablet, kindle}) — every cell's digest changed (the User-notes removal + clean-separators + single-merged-badge + Edition-ID→copyright all land in `build_one`'s everywhere base, which these non-eink cells derive from; the golden kindle cell uses `build_one(target_reader="kindle")`→`make_kindle_safe`, NOT the M4b matrix path, so the teleport/justify edits don't touch it). Diff = ONLY the 9 hashes (9 ins / 9 del), nothing else → confirmed a clean, deliberate re-baseline. Determinism is round-14-proven (A1 LF-normalize + `zip_repro` pins); **Mac's cross-OS verify (lane #2) is the independent confirmation** — pushed for it.
 
+**2026-06-29 — DEVICE-ARTIFACT REBUILD (ethiopian-tewahedo, the 4 readers the user re-QAs; → `build/devqa/`).** One representative build per reader (cover colour is cosmetic).
+- ✅ **U4 Play / everywhere** — `Ethiopian_Bible_…_1.0.0_…Z.epub` (26.93 MB, exit 0, no OOM).
+- ✅ **U2 Apple tablet** (`--target-reader tablet`) — `…_tablet_…Z.epub` (26.00 MB, exit 0).
+- ✅ **U3 Kindle** (`build_kindle.py`, m4b default-on) — `…-kindle-m4b.epub` (28.47 MB, exit 0). **★ Teleport fix PROVEN at scale:** post-process relocated **30,005 study asides** (badges_retargeted 30,005) **+ 36,329 translation witness asides** (vn_links_retargeted 36,350) into cross-file backmatter endnotes (glossary_pieces 138 + witness_pieces 162); 0 same-file dangling fragments → no Kindle teleport.
+- 🔄 **U1 Kobo eink kepub** (`--target-reader eink` → kepubify) — flagship, OOM-prone, building SOLO with a CommitFree pre-flight (35.5 GB headroom). Then kepubify → `.kepub.epub`.
+- ▶ Next: re-stage all 4 to `C:\Users\bogda\YHWH-device-staging\` (delete the old `YHWH-koboQA.kepub.epub` first) → final 5-leg milestone save → user device re-QA (U1–U4).
+
 ## COUNT-SWEEP SURFACES (old headline = `91,555` → **NEW = `90,181`**, confirmed 2026-06-29)
 
 **★ EXACT NEW COUNT CONFIRMED = `90,181`** (ethiopian-tewahedo, the public headline).
