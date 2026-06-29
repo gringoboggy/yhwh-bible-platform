@@ -53999,7 +53999,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, -- THE SEPTUAGINT. 61 10-13 Ps. 106. 27 133. 6 of its original contents, so far as the ; Old Testament is concerned ; bat the Prayer of Manasses and the books of Maccabees were never included in it. The t",
+        "<strong>Manuscript witness.</strong> -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, of its original contents, so far as the Old Testament is concerned; but the Prayer of Manasses and the books of Maccabees were never included in it.",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (

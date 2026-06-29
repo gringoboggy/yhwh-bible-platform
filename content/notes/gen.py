@@ -43,7 +43,7 @@ NOTES = [
         "text-witness",
         "Witness",
         "MS.",
-        "<strong>Manuscript witness.</strong> n Library at Eome. It contains the whole Bible, written in the fourth century, and is at once the oldest and probably the best extant copy of the Septuagint. -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, -- THE SEPTUAGINT. 61 10-13 Ps. 106. 27 133.",
+        "<strong>Manuscript witness.</strong> in the Library at Rome. It contains the whole Bible, written in the fourth century, and is at once the oldest and probably the best extant copy of the Septuagint. -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7.",
         "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
     ),
     (
