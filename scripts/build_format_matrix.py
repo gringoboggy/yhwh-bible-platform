@@ -206,18 +206,24 @@ def _apply_kindle_post(edition_id: str, cell: dict, asset: Path) -> None:
     """Apply the proven Send-to-Kindle recipe (``scripts.core.kindle_post``) in
     place over a freshly built / cover-swapped EPUB, then assert conformance.
     Runs LAST (after the cover swap) so the hidden-content strip + the OCF
-    mimetype-first/stored re-zip are the final word on the artifact bytes —
-    byte-faithful to the artifact the user confirmed delivers via Send-to-Kindle."""
-    from scripts.core.kindle_post import make_kindle_safe, verify_kindle_safe
+    mimetype-first/stored re-zip are the final word on the artifact bytes.
+
+    The ``post_process: kindle_safe`` cell routes through ``make_kindle_m4b`` —
+    the june10 strip/single-language/OCF recipe PLUS the M4b backmatter
+    relocation that turns every hidden note/translation popup into a reachable
+    endnote (Kindle has no popups by design; a bare ``make_kindle_safe`` leaves
+    the verse-number / badge links pointing at now-dangling same-file fragments
+    that Kindle teleports to the last badge of the spine file)."""
+    from scripts.core.kindle_post import make_kindle_m4b, verify_kindle_m4b
 
     pre = asset.with_name(asset.stem + "._pre_kindle.epub")
     asset.replace(pre)
-    stats = make_kindle_safe(pre, asset)
+    stats = make_kindle_m4b(pre, asset)
     pre.unlink()
-    print(f"[{edition_id}] cell {cell['id']}: kindle-safe post-process {stats}", flush=True)
-    fails = verify_kindle_safe(asset)
+    print(f"[{edition_id}] cell {cell['id']}: kindle m4b post-process {stats}", flush=True)
+    fails = verify_kindle_m4b(asset)
     if fails:
-        raise ValueError(f"{asset.name}: kindle-safe recipe not satisfied: {fails}")
+        raise ValueError(f"{asset.name}: kindle m4b recipe not satisfied: {fails}")
 
 
 def build_edition_assets(

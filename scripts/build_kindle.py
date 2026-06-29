@@ -1,13 +1,19 @@
-"""Build the Send-to-Kindle-safe EPUB for an edition (the proven june10 recipe).
+"""Build the Send-to-Kindle EPUB for an edition (the proven june10 recipe + M4b).
 
 A STANDARD (everywhere) build via the canonical CLI + the deterministic
-post-process in ``scripts.core.kindle_post`` (strip hidden content, single
-``dc:language``, OCF re-zip). This is the *productized* form of what the Mac
-proved by hand on 2026-06-14 (user-confirmed delivered via Send-to-Kindle); it
-does NOT use the dormant, Previewer-oracle-tuned ``--target-reader kindle`` variant.
+post-process in ``scripts.core.kindle_post``: the june10 strip (hidden content,
+single ``dc:language``, OCF re-zip) PLUS — by default — the M4b backmatter
+relocation that turns every hidden note and translation popup into a reachable
+endnote. Kindle has no popups by design, so without M4b the verse-number /
+badge links resolve to now-dangling same-file fragments and Kindle teleports to
+the last badge of the spine file (no note ever reachable). This is the
+*productized* form of what the Mac proved by hand on 2026-06-14 (user-confirmed
+delivered via Send-to-Kindle); it does NOT use the dormant, Previewer-oracle-
+tuned ``--target-reader kindle`` variant.
 
     py -3 scripts/build_kindle.py catholic-study --version 0.1.0 \
-        --output-dir build/kindle
+        --output-dir build/kindle           # M4b on by default
+    py -3 scripts/build_kindle.py catholic-study --no-m4b   # bare strip recipe
 
 The 9 KJV editions, the everywhere build, and the dormant kindle target are
 untouched — this is a pure post-pass over a standard artifact.
@@ -26,7 +32,7 @@ sys.path.insert(0, str(REPO))
 
 
 def build_kindle(
-    edition_id: str, version: str, out_dir: Path, *, force: bool = True, m4b: bool = False
+    edition_id: str, version: str, out_dir: Path, *, force: bool = True, m4b: bool = True
 ) -> tuple[Path, dict]:
     """Build ``edition_id`` standard, then post-process to a kindle-safe EPUB.
 
@@ -78,8 +84,10 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--output-dir", type=Path, default=REPO / "build" / "kindle")
     p.add_argument(
         "--m4b",
-        action="store_true",
-        help="apply M4b fork (study glossary backmatter + badge navigate)",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="relocate notes + translation popups to reachable backmatter endnotes "
+        "(study + original-language witness glossaries); default on, --no-m4b for the bare strip recipe",
     )
     args = p.parse_args(argv)
 

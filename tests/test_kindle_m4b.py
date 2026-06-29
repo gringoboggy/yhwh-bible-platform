@@ -23,7 +23,11 @@ _CHAPTER_HTML = (
     "</aside>"
     '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
     '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote" hidden="">'
-    '<p class="vnote-text">Hebrew witness</p></aside>'
+    '<p class="vnote-text">Hebrew witness</p>'
+    '<p><a href="#v-gen-1-1" class="vnote-back" title="Back">↩</a></p></aside>'
+    '<aside class="vnote" id="vnote-gen-1-18" epub:type="footnote" hidden="">'
+    '<p class="vnote-text">Greek witness</p>'
+    '<p><a href="#v-gen-1-18" class="vnote-back" title="Back">↩</a></p></aside>'
     "</section>"
     "</body></html>"
 )
@@ -52,9 +56,11 @@ _MULTI_CHAPTER_HTML = (
     "</aside>"
     '<section class="verse-refs-section" epub:type="footnotes" hidden="">'
     '<aside class="vnote" id="vnote-gen-1-1" epub:type="footnote" hidden="">'
-    '<p class="vnote-text">Ch1 translation</p></aside>'
+    '<p class="vnote-text">Ch1 translation</p>'
+    '<p><a href="#v-gen-1-1" class="vnote-back" title="Back">↩</a></p></aside>'
     '<aside class="vnote" id="vnote-gen-2-1" epub:type="footnote" hidden="">'
-    '<p class="vnote-text">Ch2 translation</p></aside>'
+    '<p class="vnote-text">Ch2 translation</p>'
+    '<p><a href="#v-gen-2-1" class="vnote-back" title="Back">↩</a></p></aside>'
     "</section>"
     "</body></html>"
 )
@@ -103,22 +109,27 @@ class TestApplyKindleM4bHtml:
         assert stats["badges_kept"] == 1
         assert stats["vn_links"] == 2
 
-    def test_extracts_vnotes_from_scripture(self):
+    def test_extracts_study_vnotes_from_scripture(self):
         out, stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
         assert 'id="vnotes-gen-1-1-s1"' not in out
         assert stats["asides_relocated"] == 1
 
-    def test_leaves_vnote_in_hidden_tail(self):
-        out, _stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
-        assert 'id="vnote-gen-1-1"' in out
-        assert "Hebrew witness" in out
+    def test_relocates_translation_vnote_from_scripture(self):
+        # Kindle has no popups — the translation aside must LEAVE scripture so it
+        # can become a reachable endnote (old behavior left it inline → teleport).
+        out, stats = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
+        assert 'id="vnote-gen-1-1"' not in out
+        assert 'id="vnote-gen-1-18"' not in out
+        assert "Hebrew witness" not in out and "Greek witness" not in out
         assert "kindle-chapter-study" not in out
+        assert stats["witness_relocated"] == 2
 
     def test_idempotent_clean(self):
         once, _ = kindle_post.apply_kindle_m4b_html(_CHAPTER_HTML)
         twice, stats2 = kindle_post.apply_kindle_m4b_html(once)
         assert twice == once
         assert stats2["asides_relocated"] == 0
+        assert stats2["witness_relocated"] == 0
 
 
 class TestApplyKindleM4bEpub:
@@ -146,16 +157,45 @@ class TestApplyKindleM4bEpub:
             if "sources.xhtml" in nav:
                 assert nav.index("Study Notes") < nav.index("sources.xhtml")
 
+    def test_relocates_translations_and_retargets_vn_links(self, tmp_path):
+        src = tmp_path / "src.epub"
+        src.write_bytes(_m4b_fixture_epub())
+        stats = kindle_post.apply_kindle_m4b(src)
+        assert stats["witness_relocated"] == 2
+        assert stats["vn_links_retargeted"] == 2
+        assert stats["witness_pieces"] >= 1
+        with zipfile.ZipFile(src) as z:
+            names = z.namelist()
+            assert any("kindle_witness_glossary" in n for n in names)
+            chap = z.read("OEBPS/index_split_000_00.html").decode()
+            # NO vn-link may keep a same-file translation fragment (the teleport bug)
+            assert 'href="#vnote-gen-1-1"' not in chap
+            assert 'href="#vnote-gen-1-18"' not in chap
+            # both vn-links now navigate cross-file to the witness glossary
+            assert 'href="kindle_witness_glossary' in chap
+            assert 'id="vnote-gen-1-1"' not in chap  # aside relocated out of scripture
+            witness = next(z.read(n).decode() for n in names if "kindle_witness_glossary" in n)
+            assert 'id="vnote-gen-1-1"' in witness and "Hebrew witness" in witness
+            assert 'id="vnote-gen-1-18"' in witness and "Greek witness" in witness
+            # the endnote back-link navigates cross-file to the verse (no bare #v-)
+            assert 'href="index_split_000_00.html#v-gen-1-1"' in witness
+            assert 'href="#v-gen-1-1"' not in witness
+            nav = z.read("OEBPS/nav.xhtml").decode()
+            assert "Original-Language Witnesses" in nav
+
     def test_multi_chapter_collects_both_asides(self, tmp_path):
         src = tmp_path / "src.epub"
         src.write_bytes(_m4b_fixture_epub(multi=True))
         stats = kindle_post.apply_kindle_m4b(src)
         assert stats["asides_relocated"] == 2
         assert stats["badges_retargeted"] == 2
+        assert stats["witness_relocated"] == 2
+        assert stats["vn_links_retargeted"] == 2
         with zipfile.ZipFile(src) as z:
             chap = z.read("OEBPS/index_split_000_00.html").decode()
             assert "kindle-chapter-study" not in chap
             assert chap.index("ch-b00-c1") < chap.index("ch-b00-c2")
+            assert 'href="#vnote-gen-1-1"' not in chap and 'href="#vnote-gen-2-1"' not in chap
 
     def test_verify_passes(self, tmp_path):
         src = tmp_path / "src.epub"
@@ -191,13 +231,32 @@ class TestVerifyKindleM4b:
 
     def test_same_file_badge_href_fails_m4b_1(self):
         fails = kindle_post.verify_kindle_m4b_scripture_html(_CHAPTER_HTML)
-        assert any("m4b-1" in f for f in fails)
+        assert any("m4b-1" in f and "badge" in f for f in fails)
+
+    def test_same_file_vn_link_fails_m4b_1(self):
+        # the translation analogue of m4b-1 — a vn-link still pointing same-file
+        fails = kindle_post.verify_kindle_m4b_scripture_html(_CHAPTER_HTML)
+        assert any("m4b-1" in f and "vn-link" in f for f in fails)
+
+    def test_dangling_translation_fragment_fails_m4b_5(self):
+        fails = kindle_post.verify_kindle_m4b_scripture_html(_CHAPTER_HTML)
+        # both the inline aside AND the dangling same-file #vnote- fragment fire
+        assert any("m4b-5" in f and "aside" in f for f in fails)
+        assert any("m4b-5" in f and "fragment" in f for f in fails)
 
     def test_m4b_output_passes(self, tmp_path):
         src = tmp_path / "src.epub"
         src.write_bytes(_m4b_fixture_epub())
         kindle_post.apply_kindle_m4b(src)
         assert kindle_post.verify_kindle_m4b(src) == []
+
+    def test_retargeted_scripture_passes_translation_gates(self, tmp_path):
+        src = tmp_path / "src.epub"
+        src.write_bytes(_m4b_fixture_epub())
+        kindle_post.apply_kindle_m4b(src)
+        with zipfile.ZipFile(src) as z:
+            chap = z.read("OEBPS/index_split_000_00.html").decode()
+        assert kindle_post.verify_kindle_m4b_scripture_html(chap) == []
 
     def test_raw_chapter_html_fails_m4b_5_when_inline(self):
         inline = _CHAPTER_HTML.replace(

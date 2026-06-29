@@ -144,11 +144,41 @@ Code fixes applied so far (commit `3c46a46d` = batch 1; batch 2 pending commit):
 - ✅ **Clean separators (no marker)** — `build_edition.py` `_VN_SEP_*` (non-eink → hidden U+2028 only; eink → bare `<br>`); `_KOBO_VNOTE_GAP=""`; comments updated. (batch 1)
 - ✅ **Badge-spacing drift** — `epub_working/stylesheet.css` `.verse-notes-badge,.study-glossary-jump,.vn-link { display:inline-block; white-space:nowrap }` (un-gated; Kobo + Play). (batch 2)
 - ✅ **Edition-ID relocation** — moved the `Edition ID + Build` line from the "Your Edition"/study-count page to the **copyright page** (`matter_pages.py render_copyright_page`, threaded `version` via `inject_copyright_page`; removed from `render_your_edition_page`). Reverses the 2026-06-09 move. (batch 2)
-- 🔄 **Kindle teleport (CRITICAL)** — delegated to a focused agent: route the matrix Kindle cell through the m4b endnote-relocate path AND extend the relocate to translation `vnote-*` asides (keep all content). In progress.
+- ✅ **Kindle teleport (CRITICAL)** — `scripts/core/kindle_post.py` M4b extended to relocate BOTH note families to backmatter glossaries with cross-file hrefs: study `vnotes-*` → "Study Notes" glossary (badges retargeted) + translation `vnote-*` → "Original-Language Witnesses" glossary (`vn-link` verse-number anchors retargeted), one shared splitter skeleton. Matrix Kindle cell now routes through `make_kindle_m4b`/`verify_kindle_m4b` (`build_format_matrix._apply_kindle_post`); `build_kindle.py` m4b **default-on** (`--no-m4b` = bare strip). No content dropped. `tests/test_kindle_m4b.py` 17/17 green; all 4 files compile + ruff-clean. (batch 3, commit pending). Verifies on the rebuilt Kindle artifact (step 4).
 - ⏸ **Kobo return-link missing (first category)** — DEFERRED to post-rebuild device re-QA. The return link IS emitted for *every* category (`build_edition.py:3949` via `_study_verse_return_link`), so the symptom is device-side (the first/largest category's bottom-anchored link likely scrolls off Kobo's footnote overlay), not a code miss. Diagnose on the rebuilt kepub; candidate fix = also place the link at the top of each category aside.
 - ⏳ **Still to do before the rebuild:** residual mid-verse line breaks (WS1); Kindle layout polish (justification / ToC pills via `kindle_post._flatten_toc_pills` / title-page split — after the Kindle agent returns, same file); Play ToC expandable (attempt; likely a Play reader limitation).
 
 Tests: the separator/badge-merge/edition-ID changes intentionally change build output → unit tests asserting the old glyphs/placement (`test_ws3_popup_separators`, `test_popup_split`, the matter-page tests) + the 9-KJV golden are updated together in the post-rebuild pass (step 5).
+
+## COUNT-SWEEP SURFACES (pre-located 2026-06-28; old headline = `91,555`)
+
+After the rebuild gives the exact new count (~90,191 — confirm), replace `91,555`
+on every surface below (EPUB/OPF metadata + the auto Guide-to-the-Notes regenerate
+on rebuild; these are the HAND-swept ones). Counts = occurrences per file.
+
+**Public (user mandate — must be true everywhere):**
+- `website/src/index.html` (3), `website/src/roadmap.html` (1)
+- `README.md` (1), `COPYRIGHT.md` (1)
+- `brand/BIOS.md` (4), `brand/sources/card.html` (1)
+- GitLab + GitHub repo descriptions (via the account-settings task / API — NOT in repo)
+- Social card / OG image (regenerate; `brand/sources/card.html` drives it)
+
+**Internal truth records:**
+- `dev/CHANGELOG.md` (5), `dev/SESSION_STATE.md` (2), `dev/IN_FLIGHT.md` (2),
+  `dev/MAC_WORK_QUEUE.md` (1)
+- `docs/superpowers/notes/2026-06-18-platform-kindle-r13.md` (1) — historical; leave or annotate.
+
+Verify after sweep: `grep -rn "91,555\|91555"` returns only intentional history.
+
+## Deferred to post-rebuild device re-QA (need the rebuilt artifact + auditor)
+- **Kobo return-link (first category):** code emits it for all categories → device
+  popup-position symptom. Run on the rebuilt kepub; candidate = link at top of aside.
+- **Residual mid-verse line breaks (WS1):** known fix covers gen 17:23/19:1/30:1/48:1;
+  user reports "a few more". Run `dev/audit_verse_formatting.py` on the rebuilt output
+  to enumerate the residuals, then extend the WS1 re-join (`build_edition.py` ~5929).
+- **Play ToC expandable:** our `nav.xhtml` is already nested (drives Apple's expandable
+  ToC); Play renders it flat/stuck by design (its HOW-TO-TEST notes this as expected).
+  No markup change forces Play to expand → reader limitation, not a defect. Confirm.
 
 ## Remediation sequence (one rebuild, not many)
 1. ✅ Content: User notes removed (validate + commit).

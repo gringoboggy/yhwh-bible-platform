@@ -43,6 +43,8 @@ from __future__ import annotations
 import html
 import re
 import zipfile
+from collections.abc import Callable
+from dataclasses import dataclass
 from pathlib import Path
 
 from scripts.core.zip_repro import ocf_member_bytes  # round-14 A1: OS-independent OCF bytes
@@ -267,7 +269,22 @@ def verify_kindle_safe(epub_path: Path | str) -> list[str]:
     return fails
 
 
-# --- M4b: study glossary backmatter (Kobo K-R9 mirror) + badge navigate ---
+# --- M4b: relocate hidden popups to reachable backmatter endnotes ---
+#
+# Kindle has no popups by design (HOW-TO-TEST.txt) — every hidden note must
+# become a VISIBLE endnote the badge/verse-number link can actually navigate to.
+# make_kindle_safe alone strips the hidden display:none but LEAVES the source
+# links pointing at now-dangling same-file ``#vnotes-…`` / ``#vnote-…`` fragments,
+# which Kindle resolves to the spine FILE (landing on the last badge of the
+# chunk — the "teleport" bug). M4b relocates BOTH note families into backmatter
+# glossary files with cross-file hrefs:
+#   * study  ``vnotes-…`` asides  → "Study Notes" glossary, badges retargeted
+#   * translation ``vnote-…`` asides → "Original-Language Witnesses" glossary,
+#     verse-number ``vn-link`` anchors retargeted
+# Both glossaries share ONE skeleton (``study-notes-index`` section /
+# ``study-book-head`` h2 / ``study-glossary-entry`` div) so the proven, memory-
+# streaming ``split_study_glossary_document`` splitter cuts either one; they
+# differ only by stem, heading, ids, and which source link is retargeted.
 
 _VN_LINK_RE = re.compile(r'<a\s+class="vn-link"', re.I)
 _VERSE_NOTES_BADGE_RE = re.compile(
@@ -325,9 +342,11 @@ _KINDLE_M4B_CSS = """
 
 
 KINDLE_STUDY_GLOSSARY_STEM = "kindle_study_glossary"
+KINDLE_WITNESS_GLOSSARY_STEM = "kindle_witness_glossary"
 KINDLE_GLOSSARY_SPLIT_TARGET = 400_000
 _SCRIPTURE_HTML_RE = re.compile(r"^index_split_\d+", re.I)
-_GLOSSARY_HTML_RE = re.compile(rf"^{re.escape(KINDLE_STUDY_GLOSSARY_STEM)}(?:_\d+)?\.html$", re.I)
+_STUDY_GLOSSARY_HTML_RE = re.compile(rf"^{re.escape(KINDLE_STUDY_GLOSSARY_STEM)}(?:_\d+)?\.html$", re.I)
+_WITNESS_GLOSSARY_HTML_RE = re.compile(rf"^{re.escape(KINDLE_WITNESS_GLOSSARY_STEM)}(?:_\d+)?\.html$", re.I)
 _BACKMATTER_SPINE_MARKERS = ("backsources", "backreftables", "backtopical", "backcolophon", "studynotes")
 
 
@@ -346,8 +365,17 @@ def _is_scripture_html(name: str) -> bool:
     return bool(_SCRIPTURE_HTML_RE.match(base))
 
 
+def _is_study_glossary_html(name: str) -> bool:
+    return bool(_STUDY_GLOSSARY_HTML_RE.match(Path(name).name))
+
+
+def _is_witness_glossary_html(name: str) -> bool:
+    return bool(_WITNESS_GLOSSARY_HTML_RE.match(Path(name).name))
+
+
 def _is_glossary_html(name: str) -> bool:
-    return bool(_GLOSSARY_HTML_RE.match(Path(name).name))
+    """Either relocated-notes backmatter family (study OR original-language witnesses)."""
+    return _is_study_glossary_html(name) or _is_witness_glossary_html(name)
 
 
 def _orphan_vnotes_in_prose(html: str) -> list[str]:
@@ -355,17 +383,14 @@ def _orphan_vnotes_in_prose(html: str) -> list[str]:
     return sorted(set(re.findall(r'<aside\b[^>]*\bid="(vnotes-[^"]+)"', prose, re.I)))
 
 
-def _inline_vnotes_in_prose(html: str) -> list[str]:
-    """Translation ``vnote-*`` asides spliced directly after a verse paragraph.
+def _inline_witness_asides_in_prose(html: str) -> list[str]:
+    """Translation ``vnote-*`` asides still embedded in scripture (any container).
 
-    Hidden tail popups (the proven STK-deliverable shape) are not matched."""
+    The M4b contract RELOCATES every translation aside to the witness glossary,
+    so a built artifact must have none — an inline survivor is the teleport-bug
+    shape (a hidden tail popup whose ``vn-link`` resolves to the spine file)."""
     prose = _strip_kindle_vnote_blocks(_strip_kindle_study_blocks(html))
-    pat = re.compile(
-        r'<p[^>]*\bclass="[^"]*\bverse-p[^"]*"[^>]*>.*?</p>\s*'
-        r'<aside\b[^>]*\bid="(vnote-[^"]+)"',
-        re.DOTALL | re.I,
-    )
-    return sorted(set(m.group(1) for m in pat.finditer(prose)))
+    return sorted(set(re.findall(r'<aside\b[^>]*\bid="(vnote-[^"]+)"', prose, re.I)))
 
 
 _VN_BACK_VBADGE_RE = re.compile(
@@ -377,6 +402,17 @@ _BADGE_HREF_RE = re.compile(
     r'(<a\s+class="verse-notes-badge"[^>]*\bhref=")#(vnotes-[^"]+)(")',
     re.I,
 )
+# Translation twin of _BADGE_HREF_RE: the verse-number anchor's forward link.
+# ``vnote-`` (no trailing ``s``) is prefix-exact — it can never match a study
+# ``#vnotes-…`` badge href (the ``s`` breaks the literal ``vnote-``), so the two
+# retargeters stay strictly disjoint.
+_VN_LINK_HREF_RE = re.compile(
+    r'(<a\s+class="vn-link"[^>]*\bhref=")#(vnote-[^"]+)(")',
+    re.I,
+)
+# Any surviving SAME-FILE translation fragment in scripture (the teleport
+# trigger). Same prefix-exactness: ``#vnote-`` never matches ``#vnotes-``.
+_SAME_FILE_VNOTE_HREF_RE = re.compile(r'href="#(vnote-[^"]+)"', re.I)
 _VN_LINK_ID_ANY_RE = re.compile(r'\bid="(v-[^"]+)"', re.I)
 _V_HREF_BARE_RE = re.compile(r'href="#(v-[a-z0-9]+-\d+-\d+[a-z]?)"', re.I)
 
@@ -431,20 +467,44 @@ def _prepare_glossary_aside(
     return back + aside_html
 
 
-def _extract_m4b_asides(html: str) -> tuple[str, dict[str, str]]:
-    """Extract study ``vnotes-*`` asides. Translation ``vnote-*`` popups stay put."""
-    asides: dict[str, str] = {}
+def _prepare_witness_aside(
+    aside_html: str,
+    aid: str,
+    *,
+    v_anchor_files: dict[str, str],
+) -> str:
+    """Unhide a relocated translation aside and make its existing ``vnote-back``
+    link (``href="#v-…"``) navigate cross-file back to the verse. Translation
+    asides already ship a back link, so — unlike the study path — none is
+    injected; the same ``_retarget_glossary_xrefs`` pass that handles study
+    ``#v-…`` xrefs rewrites it to the scripture spine file."""
+    aside_html = _HIDDEN_ATTR_RE.sub("", aside_html)
+    return _retarget_glossary_xrefs(aside_html, v_anchor_files)
 
-    def _take_vnotes(m: re.Match) -> str:
-        asides[m.group(1)] = m.group(0)
+
+def _extract_m4b_asides(html: str) -> tuple[str, dict[str, str], dict[str, str]]:
+    """Pull BOTH note families out of scripture: study ``vnotes-*`` asides and
+    translation ``vnote-*`` asides. Returns ``(html, study, witness)``. The id
+    prefixes are disjoint (``vnotes-`` carries the trailing ``s``; ``vnote-``
+    does not), so neither regex can steal the other family's asides."""
+    study: dict[str, str] = {}
+    witness: dict[str, str] = {}
+
+    def _take_study(m: re.Match) -> str:
+        study[m.group(1)] = m.group(0)
         return ""
 
-    html = _VNOTES_ASIDE_RE.sub(_take_vnotes, html)
-    return html, asides
+    def _take_witness(m: re.Match) -> str:
+        witness[m.group(1)] = m.group(0)
+        return ""
+
+    html = _VNOTES_ASIDE_RE.sub(_take_study, html)
+    html = _VNOTE_ASIDE_RE.sub(_take_witness, html)
+    return html, study, witness
 
 
-def _vnotes_sort_key(aid: str) -> tuple:
-    cm = _VNOTES_COORD_RE.match(aid)
+def _coord_sort_key(aid: str, coord_re: re.Pattern[str]) -> tuple:
+    cm = coord_re.match(aid)
     if not cm:
         return (9999, 0, 0, aid)
     from scripts.core import config as _config
@@ -455,31 +515,70 @@ def _vnotes_sort_key(aid: str) -> tuple:
     return (rank.get(code, len(book_order) + 1), int(cm.group(2)), int(cm.group(3)), aid)
 
 
-def _render_kindle_study_glossary(entries: list[tuple[str, str]], title: str = "Study Notes") -> str:
+def _retarget_vn_links(html: str, id_to_href: dict[str, str]) -> tuple[str, int]:
+    """Translation twin of :func:`_retarget_study_badges`: point each verse-number
+    ``vn-link`` at its relocated witness endnote (cross-file). A same-file target
+    with no relocated endnote is left untouched (a verify gate flags it)."""
+    retargeted = 0
+
+    def _repl(m: re.Match) -> str:
+        nonlocal retargeted
+        aid = m.group(2)
+        target = id_to_href.get(aid)
+        if not target:
+            return m.group(0)
+        retargeted += 1
+        return f"{m.group(1)}{target}{m.group(3)}"
+
+    return _VN_LINK_HREF_RE.sub(_repl, html), retargeted
+
+
+@dataclass(frozen=True)
+class _GlossarySpec:
+    """The per-family knobs over the ONE shared relocate→render→split→retarget
+    glossary path. ``prepare`` unhides one relocated aside and wires its back
+    navigation; everything else parametrizes the rendered backmatter file. Both
+    families render into the SAME ``study-notes-index`` skeleton classes so the
+    proven, memory-streaming ``split_study_glossary_document`` cuts either one."""
+
+    stem: str
+    coord_re: re.Pattern[str]
+    id_prefix: str  # aside id prefix, stripped to form the entry id
+    h1: str
+    lead_html: str
+    book_id_prefix: str  # the per-book <h2> id prefix
+    entry_id_prefix: str  # the per-entry <div> id prefix
+    item_id_prefix: str  # the OPF manifest/spine item-id prefix
+    nav_label: str  # the nav + ncx label AND the document <title>
+    ncx_id: str
+    prepare: Callable[..., str]
+
+
+def _render_kindle_glossary(entries: list[tuple[str, str]], spec: _GlossarySpec) -> str:
+    """Render relocated asides into the shared ``study-notes-index`` skeleton,
+    grouped by canon book. ``spec`` supplies the heading, lead, and id prefixes."""
     from scripts.core import config as _config
 
     books_by_code = _config.books_by_code()
     body_parts = [
         '<section class="study-notes-index" epub:type="backmatter">',
-        "<h1>Study Notes</h1>",
-        '<p class="study-notes-lead">Coloured badges after each verse open study notes '
-        "by category. Tap a badge to jump here. Tap the ↩ link or verse tag to return "
-        "to scripture. Tap a verse number at the start of a line for translation text.</p>",
+        f"<h1>{html.escape(spec.h1)}</h1>",
+        spec.lead_html,
     ]
     current_code: str | None = None
     for aid, aside_html in entries:
-        cm = _VNOTES_COORD_RE.match(aid)
+        cm = spec.coord_re.match(aid)
         code = cm.group(1) if cm else "misc"
         if code != current_code:
             current_code = code
             rec = books_by_code.get(code) or {}
-            book_title = html.escape((rec.get("toc_title") or rec.get("title") or code.upper()))
-            body_parts.append(f'<h2 class="study-book-head" id="study-{code}">{book_title}</h2>')
-        entry_id = f"study-entry-{aid.removeprefix('vnotes-')}"
+            book_title = html.escape(rec.get("toc_title") or rec.get("title") or code.upper())
+            body_parts.append(f'<h2 class="study-book-head" id="{spec.book_id_prefix}-{code}">{book_title}</h2>')
+        entry_id = f"{spec.entry_id_prefix}{aid.removeprefix(spec.id_prefix)}"
         body_parts.append(f'<div class="study-glossary-entry" id="{entry_id}">\n{aside_html}\n</div>')
     body_parts.append("</section>")
     body = "\n".join(body_parts)
-    safe_title = html.escape(title)
+    safe_title = html.escape(spec.nav_label)
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
@@ -495,16 +594,54 @@ def _render_kindle_study_glossary(entries: list[tuple[str, str]], title: str = "
 """
 
 
-def _split_kindle_glossary(text: str) -> list[tuple[str, str]]:
+_STUDY_GLOSSARY_SPEC = _GlossarySpec(
+    stem=KINDLE_STUDY_GLOSSARY_STEM,
+    coord_re=_VNOTES_COORD_RE,
+    id_prefix="vnotes-",
+    h1="Study Notes",
+    lead_html=(
+        '<p class="study-notes-lead">Coloured badges after each verse open study notes '
+        "by category. Tap a badge to jump here. Tap the ↩ link or verse tag to return "
+        "to scripture. Tap a verse number at the start of a line for translation text.</p>"
+    ),
+    book_id_prefix="study",
+    entry_id_prefix="study-entry-",
+    item_id_prefix="kindle-studynotes",
+    nav_label="Study Notes",
+    ncx_id="num-kindle-studynotes",
+    prepare=_prepare_glossary_aside,
+)
+
+_WITNESS_GLOSSARY_SPEC = _GlossarySpec(
+    stem=KINDLE_WITNESS_GLOSSARY_STEM,
+    coord_re=_VNOTE_COORD_RE,
+    id_prefix="vnote-",
+    h1="Original-Language Witnesses",
+    lead_html=(
+        '<p class="witness-notes-lead">Each verse number links here to that verse’s '
+        "original-language witnesses — Hebrew, Greek, Latin, and Arabic. Tap the ↩ "
+        "link to return to scripture.</p>"
+    ),
+    book_id_prefix="witness",
+    entry_id_prefix="witness-entry-",
+    item_id_prefix="kindle-witnesses",
+    nav_label="Original-Language Witnesses",
+    ncx_id="num-kindle-witnesses",
+    prepare=_prepare_witness_aside,
+)
+
+
+def _split_kindle_glossary(text: str, stem: str) -> list[tuple[str, str]]:
     from scripts.build_edition import split_study_glossary_document
 
-    return split_study_glossary_document(text, KINDLE_STUDY_GLOSSARY_STEM, KINDLE_GLOSSARY_SPLIT_TARGET)
+    return split_study_glossary_document(text, stem, KINDLE_GLOSSARY_SPLIT_TARGET)
 
 
-def _glossary_target_hrefs(pieces: list[tuple[str, str]]) -> dict[str, str]:
+def _glossary_target_hrefs(pieces: list[tuple[str, str]], id_prefix: str) -> dict[str, str]:
+    aside_id_re = re.compile(rf'<aside\b[^>]*\bid="({re.escape(id_prefix)}[^"]+)"', re.I)
     out: dict[str, str] = {}
     for piece_name, piece_text in pieces:
-        for aid in re.findall(r'<aside\b[^>]*\bid="(vnotes-[^"]+)"', piece_text, re.I):
+        for aid in aside_id_re.findall(piece_text):
             out[aid] = f"{piece_name}#{aid}"
     return out
 
@@ -524,23 +661,161 @@ def _retarget_study_badges(html: str, id_to_href: dict[str, str]) -> tuple[str, 
     return _BADGE_HREF_RE.sub(_repl, html), retargeted
 
 
-def _clean_scripture_html(html: str) -> tuple[str, dict[str, str]]:
+def _clean_scripture_html(html: str) -> tuple[str, dict[str, str], dict[str, str]]:
+    """Strip both note families out of scripture and drop their now-empty
+    containers. Returns ``(cleaned_html, study_asides, witness_asides)``."""
     html = _strip_kindle_study_blocks(html)
     html = _strip_kindle_vnote_blocks(html)
-    html, asides = _extract_m4b_asides(html)
+    html, study, witness = _extract_m4b_asides(html)
     html = _EMPTY_NOTES_SECTION_RE.sub("", html)
-    return html, asides
+    html = _EMPTY_VERSE_REFS_RE.sub("", html)
+    return html, study, witness
 
 
 def _glossary_already_present(data: dict[str, bytes]) -> bool:
     return any(_is_glossary_html(name) for name in data)
 
 
+def _register_glossary_in_opf(
+    data: dict[str, bytes], order: list[str], piece_names: list[str], spec: _GlossarySpec
+) -> None:
+    opf_name = next((n for n in order if n.endswith(".opf")), None)
+    if not opf_name:
+        return
+    opf = data[opf_name].decode("utf-8")
+    manifest_add: list[str] = []
+    spine_add: list[str] = []
+    for k, piece_name in enumerate(piece_names):
+        if piece_name in opf:
+            continue
+        item_id = f"{spec.item_id_prefix}-{k:02d}"
+        manifest_add.append(f'    <item id="{item_id}" href="{piece_name}" media-type="application/xhtml+xml"/>')
+        spine_add.append(f'    <itemref idref="{item_id}"/>')
+    if manifest_add:
+        opf = opf.replace("</manifest>", "\n" + "\n".join(manifest_add) + "\n  </manifest>")
+    if spine_add:
+        needle = next(
+            (f'<itemref idref="{m}"' for m in _BACKMATTER_SPINE_MARKERS if f'<itemref idref="{m}"' in opf), None
+        )
+        if needle:
+            opf = opf.replace(needle, "\n".join(spine_add) + "\n    " + needle, 1)
+        else:
+            opf = opf.replace("</spine>", "\n" + "\n".join(spine_add) + "\n  </spine>")
+    data[opf_name] = opf.encode("utf-8")
+
+
+def _register_glossary_in_nav(data: dict[str, bytes], order: list[str], first_piece: str, spec: _GlossarySpec) -> None:
+    nav_name = next((n for n in order if Path(n).name == "nav.xhtml"), None)
+    if not nav_name:
+        return
+    nav = data[nav_name].decode("utf-8")
+    if first_piece in nav:
+        return
+    nav_li = f'      <li><a href="{first_piece}">{spec.nav_label}</a></li>\n'
+    sources_m = re.search(r"<li>\s*<a\s+href=\"sources\.xhtml\"", nav, re.I)
+    if sources_m:
+        nav = nav[: sources_m.start()] + nav_li + nav[sources_m.start() :]
+    else:
+        nav = nav.replace("</ol>", "\n" + nav_li + "    </ol>", 1)
+    data[nav_name] = nav.encode("utf-8")
+
+
+def _register_glossary_in_ncx(data: dict[str, bytes], order: list[str], first_piece: str, spec: _GlossarySpec) -> None:
+    ncx_name = next((n for n in order if Path(n).name == "toc.ncx"), None)
+    if not ncx_name:
+        return
+    ncx = data[ncx_name].decode("utf-8")
+    if first_piece in ncx:
+        return
+    nav_point = (
+        f'\n    <navPoint id="{spec.ncx_id}" playOrder="0">'
+        f"<navLabel><text>{html.escape(spec.nav_label)}</text></navLabel>"
+        f'<content src="{first_piece}"/></navPoint>'
+    )
+    ncx = ncx.replace("</navMap>", nav_point + "\n  </navMap>")
+    counter = [0]
+
+    def _renum(_m: re.Match) -> str:
+        counter[0] += 1
+        return f'playOrder="{counter[0]}"'
+
+    data[ncx_name] = re.sub(r'playOrder="\d+"', _renum, ncx).encode("utf-8")
+
+
+def _insert_glossary_pieces(
+    data: dict[str, bytes], order: list[str], pieces: list[tuple[str, str]], spec: _GlossarySpec
+) -> None:
+    """Splice rendered glossary pieces into the package: write the members just
+    before the first backmatter spine file and register them in the OPF
+    (manifest + spine), nav, and ncx. Parametrized by ``spec`` so the study and
+    witness glossaries share ONE insertion path; calling it twice stacks the two
+    glossaries (study, then witness) ahead of the existing backmatter."""
+    piece_names = [piece_name for piece_name, _ in pieces]
+    insert_at = len(order)
+    for idx, name in enumerate(order):
+        if Path(name).name in {"sources.xhtml", "reftables.xhtml", "topical.xhtml", "colophonend.xhtml"}:
+            insert_at = idx
+            break
+    for offset, (piece_name, piece_text) in enumerate(pieces):
+        data[piece_name] = piece_text.encode("utf-8")
+        order.insert(insert_at + offset, piece_name)
+
+    _register_glossary_in_opf(data, order, piece_names, spec)
+    _register_glossary_in_nav(data, order, piece_names[0], spec)
+    _register_glossary_in_ncx(data, order, piece_names[0], spec)
+
+
+def _relocate_glossary(
+    data: dict[str, bytes],
+    order: list[str],
+    asides: dict[str, str],
+    v_anchor_files: dict[str, str],
+    spec: _GlossarySpec,
+) -> tuple[list[tuple[str, str]], dict[str, str]]:
+    """Relocate one note family into its backmatter glossary and splice it into
+    the package. Returns ``(pieces, id_to_href)`` — empty when there is nothing
+    to move (e.g. an edition with no translation popups)."""
+    if not asides:
+        return [], {}
+    entries = sorted(
+        ((aid, spec.prepare(asides[aid], aid, v_anchor_files=v_anchor_files)) for aid in asides),
+        key=lambda row: _coord_sort_key(row[0], spec.coord_re),
+    )
+    glossary_html = _render_kindle_glossary(entries, spec)
+    pieces = _split_kindle_glossary(glossary_html, spec.stem)
+    id_to_href = _glossary_target_hrefs(pieces, spec.id_prefix)
+    _insert_glossary_pieces(data, order, pieces, spec)
+    return pieces, id_to_href
+
+
+def _retarget_in_scripture(
+    data: dict[str, bytes],
+    order: list[str],
+    id_to_href: dict[str, str],
+    retarget: Callable[[str, dict[str, str]], tuple[str, int]],
+) -> int:
+    """Run a source-link retargeter over every scripture file; return the total
+    links repointed. No-op (and no re-encode) when there is nothing to retarget."""
+    if not id_to_href:
+        return 0
+    total = 0
+    for name in order:
+        if not name.endswith(_DOC_SUFFIXES) or not _is_scripture_html(name):
+            continue
+        text = data[name].decode("utf-8")
+        text, n = retarget(text, id_to_href)
+        if n:
+            data[name] = text.encode("utf-8")
+            total += n
+    return total
+
+
 def _apply_kindle_m4b_members(data: dict[str, bytes], order: list[str]) -> dict:
     if _glossary_already_present(data):
         return {"glossary_skipped": 1}
 
-    collected: dict[str, str] = {}
+    study_asides: dict[str, str] = {}
+    witness_asides: dict[str, str] = {}
     v_anchor_files: dict[str, str] = {}
     vn_links_before = 0
     badges_before = 0
@@ -555,111 +830,41 @@ def _apply_kindle_m4b_members(data: dict[str, bytes], order: list[str]) -> dict:
         for v_id in _VN_LINK_ID_ANY_RE.findall(text):
             if v_id.startswith("v-"):
                 v_anchor_files[v_id] = spine
-        cleaned, asides = _clean_scripture_html(text)
-        collected.update(asides)
+        cleaned, study, witness = _clean_scripture_html(text)
+        study_asides.update(study)
+        witness_asides.update(witness)
         data[name] = cleaned.encode("utf-8")
 
-    if not collected:
-        return {"asides_relocated": 0, "badges_retargeted": 0, "glossary_pieces": 0, "vn_links": vn_links_before}
+    # Study glossary: relocate vnotes-* asides, then retarget the badge links.
+    study_pieces, study_hrefs = _relocate_glossary(data, order, study_asides, v_anchor_files, _STUDY_GLOSSARY_SPEC)
+    badges_retargeted = _retarget_in_scripture(data, order, study_hrefs, _retarget_study_badges)
 
-    entries = sorted(
-        ((aid, _prepare_glossary_aside(collected[aid], aid, v_anchor_files=v_anchor_files)) for aid in collected),
-        key=lambda row: _vnotes_sort_key(row[0]),
+    # Witness glossary: relocate vnote-* asides, then retarget the vn-link links.
+    witness_pieces, witness_hrefs = _relocate_glossary(
+        data, order, witness_asides, v_anchor_files, _WITNESS_GLOSSARY_SPEC
     )
-    glossary_html = _render_kindle_study_glossary(entries)
-    pieces = _split_kindle_glossary(glossary_html)
-    id_to_href = _glossary_target_hrefs(pieces)
-
-    badges_retargeted = 0
-    for name in order:
-        if not name.endswith(_DOC_SUFFIXES) or not _is_scripture_html(name):
-            continue
-        text = data[name].decode("utf-8")
-        text, n = _retarget_study_badges(text, id_to_href)
-        badges_retargeted += n
-        data[name] = text.encode("utf-8")
-
-    glossary_names = [piece_name for piece_name, _ in pieces]
-    insert_at = len(order)
-    for idx, name in enumerate(order):
-        base = Path(name).name
-        if base in {"sources.xhtml", "reftables.xhtml", "topical.xhtml", "colophonend.xhtml"}:
-            insert_at = idx
-            break
-
-    for offset, (piece_name, piece_text) in enumerate(pieces):
-        data[piece_name] = piece_text.encode("utf-8")
-        order.insert(insert_at + offset, piece_name)
-
-    opf_name = next((n for n in order if n.endswith(".opf")), None)
-    if opf_name:
-        opf = data[opf_name].decode("utf-8")
-        manifest_add: list[str] = []
-        spine_add: list[str] = []
-        for k, piece_name in enumerate(glossary_names):
-            item_id = f"kindle-studynotes-{k:02d}"
-            if piece_name not in opf:
-                manifest_add.append(
-                    f'    <item id="{item_id}" href="{piece_name}" media-type="application/xhtml+xml"/>'
-                )
-                spine_add.append(f'    <itemref idref="{item_id}"/>')
-        if manifest_add:
-            opf = opf.replace("</manifest>", "\n" + "\n".join(manifest_add) + "\n  </manifest>")
-        if spine_add:
-            inserted = False
-            for marker in _BACKMATTER_SPINE_MARKERS:
-                needle = f'<itemref idref="{marker}"'
-                if needle in opf:
-                    opf = opf.replace(needle, "\n".join(spine_add) + "\n    " + needle, 1)
-                    inserted = True
-                    break
-            if not inserted:
-                opf = opf.replace("</spine>", "\n" + "\n".join(spine_add) + "\n  </spine>")
-        data[opf_name] = opf.encode("utf-8")
-
-    first_piece = glossary_names[0]
-    nav_name = next((n for n in order if Path(n).name == "nav.xhtml"), None)
-    if nav_name and first_piece not in data[nav_name].decode("utf-8"):
-        nav = data[nav_name].decode("utf-8")
-        study_li = f'      <li><a href="{first_piece}">Study Notes</a></li>\n'
-        sources_m = re.search(r"<li>\s*<a\s+href=\"sources\.xhtml\"", nav, re.I)
-        if sources_m:
-            nav = nav[: sources_m.start()] + study_li + nav[sources_m.start() :]
-        else:
-            nav = nav.replace("</ol>", "\n" + study_li + "    </ol>", 1)
-        data[nav_name] = nav.encode("utf-8")
-
-    ncx_name = next((n for n in order if Path(n).name == "toc.ncx"), None)
-    if ncx_name and first_piece not in data[ncx_name].decode("utf-8"):
-        ncx = data[ncx_name].decode("utf-8")
-        study_np = (
-            f'\n    <navPoint id="num-kindle-studynotes" playOrder="0">'
-            f"<navLabel><text>Study Notes</text></navLabel>"
-            f'<content src="{first_piece}"/></navPoint>'
-        )
-        ncx = ncx.replace("</navMap>", study_np + "\n  </navMap>")
-        counter = [0]
-
-        def _renum(_m: re.Match) -> str:
-            counter[0] += 1
-            return f'playOrder="{counter[0]}"'
-
-        data[ncx_name] = re.sub(r'playOrder="\d+"', _renum, ncx).encode("utf-8")
+    vn_links_retargeted = _retarget_in_scripture(data, order, witness_hrefs, _retarget_vn_links)
 
     return {
-        "asides_relocated": len(collected),
+        "asides_relocated": len(study_asides),
         "badges_retargeted": badges_retargeted,
-        "glossary_pieces": len(pieces),
+        "glossary_pieces": len(study_pieces),
+        "witness_relocated": len(witness_asides),
+        "vn_links_retargeted": vn_links_retargeted,
+        "witness_pieces": len(witness_pieces),
         "vn_links": vn_links_before,
         "badges_kept": badges_before,
     }
 
 
 def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
-    """Single-document shim — real M4b runs at EPUB scope in ``apply_kindle_m4b``."""
-    cleaned, asides = _clean_scripture_html(html)
+    """Single-document shim — real M4b runs at EPUB scope in ``apply_kindle_m4b``.
+    Both note families are extracted; the cross-file relocation/retargeting only
+    happens at EPUB scope (it needs the spine to place backmatter)."""
+    cleaned, study, witness = _clean_scripture_html(html)
     stats = {
-        "asides_relocated": len(asides),
+        "asides_relocated": len(study),
+        "witness_relocated": len(witness),
         "vn_links": len(_VN_LINK_RE.findall(html)),
         "badges_kept": len(_VERSE_NOTES_BADGE_RE.findall(html)),
     }
@@ -667,7 +872,11 @@ def apply_kindle_m4b_html(html: str) -> tuple[str, dict]:
 
 
 def apply_kindle_m4b(epub_path: Path | str) -> dict:
-    """Option B: study glossary backmatter + badge navigate; scripture stays intact."""
+    """Relocate BOTH note families to reachable backmatter endnotes: study notes
+    to the "Study Notes" glossary (badges retargeted) and translation popups to
+    the "Original-Language Witnesses" glossary (verse-number vn-links retargeted).
+    Scripture prose stays intact; only the note asides move and their source
+    links become cross-file."""
     epub_path = Path(epub_path)
     with zipfile.ZipFile(epub_path) as zin:
         order = [i.filename for i in zin.infolist()]
@@ -690,14 +899,20 @@ def verify_kindle_m4b_scripture_html(html: str) -> list[str]:
     fails: list[str] = []
     if "kindle-chapter-study" in html:
         fails.append("m4b-6: retired kindle-chapter-study block survives in scripture")
+    # study side
     for aid in _orphan_vnotes_in_prose(html):
         fails.append(f"m4b-2: vnotes aside {aid!r} still in scripture prose")
     for m in _BADGE_HREF_RE.finditer(html):
-        target = m.group(2)
-        if not target.startswith(f"{KINDLE_STUDY_GLOSSARY_STEM}"):
-            fails.append(f"m4b-1: study badge still targets same-file #{target}")
-    for vid in _inline_vnotes_in_prose(html):
-        fails.append(f"m4b-5: translation vnote {vid!r} inlined in scripture prose")
+        fails.append(f"m4b-1: study badge still targets same-file #{m.group(2)}")
+    # translation side: vn-links must navigate cross-file (analogue of m4b-1)
+    for m in _VN_LINK_HREF_RE.finditer(html):
+        fails.append(f"m4b-1: vn-link still targets same-file #{m.group(2)}")
+    # m4b-5: translations are RELOCATED, not stripped — neither an inline aside
+    # nor a dangling same-file #vnote- fragment may survive in scripture prose.
+    for vid in _inline_witness_asides_in_prose(html):
+        fails.append(f"m4b-5: translation vnote aside {vid!r} not relocated from scripture")
+    for m in _SAME_FILE_VNOTE_HREF_RE.finditer(html):
+        fails.append(f"m4b-5: dangling same-file translation fragment #{m.group(1)} in scripture")
     return fails
 
 
@@ -722,11 +937,14 @@ def verify_kindle_m4b(epub_path: Path | str) -> list[str]:
     """Assert M4b structural contract + kindle_safe conformance."""
     epub_path = Path(epub_path)
     fails = list(verify_kindle_safe(epub_path))
-    has_glossary = False
+    has_study_glossary = False
+    has_witness_glossary = False
     has_study_badges = False
+    has_vn_links = False
     with zipfile.ZipFile(epub_path) as z:
         names = z.namelist()
-        has_glossary = any(_is_glossary_html(n) for n in names)
+        has_study_glossary = any(_is_study_glossary_html(n) for n in names)
+        has_witness_glossary = any(_is_witness_glossary_html(n) for n in names)
         for name in names:
             if not name.endswith(_DOC_SUFFIXES):
                 continue
@@ -738,14 +956,19 @@ def verify_kindle_m4b(epub_path: Path | str) -> list[str]:
                 text = z.read(name).decode("utf-8", "replace")
                 if "verse-notes-badge" in text:
                     has_study_badges = True
+                if _VN_LINK_RE.search(text):
+                    has_vn_links = True
                 fails.extend(f"{name}: {msg}" for msg in verify_kindle_m4b_scripture_html(text))
-    if has_study_badges and not has_glossary:
+    if has_study_badges and not has_study_glossary:
         fails.append("m4b-3: study badges present but no kindle_study_glossary spine file")
+    if has_vn_links and not has_witness_glossary:
+        fails.append("m4b-3: translation vn-links present but no kindle_witness_glossary spine file")
     return fails
 
 
 def make_kindle_m4b(src_epub: Path | str, dst_epub: Path | str) -> dict:
-    """Proven june10 recipe + M4b study glossary backmatter. Returns merged stats."""
+    """Proven june10 recipe + M4b backmatter relocation (study glossary AND
+    original-language witness glossary). Returns merged stats."""
     src_epub, dst_epub = Path(src_epub), Path(dst_epub)
     safe_stats = make_kindle_safe(src_epub, dst_epub)
     m4b_stats = apply_kindle_m4b(dst_epub)
