@@ -61,6 +61,28 @@ Served at **www.yhwhyaway.com** (DNS via the Spaceship DNS API: apex `A` → 185
 `www CNAME` → `gringoboggy.github.io`). Commit with the GitHub no-reply email so personal
 email never enters public history.
 
+## Regenerate the social card (OG image)
+
+`social-card.png` (the 1280×630 Open Graph image) is a **screenshot of `../brand/sources/card.html`** —
+there is no build step for it, so re-render it by hand whenever the card's copy changes (e.g. the
+study-note count). `card.html` is self-contained: its `<style>` sets `width:1280px;height:630px` and
+pulls the palette + `@font-face` rules from `fonts.css` in the same folder.
+
+1. Edit `../brand/sources/card.html` (the `.facts` line carries the note count).
+2. Render it at exactly **1280×630**, **after web-fonts load**, and screenshot to `website/social-card.png`.
+   Chrome/Playwright block the `file:` protocol, so serve the folder over localhost first:
+   ```
+   ( cd ../brand/sources && python3 -m http.server 8753 --bind 127.0.0.1 )   # then, in a headless browser:
+   #   viewport 1280×630 → navigate http://127.0.0.1:8753/card.html
+   #   → await document.fonts.ready  (else EB Garamond / Noto Serif Ethiopic render as fallback)
+   #   → screenshot the viewport → website/social-card.png
+   ```
+   The Mac lane does this with the Playwright MCP: `browser_resize 1280×630` → `browser_navigate` →
+   `browser_evaluate document.fonts.ready` → `browser_take_screenshot`. Verify the PNG is 1280×630.
+3. **Bump the cache-bust** so OG/Twitter re-fetch it: in `partials/head.html`, change
+   `social-card.png?v=YYYYMMDD` on the `og:image` **and** `twitter:image` lines to today's date.
+4. `node website/build.mjs`, then deploy as above.
+
 ## Edit it
 
 - **Change wording on a page** → edit `src/<page>.html`, rebuild, re-upload.
