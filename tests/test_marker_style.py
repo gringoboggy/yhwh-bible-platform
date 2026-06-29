@@ -508,19 +508,20 @@ class TestApplyBadgeMarkersUnit:
 
 
 class TestKoboPreviewSeparators:
-    """K-R3-2 (Kobo round 3, kobo1/5/6/7): Kobo eInk's Footnote preview is a
-    TAG-STRIPPED plain-text extraction (vendor-documented) — every block
-    boundary in the merged aside flattens into one run-on line. The fix bakes
-    plain-TEXT separators into the markup (`.vn-sep` spans: ¶ before category
-    heads, ◦ before source bylines, • before each note row) and hides them
-    via CSS wherever CSS applies (the real page; conformant popups like Apple
-    Books). The eInk preview ignores CSS, so only there do they show."""
+    """K-R3-2 history → device-QA 2026-06-28 "clean, no marker": the merged-aside
+    `.vn-sep` spans (display:none; surfacing only in CSS-blind popup previews like
+    Kobo's / Play's) USED to carry visible ¶ / ◦ / • glyphs to keep blocks apart.
+    The user's 4-reader QA found those glyphs CLUTTERED the popups, so the visible
+    marks were dropped on every profile for the STUDY cascade — the `.vn-sep` now
+    carries ONLY the structural U+2028 (block <p> flow + U+2028 carry the separation;
+    eink adds a bare <br>). These assert the U+2028-only, glyph-free study form.
+    (The translation vnote popups are a separate path — see TestVnotePreviewSeparators.)"""
 
     def test_vn_item_rows_carry_text_separator(self):
         from scripts.build_edition import _badge_aside_inner_to_row
 
         row = _badge_aside_inner_to_row("<p>body text</p>", "comm")
-        assert row.startswith('<div class="vn-item note-comm"><span class="vn-sep">\u2028• </span>'), row
+        assert row.startswith('<div class="vn-item note-comm"><span class="vn-sep">\u2028</span>'), row
         assert "body text" in row
 
     def test_cascade_heads_and_bylines_carry_text_separators(self):
@@ -544,8 +545,8 @@ class TestKoboPreviewSeparators:
         ]
         out = _emit_cascade_sections(rows, {"lang": ("⌘", "Linguistic"), "topic": ("✦", "Topical")})
         # every category head leads with the ¶ separator; every byline with ◦
-        assert out.count('<p class="vn-cat-head"><span class="vn-sep">\u2028¶ </span>') == 2, out
-        assert out.count('<p class="vn-source-byline"><span class="vn-sep">\u2028◦ </span>') == 2, out
+        assert out.count('<p class="vn-cat-head"><span class="vn-sep">\u2028</span>') == 2, out
+        assert out.count('<p class="vn-source-byline"><span class="vn-sep">\u2028</span>') == 2, out
 
     def test_vn_sep_hidden_by_css_in_both_popup_styles(self):
         from scripts.build_edition import apply_note_popup_style
@@ -571,10 +572,11 @@ class TestKoboPreviewSeparators:
         m = re.search(r'<aside class="verse-notes" id="vnotes-gen-1-1-s1"[^>]*>(.*?)</aside>', text, re.DOTALL)
         assert m
         items = m.group(1).count('class="vn-item')
-        seps = m.group(1).count('<span class="vn-sep">\u2028• </span>')
+        seps = m.group(1).count('<span class="vn-sep">\u2028</span>')
         # round-7 -s split: the s1 unit can hold a single item; the invariant is
-        # one • separator per item (seps == items), which holds for items >= 1.
-        assert items >= 1 and seps == items, f"every flat row needs its • separator ({seps}/{items})"
+        # one vn-sep (U+2028, glyph-free since device-QA 2026-06-28) per item
+        # (seps == items), which holds for items >= 1.
+        assert items >= 1 and seps == items, f"every flat row needs its vn-sep separator ({seps}/{items})"
 
 
 class TestVnotePreviewSeparators:
@@ -673,8 +675,11 @@ class TestEinkVnotePreviewBreaks:
         from scripts.build_edition import add_eink_vnote_preview_breaks
 
         out = add_eink_vnote_preview_breaks(self.VNOTE)
-        assert out.count('<p class="vnote-kobo-sep">') == 5  # text + 2×(label+content)
-        assert '<p class="vnote-kobo-sep">' in out and '<br class="kobo-vnote-br" /><p class="vnote-text">' in out
+        # device-QA 2026-06-28 ("clean, no marker"): _KOBO_VNOTE_GAP is now "" — the
+        # dot-rule <p class="vnote-kobo-sep"> gap is GONE; only the kobo-safe
+        # <br class="kobo-vnote-br"> line break survives before each block.
+        assert '<p class="vnote-kobo-sep">' not in out
+        assert '<br class="kobo-vnote-br" /><p class="vnote-text">' in out
         assert '<br class="kobo-vnote-br" /><p class="vnote-source-label">' in out
         assert '<br class="kobo-vnote-br" /><p class="vnote-hebrew"' in out
         assert '<br class="kobo-vnote-br" /><p class="vnote-greek"' in out
