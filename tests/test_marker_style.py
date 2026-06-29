@@ -602,13 +602,13 @@ class TestVnotePreviewSeparators:
         from scripts.build_edition import add_vnote_preview_separators
 
         out = add_vnote_preview_separators(self.VNOTE)
-        assert out.count('<p class="vnote-source-label"><span class="vn-sep">\u2028◦ </span>') == 2, out
+        assert out.count('<p class="vnote-source-label"><span class="vn-sep">\u2028</span>') == 2, out
 
     def test_vnote_text_gets_paragraph_separator(self):
         from scripts.build_edition import add_vnote_preview_separators
 
         out = add_vnote_preview_separators(self.VNOTE)
-        assert '<p class="vnote-text"><span class="vn-sep">\u2028¶ </span>In the beginning' in out
+        assert '<p class="vnote-text"><span class="vn-sep">\u2028</span>In the beginning' in out
 
     def test_idempotent(self):
         from scripts.build_edition import add_vnote_preview_separators
@@ -631,7 +631,7 @@ class TestVnotePreviewSeparators:
 
         html = '<p class="vnote-text vnote-empty"><em>[no text in this edition; verse marker only]</em></p>'
         out = add_vnote_preview_separators(html)
-        assert '<p class="vnote-text vnote-empty"><span class="vn-sep">\u2028¶ </span><em>' in out
+        assert '<p class="vnote-text vnote-empty"><span class="vn-sep">\u2028</span><em>' in out
         assert add_vnote_preview_separators(out) == out  # idempotent on the new shape
 
     def test_leading_pilcrow_text_not_double_marked(self):
@@ -660,7 +660,7 @@ class TestVnotePreviewSeparators:
         assert m, "vnote-gen-1-1 missing from the base fixture"
         out = add_vnote_preview_separators(m.group(0))
         labels = out.count('<p class="vnote-source-label">')
-        seps = out.count('<p class="vnote-source-label"><span class="vn-sep">\u2028◦ </span>')
+        seps = out.count('<p class="vnote-source-label"><span class="vn-sep">\u2028</span>')
         assert labels > 0 and labels == seps, f"every source label needs its ◦ separator ({seps}/{labels})"
 
 
@@ -719,11 +719,11 @@ class TestTabletPopupStripSeparators:
 
     SAMPLE = (
         '<aside class="vnote" id="vnote-gen-1-1">'
-        '<p class="vnote-source-label"><span class="vn-sep">\u2028◦ </span>Hebrew (WLC)</p>'
+        '<p class="vnote-source-label"><span class="vn-sep">\u2028</span>Hebrew (WLC)</p>'
         "</aside>"
         '<aside class="verse-notes" id="vnotes-gen-1-1-s1">'
         '<section class="vn-group note-cat-hist">'
-        '<p class="vn-cat-head"><span class="vn-sep">\u2028¶ </span>Historical</p>'
+        '<p class="vn-cat-head"><span class="vn-sep">\u2028</span>Historical</p>'
         '<div class="vn-item note-dict-easton"><span class="vn-sep">\u2028• </span><p>Body</p></div>'
         "</section></aside>"
     )

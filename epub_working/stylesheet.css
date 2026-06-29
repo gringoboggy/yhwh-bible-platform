@@ -217,8 +217,10 @@ blockquote {
 .note-sym { text-decoration: none; color: #6E5840; margin-right: 0.2em; font-size: 1.05em; }
 .note-sym:hover { color: #5C2E91; }
 
-/* Label as block header — small caps, slightly muted, sits above body. */
-.note-label { display: block; font-style: normal; font-variant-caps: small-caps; letter-spacing: 0.05em; font-weight: 700; font-size: 0.78em; color: #6E5840; margin: 0 0 0.35em 0; }
+/* Label as block header — device-QA round-2 (G, user decision): BOLD + ALL CAPS
+   (text-transform:uppercase replaces small-caps so the header reads as full capitals),
+   slightly muted, sits above body. Inherited by the inline .vn-item .note-label lead-in. */
+.note-label { display: block; font-style: normal; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; font-size: 0.78em; color: #6E5840; margin: 0 0 0.35em 0; }
 
 /* Comm-kind notes: hide the label entirely. ~95% are 'Note' (boilerplate);
    the left-border colour + symbol already convey the kind. The body's own
@@ -231,6 +233,12 @@ blockquote {
 
 /* Hide trivial / boilerplate labels via attribute matching — ‘Note’, ‘Note.’ */
 .note-label:where([data-noise]), .note p > .note-label:first-child:is(:empty) { display: none; }
+
+/* device-QA round-2 (G, user decision): SPECIAL INFO — the note's original-language
+   terms (<em>) and the tradition/source label read italic + UNDERLINED so they stand out
+   from the prose. Scoped to note contexts so ordinary emphasis elsewhere is untouched.
+   (The note's <strong> lead phrase already carries the SUBHEADER = bold tier.) */
+.note em, .vn-item em, .note-tradition-label { font-style: italic; text-decoration: underline; }
 
 .note-comm   { border-left: 3px solid #0B3D91; padding-left: 0.7em; }
 .note-word   { border-left: 3px solid #8B6508; padding-left: 0.7em; }
@@ -514,7 +522,11 @@ h1, h2, h3, h1.book-title {
 /* Sentinel: PHASE_C9_FRONTMATTER_BLOCK */
 .cover-wrap { margin: 0; padding: 0; text-align: center; page-break-after: always; }
 .cover-wrap .cover-img { display: block; width: auto; max-width: 100%; max-height: 100%; height: auto; object-fit: contain; margin: 0 auto; }
-.cover-body, .intro-body { margin: 0 !important; padding: 0 !important; page-break-after: always; }
+/* device-QA round-2 (E-Apple): the page-break-after here doubled the inner
+   .cover-wrap / .intro-wrap break (and the spine-file boundary already starts the next
+   matter page) — Apple Books emits a trailing blank from the redundant break. Drop the
+   body-level break; the inner wrap + spine boundary still separate the pages. */
+.cover-body, .intro-body { margin: 0 !important; padding: 0 !important; }
 .intro-wrap {
   padding: 1.4em 1.2em 1.2em 1.2em;
   font-family: "Cardo", "EB Garamond", "Crimson Text", "Palatino Linotype",
@@ -672,13 +684,19 @@ h1, h2, h3, h1.book-title {
    The global `h1,h2,h3 { page-break-before: always }` is right for book/chapter
    flow (.book-title-page / .ch-heading own their own breaks) but on a stand-alone
    front-matter spine file it pushes the heading onto a 2nd page, leaving page 1
-   blank (the empty Your-Edition / Colophon / Guide / ToC leading pages). */
+   blank (the empty Your-Edition / Colophon / Guide / ToC leading pages).
+   device-QA round-2 (D + E-Play): `.bookpage-title` is ALSO an <h1>, so inside the
+   `break-inside: avoid` book-title frame the same global rule forces a break between
+   the eyebrow/subtitle and the title — the book title page renders on 2 pages (Apple/
+   Kindle/Play) and the eyebrow/subtitle page reads as an "empty page" before Genesis.
+   Neutralise it here too so the frame holds the whole title block on one page. */
 .your-edition-title,
 .copyright-title,
 .legend-title,
 .backmatter-title,
 .reading-plans-page-title,
-.toc-wrap .toc-title {
+.toc-wrap .toc-title,
+.bookpage-title {
   page-break-before: auto;
   break-before: auto;
 }

@@ -2221,7 +2221,7 @@ def _note_popup_category_color_css() -> str:
             f"}}\n"
             f"{sel} .note-sym, {sel} .note-label,\n"
             f".verse-notes .vn-item{sel} .note-sym, .verse-notes .vn-item{sel} .note-label "
-            f"{{ color: {hue}; font-variant-caps: small-caps; }}\n"
+            f"{{ color: {hue}; text-transform: uppercase; }}\n"
             f"{sel} .note-sym, .verse-notes .vn-item{sel} .note-sym "
             f"{{ font-weight: 700; font-variant-caps: normal; }}"
         )
@@ -2236,7 +2236,7 @@ def _note_popup_category_color_css() -> str:
             f"}}\n"
             f".{legacy_cls} .note-sym, .{legacy_cls} .note-label,\n"
             f".verse-notes .vn-item.{legacy_cls} .note-sym, .verse-notes .vn-item.{legacy_cls} .note-label "
-            f"{{ color: {hue}; font-variant-caps: small-caps; }}\n"
+            f"{{ color: {hue}; text-transform: uppercase; }}\n"
             f".{legacy_cls} .note-sym, .verse-notes .vn-item.{legacy_cls} .note-sym "
             f"{{ font-weight: 700; font-variant-caps: normal; }}"
         )
@@ -2522,7 +2522,7 @@ def apply_marker_badge_style(stylesheet_css: str, style: str) -> str:
 _NOTE_CASCADE_CSS = (
     "\n/* === S2 note cascade — verse→category→source→note (reader-robust) === */\n"
     ".verse-notes .vn-group { margin: 0.55em 0; }\n"
-    ".verse-notes .vn-cat-head { font-weight: 700; font-variant-caps: small-caps;\n"
+    ".verse-notes .vn-cat-head { font-weight: 700; text-transform: uppercase;\n"
     "  letter-spacing: 0.04em; font-size: 0.86em; margin: 0.15em 0 0.3em;\n"
     "  padding-bottom: 0.12em; border-bottom: 1px solid rgba(110, 88, 64, 0.35); }\n"
     ".verse-notes .vn-cat-sym { margin-right: 0.3em; }\n"

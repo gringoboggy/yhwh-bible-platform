@@ -638,8 +638,8 @@ class TestNoteRehaulS2Css:
         from scripts.build_edition import apply_note_cascade_css
 
         out = apply_note_cascade_css("")
-        # header cue = weight + small-caps + a border-bottom (NOT a background)
-        assert ".vn-cat-head" in out and "font-variant-caps" in out and "border-bottom" in out
+        # header cue = weight + UPPERCASE (device-QA round-2 G; was small-caps) + a border-bottom
+        assert ".vn-cat-head" in out and "text-transform: uppercase" in out and "border-bottom" in out
         # group colour = border-left (survives backgrounds-off)
         assert "border-left" in out
         # cascade indent on source + leaf

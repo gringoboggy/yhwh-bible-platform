@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import re
 
-_VN_SEP_CAT = '<span class="vn-sep">\u2028¶ </span>'
-_VN_SEP_BYLINE = '<span class="vn-sep">\u2028◦ </span>'
+_VN_SEP_CAT = '<span class="vn-sep">\u2028</span>'
+_VN_SEP_BYLINE = '<span class="vn-sep">\u2028</span>'
 
 _VNOTE_SEP_TEXT_RE = re.compile(r'(<p class="vnote-text(?:\s[^"]*)?">)(?!<span class="vn-sep">)(?!¶)')
 _VNOTE_SEP_LABEL_RE = re.compile(r'(<p class="vnote-source-label">)(?!<span class="vn-sep">)')
