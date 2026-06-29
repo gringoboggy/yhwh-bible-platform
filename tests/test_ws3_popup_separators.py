@@ -3,10 +3,13 @@
 The study/cascade ``verse-notes`` family separated its category heads, source
 bylines, and note rows ONLY with hidden ``<span class="vn-sep">`` spans carrying
 U+2028. Kobo's native Footnote-preview overlay (tag-stripped, book-CSS dropped)
-drops the U+2028, so the blocks ran together on-device. The fix gives the family
-the same device-proven chrome the translation family already has — a visible
-``·`` (U+00B7) plus a kobo-safe ``<br class="kobo-vn-br">`` — EINK-ONLY, threaded
-as ``eink=False`` by default so non-eink / 9-KJV output stays byte-identical.
+drops the U+2028, so the blocks ran together on-device. WS3 first gave the family
+a visible ``·`` (U+00B7) plus a kobo-safe ``<br class="kobo-vn-br">``; the
+2026-06-28 device-QA round then REVISED the decision to **clean, no visible
+marker** (the ``·`` — and its Play-profile cousins ``¶``/``◦``/``•`` — cluttered
+the CSS-blind footnote popups), so the eink separator is now the **bare
+``<br class="kobo-vn-br">`` only**, no glyph. Still EINK-ONLY, threaded as
+``eink=False`` by default so non-eink / 9-KJV output stays byte-identical.
 
 Tests assert against the real ``build_edition`` separator constants (current and
 eink) rather than retyped glyph literals, so test and implementation can never
@@ -59,20 +62,22 @@ _CAT_META = {"lang": ("⌘", "Linguistic"), "topic": ("✦", "Topical")}
 
 
 class TestEinkSeparatorConstants:
-    """The eink faces are the device-proven · + kobo-safe break — not the
-    Nickel-dropped U+2028, not the near-crash •."""
+    """Device-QA 2026-06-28 decision: CLEAN, no visible marker. All three eink
+    faces (item / byline / cat-head) are the bare kobo-safe ``<br>`` only — no
+    middot, no bullet, no Nickel-dropped U+2028. Line structure comes from the
+    break (plus the block ``<p>`` flow), not a glyph."""
 
-    def test_item_and_byline_lead_with_break_then_middot(self):
-        for const in (_VN_SEP_ITEM_EINK, _VN_SEP_BYLINE_EINK):
-            assert const.startswith(_KOBO_BR)
-            assert _MIDDOT in const
-            assert _U2028 not in const
+    def test_all_eink_separators_are_the_bare_kobo_break(self):
+        for const in (_VN_SEP_ITEM_EINK, _VN_SEP_BYLINE_EINK, _VN_SEP_CAT_EINK):
+            assert const == _KOBO_BR
+
+    def test_no_visible_or_dropped_glyph_on_any_eink_separator(self):
+        # the · is GONE (clean, no marker); the • near-crash and U+2028 Nickel-drop
+        # were never wanted on eink — assert all three stay absent.
+        for const in (_VN_SEP_ITEM_EINK, _VN_SEP_BYLINE_EINK, _VN_SEP_CAT_EINK):
+            assert _MIDDOT not in const
             assert _BULLET not in const
-
-    def test_cat_head_is_visible_middot_with_no_leading_break(self):
-        assert _VN_SEP_CAT_EINK.startswith(_MIDDOT)
-        assert _KOBO_BR not in _VN_SEP_CAT_EINK
-        assert _U2028 not in _VN_SEP_CAT_EINK
+            assert _U2028 not in const
 
 
 class TestCascadeSeparators:

@@ -106,11 +106,11 @@ class TestColophon:
             {"id": "catholic-study", "title": "T"}, self._pub(), annotation_count=10, category_count=1
         )
         assert "Way Editions" in out and "Bogdan Zorlescu" in out and "2026" in out
-        # device-QA 2026-06-09: the "This Edition" identity block (Edition ID + Build)
-        # MOVED to the Your Edition page (co-located with the note details — more
-        # logical per the user). The front colophon is now legal/publisher only.
-        assert "urn:yhwh:edition:catholic-study" not in out
-        assert "This Edition" not in out
+        # device-QA 2026-06-28: the Edition ID (urn + optional Build) lives on the
+        # copyright/colophon page again — REVERSES the 2026-06-09 move to the Your
+        # Edition page (the user found it orphaned on its own page on Apple/Kindle/Play).
+        assert "urn:yhwh:edition:catholic-study" in out
+        assert "Edition ID:" in out
 
     def test_no_long_description_on_colophon(self):
         from scripts.build_edition import render_copyright_page
@@ -242,16 +242,17 @@ class TestYourEditionReplacesAbout:
         ed = {"id": "catholic-study", "title": "T & <co>", "canon": "catholic"}
         md.parseString(render_your_edition_page(ed, self._stats(), "v"))
 
-    def test_carries_edition_identity_moved_from_colophon(self):
-        # device-QA 2026-06-09: the "This Edition" identity (Edition ID + Build)
-        # now lives HERE, beside the per-book note details — not split onto the
-        # front colophon. `version` (previously an unused param) is the Build stamp.
+    def test_edition_identity_moved_back_to_colophon(self):
+        # device-QA 2026-06-28: the Edition ID (urn + Build) moved BACK to the
+        # copyright/colophon page (render_copyright_page) — reverses the 2026-06-09
+        # move here. The Your Edition page no longer carries the urn or build stamp;
+        # `version` is still accepted so the build-time call signature is unchanged.
         from scripts.build_edition import render_your_edition_page
 
         ed = {"id": "catholic-study", "title": "T", "display_name": "Catholic Study Bible", "canon": "catholic"}
         out = render_your_edition_page(ed, self._stats(), "v9.9.9-test")
-        assert "urn:yhwh:edition:catholic-study" in out  # Edition ID relocated here
-        assert "v9.9.9-test" in out  # Build stamp relocated here
+        assert "urn:yhwh:edition:catholic-study" not in out  # Edition ID lives on the colophon now
+        assert "v9.9.9-test" not in out  # Build stamp lives on the colophon now
 
 
 class TestYourEditionReachesEpub:
@@ -579,18 +580,25 @@ class TestDedicationPageSignature:
 
 
 class TestCopyrightPageSignature:
-    """render_copyright_page must no longer accept a `version` parameter —
-    its only consumer was the "Build:" identity line, which moved to the
-    Your Edition page (2030e7e0); W4 mirrors FIX 5."""
+    """render_copyright_page accepts a `version` parameter again — device-QA
+    2026-06-28 moved the Edition ID + Build line BACK to the copyright page
+    (reverses the 2030e7e0 / W4 move to Your Edition), so `version` is now a
+    LIVE param rendering the optional "Build:" segment. TestNoDeadVersionParams
+    still guards that it is actually read (not dead)."""
 
-    def test_no_version_parameter(self):
+    def test_version_parameter_is_live(self):
         import inspect
         from scripts.build_edition import render_copyright_page
 
         sig = inspect.signature(render_copyright_page)
-        assert "version" not in sig.parameters, (
-            "render_copyright_page must not have a `version` parameter (it was unused — W4)"
+        assert "version" in sig.parameters, "render_copyright_page must accept `version` (the Build segment)"
+        pub = {"publisher_name": "P", "copyright_year": "2026", "copyright_holder": "H"}
+        with_v = render_copyright_page(
+            {"id": "x", "title": "T"}, pub, annotation_count=1, category_count=1, version="v9.9.9"
         )
+        without_v = render_copyright_page({"id": "x", "title": "T"}, pub, annotation_count=1, category_count=1)
+        assert "v9.9.9" in with_v and "Build:" in with_v  # version renders the Build segment
+        assert "Build:" not in without_v  # omitted when no version supplied
 
 
 class TestNoDeadVersionParams:

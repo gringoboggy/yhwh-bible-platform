@@ -86,7 +86,10 @@ def _aside_map(text: str, coord: str) -> dict[str, str]:
     (the unsuffixed id + any -sN split siblings)."""
     out: dict[str, str] = {}
     for m in re.finditer(
-        rf'<aside class="verse-notes" id="(vnotes-{coord}(?:-s\d+)?)" epub:type="footnote">.*?</aside>',
+        # ``verse-notes[^"]*`` so this matches the non-eink ``class="verse-notes"`` AND
+        # the eink ``class="verse-notes verse-notes--eink-anchor"`` modifier (the split
+        # path is eink-only since the device-QA 2026-06-28 single-badge decision).
+        rf'<aside class="verse-notes[^"]*" id="(vnotes-{coord}(?:-s\d+)?)" epub:type="footnote">.*?</aside>',
         text,
         re.DOTALL,
     ):
@@ -242,10 +245,14 @@ _S2_FLAGS = {
 
 class TestApplyBadgeSplit:
     def test_over_cap_verse_splits_flat_path(self, tmp_path):
+        # device-QA 2026-06-28: the per-verse popup SPLIT is now EINK-ONLY (single
+        # merged badge off-Kobo), so the split path is exercised under target_reader=eink.
         from scripts.build_edition import _stripped_len, apply_badge_markers
 
         tmp = _book_tree(tmp_path, "gen")
-        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
+        apply_badge_markers(
+            tmp, {"id": "x", "marker_style": "badge", "target_reader": "eink", "reader_eink_study_layout": "popup"}
+        )
         fname = next(f for f in config.get_book("gen")["files"] if 'id="v-gen-1-1"' in (tmp / f).read_text("utf-8"))
         text = (tmp / fname).read_text("utf-8")
 
@@ -262,11 +269,31 @@ class TestApplyBadgeSplit:
             assert f'href="#{bid}"' in html_u
             assert f'id="{bid}"' in text, f"badge {bid} missing"
 
-    def test_badge_cluster_sits_together_at_verse_end(self, tmp_path):
+    def test_non_eink_packs_over_cap_verse_into_single_merged_badge(self, tmp_path):
+        """Device-QA 2026-06-28 contract: on a NON-eink target the per-verse split is
+        OFF, so even gen 1:1 (~9k stripped, over the eink cap) ships as ONE merged
+        badge / unit — no -s2. The split stays eink-only (Kobo's footnote buffer);
+        this pins the fix for the 'two badges per verse' leak on Apple/Play/Kindle."""
         from scripts.build_edition import apply_badge_markers
 
         tmp = _book_tree(tmp_path, "gen")
+        # no target_reader == the everywhere (non-eink) default
         apply_badge_markers(tmp, {"id": "x", "marker_style": "badge"})
+        fname = next(f for f in config.get_book("gen")["files"] if 'id="v-gen-1-1"' in (tmp / f).read_text("utf-8"))
+        text = (tmp / fname).read_text("utf-8")
+        units = _aside_map(text, "gen-1-1")
+        assert list(units) == ["vnotes-gen-1-1-s1"], f"non-eink must not split; got {list(units)}"
+        assert 'id="vbadge-gen-1-1-s2"' not in text, "non-eink leaked a second badge (the 'two badges' bug)"
+
+    def test_badge_cluster_sits_together_at_verse_end(self, tmp_path):
+        # EINK-only split path (device-QA 2026-06-28): the -s1/-s2 badge cluster only
+        # exists on eink; non-eink packs the verse into a single merged badge.
+        from scripts.build_edition import apply_badge_markers
+
+        tmp = _book_tree(tmp_path, "gen")
+        apply_badge_markers(
+            tmp, {"id": "x", "marker_style": "badge", "target_reader": "eink", "reader_eink_study_layout": "popup"}
+        )
         fname = next(f for f in config.get_book("gen")["files"] if 'id="v-gen-1-1"' in (tmp / f).read_text("utf-8"))
         text = (tmp / fname).read_text("utf-8")
         # the cluster: the -s1 head badge immediately followed (single space) by -s2
@@ -339,12 +366,22 @@ class TestApplyBadgeSplit:
         assert _stripped_len(units["vnotes-gen-1-1-s1"]) > 4_400  # the unsplit giant
 
     def test_s2_cascade_path_splits_with_category_heads(self, tmp_path):
-        """The shipped eth profile (S2 cascade on) must split too, each unit a
-        well-formed cascade (category heads present; conservation guard quiet)."""
+        """The shipped eth EINK profile (S2 cascade on) must split too, each unit a
+        well-formed cascade (category heads present; conservation guard quiet).
+        Split is EINK-only since the device-QA 2026-06-28 single-badge decision."""
         from scripts.build_edition import _stripped_len, apply_badge_markers
 
         tmp = _book_tree(tmp_path, "gen")
-        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", **_S2_FLAGS})
+        apply_badge_markers(
+            tmp,
+            {
+                "id": "x",
+                "marker_style": "badge",
+                "target_reader": "eink",
+                "reader_eink_study_layout": "popup",
+                **_S2_FLAGS,
+            },
+        )
         fname = next(f for f in config.get_book("gen")["files"] if 'id="v-gen-1-1"' in (tmp / f).read_text("utf-8"))
         text = (tmp / fname).read_text("utf-8")
         units = _aside_map(text, "gen-1-1")
@@ -355,11 +392,21 @@ class TestApplyBadgeSplit:
 
     def test_giant_single_note_chunked_within_body(self, tmp_path):
         """1sa 16:12 carries ONE ~19k dict-easton note (Easton's DAVID) — design
-        (b): the body chunks across multiple units, visibly marked continued."""
+        (b): the body chunks across multiple units, visibly marked continued.
+        Chunking is part of the EINK-only split path (device-QA 2026-06-28)."""
         from scripts.build_edition import _stripped_len, apply_badge_markers
 
         tmp = _book_tree(tmp_path, "1sa")
-        apply_badge_markers(tmp, {"id": "x", "marker_style": "badge", **_S2_FLAGS})
+        apply_badge_markers(
+            tmp,
+            {
+                "id": "x",
+                "marker_style": "badge",
+                "target_reader": "eink",
+                "reader_eink_study_layout": "popup",
+                **_S2_FLAGS,
+            },
+        )
         fname = next(f for f in config.get_book("1sa")["files"] if 'id="v-1sa-16-12"' in (tmp / f).read_text("utf-8"))
         text = (tmp / fname).read_text("utf-8")
         units = _aside_map(text, "1sa-16-12")
