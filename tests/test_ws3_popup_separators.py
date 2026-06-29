@@ -131,6 +131,59 @@ class TestChunkRowSeparator:
         assert all(_VN_SEP_ITEM not in p for p in parts[1:])
 
 
+class TestF1NoLeadingBreakAfterByline:
+    """device-QA round-2 F1: on eink the FIRST ``.vn-item`` row after a source byline
+    carried a leading ``<br class="kobo-vn-br">`` (baked by ``_badge_aside_inner_to_row``)
+    → a blank line between the italic byline and the note body. The byline ``<p>`` already
+    starts a new line, so that first leading break is dropped on eink (continuation rows
+    keep theirs to stay separated). Non-eink output is untouched (byte-stable / 9-KJV)."""
+
+    def _rows_with_real_seps(self, eink: bool):
+        return [
+            {
+                "cat": "lang",
+                "source_key": "strongs",
+                "source_display": "Strong's Concordance",
+                "suppress_byline": False,
+                "row": _badge_aside_inner_to_row("<p>Body one.</p>", "lang-hebrew", eink=eink),
+            },
+            {
+                "cat": "lang",
+                "source_key": "strongs",
+                "source_display": "Strong's Concordance",
+                "suppress_byline": False,
+                "row": _badge_aside_inner_to_row("<p>Body two.</p>", "lang-hebrew", eink=eink),
+            },
+        ]
+
+    def test_first_row_after_byline_drops_leading_break_on_eink(self):
+        out = _emit_cascade_sections(self._rows_with_real_seps(eink=True), _CAT_META, eink=True)
+        # byline still emitted with its own eink break
+        assert f'<p class="vn-source-byline">{_VN_SEP_BYLINE_EINK}' in out
+        # FIRST row's body abuts the div open — no leading break before it
+        assert '<div class="vn-item note-lang-hebrew"><p>Body one.' in out
+        assert f'<div class="vn-item note-lang-hebrew">{_KOBO_BR}<p>Body one.' not in out
+        # the SECOND row in the same source group keeps its leading break (separation)
+        assert f'<div class="vn-item note-lang-hebrew">{_KOBO_BR}<p>Body two.' in out
+
+    def test_non_eink_first_row_keeps_hidden_sep_byte_stable(self):
+        out = _emit_cascade_sections(self._rows_with_real_seps(eink=False), _CAT_META)
+        # the hidden U+2028 item separator on the first row is preserved (golden byte-stable)
+        assert f'<div class="vn-item note-lang-hebrew">{_VN_SEP_ITEM}<p>Body one.' in out
+        assert _KOBO_BR not in out
+
+
 class TestEinkReaderCss:
     def test_kobo_vn_br_line_height_rule_present(self):
         assert "br.kobo-vn-br {" in be._EINK_READER_CSS
+
+    def test_eink_overrides_inline_block_badge_to_plain_inline(self):
+        # device-QA round-2 C: the base sheet's inline-block badge rule breaks Kobo's
+        # justified flow; the eink append re-asserts plain inline AFTER it (last-rule-wins).
+        base = ".verse-notes-badge, .study-glossary-jump, .vn-link { display: inline-block; white-space: nowrap; }\n"
+        out = be.apply_eink_reader_css(base, {"target_reader": "eink"})
+        assert out.rindex("display: inline;") > out.index("display: inline-block;")
+
+    def test_non_eink_leaves_inline_block_untouched(self):
+        base = ".verse-notes-badge { display: inline-block; }\n"
+        assert be.apply_eink_reader_css(base, {"target_reader": "tablet"}) == base

@@ -2437,6 +2437,15 @@ _EINK_READER_CSS = (
     '.vnote-hebrew { font-family: "Cardo", "SBL Hebrew", "Ezra SIL", "Frank Ruehl CLM", "Times New Roman", serif !important; }\n'
     '.vnote-greek, .vnote-greek-nt { font-family: "Cardo", "SBL Greek", "GFS Didot", "Times New Roman", serif !important; }\n'
     '.vnote-geez, .vnote-amharic { font-family: "Noto Serif Ethiopic", "Abyssinica SIL", "Nyala", serif !important; }\n'
+    # device-QA round-2 (cluster C): the base sheet's
+    # `.verse-notes-badge, .study-glossary-jump, .vn-link { display: inline-block;
+    # white-space: nowrap }` (round-1, to stop badge drift in justified text on Apple/Play)
+    # makes Kobo's Nickel renderer insert extra line breaks + cluster badges in justified
+    # verse flow. Re-assert plain inline AFTER the base rule (CSS last-rule-wins) so eink
+    # keeps the pre-round-1 inline flow; the base rule stays for every other target
+    # (Apple/Play untouched, 9-KJV byte-stable — this append is eink-only).
+    "/* device-QA round-2: plain inline badges on eink (un-break Kobo justified flow) */\n"
+    ".verse-notes-badge, .study-glossary-jump, .vn-link { display: inline; white-space: normal; }\n"
 )
 
 
@@ -3834,12 +3843,18 @@ def _study_glossary_footnote(
     v: int,
     sid: str,
     verse_back: str,
+    verse_back_top: str = "",
     s2_group: bool,
     eink: bool = False,
 ) -> str:
     body = _study_glossary_category_body(cat_rows, cat, cat_meta, s2_group=s2_group, eink=eink)
+    # F2 (device-QA round-2): also place a return-to-verse link at the TOP of each aside so a
+    # long Kobo note is escapable without scrolling to the bottom of the footnote overlay.
+    # ``verse_back_top`` is the part-indicator-free form (the ``(i/n)`` continuation marker
+    # stays on the bottom ``verse_back`` only); empty string ⇒ no top link (legacy callers).
     footnote = (
         f'  <aside epub:type="footnote" class="study-glossary-cat verse-notes" id="{sid}">\n'
+        + verse_back_top
         + body
         + verse_back
         + "  </aside>\n"
@@ -3896,6 +3911,7 @@ def _emit_backmatter_glossary_inner(
                     v=v,
                     sid=f"vnotes-{code}-{ch}-{v}-{_cat}",
                     verse_back=verse_back,
+                    verse_back_top=verse_back,
                     s2_group=s2_group,
                     eink=eink,
                 )
@@ -3947,6 +3963,7 @@ def _emit_backmatter_glossary_inner(
                     v=v,
                     sid=sid,
                     verse_back=_verse_back(part_span),
+                    verse_back_top=verse_back,
                     s2_group=s2_group,
                     eink=eink,
                 )
@@ -3967,6 +3984,13 @@ def _format_category_badge_text(glyph: str, note_count: int) -> str:
 # grouped cascade the vn-cat-head already shows the category glyph once, so the leaf copy is a
 # pure header(1)+leaf(N)× repeat → drop it (device-QA cluster F). Anchored, count=1 per row.
 _NOTE_SYM_LINK_RE = re.compile(r'\s*<a class="note-sym"[^>]*>.*?</a>', re.DOTALL)
+
+# F1 (device-QA round-2): a row baked by `_badge_aside_inner_to_row` leads with the eink
+# item break `<br class="kobo-vn-br">`. When a source byline `<p>` already started a new
+# line, that leading break renders an EMPTY line before the note body. Strip just the leading
+# break on the first row after a byline (eink only; the hidden U+2028 non-eink sep is left
+# untouched → byte-stable). Anchored to the row's own `<div class="vn-item …">` open.
+_LEADING_VN_ITEM_EINK_BR_RE = re.compile(r'(<div class="vn-item note-[a-z0-9-]+">)' + re.escape(_VN_SEP_ITEM_EINK))
 
 
 def _emit_cascade_sections(rows: list[dict], cat_meta: dict, *, eink: bool = False) -> str:
@@ -4006,11 +4030,18 @@ def _emit_cascade_sections(rows: list[dict], cat_meta: dict, *, eink: bool = Fal
             suppress = bool(src_rows) and all(rr.get("suppress_byline") for rr in src_rows)
             if display and not suppress:
                 out.append(f'      <p class="vn-source-byline">{byline_sep}{html.escape(display, quote=False)}</p>\n')
-            for rr in src_rows:
+            for idx, rr in enumerate(src_rows):
                 # WS2 Class 1: drop the per-note leaf note-sym (the vn-cat-head conveys the
                 # category glyph once). The .vn-item leaf itself survives (the §4 conservation
                 # guard counts leaves, not syms); flat/non-grouped path is untouched.
-                out.append(f"      {_NOTE_SYM_LINK_RE.sub('', rr['row'], count=1)}\n")
+                row = _NOTE_SYM_LINK_RE.sub("", rr["row"], count=1)
+                # F1 (device-QA round-2): the source byline <p> already starts a new line, so
+                # the first row's leading kobo break renders an empty line before the body.
+                # Drop it on eink when a byline was emitted (continuation rows keep theirs to
+                # stay separated; non-eink rows carry the hidden U+2028 sep → byte-stable).
+                if eink and idx == 0 and display and not suppress:
+                    row = _LEADING_VN_ITEM_EINK_BR_RE.sub(r"\1", row, count=1)
+                out.append(f"      {row}\n")
             out.append("    </div>\n")
         out.append("  </section>\n")
     return "".join(out)

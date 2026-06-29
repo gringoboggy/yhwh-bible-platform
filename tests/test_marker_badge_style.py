@@ -86,7 +86,16 @@ class TestBadgeText:
         from scripts.build_edition import format_marker_badge_text
 
         base = {"id": "x", "marker_style": "badge", "target_reader": "eink"}
-        assert format_marker_badge_text({**base, "marker_badge_style": "dot"}, 4) == "•"
+        # dot is eink-UNSAFE (• crashes Kobo's Nickel renderer) → H10 coerces it to the
+        # bordered chip (count) on eink; its symbol-only form is asserted OFF eink.
+        assert format_marker_badge_text({**base, "marker_badge_style": "dot"}, 4) == "4"
+        assert (
+            format_marker_badge_text(
+                {"id": "x", "marker_style": "badge", "target_reader": "everywhere", "marker_badge_style": "dot"}, 4
+            )
+            == "•"
+        )
+        # the eink-SAFE symbol styles stay symbol-only on eink
         assert format_marker_badge_text({**base, "marker_badge_style": "dagger"}, 4) == "†"
         assert format_marker_badge_text({**base, "marker_badge_style": "asterisk"}, 4) == "*"
         assert format_marker_badge_text({**base, "marker_badge_style": "lozenge"}, 4) == "◇"
@@ -182,7 +191,10 @@ class TestEmitter:
         vm = text.index('id="v-gen-1-13"')
         assert bm < am < vm, "document order: badge → aside → next vn-link"
 
-    def test_dot_style_emits_symbol_only_badges(self, tmp_path):
+    def test_dot_style_coerces_to_chip_count_on_eink(self, tmp_path):
+        # H10: the dot glyph • crashes Kobo's Nickel renderer, so on eink the dot style
+        # coerces to the bordered chip (the count) — the bare • must never ship on eink.
+        # (Off-eink dot symbol-only is pinned in TestBadgeText.test_symbol_styles_drop_the_count.)
         from scripts.build_edition import apply_badge_markers
 
         tmp, fname = self._badge_tree(tmp_path)
@@ -198,7 +210,7 @@ class TestEmitter:
         )
         text = (tmp / fname).read_text(encoding="utf-8")
         sups = re.findall(r'<sup class="marker-badge">([^<]*)</sup>', text)
-        assert sups and all(s == "•" for s in sups)
+        assert sups and all(s != "•" for s in sups)
 
     def test_default_edition_keeps_the_glyph(self, tmp_path):
         from scripts.build_edition import apply_badge_markers

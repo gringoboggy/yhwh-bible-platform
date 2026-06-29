@@ -146,6 +146,37 @@ class TestGlossaryPartIndicator:
 
 
 # ----------------------------------------------------------------------
+# F2 (device-QA round-2) — return-to-verse link at the TOP of each note too
+# ----------------------------------------------------------------------
+class TestStudyReturnLinkAtTop:
+    """On long Kobo back-matter notes the bottom-only return-to-verse link scrolls off the
+    footnote overlay. Each glossary aside now ALSO carries the compact verse-tag jump at the
+    TOP (before the body). The top copy is part-indicator-free (the ``(i/n)`` continuation
+    marker stays on the bottom link only)."""
+
+    def _rows(self, n: int, size: int):
+        return [{"cat": "comm", "row": f'<div class="vn-item note-comm">{"x" * size}</div>'} for _ in range(n)]
+
+    def test_return_link_at_top_and_bottom_single_group(self):
+        inner, _ = be._emit_backmatter_glossary_inner(
+            self._rows(1, 500), {"comm": ("⊕", "Commentary")}, "psa", 23, 1, s2_group=False, eink=True
+        )
+        assert inner.count('class="note-back study-return"') == 2  # top + bottom
+        top = inner.find('class="note-back study-return"')
+        body = inner.find('class="vn-item note-comm"')
+        bottom = inner.rfind('class="note-back study-return"')
+        assert top < body < bottom
+
+    def test_top_link_is_part_indicator_free_in_a_split(self):
+        # two ~5k rows → two packed groups; each bottom link carries (1/2)/(2/2),
+        # but every aside's TOP link is the clean, part-span-less form.
+        inner, _ = be._emit_backmatter_glossary_inner(
+            self._rows(2, 5000), {"comm": ("⊕", "Commentary")}, "psa", 23, 1, s2_group=False, eink=True
+        )
+        assert '<p class="study-verse-back"><a href="#ch-b30-c23" class="note-back study-return">23:1</a></p>' in inner
+
+
+# ----------------------------------------------------------------------
 # H7 — OPF a11y:certifiedBy no longer ships the TODO placeholder
 # ----------------------------------------------------------------------
 class TestOpfCertifierNoPlaceholder:
