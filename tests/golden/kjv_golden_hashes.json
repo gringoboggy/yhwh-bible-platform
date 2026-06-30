@@ -1,11 +1,11 @@
 {
-  "catholic-study::everywhere": "405102a0ba92287ab8880aeb46816bd95ff7596447075676c305837e998c21cb",
-  "catholic-study::kindle": "7db570b82975ed82c6355b510b7a554d6cda6b93fcf2b3777a50472d4b0238a1",
-  "catholic-study::tablet": "2549718fc1e2820fbf54ed23906f5b3802788ddc1934f1728bdf9f3d98816cc2",
-  "eastern-orthodox::everywhere": "01c6b98903d176ad437d95976605daab76f45a8cc2624974d876f47b34361201",
-  "eastern-orthodox::kindle": "9388cffc7a74343ffad33eeb23deae658b523e81079e918a127992e750a6298a",
-  "eastern-orthodox::tablet": "923a0049211e61f6bb5bc36280f1f2a7c01865d79b366310f70ebfc975235b26",
-  "evangelical-reformed::everywhere": "e00f482d22a8014fed14c8f5dbc341464dca0e2245368c6dcfb660e71f7fcc9c",
-  "evangelical-reformed::kindle": "aa4789e50aecdfa7d462fd45503b880343ea63761d6a13a25e9e49fabd92cd4f",
-  "evangelical-reformed::tablet": "10db5763171512faa1c5b3a3205ca3a58cc1467866298bfdc5a76232a2ec502e"
+  "catholic-study::everywhere": "b303a8d09cfdb45988c30717cc58d7a1e829ebeef26822cc8ecbcd7de829fc15",
+  "catholic-study::kindle": "e2fc7a842b64f6cb7b5e6ed4f6de469cb71a875529437b956a6830da8141d7af",
+  "catholic-study::tablet": "e74d1cb1f42acc22c3eb552ff22a6716390d32bd163fc7fe15bf328c43d682b2",
+  "eastern-orthodox::everywhere": "9fe9b1d62f4e37123e1fb25dc649c3b7c54171c133b299f26757f0ce70f657a8",
+  "eastern-orthodox::kindle": "4feecbf6c1b5e3558abccba3c645ff0647ba253c85552c858466615198ca45c5",
+  "eastern-orthodox::tablet": "e39ef4513c3ed93e02b79e324ebeaae16a1de6a8e10de0059d99aaaf674eeda2",
+  "evangelical-reformed::everywhere": "76498185e789c6267bb33d52b842831bdcce05a2eaae18331de090a1ada8ed7a",
+  "evangelical-reformed::kindle": "df51b5845ecc19e031a8eb20469a6c48399d648c93456972ae4834102d019677",
+  "evangelical-reformed::tablet": "d0933918a62cd4a730ffd75771f469c4c500bdd69adf6f26dd1ea7d5fbc4ed47"
 }
