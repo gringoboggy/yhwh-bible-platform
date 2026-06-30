@@ -26,7 +26,7 @@ Plan `~/.claude/plans/bootstrap-and-plan-the-calm-cat.md`. Waves 1–6, all comm
 - **Apple** `YHWH-v1.0.0-apple.epub` (tablet, 26.1 MB) — epubcheck **0/0/0/0**.
 - **Kindle** `YHWH-v1.0.0-kindle.epub` (m4b, 27.2 MB) — `verify_kindle_m4b` CLEAN (30,005 study + 36,350 witness → endnotes) + epubcheck **0/0/0/0**.
 - **Play** `YHWH-v1.0.0-play.epub` (A2 endnotes, 27.2 MB) — `verify_play_safe` CLEAN (30,005 + 36,329 asides relocated, 0 dangling frags) + epubcheck **0/0/0/0**.
-- **Kobo** `G:\YHWH-koboQA.kepub.epub` (eink kepub, 35.6 MiB) — `verify_kr2_build` **ALL K-R2 GATES GREEN** + epubcheck confirming.
+- **Kobo** `G:\YHWH-koboQA.kepub.epub` (eink kepub, 35.6 MiB) — `verify_kr2_build` **ALL K-R2 GATES GREEN** (the authoritative Kobo gate; kepubify 0 errored; full epubcheck on the 37 MB koboSpan-wrapped kepub is impractically slow — round-16 precedent — and the eink base shares the epubcheck-0/0/0/0 golden-cell pipeline).
 
 **Note count UNCHANGED (90,181).** Mac cross-OS verifying the re-baselined golden. **▶ NEXT (user): re-QA all 4 readers → cut v1.0.0.**
 
