@@ -11,6 +11,27 @@
 
 ---
 
+## ✅✅ REMEDIATION COMPLETE (2026-06-30) — ALL 8 CLUSTERS FIXED + REBUILT + RE-STAGED. Tag UNCUT (user cuts it after re-QA).
+
+Plan `~/.claude/plans/bootstrap-and-plan-the-calm-cat.md`. Waves 1–6, all committed + pushed:
+- **Wave 1 `213cbf42`** — C (inline-block badge off eink) · F1 (no blank line before note body) · F2 (top return link) + round-16 H10 test staleness.
+- **Wave 2 `d1c36176`** — H-c (Kenyon OCR cleanup gen 1:1 / 2ki 2:5 / psa 106:27 + `dev/audit_note_ocr.py`).
+- **Wave 3 `aa7dc9bb`** — D+E-Play (title-page→1) · E-Apple (cover de-dup) · X (drop ◦/¶ from translation popups) · G (note typography hardcode).
+- **Wave 4 `11d7a257`** — **B** (badge → verse TEXT END; mid-chapter `else` branch + tail-`</p>` guard; 229 badge-path tests green).
+- **Wave 5 `fa126268`** — **H-a** (embed Noto Naskh Arabic) · **H-b** (DOC-ONLY — NFC refuted by data, Kobo-Nickel preview firmware limit) · **A2** (`play_post.py` → Play ENDNOTES).
+- **Wave 6 `71bdd6e2`** — 9-KJV golden **re-baselined** (diff = only the 9 hashes; determinism re-verified 9/9; epubcheck 0/0/0/0; spot-confirmed badge-at-text-end 0/548 + Arabic embed + clean separators) + `scripts/build_play.py`.
+- **A1 (Kindle E999)** — fixed last session (`83e60215`), re-tests on the rebuilt Kindle artifact below.
+
+**4 device artifacts rebuilt (ethiopian-tewahedo v1.0.0) + RE-STAGED** (`OneDrive/Desktop/QA/` + Kobo on `G:`; re-QA guide = `QA/READ-ME-device-reQA-round2.md`):
+- **Apple** `YHWH-v1.0.0-apple.epub` (tablet, 26.1 MB) — epubcheck **0/0/0/0**.
+- **Kindle** `YHWH-v1.0.0-kindle.epub` (m4b, 27.2 MB) — `verify_kindle_m4b` CLEAN (30,005 study + 36,350 witness → endnotes) + epubcheck **0/0/0/0**.
+- **Play** `YHWH-v1.0.0-play.epub` (A2 endnotes, 27.2 MB) — `verify_play_safe` CLEAN (30,005 + 36,329 asides relocated, 0 dangling frags) + epubcheck **0/0/0/0**.
+- **Kobo** `G:\YHWH-koboQA.kepub.epub` (eink kepub, 35.6 MiB) — `verify_kr2_build` **ALL K-R2 GATES GREEN** + epubcheck confirming.
+
+**Note count UNCHANGED (90,181).** Mac cross-OS verifying the re-baselined golden. **▶ NEXT (user): re-QA all 4 readers → cut v1.0.0.**
+
+---
+
 ## ✅ CONFIRMED FIXED by round-1 (do not re-touch)
 
 - **Apple "reads backwards" → FIXED** — pages flip forward normally (the `page-progression-direction="ltr"` spine pin worked).
