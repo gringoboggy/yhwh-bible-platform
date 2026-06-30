@@ -2102,6 +2102,11 @@ FORMAT_MATRIX: tuple[dict, ...] = (
         "target_reader": "everywhere",
         "packaging": "epub",
         "phase": "M5",
+        # device-QA round-2 A2 (user decision): Play's location estimator counts the
+        # per-chapter hidden notes-section bytes → ~85 phantom pages per chapter end.
+        # Relocate notes to reachable back-matter ENDNOTES (the Kindle-M4b model, but
+        # WITHOUT the Kindle display-strip/dc:language collapse — Play stays EPUB3).
+        "post_process": "play_safe",
     },
 )
 
@@ -2431,12 +2436,15 @@ _EINK_READER_CSS = (
     # vs "Publisher Default" real-device A/B is the deciding gate). Cardo (Hebrew + polytonic
     # Greek) and Noto Serif Ethiopic (Ge'ez/Amharic) are already embedded; greek-nt had NO
     # font-family, and geez/amharic only had a stale apply_style rule naming the wrong family
-    # ("Noto Sans Ethiopic"). Arabic is omitted here: it has no embedded face yet, and a
-    # global embed would change KJV bytes (deferred follow-up). eink-only → 9-KJV untouched.
+    # ("Noto Sans Ethiopic"). device-QA round-2 H-a (2026-06-29): Arabic now HAS an embedded
+    # face too — Noto Naskh Arabic, Arabic-range-scoped @font-face in the base sheet — so the
+    # .vnote-arabic !important re-assert is added below (the Kobo Arabic tofu fix for the
+    # inline/body asides; the tag-stripped Footnote PREVIEW is a separate firmware limit, H-b).
     "/* K-R-font: force original-language fonts past Kobo's reading-font override === */\n"
     '.vnote-hebrew { font-family: "Cardo", "SBL Hebrew", "Ezra SIL", "Frank Ruehl CLM", "Times New Roman", serif !important; }\n'
     '.vnote-greek, .vnote-greek-nt { font-family: "Cardo", "SBL Greek", "GFS Didot", "Times New Roman", serif !important; }\n'
     '.vnote-geez, .vnote-amharic { font-family: "Noto Serif Ethiopic", "Abyssinica SIL", "Nyala", serif !important; }\n'
+    '.vnote-arabic { font-family: "Noto Naskh Arabic", "Amiri", "Scheherazade New", "Geeza Pro", "Times New Roman", serif !important; }\n'
     # device-QA round-2 (cluster C): the base sheet's
     # `.verse-notes-badge, .study-glossary-jump, .vn-link { display: inline-block;
     # white-space: nowrap }` (round-1, to stop badge drift in justified text on Apple/Play)

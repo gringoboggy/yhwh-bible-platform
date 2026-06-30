@@ -110,6 +110,19 @@ EMBED_FONT_PATHS: list[dict] = [
         "style": "normal",
         "unicode_range": "U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F, U+1E7E0-1E7FF",
     },
+    # Noto Naskh Arabic — scoped to the Arabic blocks so it only activates for
+    # Arabic glyphs (OFL 1.1, Google). device-QA round-2 H-a (2026-06-29): the
+    # Arabic (Van Dyck) verse popups had no embedded face → Kobo (no system
+    # Arabic font) rendered tofu boxes. The matching @font-face is hand-authored
+    # in epub_working/stylesheet.css; this entry makes patch_opf_fonts register
+    # the url() target in the OPF manifest + the build copytree ship the bytes.
+    {
+        "path": "fonts/NotoNaskhArabic-Regular.ttf",
+        "family": "Noto Naskh Arabic",
+        "weight": "normal",
+        "style": "normal",
+        "unicode_range": "U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF",
+    },
 ]
 
 

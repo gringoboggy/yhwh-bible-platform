@@ -42,12 +42,19 @@ _FONT_FILES = [
     "Cardo-Italic.ttf",
     "Cardo-Bold.ttf",
     "NotoSerifEthiopic-Regular.ttf",
+    # device-QA round-2 H-a (2026-06-29): the Arabic (Van Dyck) verse popups had
+    # no embedded face → Kobo (no system Arabic font) rendered tofu boxes.
+    "NotoNaskhArabic-Regular.ttf",
 ]
 
 # Full Ethiopic coverage: all five blocks — base + Supplement + Extended +
 # Extended-A + Extended-B, per the K② recipe (the font is cmap-verified
 # glyph-backed in every one; the pre-device-QA embed was U+1200-137F only).
 _ETHIOPIC_RANGE = "U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F, U+1E7E0-1E7FF"
+
+# Arabic blocks: base + Supplement + Extended-A + Presentation Forms A/B — so the
+# Noto Naskh Arabic face activates ONLY for Arabic codepoints (inert for Latin etc.).
+_ARABIC_RANGE = "U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF"
 
 
 class TestEmbedFontPathsConfig:
@@ -84,6 +91,20 @@ class TestEmbedFontPathsConfig:
             f"Noto Serif Ethiopic must be unicode-range scoped to Ethiopic; got {entry}"
         )
 
+    def test_registers_noto_naskh_arabic_scoped(self):
+        """device-QA round-2 H-a: the Arabic (Van Dyck) popups need an embedded
+        face (Kobo has no system Arabic font → tofu), Arabic-range scoped so it
+        never overrides Latin/Hebrew/Greek."""
+        from scripts import style_config
+
+        ara = [e for e in style_config.EMBED_FONT_PATHS if e.get("family") == "Noto Naskh Arabic"]
+        assert len(ara) == 1, f"Noto Naskh Arabic must be embedded once; got {ara}"
+        entry = ara[0]
+        assert entry["path"] == "fonts/NotoNaskhArabic-Regular.ttf"  # ttf, not woff2 (Kobo)
+        assert entry.get("unicode_range") == _ARABIC_RANGE, (
+            f"Noto Naskh Arabic must be unicode-range scoped to the Arabic blocks; got {entry}"
+        )
+
     def test_font_bytes_present_under_epub_working(self):
         """patch_opf_fonts only registers the manifest <item>; the bytes
         ship because build copytree's epub_working/fonts/. Guard the bytes
@@ -109,6 +130,9 @@ class TestStylesheetFontFaceAndStacks:
         assert css.count('font-family: "Cardo"') >= 3, "Cardo needs a @font-face per face"
         assert 'font-family: "Noto Serif Ethiopic"' in css
         assert f"unicode-range: {_ETHIOPIC_RANGE}" in css, "Noto @font-face must be Ethiopic-scoped"
+        # H-a: Noto Naskh Arabic declared + Arabic-range scoped.
+        assert 'font-family: "Noto Naskh Arabic"' in css
+        assert f"unicode-range: {_ARABIC_RANGE}" in css, "Noto Naskh Arabic @font-face must be Arabic-scoped"
         assert "font-display: swap" in css, "@font-face should use font-display: swap"
 
     def test_font_face_is_outside_managed_region(self):
@@ -140,6 +164,35 @@ class TestStylesheetFontFaceAndStacks:
         assert fam.split(":", 1)[1].lstrip().startswith('"Cardo"'), (
             f".vnote-greek font stack must START with Cardo; got: {fam.splitlines()[0]}"
         )
+
+    def test_arabic_stack_starts_with_noto_naskh(self):
+        """H-a: .vnote-arabic must lead with the embedded Noto Naskh Arabic so
+        the Van Dyck popups render on readers without a system Arabic font."""
+        css = self._css()
+        idx = css.find(".vnote-arabic {")
+        assert idx != -1, ".vnote-arabic rule missing from the base stylesheet"
+        block = css[idx : css.find("}", idx)]
+        fam = block[block.find("font-family:") :]
+        assert fam.split(":", 1)[1].lstrip().startswith('"Noto Naskh Arabic"'), (
+            f".vnote-arabic font stack must START with Noto Naskh Arabic; got: {fam.splitlines()[0]}"
+        )
+
+    def test_eink_reader_css_reasserts_arabic_important(self):
+        """H-a: Kobo's kepub injects `* { font-family:<userfont> !important }`
+        for a named reading font; the eink reader CSS must re-assert .vnote-arabic
+        with !important (mirroring hebrew/greek/geez) or Arabic asides tofu."""
+        import scripts.build_edition as be
+
+        eink_css = be._EINK_READER_CSS
+        assert ".vnote-arabic" in eink_css and "Noto Naskh Arabic" in eink_css, (
+            "_EINK_READER_CSS must re-assert .vnote-arabic with the embedded Arabic face"
+        )
+        # the font-family re-assert line (NOT the separate text-align rule) must carry
+        # !important — the only lever over Kobo's reading-font injection.
+        line = next(
+            ln for ln in eink_css.splitlines() if ln.strip().startswith(".vnote-arabic") and "font-family" in ln
+        )
+        assert "!important" in line, f".vnote-arabic eink font-family re-assert must be !important; got: {line}"
 
     def test_body_stack_includes_noto_serif_ethiopic(self):
         """The standalone Ge'ez body text renders via the body/verse-p stack
@@ -215,6 +268,10 @@ class TestBuiltEpubContainsFonts:
             )
             assert 'href="fonts/NotoSerifEthiopic-Regular.woff2"' not in opf, (
                 "the woff2 embed must be fully retired (Kobo woff2-flaky)"
+            )
+            # H-a: the Arabic face must ship as a declared OPF font item too.
+            assert 'href="fonts/NotoNaskhArabic-Regular.ttf" media-type="font/ttf"' in opf, (
+                "OPF must declare NotoNaskhArabic-Regular.ttf as a font/ttf item (patch_opf_fonts)"
             )
 
             # (c) the @font-face for Cardo + the popup stacks are in the stylesheet.

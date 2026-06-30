@@ -48,6 +48,21 @@
   font-display: swap;
   unicode-range: U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F, U+1E7E0-1E7FF;
 }
+@font-face {
+  /* Noto Naskh Arabic (Google, OFL 1.1): the Arabic (Van Dyck) verse popups
+     had NO embedded face, so Kobo — which carries no system Arabic font —
+     rendered them as tofu boxes (device-QA round-2 cluster H-a, 2026-06-29).
+     ttf (Kobo is woff2-flaky, same lesson as the Ethiopic face). Range = the
+     Arabic blocks (base + Supplement + Extended-A + Presentation Forms A/B) so
+     the face ONLY activates for Arabic codepoints — inert for Latin/Greek/etc.,
+     harmless to ship in every edition. */
+  font-family: "Noto Naskh Arabic";
+  src: url("fonts/NotoNaskhArabic-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
+}
 
 body {
   font-family: "Georgia", "Cambria", "Palatino", "Iowan Old Style", serif;
@@ -356,9 +371,24 @@ body p.right-p {
     margin: 0.1em 0 0.3em 0;
 }
 
+.vnote-arabic {
+    /* RTL via the inline dir="rtl" on each <p> (CSS `direction` is disallowed
+       in EPUB 3 stylesheets — epubcheck CSS-001). "Noto Naskh Arabic" first =
+       the embedded OFL face (device-QA round-2 H-a) so the Arabic (Van Dyck)
+       popups render real glyphs on readers without a system Arabic font (Kobo
+       showed tofu boxes); the @font-face is Arabic-range-scoped so it is inert
+       for non-Arabic text. */
+    text-align: right;
+    font-family: "Noto Naskh Arabic", "Amiri", "Scheherazade New", "Geeza Pro", "Times New Roman", serif;
+    font-size: 1.05em;
+    line-height: 1.7;
+    margin: 0.1em 0 0.3em 0;
+}
+
 /* Make the source label sit closer to its language block */
 .vnote-source-label + .vnote-hebrew,
-.vnote-source-label + .vnote-greek {
+.vnote-source-label + .vnote-greek,
+.vnote-source-label + .vnote-arabic {
     margin-top: 0;
 }
 

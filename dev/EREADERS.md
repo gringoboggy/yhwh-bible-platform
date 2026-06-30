@@ -19,7 +19,7 @@
 | **Apple Books** | `.epub` | `tablet` | ✅ pops in place | ✅ (live-verified) | ✅ honored | ✅ honored | Proven — user rounds + Mac live test (2026-06-10) |
 | **Kobo e-ink** | `.kepub.epub` (kepubify v4.0.4) | `eink` | ⚠ pops in kepub; K-R7-2d forward-scan; K-R4-2 dual cap 4,400 stripped / 8,858 bytes. Default **popup mode** (`reader_eink_study_inline` off); opt-in **inline study** for full Commentary blocks | ❌ flat (KOReader/crengine by design) | ✅ in book; preview = reading font + `dc:language` fallbacks — **refresh:** deselect/re-select Cardo in Font face if scripts tofu after sideload | ❌ none of the 12 properties on e-ink kepub — new spine file = the only break | **M3 LIVE** 45/45 kepubs on v0.1.0 (turn 107b); K-R9/K-R13 study-glossary backmatter default; K-R7-4b PASS (round-9); user tap round 9 **pending** |
 | **Kindle** | `.epub` via Send-to-Kindle | `kindle` | ❌ no popups → visible endnotes (`display:none` stripped) | ❌ (KF8/KFX no support) | partial (KFX re-flows) | partial | **M4 LIVE** — 6/6 STK spot-check PASS (2026-06-14) + 45 catalog EPUBs on v0.1.0 release + website Downloads matrix (turn 89 WIN deploy) |
-| **Google Play Books** | `.epub` (library upload) | `everywhere` (provisional) | ❓ unverified — user phone-QA = the gate | ❌ closed-and-stuck (cannot expand) | ❓ | ❓ | UNTESTED — matrix M5 gate (2026-06-10) |
+| **Google Play Books** | `.epub` (library upload) | `everywhere` + `play_safe` post-process | 🔁 **ENDNOTES** (device-QA round-2 A2): notes relocated to reachable back-matter (Kindle-M4b model, no display-strip) — Play's location estimator counted the hidden per-chapter notes-section husks as ~85 phantom pages/chapter | ❌ closed-and-stuck (cannot expand) | ✅ (standard EPUB3) | ✅ (standard EPUB3) | A2 BUILT (matrix `play_safe` + `play_post.py`/`verify_play_safe`); user phone re-QA pending |
 | **Computer & everywhere else** (Calibre, Thorium, ADE, Nook) | `.epub` | `everywhere` / `computer` | ✅ Thorium/Calibre; ⚠ ADE limited | ❌ ADE documents unsupported → gated off | ✅ generally | ✅ generally | The shipped v0.1.0 artifact IS this profile; epubcheck 0/0/0/0 |
 
 ## Apple Books (`tablet`)
@@ -87,6 +87,23 @@
   Cardo**. No USB reinstall needed; one deselect/re-select cycle usually restores popup
   scripts. Same trick after any new `.kepub.epub` upload if languages look fine in body
   text but not in the Footnote preview.
+- **Original-language popup glyph corruption (device-QA round-2 H-b, 2026-06-29) — KNOWN KOBO-FIRMWARE
+  LIMITATION, not a build defect.** In the Footnote preview ONLY (the kepub), accented Greek loses its
+  diacritics and explodes into spaced single glyphs (`ἐποίησεν` → "π ο η σ ε ν", `θεὸς` → "θ ε ς"),
+  transliteration drops its leading char (`ʼĕlôhîym` → "lôhiym"), and Arabic shows tofu (□). Hebrew/Latin
+  and the BODY text render fine. **Root cause (investigated 2026-06-29):** the preview is the same
+  tag-stripped, reading-font-rendered Nickel dialog as above — embedded fonts + `lang` tags never reach it,
+  so accented-Greek / Arabic glyph-coverage gaps in the user's reading font (Cardo) plus the extractor's own
+  grapheme handling corrupt the run. It is **NOT a data or kepubify defect**: the on-disk popup text is
+  already fully precomposed **NFC** (every corrupted run — Greek letters, Greek accents, the transliteration
+  lead — is a single codepoint with **zero combining marks**), and the repo's own
+  `dev/audit/kobo-popup-formatting-research.md` proved kepubify preserves content (it does not drop chars).
+  **An NFC-normalize pass was considered and REJECTED** — there is nothing to recompose, and it would churn
+  the 9-KJV golden (it would only swap LXX punctuation, e.g. ano-teleia U+0387→U+00B7) for no benefit.
+  **Workaround (reader-side):** the **Popup script refresh** cycle above (Aa → Font face → switch away from
+  Cardo → re-select), and/or pick a reading font with full polytonic-Greek + Arabic coverage. (The H-a
+  embedded-Arabic face helps the BODY/asides where embedded fonts DO reach, but not this tag-stripped
+  preview.) Tracked: `dev/audit/device-qa-round2-2026-06-29.md` cluster H.
 - **Page breaks:** Kobo's own epub spec lists **N for all 12 page-break properties
   on e-ink kepub** (decade-persistent; `notes/2026-06-09-kepub-pagebreak-research.md`).
   A NEW SPINE FILE is the only guaranteed break → `apply_file_split` forces

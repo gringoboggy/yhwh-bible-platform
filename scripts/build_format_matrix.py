@@ -226,6 +226,46 @@ def _apply_kindle_post(edition_id: str, cell: dict, asset: Path) -> None:
         raise ValueError(f"{asset.name}: kindle m4b recipe not satisfied: {fails}")
 
 
+def _apply_play_post(edition_id: str, cell: dict, asset: Path) -> None:
+    """Apply the Play Books endnote relocation (``scripts.core.play_post``) in
+    place over a freshly built / cover-swapped EPUB, then assert conformance.
+    Runs LAST (after the cover swap) so the relocation + OCF re-zip are the final
+    word on the artifact bytes. Mirrors ``_apply_kindle_post``.
+
+    The ``post_process: play_safe`` cell routes through ``make_play_safe`` — the
+    SAME M4b backmatter relocation as Kindle (both note families → reachable
+    endnotes, badges/vn-links retargeted cross-file, hidden husks dropped) but
+    WITHOUT the Kindle display-strip / ``dc:language`` collapse / Kindle CSS, since
+    Play renders standard EPUB3. The husks are exactly the per-chapter hidden
+    ``notes-section`` wrappers Play Books' location estimator counts as ~85
+    phantom pages each; verify_play_safe also gates that no badge/vn-link is left
+    pointing at a now-dangling same-file fragment (the Play teleport bug)."""
+    from scripts.core.play_post import make_play_safe, verify_play_safe
+
+    pre = asset.with_name(asset.stem + "._pre_play.epub")
+    asset.replace(pre)
+    stats = make_play_safe(pre, asset)
+    pre.unlink()
+    print(f"[{edition_id}] cell {cell['id']}: play endnote post-process {stats}", flush=True)
+    fails = verify_play_safe(asset)
+    if fails:
+        raise ValueError(f"{asset.name}: play_safe recipe not satisfied: {fails}")
+
+
+def _apply_post_process(edition_id: str, cell: dict, asset: Path) -> None:
+    """Route a cell's ``post_process`` marker to its in-place EPUB transform
+    (no-op when the cell declares none). Called LAST in the per-asset loop —
+    after the cover swap — so each recipe's strip / relocation + OCF re-zip are
+    the final word on the artifact bytes. Kindle (``kindle_safe``) and Play
+    (``play_safe``) share the M4b backmatter relocation; only Kindle additionally
+    strips display:none / collapses ``dc:language`` (Play stays EPUB3)."""
+    post_process = cell.get("post_process")
+    if post_process == "kindle_safe":
+        _apply_kindle_post(edition_id, cell, asset)
+    elif post_process == "play_safe":
+        _apply_play_post(edition_id, cell, asset)
+
+
 def build_edition_assets(
     edition_id: str,
     version: str,
@@ -284,11 +324,10 @@ def build_edition_assets(
                 composite = variant_composite_path(edition_id, colour)
                 print(f"[{edition_id}] cell {cell['id']}: swap {composite.name} -> {asset.name}", flush=True)
                 swap_cover(base, composite, asset)
-            # Kindle (K-KIN turn-84): apply the proven Send-to-Kindle recipe LAST
-            # — after the cover swap — so the strip + OCF re-zip are the final
-            # word on the bytes. No-op for every other cell.
-            if cell.get("post_process") == "kindle_safe":
-                _apply_kindle_post(edition_id, cell, asset)
+            # Kindle (K-KIN turn-84) / Play (A2): apply the cell's post_process
+            # LAST — after the cover swap — so the strip / relocation + OCF
+            # re-zip are the final word on the bytes. No-op for every other cell.
+            _apply_post_process(edition_id, cell, asset)
             if gates:
                 _gate_asset(asset)
             assets.append(asset)
